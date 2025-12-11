@@ -42,7 +42,7 @@ services:
       # データを永続化するためのボリュームをマウント
       - ./db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app_user -d ai_solution_db"]
+      test: ["CMD-SHELL", "pg_isready -U app_user -d archaive_maker_db"]
       timeout: 20s
       retries: 10
       interval: 5s
