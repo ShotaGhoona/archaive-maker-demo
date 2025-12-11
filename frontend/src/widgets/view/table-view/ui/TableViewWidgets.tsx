@@ -1,13 +1,14 @@
 'use client';
 
 import { TableBody } from '@/shared/ui/shadcn/ui/table';
-import { NoData } from '@/shared/ui/components/empty-design/NoData';
+import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { TableHeader } from './TableHeader';
 import { TableCellRow } from './TableCell';
 import { TablePagination } from './TablePageNation';
 import { TableSkeleton } from './skeleton/TableSkeleton';
 import { useColumnResize } from '../lib/use-column-resize';
 import type { TableViewProps } from '../model/types';
+import { Card } from '@/shared/ui/shadcn/ui/card';
 
 export function TableViewWidget<T extends object>({
   data,
@@ -62,7 +63,7 @@ export function TableViewWidget<T extends object>({
           />
         </div>
       ) : (
-        <div className='relative min-h-0 flex-1 overflow-auto'>
+        <Card className='relative min-h-0 flex-1 overflow-auto py-0'>
           <table className='w-full min-w-max caption-bottom'>
             <TableHeader
               columns={columns}
@@ -89,7 +90,7 @@ export function TableViewWidget<T extends object>({
               ))}
             </TableBody>
           </table>
-        </div>
+        </Card>
       )}
 
       {pagination && (

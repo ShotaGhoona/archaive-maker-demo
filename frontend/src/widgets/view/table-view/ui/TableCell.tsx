@@ -130,13 +130,13 @@ export function TableCellRow<T extends object>({
               column.locked && 'cursor-not-allowed',
               column.sticky
                 ? cn(
-                    'sticky z-10 bg-background',
+                    'sticky z-10 bg-card',
                     isSelected &&
                       'after:pointer-events-none after:absolute after:inset-0 after:bg-primary/10',
                   )
                 : isSelected
                   ? 'bg-primary/10'
-                  : 'bg-background',
+                  : 'bg-card',
               getCellHoverClass(column),
             )}
           >
