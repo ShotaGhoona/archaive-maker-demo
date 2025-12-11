@@ -2,15 +2,30 @@
 
 import { useMemo, useState } from 'react';
 import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
+import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWidget';
 import type {
   SortState,
   PaginationConfig,
 } from '@/widgets/view/table-view/model/types';
+import type { GalleryCardConfig, GridColumns } from '@/widgets/view/gallery-view/model/types';
 import { dummyDrawings, type DrawingItem } from '../dummy-data/drawings';
 import { createDrawingColumns } from '../config/column-config';
+import { ViewModeSwitch, type ViewMode } from './components/ViewModeSwitch';
+
+// ギャラリーカード設定
+const galleryCardConfig: GalleryCardConfig<DrawingItem> = {
+  thumbnailKey: 'thumbnailUrl',
+  contentRenderer: (item) => (
+    <>
+      <h3 className="truncate font-medium">{item.name}</h3>
+      <p className="truncate text-sm text-muted-foreground">{item.drawingNumber}</p>
+    </>
+  ),
+};
 
 export function DrawingHomeContainer() {
   // UI状態のみ管理
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [sortState, setSortState] = useState<SortState>({
     key: 'updatedAt',
     direction: 'desc',
@@ -22,6 +37,7 @@ export function DrawingHomeContainer() {
     pageSizeOptions: [10, 20, 50],
   });
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
+  const [galleryColumns, setGalleryColumns] = useState<GridColumns>(4);
 
   const handleOpen = (row: DrawingItem) => {
     alert(`図面を開く（未実装）: ${row.drawingNumber} - ${row.name}`);
@@ -57,31 +73,46 @@ export function DrawingHomeContainer() {
     // TODO: API呼び出し
   };
 
-  const handleRowClick = (row: DrawingItem) => {
-    alert(`図面詳細へ遷移（未実装）: ${row.drawingNumber} - ${row.name}`);
-    // TODO: router.push(`/drawing/${row.id}`)
-  };
-
   const handleSelectionChange = (newSelectedRows: Set<number>) => {
     setSelectedRows(newSelectedRows);
   };
 
+  const handleCardClick = (item: DrawingItem) => {
+    alert(`図面詳細へ遷移（未実装）: ${item.drawingNumber} - ${item.name}`);
+    // TODO: router.push(`/drawing/${item.id}`)
+  };
+
   return (
     <div className="flex min-h-0 flex-1 flex-col px-6 pt-4">
-      <h1 className="mb-4 text-2xl font-bold">図面一覧</h1>
+      <div className="mb-4 flex items-center gap-4">
+        <ViewModeSwitch value={viewMode} onChange={setViewMode} />
+        <h1 className="text-2xl font-bold">図面一覧</h1>
+      </div>
       <div className="flex min-h-0 flex-1 flex-col">
-        <TableViewWidget
-          data={dummyDrawings}
-          columns={columns}
-          pagination={pagination}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-          sortState={sortState}
-          onSortChange={handleSortChange}
-          onRowClick={handleRowClick}
-          selectedRows={selectedRows}
-          onSelectionChange={handleSelectionChange}
-        />
+        {viewMode === 'table' ? (
+          <TableViewWidget
+            data={dummyDrawings}
+            columns={columns}
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            sortState={sortState}
+            onSortChange={handleSortChange}
+            selectedRows={selectedRows}
+            onSelectionChange={handleSelectionChange}
+          />
+        ) : (
+          <GalleryViewWidget
+            data={dummyDrawings}
+            cardConfig={galleryCardConfig}
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            onCardClick={handleCardClick}
+            columns={galleryColumns}
+            onColumnsChange={setGalleryColumns}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
 import type { ReactNode } from 'react';
+import type { PaginationConfig } from '@/widgets/view/shared/model/types';
+
+// re-export for convenience
+export type { PaginationConfig };
 
 // ソート方向
 export type SortDirection = 'asc' | 'desc' | null;
@@ -8,23 +12,23 @@ export type ColumnType =
   | 'text'
   | 'email'
   | 'date'
-  | 'select'
+  | 'multiselect'
   | 'checkbox'
   | 'boolean'
   | 'actions';
 
-// セレクト型のセル値（APIレスポンス形式）あとで消す
-export interface SelectCellValue {
+// マルチセレクト型のセル値
+export interface MultiSelectCellValue {
   label: string;
-  color: string; // カラーコード（例: "#ff0000"）
+  color: string;
 }
 
 // カラム設定
 export interface ColumnConfig<T> {
   // カラムの識別子（データのキー）
   key: keyof T | string;
-  // ヘッダーに表示する名前
-  header: string;
+  // ヘッダーに表示するラベル
+  label?: string;
   // カラムのタイプ
   columnType?: ColumnType;
   // 列幅の初期値（px）
@@ -45,18 +49,6 @@ export interface ColumnConfig<T> {
 export interface SortState {
   key: string;
   direction: SortDirection;
-}
-
-// ページネーション設定
-export interface PaginationConfig {
-  // 現在のページ（1始まり）
-  currentPage: number;
-  // 1ページあたりの件数
-  pageSize: number;
-  // 総件数
-  totalItems: number;
-  // 選択可能なページサイズ
-  pageSizeOptions?: number[];
 }
 
 // テーブルビューのProps

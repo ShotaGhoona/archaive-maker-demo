@@ -101,7 +101,7 @@ export function TableHeader<T>({
                 />
               ) : (
                 <div className='flex items-center justify-between gap-2 pr-2'>
-                  <span>{column.header}</span>
+                  <span>{column.label}</span>
                   {getSortIcon(key, column.sortable)}
                 </div>
               )}

@@ -9,7 +9,7 @@ import { calculateStickyPositions } from '../lib/calculate-sticky-positions';
 import { TextCell } from './cell-components/TextCell';
 import { EmailCell } from './cell-components/EmailCell';
 import { DateCell } from './cell-components/DateCell';
-import { SelectCell, isSelectCellValue } from './cell-components/SelectCell';
+import { MultiSelectCell, isMultiSelectCellValue } from './cell-components/MultiSelectCell';
 import { CheckboxCell } from './cell-components/CheckboxCell';
 import { BooleanCell } from './cell-components/BooleanCell';
 import type { ColumnType } from '../model/types';
@@ -37,9 +37,9 @@ function renderCellByType({
       return <EmailCell value={String(value ?? '')} />;
     case 'date':
       return <DateCell value={String(value ?? '')} />;
-    case 'select':
-      if (isSelectCellValue(value)) {
-        return <SelectCell value={value} />;
+    case 'multiselect':
+      if (isMultiSelectCellValue(value)) {
+        return <MultiSelectCell value={value} />;
       }
       return String(value ?? '');
     case 'checkbox':

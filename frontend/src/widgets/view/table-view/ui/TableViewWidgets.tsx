@@ -2,13 +2,13 @@
 
 import { TableBody } from '@/shared/ui/shadcn/ui/table';
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
+import { Card } from '@/shared/ui/shadcn/ui/card';
+import { ViewPagination } from '@/widgets/view/shared/ui/ViewPagination';
 import { TableHeader } from './TableHeader';
 import { TableCellRow } from './TableCell';
-import { TablePagination } from './TablePageNation';
 import { TableSkeleton } from './skeleton/TableSkeleton';
 import { useColumnResize } from '../lib/use-column-resize';
 import type { TableViewProps } from '../model/types';
-import { Card } from '@/shared/ui/shadcn/ui/card';
 
 export function TableViewWidget<T extends object>({
   data,
@@ -94,7 +94,7 @@ export function TableViewWidget<T extends object>({
       )}
 
       {pagination && (
-        <TablePagination
+        <ViewPagination
           pagination={pagination}
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
