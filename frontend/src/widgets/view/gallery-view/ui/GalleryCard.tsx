@@ -30,12 +30,12 @@ export function GalleryCard<T extends object>({
   return (
     <Card
       className={cn(
-        'overflow-hidden transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)] p-0 gap-0',
+        'overflow-hidden transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)] p-3 gap-3',
         onClick && 'cursor-pointer space-y-0'
       )}
       onClick={() => onClick?.(item, index)}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-card">
         {thumbnail ? (
           <Image
             src={thumbnail}
@@ -50,7 +50,7 @@ export function GalleryCard<T extends object>({
           </div>
         )}
       </div>
-      <CardContent className="p-3">
+      <CardContent className="p-0">
         {contentRenderer(item, index)}
       </CardContent>
     </Card>

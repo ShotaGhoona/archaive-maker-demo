@@ -17,7 +17,7 @@ interface ViewModeSwitchProps {
 
 export function ViewModeSwitch({ value, onChange }: ViewModeSwitchProps) {
   return (
-    <div className="flex rounded-radius border p-2 bg-card h-14">
+    <div className="flex rounded-radius border p-1 bg-card h-12">
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
