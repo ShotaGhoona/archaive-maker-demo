@@ -8,7 +8,7 @@ export function generateMetadata(): Metadata {
 
   if (environment === 'development') {
     return {
-      title: 'DEV - AI Solution Template',
+      title: 'DEV - Archaive Maker',
       description: 'This is development mode',
       robots: 'noindex, nofollow',
     };
@@ -16,15 +16,15 @@ export function generateMetadata(): Metadata {
 
   if (environment === 'test') {
     return {
-      title: 'TEST - AI Solution Template',
+      title: 'TEST - Archaive Maker',
       description: 'test environment',
       robots: 'noindex',
     };
   }
 
   return {
-    title: 'AI Solution Template',
-    description: 'Startup template with Next.js and FastAPI',
+    title: 'Archaive Maker',
+    description: 'Archaive Maker - Document Archive Solution',
     robots: 'index, follow',
   };
 }
