@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   FileText,
   Package,
@@ -11,6 +10,9 @@ import {
   LogOut,
   ChevronDown,
 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 import { Button } from "@/shared/ui/shadcn/ui/button";
 import {
@@ -23,35 +25,27 @@ import { Separator } from "@/shared/ui/shadcn/ui/separator";
 import { cn } from "@/shared/ui/shadcn/lib/utils";
 import { useAppSelector } from "@/store/hooks";
 import { useLogout } from "@/features/auth/logout/lib/use-logout";
-import Image from "next/image";
 
 interface NavItem {
   id: string;
   label: string;
   icon: React.ReactNode;
+  href: string;
 }
 
 const navItems: NavItem[] = [
-  { id: "drawing", label: "図面管理", icon: <FileText className="size-5" /> },
-  { id: "bom", label: "BOM管理", icon: <Package className="size-5" /> },
-  { id: "document", label: "帳票管理", icon: <ClipboardList className="size-5" /> },
-  { id: "customer", label: "顧客管理", icon: <Users className="size-5" /> },
+  { id: "drawing", label: "図面管理", icon: <FileText className="size-5" />, href: "/drawing" },
+  { id: "bom", label: "BOM管理", icon: <Package className="size-5" />, href: "/bom" },
+  { id: "document", label: "帳票管理", icon: <ClipboardList className="size-5" />, href: "/document" },
+  { id: "customer", label: "顧客管理", icon: <Users className="size-5" />, href: "/customer" },
 ];
 
-interface AppHeaderProps {
-  activeTab?: string;
-  onTabChange?: (tabId: string) => void;
-}
-
-export function AppHeader({ activeTab = "drawing", onTabChange }: AppHeaderProps) {
-  const [currentTab, setCurrentTab] = useState(activeTab);
+export function AppHeader() {
+  const pathname = usePathname();
   const { user } = useAppSelector((state) => state.auth);
   const logoutMutation = useLogout();
 
-  const handleTabClick = (tabId: string) => {
-    setCurrentTab(tabId);
-    onTabChange?.(tabId);
-  };
+  const isActive = (href: string) => pathname.startsWith(href);
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -63,7 +57,7 @@ export function AppHeader({ activeTab = "drawing", onTabChange }: AppHeaderProps
   const avatarInitial = user?.name?.slice(0, 2) || user?.email?.slice(0, 2) || "U";
 
   return (
-    <header className="flex h-12 shrink-0 items-center bg-primary px-2">
+    <header className="flex h-12 shrink-0 items-center bg-primary px-2 shadow-md z-10">
       {/* Left: Logo */}
       <div className="flex h-full items-center px-2">
         <Image
@@ -78,22 +72,22 @@ export function AppHeader({ activeTab = "drawing", onTabChange }: AppHeaderProps
       {/* Navigation Tabs */}
       <nav className="flex h-full items-center border-l border-primary-foreground/20">
         {navItems.map((item, index) => (
-          <button
+          <Link
             key={item.id}
+            href={item.href}
             className={cn(
               "relative flex h-full items-center gap-2 px-4 text-base font-medium transition-colors",
               "text-primary-foreground/90 hover:text-primary-foreground",
-              currentTab === item.id && "text-primary-foreground",
+              isActive(item.href) && "text-primary-foreground",
               index !== 0 && "border-l border-primary-foreground/20"
             )}
-            onClick={() => handleTabClick(item.id)}
           >
             {item.icon}
             {item.label}
-            {currentTab === item.id && (
+            {isActive(item.href) && (
               <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-foreground" />
             )}
-          </button>
+          </Link>
         ))}
       </nav>
 

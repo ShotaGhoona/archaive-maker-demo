@@ -25,7 +25,7 @@ import { exportCsv } from '../lib/export-csv';
 import type {
   CsvExportColumnConfig,
   CsvExportConfig,
-  CsvExportDialogProps,
+  CsvExportModalWidgetsProps,
   CsvEncoding,
 } from '../model/types';
 
@@ -34,11 +34,11 @@ import type {
  *
  * 現在はUIのみで、実際のエクスポート処理は未実装です。
  */
-export function CsvExportDialog<T extends object>({
+export function CsvExportModalWidgets<T extends object>({
   columns,
   data,
   onExport,
-}: CsvExportDialogProps<T>) {
+}: CsvExportModalWidgetsProps<T>) {
   const [open, setOpen] = useState(false);
 
   const {
@@ -94,7 +94,7 @@ export function CsvExportDialog<T extends object>({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='lg'>
+        <Button variant='outline' size='xl' className='bg-card'>
           <FileDown className='h-4 w-4' />
           CSV出力
         </Button>

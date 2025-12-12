@@ -5,7 +5,8 @@ import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
 import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWidget';
 import { FilterSidebarWidget } from '@/widgets/common/filter/filter-sidebar/ui/FilterSidebarWidget';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
-import { CsvExportDialog } from '@/widgets/common/csv-export-dialog/ui/CsvExportDialog';
+import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
+import { CsvExportModalWidgets } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidgets';
 import type {
   SortState,
   PaginationConfig,
@@ -48,6 +49,7 @@ export function DrawingHomeContainer() {
   const [advancedFilterValues, setAdvancedFilterValues] = useState<AdvancedFilterValues>({
     conditions: [],
   });
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleOpen = (row: DrawingItem) => {
     alert(`図面を開く（未実装）: ${row.drawingNumber} - ${row.name}`);
@@ -108,14 +110,19 @@ export function DrawingHomeContainer() {
       {/* メインコンテンツ */}
       <div className="flex min-h-0 min-w-0 flex-1 flex-col px-6 pt-4">
         <div className="mb-4 flex items-center gap-4">
+          <ViewModeSwitch value={viewMode} onChange={setViewMode} />
           <FilterToggleButton
             open={filterOpen}
             onToggle={() => setFilterOpen(!filterOpen)}
           />
-          <ViewModeSwitch value={viewMode} onChange={setViewMode} />
-          <h1 className="text-2xl font-bold">図面一覧</h1>
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="図面番号、図面名で検索..."
+            expandedWidth="w-96"
+          />
           <div className="ml-auto">
-            <CsvExportDialog
+            <CsvExportModalWidgets
               columns={columns}
               data={dummyDrawings}
             />
