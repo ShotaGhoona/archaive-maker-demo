@@ -5,6 +5,7 @@ import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
 import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWidget';
 import { FilterSidebarWidget } from '@/widgets/common/filter/filter-sidebar/ui/FilterSidebarWidget';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
+import { CsvExportDialog } from '@/widgets/common/csv-export-dialog/ui/CsvExportDialog';
 import type {
   SortState,
   PaginationConfig,
@@ -113,6 +114,12 @@ export function DrawingHomeContainer() {
           />
           <ViewModeSwitch value={viewMode} onChange={setViewMode} />
           <h1 className="text-2xl font-bold">図面一覧</h1>
+          <div className="ml-auto">
+            <CsvExportDialog
+              columns={columns}
+              data={dummyDrawings}
+            />
+          </div>
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col">
