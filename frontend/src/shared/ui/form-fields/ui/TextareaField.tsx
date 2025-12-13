@@ -34,6 +34,7 @@ export function TextareaField({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
+        className="bg-card text-base md:text-base"
       />
     </div>
   );

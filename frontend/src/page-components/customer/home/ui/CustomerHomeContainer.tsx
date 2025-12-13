@@ -6,6 +6,7 @@ import { CustomerFilterButton } from '../ui-block/filter/ui/CustomerFilterButton
 import { CustomerSearchBar } from '../ui-block/filter/ui/CustomerSearchBar';
 import { CustomerColumnSettings } from '../ui-block/column-settings/ui/CustomerColumnSettings';
 import { CustomerCsvExport } from '../ui-block/csv-export/ui/CustomerCsvExport';
+import { CreateCustomerSheet } from '../ui-block/create-customer/ui/CreateCustomerSheet';
 import { useCustomerFilter } from '../ui-block/filter/lib/use-customer-filter';
 
 export function CustomerHomeContainer() {
@@ -41,6 +42,7 @@ export function CustomerHomeContainer() {
           <div className="ml-auto flex items-center gap-2">
             <CustomerColumnSettings />
             <CustomerCsvExport />
+            <CreateCustomerSheet />
           </div>
         </div>
 
