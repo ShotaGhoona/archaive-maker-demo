@@ -12,3 +12,6 @@ export interface PaginationConfig {
 
 // グリッド列数オプション
 export type GridColumns = 2 | 3 | 4 | 5 | 6;
+
+// ビューモード
+export type ViewMode = "table" | "gallery";
