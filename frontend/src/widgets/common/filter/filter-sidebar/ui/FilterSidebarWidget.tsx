@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Settings } from 'lucide-react';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/shadcn/ui/tabs';
 import { SimpleFilterPanel } from './SimpleFilterPanel';
 import { AdvancedFilterPanel } from './AdvancedFilterPanel';
@@ -14,7 +12,6 @@ type FilterTab = 'simple' | 'advanced';
 interface FilterSidebarWidgetProps extends FilterSidebarProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSettingsClick?: () => void;
   className?: string;
 }
 
@@ -26,7 +23,6 @@ export function FilterSidebarWidget({
   advancedValues,
   onAdvancedValuesChange,
   onReset,
-  onSettingsClick,
   footerRenderer,
   className,
 }: FilterSidebarWidgetProps) {
@@ -57,14 +53,6 @@ export function FilterSidebarWidget({
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 shrink-0"
-            onClick={onSettingsClick}
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
         </div>
 
         {/* Content */}

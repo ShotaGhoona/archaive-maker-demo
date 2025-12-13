@@ -105,9 +105,9 @@ export function ColumnManagementTab({
   const isEditing = isAdding || editingKey !== null;
 
   return (
-    <div className="flex h-full gap-6">
+    <div className="grid grid-cols-3 h-full gap-6">
       {/* カラム一覧 */}
-      <div className="flex min-h-0 w-1/2 flex-col rounded-lg border bg-card py-4">
+      <div className="flex min-h-0 col-span-1 flex-col rounded-lg border bg-card py-4">
         <div className="mb-3 flex shrink-0 items-center justify-between px-4">
           <h3 className="text-base font-medium">カラム一覧</h3>
           <Button
@@ -117,7 +117,7 @@ export function ColumnManagementTab({
             disabled={isEditing}
           >
             <Plus className="size-5" />
-            追加
+            新規カラム追加
           </Button>
         </div>
         <div className="flex-1 space-y-2 overflow-y-auto px-4">
@@ -140,12 +140,12 @@ export function ColumnManagementTab({
                     </span>
                   )}
                 </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-1">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   {columnTypeOptions.find(o => o.value === column.columnType)?.icon}
                   <span>{columnTypeOptions.find(o => o.value === column.columnType)?.label}</span>
                 </div>
-              </div>
-              <div className="flex shrink-0 items-center gap-1">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -173,64 +173,63 @@ export function ColumnManagementTab({
       </div>
 
       {/* 編集フォーム */}
-      <div className="flex w-1/2 flex-col rounded-lg border bg-card p-6">
-        <h3 className="mb-6 text-lg font-medium">
+      <div className="flex col-span-2 flex-col rounded-lg border bg-card p-6">
+        <h3 className="mb-6 shrink-0 text-lg font-medium">
           {isAdding ? 'カラムを追加' : editingKey ? 'カラムを編集' : 'カラムを選択'}
         </h3>
 
         {isEditing ? (
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="label" className="text-base">カラム名 *</Label>
-              <Input
-                id="label"
-                value={formData.label}
-                onChange={(e) => setFormData(prev => ({ ...prev, label: e.target.value }))}
-                placeholder="カラム名を入力"
-                className="h-12 text-base"
-              />
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex-1 space-y-6 overflow-y-auto">
+              <div className="space-y-2">
+                <Label htmlFor="label" className="text-base">カラム名 *</Label>
+                <Input
+                  id="label"
+                  value={formData.label}
+                  onChange={(e) => setFormData(prev => ({ ...prev, label: e.target.value }))}
+                  placeholder="カラム名を入力"
+                  className="h-12 text-base"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-base">説明</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="カラムの説明を入力（任意）"
+                  rows={3}
+                  className="text-base"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-base">データタイプ *</Label>
+                <Select
+                  value={formData.columnType}
+                  onValueChange={(value: ColumnType) => setFormData(prev => ({ ...prev, columnType: value }))}
+                >
+                  <SelectTrigger className="h-14 text-base w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {columnTypeOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value} className="py-3">
+                        <div className="flex items-center gap-2 text-base">
+                          {option.icon}
+                          <span>{option.label}</span>
+                          <span className="text-sm text-muted-foreground">- {option.description}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description" className="text-base">説明</Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                placeholder="カラムの説明を入力（任意）"
-                rows={3}
-                className="text-base"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-base">データタイプ *</Label>
-              <Select
-                value={formData.columnType}
-                onValueChange={(value: ColumnType) => setFormData(prev => ({ ...prev, columnType: value }))}
-              >
-                <SelectTrigger className="h-14 text-base w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {columnTypeOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value} className="py-3">
-                      <div className="flex items-center gap-2 text-base">
-                        {option.icon}
-                        <span>{option.label}</span>
-                        <span className="text-sm text-muted-foreground">- {option.description}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex justify-end gap-3 pt-6">
-              <Button variant="outline" size="lg" onClick={resetForm}>
-                キャンセル
-              </Button>
-              <Button size="lg" onClick={handleSave} disabled={!formData.label.trim()}>
+            <div className="shrink-0 pt-6">
+              <Button size="lg" onClick={handleSave} disabled={!formData.label.trim()} className="w-full">
                 {isAdding ? '追加' : '保存'}
               </Button>
             </div>
