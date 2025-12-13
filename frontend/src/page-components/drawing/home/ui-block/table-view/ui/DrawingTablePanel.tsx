@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
 import type {
@@ -12,6 +13,7 @@ import { createDrawingColumns } from '../config/column-config';
 import { dummyDrawings, type DrawingItem } from '../../../dummy-data/drawings';
 
 export function DrawingTablePanel() {
+  const router = useRouter();
   const [sortState, setSortState] = useState<SortState>({
     key: 'updatedAt',
     direction: 'desc',
@@ -25,8 +27,7 @@ export function DrawingTablePanel() {
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
 
   const handleOpen = (row: DrawingItem) => {
-    alert(`図面を開く（未実装）: ${row.drawingNumber} - ${row.name}`);
-    // TODO: router.push(`/drawing/${row.id}`)
+    router.push(`/drawing/${row.id}/basic-information`);
   };
 
   const handleDelete = (row: DrawingItem) => {
