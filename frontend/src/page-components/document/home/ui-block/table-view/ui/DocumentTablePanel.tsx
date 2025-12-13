@@ -19,7 +19,9 @@ interface DocumentTablePanelProps {
   selectedTypeId: string;
 }
 
-export function DocumentTablePanel({ selectedTypeId }: DocumentTablePanelProps) {
+export function DocumentTablePanel({
+  selectedTypeId,
+}: DocumentTablePanelProps) {
   const [sortState, setSortState] = useState<SortState>({
     key: "updatedAt",
     direction: "desc",
@@ -76,7 +78,15 @@ export function DocumentTablePanel({ selectedTypeId }: DocumentTablePanelProps) 
     // TODO: API呼び出し
   };
 
-  return columns.length > 0 ? (
+  if (columns.length === 0) {
+    return (
+      <div className="flex flex-1 items-center justify-center text-gray-500">
+        この帳票種別はまだ実装されていません
+      </div>
+    );
+  }
+
+  return (
     <TableViewWidget
       data={data as unknown as Record<string, unknown>[]}
       columns={columns}
@@ -89,9 +99,5 @@ export function DocumentTablePanel({ selectedTypeId }: DocumentTablePanelProps) 
       sortState={sortState}
       onSortChange={handleSortChange}
     />
-  ) : (
-    <div className="flex flex-1 items-center justify-center text-gray-500">
-      この帳票種別はまだ実装されていません
-    </div>
   );
 }

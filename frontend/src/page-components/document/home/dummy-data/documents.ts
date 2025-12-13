@@ -136,6 +136,7 @@ export interface ProductSpec {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyProductSpecs: ProductSpec[] = [
@@ -149,6 +150,7 @@ export const dummyProductSpecs: ProductSpec[] = [
     createdBy: "山田太郎",
     createdAt: "2024-01-15",
     updatedAt: "2024-03-20",
+    thumbnailUrl: "https://picsum.photos/seed/ps-001/400/300?grayscale",
   },
   {
     id: "ps-002",
@@ -160,6 +162,7 @@ export const dummyProductSpecs: ProductSpec[] = [
     createdBy: "佐藤花子",
     createdAt: "2024-02-10",
     updatedAt: "2024-04-05",
+    thumbnailUrl: "https://picsum.photos/seed/ps-002/400/300?grayscale",
   },
   {
     id: "ps-003",
@@ -171,6 +174,7 @@ export const dummyProductSpecs: ProductSpec[] = [
     createdBy: "鈴木一郎",
     createdAt: "2024-04-01",
     updatedAt: "2024-04-10",
+    thumbnailUrl: "https://picsum.photos/seed/ps-003/400/300?grayscale",
   },
 ];
 
@@ -186,6 +190,7 @@ export interface BOM {
   status: "draft" | "review" | "approved" | "obsolete";
   createdBy: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyBOMs: BOM[] = [
@@ -200,6 +205,7 @@ export const dummyBOMs: BOM[] = [
     status: "approved",
     createdBy: "山田太郎",
     updatedAt: "2024-03-25",
+    thumbnailUrl: "https://picsum.photos/seed/bom-001/400/300?grayscale",
   },
   {
     id: "bom-002",
@@ -212,6 +218,7 @@ export const dummyBOMs: BOM[] = [
     status: "approved",
     createdBy: "佐藤花子",
     updatedAt: "2024-04-01",
+    thumbnailUrl: "https://picsum.photos/seed/bom-002/400/300?grayscale",
   },
   {
     id: "bom-003",
@@ -224,6 +231,7 @@ export const dummyBOMs: BOM[] = [
     status: "draft",
     createdBy: "鈴木一郎",
     updatedAt: "2024-04-10",
+    thumbnailUrl: "https://picsum.photos/seed/bom-003/400/300?grayscale",
   },
 ];
 
@@ -240,6 +248,7 @@ export interface ManufacturingOrder {
   status: "pending" | "in_progress" | "completed" | "cancelled";
   assignedTo: string;
   createdAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyManufacturingOrders: ManufacturingOrder[] = [
@@ -255,6 +264,7 @@ export const dummyManufacturingOrders: ManufacturingOrder[] = [
     status: "in_progress",
     assignedTo: "製造1課",
     createdAt: "2024-04-01",
+    thumbnailUrl: "https://picsum.photos/seed/mo-001/400/300?grayscale",
   },
   {
     id: "mo-002",
@@ -268,6 +278,7 @@ export const dummyManufacturingOrders: ManufacturingOrder[] = [
     status: "pending",
     assignedTo: "製造2課",
     createdAt: "2024-04-05",
+    thumbnailUrl: "https://picsum.photos/seed/mo-002/400/300?grayscale",
   },
   {
     id: "mo-003",
@@ -281,6 +292,7 @@ export const dummyManufacturingOrders: ManufacturingOrder[] = [
     status: "completed",
     assignedTo: "製造1課",
     createdAt: "2024-03-20",
+    thumbnailUrl: "https://picsum.photos/seed/mo-003/400/300?grayscale",
   },
 ];
 
@@ -296,6 +308,7 @@ export interface InspectionReport {
   result: "pass" | "fail" | "conditional";
   defectRate: number;
   remarks: string;
+  thumbnailUrl: string;
 }
 
 export const dummyInspectionReports: InspectionReport[] = [
@@ -310,6 +323,7 @@ export const dummyInspectionReports: InspectionReport[] = [
     result: "pass",
     defectRate: 0.5,
     remarks: "",
+    thumbnailUrl: "https://picsum.photos/seed/ir-001/400/300?grayscale",
   },
   {
     id: "ir-002",
@@ -322,6 +336,7 @@ export const dummyInspectionReports: InspectionReport[] = [
     result: "conditional",
     defectRate: 2.1,
     remarks: "軽微な外観不良あり、出荷可",
+    thumbnailUrl: "https://picsum.photos/seed/ir-002/400/300?grayscale",
   },
   {
     id: "ir-003",
@@ -334,6 +349,7 @@ export const dummyInspectionReports: InspectionReport[] = [
     result: "pass",
     defectRate: 0.0,
     remarks: "",
+    thumbnailUrl: "https://picsum.photos/seed/ir-003/400/300?grayscale",
   },
 ];
 
@@ -349,6 +365,7 @@ export interface Quotation {
   status: "draft" | "sent" | "accepted" | "rejected" | "expired";
   createdBy: string;
   createdAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyQuotations: Quotation[] = [
@@ -363,6 +380,7 @@ export const dummyQuotations: Quotation[] = [
     status: "sent",
     createdBy: "営業部 高橋",
     createdAt: "2024-04-08",
+    thumbnailUrl: "https://picsum.photos/seed/qt-001/400/300?grayscale",
   },
   {
     id: "qt-002",
@@ -375,6 +393,7 @@ export const dummyQuotations: Quotation[] = [
     status: "accepted",
     createdBy: "営業部 高橋",
     createdAt: "2024-04-05",
+    thumbnailUrl: "https://picsum.photos/seed/qt-002/400/300?grayscale",
   },
   {
     id: "qt-003",
@@ -387,6 +406,7 @@ export const dummyQuotations: Quotation[] = [
     status: "expired",
     createdBy: "営業部 山本",
     createdAt: "2024-03-20",
+    thumbnailUrl: "https://picsum.photos/seed/qt-003/400/300?grayscale",
   },
 ];
 
@@ -402,6 +422,7 @@ export interface PurchaseOrder {
   status: "draft" | "ordered" | "partial" | "received" | "cancelled";
   orderedBy: string;
   orderedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyPurchaseOrders: PurchaseOrder[] = [
@@ -416,6 +437,7 @@ export const dummyPurchaseOrders: PurchaseOrder[] = [
     status: "ordered",
     orderedBy: "購買部 渡辺",
     orderedAt: "2024-04-10",
+    thumbnailUrl: "https://picsum.photos/seed/po-001/400/300?grayscale",
   },
   {
     id: "po-002",
@@ -428,6 +450,7 @@ export const dummyPurchaseOrders: PurchaseOrder[] = [
     status: "partial",
     orderedBy: "購買部 渡辺",
     orderedAt: "2024-04-11",
+    thumbnailUrl: "https://picsum.photos/seed/po-002/400/300?grayscale",
   },
   {
     id: "po-003",
@@ -440,6 +463,7 @@ export const dummyPurchaseOrders: PurchaseOrder[] = [
     status: "received",
     orderedBy: "購買部 斎藤",
     orderedAt: "2024-04-05",
+    thumbnailUrl: "https://picsum.photos/seed/po-003/400/300?grayscale",
   },
 ];
 
@@ -455,6 +479,7 @@ export interface DeliveryNote {
   deliveryDate: string;
   receivedBy: string;
   status: "preparing" | "shipped" | "delivered";
+  thumbnailUrl: string;
 }
 
 export const dummyDeliveryNotes: DeliveryNote[] = [
@@ -469,6 +494,7 @@ export const dummyDeliveryNotes: DeliveryNote[] = [
     deliveryDate: "2024-04-12",
     receivedBy: "倉庫担当 伊藤様",
     status: "delivered",
+    thumbnailUrl: "https://picsum.photos/seed/dn-001/400/300?grayscale",
   },
   {
     id: "dn-002",
@@ -481,6 +507,7 @@ export const dummyDeliveryNotes: DeliveryNote[] = [
     deliveryDate: "2024-04-15",
     receivedBy: "",
     status: "shipped",
+    thumbnailUrl: "https://picsum.photos/seed/dn-002/400/300?grayscale",
   },
   {
     id: "dn-003",
@@ -493,6 +520,7 @@ export const dummyDeliveryNotes: DeliveryNote[] = [
     deliveryDate: "2024-04-20",
     receivedBy: "",
     status: "preparing",
+    thumbnailUrl: "https://picsum.photos/seed/dn-003/400/300?grayscale",
   },
 ];
 
@@ -509,6 +537,7 @@ export interface Invoice {
   status: "draft" | "sent" | "paid" | "overdue";
   createdBy: string;
   createdAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyInvoices: Invoice[] = [
@@ -524,6 +553,7 @@ export const dummyInvoices: Invoice[] = [
     status: "sent",
     createdBy: "経理部 小林",
     createdAt: "2024-04-15",
+    thumbnailUrl: "https://picsum.photos/seed/inv-001/400/300?grayscale",
   },
   {
     id: "inv-002",
@@ -537,6 +567,7 @@ export const dummyInvoices: Invoice[] = [
     status: "paid",
     createdBy: "経理部 小林",
     createdAt: "2024-03-31",
+    thumbnailUrl: "https://picsum.photos/seed/inv-002/400/300?grayscale",
   },
   {
     id: "inv-003",
@@ -550,6 +581,7 @@ export const dummyInvoices: Invoice[] = [
     status: "overdue",
     createdBy: "経理部 小林",
     createdAt: "2024-02-28",
+    thumbnailUrl: "https://picsum.photos/seed/inv-003/400/300?grayscale",
   },
 ];
 
@@ -566,6 +598,7 @@ export interface ShippingInspection {
   inspector: string;
   result: "pass" | "fail" | "conditional";
   shippingDestination: string;
+  thumbnailUrl: string;
 }
 
 export const dummyShippingInspections: ShippingInspection[] = [
@@ -581,6 +614,7 @@ export const dummyShippingInspections: ShippingInspection[] = [
     inspector: "品質管理課 田中",
     result: "pass",
     shippingDestination: "株式会社ABC工業",
+    thumbnailUrl: "https://picsum.photos/seed/si-001/400/300?grayscale",
   },
   {
     id: "si-002",
@@ -594,6 +628,7 @@ export const dummyShippingInspections: ShippingInspection[] = [
     inspector: "品質管理課 佐々木",
     result: "pass",
     shippingDestination: "東西電機株式会社",
+    thumbnailUrl: "https://picsum.photos/seed/si-002/400/300?grayscale",
   },
   {
     id: "si-003",
@@ -607,6 +642,7 @@ export const dummyShippingInspections: ShippingInspection[] = [
     inspector: "品質管理課 田中",
     result: "conditional",
     shippingDestination: "南北精機株式会社",
+    thumbnailUrl: "https://picsum.photos/seed/si-003/400/300?grayscale",
   },
 ];
 
@@ -623,6 +659,7 @@ export interface PackingSpec {
   status: "draft" | "review" | "approved" | "obsolete";
   createdBy: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyPackingSpecs: PackingSpec[] = [
@@ -638,6 +675,7 @@ export const dummyPackingSpecs: PackingSpec[] = [
     status: "approved",
     createdBy: "物流部 木村",
     updatedAt: "2024-02-15",
+    thumbnailUrl: "https://picsum.photos/seed/pkg-001/400/300?grayscale",
   },
   {
     id: "pkg-002",
@@ -651,6 +689,7 @@ export const dummyPackingSpecs: PackingSpec[] = [
     status: "approved",
     createdBy: "物流部 木村",
     updatedAt: "2024-03-01",
+    thumbnailUrl: "https://picsum.photos/seed/pkg-002/400/300?grayscale",
   },
   {
     id: "pkg-003",
@@ -664,6 +703,7 @@ export const dummyPackingSpecs: PackingSpec[] = [
     status: "draft",
     createdBy: "物流部 斎藤",
     updatedAt: "2024-04-05",
+    thumbnailUrl: "https://picsum.photos/seed/pkg-003/400/300?grayscale",
   },
 ];
 
@@ -680,6 +720,7 @@ export interface AssemblyManual {
   status: "draft" | "review" | "approved" | "obsolete";
   createdBy: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyAssemblyManuals: AssemblyManual[] = [
@@ -695,6 +736,7 @@ export const dummyAssemblyManuals: AssemblyManual[] = [
     status: "approved",
     createdBy: "製造技術課 中村",
     updatedAt: "2024-03-10",
+    thumbnailUrl: "https://picsum.photos/seed/am-001/400/300?grayscale",
   },
   {
     id: "am-002",
@@ -708,6 +750,7 @@ export const dummyAssemblyManuals: AssemblyManual[] = [
     status: "approved",
     createdBy: "製造技術課 中村",
     updatedAt: "2024-02-20",
+    thumbnailUrl: "https://picsum.photos/seed/am-002/400/300?grayscale",
   },
   {
     id: "am-003",
@@ -721,6 +764,7 @@ export const dummyAssemblyManuals: AssemblyManual[] = [
     status: "review",
     createdBy: "製造技術課 佐藤",
     updatedAt: "2024-04-08",
+    thumbnailUrl: "https://picsum.photos/seed/am-003/400/300?grayscale",
   },
 ];
 
@@ -738,6 +782,7 @@ export interface Drawing {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyDrawings: Drawing[] = [
@@ -754,6 +799,7 @@ export const dummyDrawings: Drawing[] = [
     createdBy: "設計部 中村",
     createdAt: "2024-01-10",
     updatedAt: "2024-02-28",
+    thumbnailUrl: "https://picsum.photos/seed/dwg-001/400/300?grayscale",
   },
   {
     id: "dwg-002",
@@ -768,6 +814,7 @@ export const dummyDrawings: Drawing[] = [
     createdBy: "設計部 中村",
     createdAt: "2024-01-15",
     updatedAt: "2024-02-20",
+    thumbnailUrl: "https://picsum.photos/seed/dwg-002/400/300?grayscale",
   },
   {
     id: "dwg-003",
@@ -782,6 +829,7 @@ export const dummyDrawings: Drawing[] = [
     createdBy: "設計部 佐藤",
     createdAt: "2024-04-05",
     updatedAt: "2024-04-08",
+    thumbnailUrl: "https://picsum.photos/seed/dwg-003/400/300?grayscale",
   },
 ];
 
@@ -798,6 +846,7 @@ export interface OrderConfirmation {
   status: "draft" | "sent" | "acknowledged";
   createdBy: string;
   createdAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyOrderConfirmations: OrderConfirmation[] = [
@@ -813,6 +862,7 @@ export const dummyOrderConfirmations: OrderConfirmation[] = [
     status: "sent",
     createdBy: "営業部 高橋",
     createdAt: "2024-04-10",
+    thumbnailUrl: "https://picsum.photos/seed/oc-001/400/300?grayscale",
   },
   {
     id: "oc-002",
@@ -826,6 +876,7 @@ export const dummyOrderConfirmations: OrderConfirmation[] = [
     status: "acknowledged",
     createdBy: "営業部 高橋",
     createdAt: "2024-04-08",
+    thumbnailUrl: "https://picsum.photos/seed/oc-002/400/300?grayscale",
   },
   {
     id: "oc-003",
@@ -839,6 +890,7 @@ export const dummyOrderConfirmations: OrderConfirmation[] = [
     status: "draft",
     createdBy: "営業部 山本",
     createdAt: "2024-04-12",
+    thumbnailUrl: "https://picsum.photos/seed/oc-003/400/300?grayscale",
   },
 ];
 
@@ -856,6 +908,7 @@ export interface AcceptanceNote {
   result: "accepted" | "partial" | "rejected";
   inspector: string;
   remarks: string;
+  thumbnailUrl: string;
 }
 
 export const dummyAcceptanceNotes: AcceptanceNote[] = [
@@ -872,6 +925,7 @@ export const dummyAcceptanceNotes: AcceptanceNote[] = [
     result: "accepted",
     inspector: "購買部 渡辺",
     remarks: "",
+    thumbnailUrl: "https://picsum.photos/seed/an-001/400/300?grayscale",
   },
   {
     id: "an-002",
@@ -886,6 +940,7 @@ export const dummyAcceptanceNotes: AcceptanceNote[] = [
     result: "partial",
     inspector: "購買部 渡辺",
     remarks: "100個中5個に傷あり、代品手配中",
+    thumbnailUrl: "https://picsum.photos/seed/an-002/400/300?grayscale",
   },
   {
     id: "an-003",
@@ -900,6 +955,7 @@ export const dummyAcceptanceNotes: AcceptanceNote[] = [
     result: "accepted",
     inspector: "購買部 斎藤",
     remarks: "",
+    thumbnailUrl: "https://picsum.photos/seed/an-003/400/300?grayscale",
   },
 ];
 
@@ -916,6 +972,7 @@ export interface BasicContract {
   status: "draft" | "negotiating" | "active" | "expired" | "terminated";
   createdBy: string;
   createdAt: string;
+  thumbnailUrl: string;
 }
 
 export const dummyBasicContracts: BasicContract[] = [
@@ -931,6 +988,7 @@ export const dummyBasicContracts: BasicContract[] = [
     status: "active",
     createdBy: "総務部 斎藤",
     createdAt: "2023-12-15",
+    thumbnailUrl: "https://picsum.photos/seed/bc-001/400/300?grayscale",
   },
   {
     id: "bc-002",
@@ -944,6 +1002,7 @@ export const dummyBasicContracts: BasicContract[] = [
     status: "active",
     createdBy: "総務部 斎藤",
     createdAt: "2024-03-20",
+    thumbnailUrl: "https://picsum.photos/seed/bc-002/400/300?grayscale",
   },
   {
     id: "bc-003",
@@ -957,6 +1016,7 @@ export const dummyBasicContracts: BasicContract[] = [
     status: "active",
     createdBy: "総務部 木村",
     createdAt: "2024-01-25",
+    thumbnailUrl: "https://picsum.photos/seed/bc-003/400/300?grayscale",
   },
 ];
 

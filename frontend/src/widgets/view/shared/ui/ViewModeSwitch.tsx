@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import { LayoutGrid, Table } from "lucide-react";
-import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/shadcn/ui/toggle-group";
+import { LayoutGrid, Table } from 'lucide-react';
+import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
-} from "@/shared/ui/shadcn/ui/tooltip";
-import type { ViewMode } from "../model/types";
+} from '@/shared/ui/shadcn/ui/tooltip';
+import type { ViewMode } from '../model/types';
 
 interface ViewModeSwitchProps {
   viewMode: ViewMode;
@@ -20,45 +19,33 @@ export function ViewModeSwitch({
   onViewModeChange,
 }: ViewModeSwitchProps) {
   return (
-    <TooltipProvider delayDuration={0}>
-      <ToggleGroup
-        type="single"
-        value={viewMode}
-        onValueChange={(value) => {
-          if (value) onViewModeChange(value as ViewMode);
-        }}
-        className="border rounded-md"
-      >
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <ToggleGroupItem
-              value="table"
-              aria-label="テーブル表示"
-              className="px-2.5"
-            >
-              <Table className="size-4" />
-            </ToggleGroupItem>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>テーブル表示</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <ToggleGroupItem
-              value="gallery"
-              aria-label="ギャラリー表示"
-              className="px-2.5"
-            >
-              <LayoutGrid className="size-4" />
-            </ToggleGroupItem>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>ギャラリー表示</p>
-          </TooltipContent>
-        </Tooltip>
-      </ToggleGroup>
-    </TooltipProvider>
+    <div className="flex rounded-lg border p-1 bg-card">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={viewMode === 'table' ? 'default' : 'ghost'}
+            size="icon"
+            className="h-10 w-10"
+            onClick={() => onViewModeChange('table')}
+          >
+            <Table className="size-5" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>テーブル</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={viewMode === 'gallery' ? 'default' : 'ghost'}
+            size="icon"
+            className="h-10 w-10"
+            onClick={() => onViewModeChange('gallery')}
+          >
+            <LayoutGrid className="size-5" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>ギャラリー</TooltipContent>
+      </Tooltip>
+    </div>
   );
 }
