@@ -6,6 +6,7 @@ import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWid
 import { FilterSidebarWidget } from '@/widgets/common/filter/filter-sidebar/ui/FilterSidebarWidget';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
 import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
+import { ColumnSettingsWidgets } from '@/widgets/common/column-settings/ui/ColumnSettingsWidgets';
 import { CsvExportModalWidgets } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidgets';
 import type {
   SortState,
@@ -121,7 +122,8 @@ export function DrawingHomeContainer() {
             placeholder="図面番号、図面名で検索..."
             expandedWidth="w-96"
           />
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
+            <ColumnSettingsWidgets columns={columns} filterFields={drawingFilterFields} />
             <CsvExportModalWidgets
               columns={columns}
               data={dummyDrawings}
