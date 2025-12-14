@@ -9,10 +9,10 @@ import { MultiSelectField } from '@/shared/ui/form-fields/ui/MultiSelectField';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { FieldSettingsModal } from './FieldSettingsModal';
-import type { DrawingItem } from '@/page-components/drawing/home/dummy-data/drawings';
+import type { ProductDetail } from '@/page-components/drawing/basic-information/dummy-data/drawing-detail';
 
 interface DrawingInfoPanelProps {
-  drawing: DrawingItem;
+  product: ProductDetail;
 }
 
 const statusOptions = [
@@ -37,17 +37,13 @@ const tagOptions = [
 const fieldConfig = [
   { key: 'status', label: 'ステータス' },
   { key: 'tags', label: 'タグ' },
-  { key: 'drawingNumber', label: '図番' },
-  { key: 'name', label: '図面名' },
+  { key: 'productNumber', label: '製品番号' },
+  { key: 'name', label: '製品名' },
   { key: 'revision', label: 'リビジョン' },
   { key: 'category', label: 'カテゴリ' },
   { key: 'project', label: 'プロジェクト' },
   { key: 'department', label: '部署' },
-  { key: 'scale', label: '縮尺' },
-  { key: 'sheetSize', label: '用紙サイズ' },
   { key: 'material', label: '材質' },
-  { key: 'fileFormat', label: 'ファイル形式' },
-  { key: 'fileSize', label: 'ファイルサイズ' },
   { key: 'createdBy', label: '作成者' },
   { key: 'createdAt', label: '作成日' },
   { key: 'updatedBy', label: '更新者' },
@@ -57,29 +53,25 @@ const fieldConfig = [
   { key: 'remarks', label: '備考' },
 ];
 
-export function DrawingInfoPanel({ drawing }: DrawingInfoPanelProps) {
+export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
   // フォーム状態管理
   const [formData, setFormData] = useState({
-    status: drawing.status.map((s) => s.label),
-    tags: drawing.tags.map((t) => t.label),
-    drawingNumber: drawing.drawingNumber,
-    name: drawing.name,
-    revision: drawing.revision,
-    category: drawing.category,
-    project: drawing.project,
-    department: drawing.department,
-    createdBy: drawing.createdBy,
-    createdAt: drawing.createdAt,
-    updatedBy: drawing.updatedBy,
-    updatedAt: drawing.updatedAt,
-    approvedBy: drawing.approvedBy,
-    approvedAt: drawing.approvedAt ?? '',
-    scale: drawing.scale,
-    sheetSize: drawing.sheetSize,
-    material: drawing.material,
-    fileFormat: drawing.fileFormat,
-    fileSize: drawing.fileSize,
-    remarks: drawing.remarks,
+    status: product.status.map((s) => s.label),
+    tags: product.tags.map((t) => t.label),
+    productNumber: product.productNumber,
+    name: product.name,
+    revision: product.revision,
+    category: product.category,
+    project: product.project,
+    department: product.department,
+    createdBy: product.createdBy,
+    createdAt: product.createdAt,
+    updatedBy: product.updatedBy,
+    updatedAt: product.updatedAt,
+    approvedBy: product.approvedBy,
+    approvedAt: product.approvedAt ?? '',
+    material: product.material,
+    remarks: product.remarks,
   });
 
   const updateField = <K extends keyof typeof formData>(
@@ -98,7 +90,7 @@ export function DrawingInfoPanel({ drawing }: DrawingInfoPanelProps) {
     <div className="flex h-full flex-col">
       {/* ヘッダー */}
       <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
-        <h2 className="text-lg font-semibold">基本情報</h2>
+        <h2 className="text-lg font-semibold text-primary">基本情報</h2>
         <FieldSettingsModal fields={fieldConfig} />
       </div>
 
@@ -120,14 +112,14 @@ export function DrawingInfoPanel({ drawing }: DrawingInfoPanelProps) {
             options={tagOptions}
           />
           <TextField
-            id="drawingNumber"
-            label="図番"
-            value={formData.drawingNumber}
-            onChange={(v) => updateField('drawingNumber', v)}
+            id="productNumber"
+            label="製品番号"
+            value={formData.productNumber}
+            onChange={(v) => updateField('productNumber', v)}
           />
           <TextField
             id="name"
-            label="図面名"
+            label="製品名"
             value={formData.name}
             onChange={(v) => updateField('name', v)}
           />
@@ -156,36 +148,10 @@ export function DrawingInfoPanel({ drawing }: DrawingInfoPanelProps) {
             onChange={(v) => updateField('department', v)}
           />
           <TextField
-            id="scale"
-            label="縮尺"
-            value={formData.scale}
-            onChange={(v) => updateField('scale', v)}
-          />
-          <TextField
-            id="sheetSize"
-            label="用紙サイズ"
-            value={formData.sheetSize}
-            onChange={(v) => updateField('sheetSize', v)}
-          />
-          <TextField
             id="material"
             label="材質"
             value={formData.material}
             onChange={(v) => updateField('material', v)}
-          />
-          <TextField
-            id="fileFormat"
-            label="ファイル形式"
-            value={formData.fileFormat}
-            onChange={(v) => updateField('fileFormat', v)}
-            disabled
-          />
-          <TextField
-            id="fileSize"
-            label="ファイルサイズ"
-            value={formData.fileSize}
-            onChange={(v) => updateField('fileSize', v)}
-            disabled
           />
           <TextField
             id="createdBy"

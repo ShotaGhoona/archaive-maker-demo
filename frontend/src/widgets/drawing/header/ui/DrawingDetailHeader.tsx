@@ -2,7 +2,18 @@
 
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { MoreHorizontal, ArrowLeft, Trash2, Copy, Download } from 'lucide-react';
+import {
+  MoreHorizontal,
+  ArrowLeft,
+  Trash2,
+  Copy,
+  Download,
+  Info,
+  Layers,
+  Calculator,
+  FileText,
+  type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
   DropdownMenu,
@@ -13,11 +24,11 @@ import {
 } from '@/shared/ui/shadcn/ui/dropdown-menu';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 
-const tabs = [
-  { label: '基本情報', path: 'basic-information' },
-  { label: '類似図面', path: 'similar' },
-  { label: '見積もり情報', path: 'estimate' },
-  { label: '帳票', path: 'documents' },
+const tabs: { label: string; path: string; icon: LucideIcon }[] = [
+  { label: '基本情報', path: 'basic-information', icon: Info },
+  { label: '類似図面', path: 'similar', icon: Layers },
+  { label: '見積もり情報', path: 'estimate', icon: Calculator },
+  { label: '帳票', path: 'documents', icon: FileText },
 ];
 
 export function DrawingDetailHeader() {
@@ -48,25 +59,29 @@ export function DrawingDetailHeader() {
     <header className="flex h-12 shrink-0 items-center border-b bg-card">
       {/* Navigation Tabs */}
       <nav className="flex h-full items-center">
-        {tabs.map((tab, index) => (
-          <Link
-            key={tab.path}
-            href={`/drawing/${drawingId}/${tab.path}`}
-            className={cn(
-              'relative flex h-full items-center px-4 text-lg font-medium transition-colors',
-              'hover:text-foreground',
-              index !== 0 && 'border-l border-border/50',
-              currentPath === tab.path
-                ? 'text-foreground'
-                : 'text-muted-foreground'
-            )}
-          >
-            {tab.label}
-            {currentPath === tab.path && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-            )}
-          </Link>
-        ))}
+        {tabs.map((tab, index) => {
+          const Icon = tab.icon;
+          return (
+            <Link
+              key={tab.path}
+              href={`/drawing/${drawingId}/${tab.path}`}
+              className={cn(
+                'relative flex h-full items-center gap-2 px-4 text-sm font-medium transition-colors',
+                'hover:text-foreground',
+                index !== 0 && 'border-l border-border/50',
+                currentPath === tab.path
+                  ? 'text-foreground'
+                  : 'text-muted-foreground'
+              )}
+            >
+              <Icon className="size-4" />
+              {tab.label}
+              {currentPath === tab.path && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+              )}
+            </Link>
+          );
+        })}
       </nav>
 
       {/* Spacer */}

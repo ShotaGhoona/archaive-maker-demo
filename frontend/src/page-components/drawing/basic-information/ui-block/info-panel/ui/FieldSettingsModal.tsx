@@ -76,8 +76,9 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-8">
+        <Button variant="outline" className="bg-card">
           <Settings className="size-4" />
+          表示項目設定
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-5xl h-[80vh] max-h-[900px]">

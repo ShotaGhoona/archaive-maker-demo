@@ -7,24 +7,21 @@ import {
   ResizableHandle,
 } from '@/shared/ui/shadcn/ui/resizable';
 import { DrawingInfoPanel } from '../ui-block/info-panel/ui/DrawingInfoPanel';
-import { dummyDrawings } from '../../home/dummy-data/drawings';
+import { DrawingPreviewPanel } from '@/widgets/drawing/drawing-preview-panel/ui/DrawingPreviewPanel';
+import { dummyProducts } from '../dummy-data/drawing-detail';
 
 export function DrawingBasicInformationContainer() {
   const params = useParams();
-  const drawingId = params.id as string;
+  const productId = params.id as string;
 
   // TODO: API呼び出し
-  const drawing = dummyDrawings.find((d) => d.id === drawingId) ?? dummyDrawings[0];
+  const product = dummyProducts.find((p) => p.id === productId) ?? dummyProducts[0];
 
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
-      {/* メインコンテンツエリア（左側） */}
-      <ResizablePanel defaultSize={70} minSize={30}>
-        <div className="h-full overflow-auto p-4">
-          <div className="flex h-full items-center justify-center rounded-lg border border-dashed bg-muted/30">
-            <p className="text-muted-foreground">図面プレビューエリア</p>
-          </div>
-        </div>
+      {/* プレビューパネル（左側 + 中央） */}
+      <ResizablePanel defaultSize={70} minSize={40}>
+        <DrawingPreviewPanel drawings={product.drawings} />
       </ResizablePanel>
 
       <ResizableHandle withHandle />
@@ -32,7 +29,7 @@ export function DrawingBasicInformationContainer() {
       {/* 情報パネル（右側） */}
       <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
         <aside className="h-full bg-card">
-          <DrawingInfoPanel drawing={drawing} />
+          <DrawingInfoPanel product={product} />
         </aside>
       </ResizablePanel>
     </ResizablePanelGroup>
