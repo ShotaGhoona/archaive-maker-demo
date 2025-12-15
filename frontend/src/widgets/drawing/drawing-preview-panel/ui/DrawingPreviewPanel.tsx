@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
-import type { DrawingItem } from '@/page-components/drawing/basic-information/dummy-data/drawing-detail';
+import type { DrawingItem } from '@/shared/types/dummy-data/drawing';
 import { DrawingCard } from './components/DrawingCard';
 import { CARD_HEIGHT } from '../lib/constants';
 import {
