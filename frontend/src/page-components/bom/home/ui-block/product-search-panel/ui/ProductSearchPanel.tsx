@@ -7,7 +7,7 @@ import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 
-import type { Product } from '../../../dummy-data/products';
+import type { Product } from '@/shared/dummy-data/bom/products';
 
 interface ProductSearchPanelProps {
   products: Product[];
