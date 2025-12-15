@@ -3,24 +3,29 @@
 import { useState } from 'react';
 
 import { ProductSearchPanel } from '../ui-block/product-search-panel/ui/ProductSearchPanel';
-import { BomTreePanel } from '../ui-block/bom-tree-panel/ui/BomTreePanel';
+import { BomTreeBlock } from '../ui-block/bom-tree/ui/BomTreeBlock';
 import { BomDetailPanel } from '../ui-block/detail-panel/ui/BomDetailPanel';
 import {
   dummyProducts,
   getBomByProductId,
   getNodeDetailById,
+  bomNodesToTreeNodes,
+  type TreeNode,
 } from '@/shared/dummy-data/bom/products';
 
 export function BomHomeContainer() {
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
-    null
+    null,
   );
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
   const selectedProduct = dummyProducts.find(
-    (p) => p.id === selectedProductId
+    (p) => p.id === selectedProductId,
   );
-  const bomTree = selectedProductId ? getBomByProductId(selectedProductId) : [];
+  const bomTree = selectedProductId
+    ? getBomByProductId(selectedProductId)
+    : [];
+  const treeNodes = bomNodesToTreeNodes(bomTree);
   const selectedNodeDetail = selectedNodeId
     ? getNodeDetailById(selectedNodeId)
     : undefined;
@@ -28,6 +33,10 @@ export function BomHomeContainer() {
   const handleSelectProduct = (productId: string) => {
     setSelectedProductId(productId);
     setSelectedNodeId(null);
+  };
+
+  const handleSelectNode = (node: TreeNode) => {
+    setSelectedNodeId(node.id);
   };
 
   const handleCloseDetail = () => {
@@ -52,10 +61,10 @@ export function BomHomeContainer() {
         </div>
 
         <div className='flex min-h-0 flex-1 gap-4'>
-          <BomTreePanel
-            bomTree={bomTree}
+          <BomTreeBlock
+            treeNodes={treeNodes}
             selectedNodeId={selectedNodeId}
-            onSelectNode={setSelectedNodeId}
+            onSelectNode={handleSelectNode}
           />
 
           {/* 詳細パネル */}

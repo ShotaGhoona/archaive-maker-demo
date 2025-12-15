@@ -19,9 +19,7 @@ export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
   const router = useRouter();
 
   const handleGoToDetail = () => {
-    // TODO: API呼び出し
-    alert(`詳細ページへ遷移（未実装）: ${detail.id}`);
-    router.push(`/bom/${detail.id}`);
+    router.push(`/bom/${detail.id}/basic-information`);
   };
 
   const formatDate = (dateString: string) => {

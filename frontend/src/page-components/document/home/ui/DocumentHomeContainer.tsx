@@ -10,8 +10,10 @@ import { DocumentFilterButton } from '../ui-block/filter/ui/DocumentFilterButton
 import { DocumentSearchBar } from '../ui-block/filter/ui/DocumentSearchBar';
 import { useDocumentFilter } from '../ui-block/filter/lib/use-document-filter';
 import { DocumentColumnSettings } from '../ui-block/column-settings/ui/DocumentColumnSettings';
-import { ViewModeSwitch } from '@/widgets/view/shared/ui/ViewModeSwitch';
-import type { ViewMode } from '@/widgets/view/shared/model/types';
+import {
+  ViewSwitch,
+  type ViewMode,
+} from '@/shared/ui/components/view-switch/ui/ViewSwitch';
 import { documentTypes } from '../dummy-data/documents';
 
 // デフォルトで最初の帳票種別を選択
@@ -48,9 +50,10 @@ export function DocumentHomeContainer() {
           <div className='flex min-h-0 flex-1 flex-col px-6 pt-4'>
             {/* ツールバー */}
             <div className='mb-4 flex items-center gap-4'>
-              <ViewModeSwitch
-                viewMode={viewMode}
-                onViewModeChange={setViewMode}
+              <ViewSwitch
+                modes={['table', 'gallery']}
+                value={viewMode}
+                onChange={setViewMode}
               />
               <DocumentFilterButton
                 open={filter.filterOpen}
