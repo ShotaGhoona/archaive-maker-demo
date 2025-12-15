@@ -7,8 +7,6 @@ import type {
   AdvancedFilterValues,
 } from '@/widgets/common/filter/filter-sidebar/model/types';
 
-import { drawingFilterFields } from '../config/filter-config';
-
 export interface UseDrawingFilterReturn {
   // 状態
   filterOpen: boolean;
@@ -56,5 +54,3 @@ export function useDrawingFilter(): UseDrawingFilterReturn {
     resetFilters,
   };
 }
-
-export { drawingFilterFields };

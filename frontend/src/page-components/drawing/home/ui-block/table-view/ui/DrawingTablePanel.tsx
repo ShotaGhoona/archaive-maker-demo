@@ -4,59 +4,58 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
-import type {
-  SortState,
-  PaginationConfig,
-} from '@/widgets/view/table-view/model/types';
+import type { SortState, PaginationConfig } from '@/widgets/view/table-view/model/types';
 
-import { createDrawingColumns } from '../config/column-config';
-import { dummyDrawings, type DrawingItem } from '../../../dummy-data/drawings';
+import { useDrawingPages } from '@/features/product/drawing-page/get-list/lib/use-drawing-pages';
+import type { DrawingPage } from '@/entities/product/drawing-page/model/entity';
+
+import { createTableColumns } from '../config/table-columns';
 
 export function DrawingTablePanel() {
   const router = useRouter();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [sortState, setSortState] = useState<SortState>({
     key: 'updatedAt',
     direction: 'desc',
   });
-  const [pagination, setPagination] = useState<PaginationConfig>({
-    currentPage: 1,
-    pageSize: 10,
-    totalItems: dummyDrawings.length,
-    pageSizeOptions: [10, 20, 50],
-  });
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
 
-  const handleOpen = (row: DrawingItem) => {
+  const { data, isLoading } = useDrawingPages({ page, perPage: pageSize });
+
+  const handleOpen = (row: DrawingPage) => {
     router.push(`/drawing/${row.id}/basic-information`);
   };
 
-  const handleDelete = (row: DrawingItem) => {
-    alert(`図面を削除（未実装）: ${row.drawingNumber} - ${row.name}`);
-    // TODO: API呼び出し
+  const handleDelete = (row: DrawingPage) => {
+    alert(
+      `図面を削除（未実装）: ${row.drawingNumber} - ${row.leafProductName || row.drawingFileName}`
+    );
   };
 
   const columns = useMemo(
-    () => createDrawingColumns(handleOpen, handleDelete),
+    () => createTableColumns(handleOpen, handleDelete),
     []
   );
 
-  const handlePageChange = (page: number) => {
-    setPagination((prev) => ({ ...prev, currentPage: page }));
-    // TODO: API呼び出し
+  const pagination: PaginationConfig = {
+    currentPage: page,
+    pageSize: pageSize,
+    totalItems: data?.totalCount ?? 0,
+    pageSizeOptions: [10, 20, 50],
   };
 
-  const handlePageSizeChange = (pageSize: number) => {
-    setPagination((prev) => ({
-      ...prev,
-      pageSize,
-      currentPage: 1,
-    }));
-    // TODO: API呼び出し
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setPage(1);
   };
 
   const handleSortChange = (newSortState: SortState) => {
     setSortState(newSortState);
-    // TODO: API呼び出し
   };
 
   const handleSelectionChange = (newSelectedRows: Set<number>) => {
@@ -65,7 +64,7 @@ export function DrawingTablePanel() {
 
   return (
     <TableViewWidget
-      data={dummyDrawings}
+      data={data?.items ?? []}
       columns={columns}
       pagination={pagination}
       onPageChange={handlePageChange}
@@ -74,6 +73,7 @@ export function DrawingTablePanel() {
       onSortChange={handleSortChange}
       selectedRows={selectedRows}
       onSelectionChange={handleSelectionChange}
+      isLoading={isLoading}
     />
   );
 }

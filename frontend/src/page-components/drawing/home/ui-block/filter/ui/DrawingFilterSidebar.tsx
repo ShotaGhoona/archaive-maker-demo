@@ -6,7 +6,7 @@ import type {
   AdvancedFilterValues,
 } from '@/widgets/common/filter/filter-sidebar/model/types';
 
-import { drawingFilterFields } from '../config/filter-config';
+import { FILTER_FIELDS } from '../config/filter-fields';
 
 interface DrawingFilterSidebarProps {
   open: boolean;
@@ -29,7 +29,7 @@ export function DrawingFilterSidebar({
     <FilterSidebarWidget
       open={open}
       onOpenChange={onOpenChange}
-      fields={drawingFilterFields}
+      fields={FILTER_FIELDS}
       simpleValues={simpleValues}
       onSimpleValuesChange={onSimpleValuesChange}
       advancedValues={advancedValues}

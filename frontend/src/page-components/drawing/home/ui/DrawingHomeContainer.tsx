@@ -4,14 +4,17 @@ import { useState } from 'react';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
 import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
 import { CsvExportModalWidgets } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidgets';
-import { dummyDrawings } from '../dummy-data/drawings';
 import { ViewModeSwitch } from '@/widgets/view/shared/ui/ViewModeSwitch';
 import type { ViewMode } from '@/widgets/view/shared/model/types';
+
+import { useDrawingPages } from '@/features/product/drawing-page/get-list/lib/use-drawing-pages';
+
 import { DrawingTablePanel } from '../ui-block/table-view/ui/DrawingTablePanel';
 import { DrawingGalleryPanel } from '../ui-block/gallery-view/ui/DrawingGalleryPanel';
 import { DrawingFilterSidebar } from '../ui-block/filter/ui/DrawingFilterSidebar';
 import { DrawingColumnSettings } from '../ui-block/column-settings/ui/DrawingColumnSettings';
 import { useDrawingFilter } from '../ui-block/filter/lib/use-drawing-filter';
+import { CSV_EXPORT_COLUMNS } from '../ui-block/csv-export/config/csv-export-columns';
 
 export function DrawingHomeContainer() {
   const [viewMode, setViewMode] = useState<ViewMode>('table');
@@ -27,6 +30,9 @@ export function DrawingHomeContainer() {
     searchQuery,
     setSearchQuery,
   } = useDrawingFilter();
+
+  // CSVエクスポート用にデータ取得
+  const { data } = useDrawingPages({ page: 1, perPage: 100 });
 
   return (
     <div className="flex min-h-0 flex-1">
@@ -54,8 +60,8 @@ export function DrawingHomeContainer() {
           <div className="ml-auto flex items-center gap-2">
             <DrawingColumnSettings />
             <CsvExportModalWidgets
-              columns={[]}
-              data={dummyDrawings}
+              columns={CSV_EXPORT_COLUMNS}
+              data={data?.items ?? []}
             />
           </div>
         </div>

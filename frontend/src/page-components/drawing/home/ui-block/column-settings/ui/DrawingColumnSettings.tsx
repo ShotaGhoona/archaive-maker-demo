@@ -1,21 +1,15 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import { ColumnSettingsWidgets } from '@/widgets/common/column-settings/ui/ColumnSettingsWidgets';
 
-import { createDrawingColumns } from '../../table-view/config/column-config';
-import { drawingFilterFields } from '../../filter/config/filter-config';
+import { TABLE_COLUMNS } from '../../table-view/config/table-columns';
+import { FILTER_FIELDS } from '../../filter/config/filter-fields';
 
 export function DrawingColumnSettings() {
-  const columns = useMemo(
-    () =>
-      createDrawingColumns(
-        () => {}, // handleOpen placeholder
-        () => {} // handleDelete placeholder
-      ),
-    []
+  return (
+    <ColumnSettingsWidgets
+      columns={TABLE_COLUMNS}
+      filterFields={FILTER_FIELDS}
+    />
   );
-
-  return <ColumnSettingsWidgets columns={columns} filterFields={drawingFilterFields} />;
 }
