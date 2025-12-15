@@ -1,9 +1,10 @@
-.PHONY: help up down build logs restart test lint fix format lint-all db-init db-migrate db-upgrade db-downgrade db-history db-current onion-check generate-rsa-keys install snapshot/update infra/lint infra/format snapshot
+.PHONY: help up up-build down build logs restart test lint fix format lint-all db-init db-migrate db-upgrade db-downgrade db-history db-current onion-check generate-rsa-keys install snapshot/update infra/lint infra/format snapshot
 
 # デフォルトターゲット
 help:
 	@echo "使用可能なコマンド:"
 	@echo "  make up              - Docker Composeでアプリケーションを起動"
+	@echo "  make up-build        - Docker Composeでビルドして起動"
 	@echo "  make down            - Docker Composeでアプリケーションを停止"
 	@echo "  make build           - Docker Composeでイメージをビルド"
 	@echo "  make logs            - ログを表示"
@@ -34,6 +35,9 @@ help:
 
 up:
 	docker compose up -d
+
+up-build:
+	docker compose up -d --build
 
 down:
 	docker compose down

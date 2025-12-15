@@ -34,7 +34,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className='min-h-screen p-8'>
+    <div className='p-8'>
       <div className='mx-auto max-w-7xl'>
         <Card>
           <CardHeader>

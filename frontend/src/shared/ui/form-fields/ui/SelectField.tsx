@@ -39,7 +39,10 @@ export function SelectField({
     <div className={`space-y-2 ${className ?? ''}`}>
       <Label htmlFor={id}>{label}</Label>
       <Select value={value} onValueChange={onChange} disabled={disabled}>
-        <SelectTrigger id={id} className='w-full'>
+        <SelectTrigger
+          id={id}
+          className='h-10 w-full bg-card text-base md:text-base'
+        >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

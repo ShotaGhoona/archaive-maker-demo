@@ -32,6 +32,7 @@ export function TextField({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
+        className='h-10 bg-card text-base md:text-base'
       />
     </div>
   );

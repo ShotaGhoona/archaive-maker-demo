@@ -54,8 +54,8 @@ export function DateField({
             variant='outline'
             disabled={disabled}
             className={cn(
-              'w-full justify-start text-left font-normal',
-              !dateValue && 'text-muted-foreground'
+              'h-10 w-full justify-start bg-card text-left text-base font-normal',
+              !dateValue && 'text-muted-foreground',
             )}
           >
             <CalendarIcon className='mr-2 h-4 w-4' />
