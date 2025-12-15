@@ -19,7 +19,7 @@ export interface CsvExportConfig {
 }
 
 /** CsvExportDialog のプロパティ */
-export interface CsvExportModalWidgetsProps<T> {
+export interface CsvExportModalWidgetProps<T> {
   columns: CsvExportColumnConfig[];
   data: T[];
   onExport?: (config: CsvExportConfig) => void;

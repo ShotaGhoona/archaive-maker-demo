@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import { ColumnSettingsWidgets } from "@/widgets/common/column-settings/ui/ColumnSettingsWidgets";
+import { ColumnSettingsWidget } from '@/widgets/common/column-settings/ui/ColumnSettingsWidget';
 
 import { getColumnsByTypeId } from "../../table-view/config/column-configs";
 import { getFilterFieldsByTypeId } from "../../filter/config/filter-config";
@@ -29,5 +29,5 @@ export function DocumentColumnSettings({
     [selectedTypeId]
   );
 
-  return <ColumnSettingsWidgets columns={columns} filterFields={filterFields} />;
+  return <ColumnSettingsWidget columns={columns} filterFields={filterFields} />;
 }

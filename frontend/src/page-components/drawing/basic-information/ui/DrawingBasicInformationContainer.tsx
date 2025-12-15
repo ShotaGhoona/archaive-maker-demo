@@ -28,9 +28,7 @@ export function DrawingBasicInformationContainer() {
 
       {/* 情報パネル（右側） */}
       <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-        <aside className="h-full bg-card">
           <DrawingInfoPanel product={product} />
-        </aside>
       </ResizablePanel>
     </ResizablePanelGroup>
   );

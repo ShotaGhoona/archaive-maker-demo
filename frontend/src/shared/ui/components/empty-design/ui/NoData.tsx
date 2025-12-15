@@ -6,19 +6,45 @@ import {
   EmptyDescription,
   EmptyContent,
 } from '@/shared/ui/shadcn/ui/empty';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
+
+type Size = 'sm' | 'default' | 'lg';
 
 type Props = {
   title?: string;
   description?: string;
+  size?: Size;
   children?: React.ReactNode;
+};
+
+const sizeConfig = {
+  sm: {
+    svg: 'size-24',       // 96px
+    container: 'py-4',
+    title: 'text-sm',
+    description: 'text-xs',
+    media: 'mb-2',
+  },
+  default: {
+    svg: 'size-36',       // 144px
+    container: 'py-8',
+    title: 'text-base',
+    description: 'text-sm',
+    media: 'mb-3',
+  },
+  lg: {
+    svg: 'size-60',       // 240px
+    container: 'py-16',
+    title: 'text-lg',
+    description: 'text-base',
+    media: 'mb-4',
+  },
 };
 
 function NoDataSvg({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="240"
-      height="240"
       viewBox="0 0 647.63626 632.17383"
       className={className}
       role="img"
@@ -64,17 +90,22 @@ function NoDataSvg({ className }: { className?: string }) {
 export function NoData({
   title = 'データが見つかりません',
   description,
+  size = 'lg',
   children,
 }: Props) {
+  const config = sizeConfig[size];
+
   return (
-    <Empty className="border-none py-16">
+    <Empty className={cn('border-none', config.container)}>
       <EmptyHeader>
-        <EmptyMedia className="mb-4">
-          <NoDataSvg className="opacity-80" />
+        <EmptyMedia className={config.media}>
+          <NoDataSvg className={cn('opacity-80', config.svg)} />
         </EmptyMedia>
-        <EmptyTitle className="text-gray-700">{title}</EmptyTitle>
+        <EmptyTitle className={cn('text-gray-700', config.title)}>
+          {title}
+        </EmptyTitle>
         {description && (
-          <EmptyDescription className="text-gray-500">
+          <EmptyDescription className={cn('text-gray-500', config.description)}>
             {description}
           </EmptyDescription>
         )}

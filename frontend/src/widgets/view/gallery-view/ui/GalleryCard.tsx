@@ -18,7 +18,7 @@ export function GalleryCard<T extends object>({
   cardConfig,
   onClick,
 }: GalleryCardProps<T>) {
-  const { thumbnailKey, contentRenderer, cardRenderer } = cardConfig;
+  const { thumbnailKey, contentRenderer, overlayRenderer, cardRenderer } = cardConfig;
 
   // カスタムカードレンダラーがある場合はそれを使用
   if (cardRenderer) {
@@ -26,11 +26,12 @@ export function GalleryCard<T extends object>({
   }
 
   const thumbnail = item[thumbnailKey] as string;
+  const hasOverlay = !!overlayRenderer;
 
   return (
     <Card
       className={cn(
-        'overflow-hidden transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)] p-3 gap-3',
+        'group relative overflow-hidden transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)] p-3 gap-3',
         onClick && 'cursor-pointer space-y-0'
       )}
       onClick={() => onClick?.(item, index)}
@@ -53,6 +54,12 @@ export function GalleryCard<T extends object>({
       <CardContent className="p-0">
         {contentRenderer(item, index)}
       </CardContent>
+      {/* ホバーオーバーレイ（カード全体） */}
+      {hasOverlay && (
+        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
+          {overlayRenderer(item, index)}
+        </div>
+      )}
     </Card>
   );
 }

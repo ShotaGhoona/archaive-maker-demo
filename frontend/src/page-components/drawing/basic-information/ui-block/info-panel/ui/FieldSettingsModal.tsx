@@ -18,7 +18,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
 } from '@/shared/ui/shadcn/ui/dialog';
+import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { FieldItem } from './components/FieldItem';
 
 interface FieldConfig {
@@ -81,43 +83,12 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
           表示項目設定
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-5xl h-[80vh] max-h-[900px]">
-        <DialogHeader>
+      <DialogContent className="flex h-[80vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-5xl">
+        <DialogHeader className="shrink-0 border-b px-6 py-4">
           <DialogTitle>表示項目の設定</DialogTitle>
         </DialogHeader>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-4">
-          {/* アクションボタン */}
-          <div className="flex shrink-0 gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              size="default"
-              onClick={handleReset}
-            >
-              <RotateCcw className="size-4" />
-              リセット
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="default"
-              onClick={handleHideAll}
-            >
-              <EyeOff className="size-4" />
-              全て非表示
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="default"
-              onClick={handleShowAll}
-            >
-              <Eye className="size-4" />
-              全て表示
-            </Button>
-          </div>
-
+        <div className="flex min-h-0 flex-1 flex-col p-6">
           {/* リスト */}
           <div className="grid min-h-0 flex-1 grid-cols-2 gap-6">
             {/* 非表示列 */}
@@ -129,26 +100,28 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
                   ({hiddenKeys.length})
                 </span>
               </h3>
-              <div className="flex-1 space-y-2 overflow-y-auto px-4">
+              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
                 {hiddenKeys.length === 0 ? (
-                  <p className="py-8 text-center text-base text-muted-foreground">
-                    すべての項目が表示されています
-                  </p>
+                  <div className="flex flex-1 items-center justify-center">
+                    <NoData title="すべての項目が表示されています" size="sm" />
+                  </div>
                 ) : (
-                  hiddenKeys.map((key, index) => (
-                    <FieldItem
-                      key={key}
-                      label={getLabel(key)}
-                      isSelected={selectedKey === key}
-                      isFirst={index === 0}
-                      isLast={index === hiddenKeys.length - 1}
-                      onSelect={() => handleSelect(key)}
-                      onMoveUp={handleMoveUp}
-                      onMoveDown={handleMoveDown}
-                      onTransfer={handleMoveToVisible}
-                      transferIcon={<ChevronRight className="size-4" />}
-                    />
-                  ))
+                  <div className="space-y-2">
+                    {hiddenKeys.map((key, index) => (
+                      <FieldItem
+                        key={key}
+                        label={getLabel(key)}
+                        isSelected={selectedKey === key}
+                        isFirst={index === 0}
+                        isLast={index === hiddenKeys.length - 1}
+                        onSelect={() => handleSelect(key)}
+                        onMoveUp={handleMoveUp}
+                        onMoveDown={handleMoveDown}
+                        onTransfer={handleMoveToVisible}
+                        transferIcon={<ChevronRight className="size-4" />}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
@@ -162,26 +135,28 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
                   ({visibleKeys.length})
                 </span>
               </h3>
-              <div className="flex-1 space-y-2 overflow-y-auto px-4">
+              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
                 {visibleKeys.length === 0 ? (
-                  <p className="py-8 text-center text-base text-muted-foreground">
-                    表示する項目がありません
-                  </p>
+                  <div className="flex flex-1 items-center justify-center">
+                    <NoData title="表示する項目がありません" size="sm" />
+                  </div>
                 ) : (
-                  visibleKeys.map((key, index) => (
-                    <FieldItem
-                      key={key}
-                      label={getLabel(key)}
-                      isSelected={selectedKey === key}
-                      isFirst={index === 0}
-                      isLast={index === visibleKeys.length - 1}
-                      onSelect={() => handleSelect(key)}
-                      onMoveUp={handleMoveUp}
-                      onMoveDown={handleMoveDown}
-                      onTransfer={handleMoveToHidden}
-                      transferIcon={<ChevronLeft className="size-4" />}
-                    />
-                  ))
+                  <div className="space-y-2">
+                    {visibleKeys.map((key, index) => (
+                      <FieldItem
+                        key={key}
+                        label={getLabel(key)}
+                        isSelected={selectedKey === key}
+                        isFirst={index === 0}
+                        isLast={index === visibleKeys.length - 1}
+                        onSelect={() => handleSelect(key)}
+                        onMoveUp={handleMoveUp}
+                        onMoveDown={handleMoveDown}
+                        onTransfer={handleMoveToHidden}
+                        transferIcon={<ChevronLeft className="size-4" />}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
@@ -189,12 +164,30 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
         </div>
 
         {/* フッター */}
-        <div className="flex shrink-0 justify-end gap-3 border-t pt-4">
+        <DialogFooter className="shrink-0 border-t bg-background px-6 py-4">
+          <div className="mr-auto flex gap-2">
+            <Button type="button" variant="outline" onClick={handleReset}>
+              <RotateCcw className="size-4" />
+              リセット
+            </Button>
+            <Button type="button" variant="outline" onClick={handleHideAll}>
+              <EyeOff className="size-4" />
+              全て非表示
+            </Button>
+            <Button type="button" variant="outline" onClick={handleShowAll}>
+              <Eye className="size-4" />
+              全て表示
+            </Button>
+          </div>
           <Button type="button" variant="outline">
+            <X className="size-4" />
             キャンセル
           </Button>
-          <Button type="button">保存</Button>
-        </div>
+          <Button type="button">
+            <Check className="size-4" />
+            保存
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

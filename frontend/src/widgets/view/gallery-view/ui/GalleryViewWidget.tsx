@@ -19,19 +19,23 @@ export function GalleryViewWidget<T extends object>({
 }: GalleryViewProps<T>) {
   // ローディング時はスケルトンを表示
   if (isLoading) {
-    return <GallerySkeleton columns={columns} />;
+    return <GallerySkeleton columns={columns === 'responsive' ? 3 : columns} />;
   }
 
-  const gridColsClass = {
-    2: 'grid-cols-2',
-    3: 'grid-cols-3',
-    4: 'grid-cols-4',
-    5: 'grid-cols-5',
-    6: 'grid-cols-6',
-  }[columns] || 'grid-cols-4';
+  const isResponsive = columns === 'responsive';
+
+  const gridColsClass = isResponsive
+    ? 'grid-cols-2 @[600px]:grid-cols-3'
+    : {
+        2: 'grid-cols-2',
+        3: 'grid-cols-3',
+        4: 'grid-cols-4',
+        5: 'grid-cols-5',
+        6: 'grid-cols-6',
+      }[columns] || 'grid-cols-4';
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className={`flex min-h-0 flex-1 flex-col ${isResponsive ? '@container' : ''}`}>
       {data.length === 0 ? (
         <div className="flex min-h-0 flex-1 items-center justify-center">
           <NoData
@@ -61,7 +65,7 @@ export function GalleryViewWidget<T extends object>({
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
           showGridColumns={!!onColumnsChange}
-          gridColumns={columns}
+          gridColumns={columns === 'responsive' ? undefined : columns}
           onGridColumnsChange={onColumnsChange}
         />
       )}

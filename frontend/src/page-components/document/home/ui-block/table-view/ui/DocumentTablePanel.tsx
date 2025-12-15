@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { TableViewWidget } from "@/widgets/view/table-view/ui/TableViewWidgets";
+import { TableViewWidget } from "@/widgets/view/table-view/ui/TableViewWidget";
 import type {
   SortState,
   PaginationConfig,

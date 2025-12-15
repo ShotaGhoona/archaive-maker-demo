@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidgets';
+import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidget';
 import type { SortState, PaginationConfig } from '@/widgets/view/table-view/model/types';
 
 import { useDrawingPages } from '@/features/product/drawing-page/get-list/lib/use-drawing-pages';

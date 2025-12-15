@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { ColumnSettingsWidgets } from '@/widgets/common/column-settings/ui/ColumnSettingsWidgets';
+import { ColumnSettingsWidget } from '@/widgets/common/column-settings/ui/ColumnSettingsWidget';
 
 import { createCustomerColumns } from '../../table-view/config/column-config';
 import { customerFilterFields } from '../../filter/config/filter-config';
@@ -17,5 +17,5 @@ export function CustomerColumnSettings() {
     []
   );
 
-  return <ColumnSettingsWidgets columns={columns} filterFields={customerFilterFields} />;
+  return <ColumnSettingsWidget columns={columns} filterFields={customerFilterFields} />;
 }

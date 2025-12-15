@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { CsvExportModalWidgets } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidgets';
+import { CsvExportModalWidget } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidget';
 
 import { createCustomerColumns } from '../../table-view/config/column-config';
 import { dummyCustomers } from '../../../dummy-data/customers';
@@ -17,5 +17,5 @@ export function CustomerCsvExport() {
     []
   );
 
-  return <CsvExportModalWidgets columns={columns} data={dummyCustomers} />;
+  return <CsvExportModalWidget columns={columns} data={dummyCustomers} />;
 }

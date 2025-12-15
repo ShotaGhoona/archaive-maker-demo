@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/shared/ui/shadcn/ui/select';
 import { FileDown, X, RotateCcw, Columns3, Table2 } from 'lucide-react';
+import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { CsvExportColumnItem } from './CsvExportColumnItem';
 import { useCsvExportState } from '../lib/use-csv-export-state';
 import { formatCellValue } from '../lib/format-cell-value';
@@ -25,7 +26,7 @@ import { exportCsv } from '../lib/export-csv';
 import type {
   CsvExportColumnConfig,
   CsvExportConfig,
-  CsvExportModalWidgetsProps,
+  CsvExportModalWidgetProps,
   CsvEncoding,
 } from '../model/types';
 
@@ -34,11 +35,11 @@ import type {
  *
  * 現在はUIのみで、実際のエクスポート処理は未実装です。
  */
-export function CsvExportModalWidgets<T extends object>({
+export function CsvExportModalWidget<T extends object>({
   columns,
   data,
   onExport,
-}: CsvExportModalWidgetsProps<T>) {
+}: CsvExportModalWidgetProps<T>) {
   const [open, setOpen] = useState(false);
 
   const {
@@ -114,10 +115,10 @@ export function CsvExportModalWidgets<T extends object>({
                 （{previewData.length} / {data.length} 件のみ表示）
               </span>
             </h3>
-            <div className='min-h-0 flex-1 overflow-auto pt-4'>
+            <div className='flex min-h-0 flex-1 flex-col overflow-auto pt-4'>
               {previewColumns.length === 0 ? (
-                <div className='flex h-full items-center justify-center text-muted-foreground'>
-                  出力するカラムを選択してください
+                <div className='flex flex-1 items-center justify-center'>
+                  <NoData title='出力するカラムを選択してください' size='sm' />
                 </div>
               ) : (
                 <table className='border-collapse text-sm'>

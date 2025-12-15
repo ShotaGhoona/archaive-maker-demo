@@ -10,6 +10,8 @@ export interface GalleryCardConfig<T> {
   thumbnailKey: keyof T;
   // サムネイル下のコンテンツレンダラー
   contentRenderer: (item: T, index: number) => ReactNode;
+  // ホバー時のオーバーレイレンダラー（サムネイル上に表示）
+  overlayRenderer?: (item: T, index: number) => ReactNode;
   // カスタムカードレンダラー（カード全体をカスタマイズする場合）
   cardRenderer?: (item: T, index: number) => ReactNode;
 }

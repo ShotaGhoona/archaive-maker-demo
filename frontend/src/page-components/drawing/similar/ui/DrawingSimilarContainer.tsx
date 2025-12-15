@@ -21,14 +21,14 @@ export function DrawingSimilarContainer() {
   return (
     <ResizablePanelGroup direction="horizontal" className="h-full">
       {/* 左：プレビューパネル */}
-      <ResizablePanel defaultSize={40} minSize={30}>
+      <ResizablePanel defaultSize={70} minSize={40}>
         <DrawingPreviewPanel drawings={product.drawings} />
       </ResizablePanel>
 
       <ResizableHandle withHandle />
 
       {/* 右：類似図面ギャラリー */}
-      <ResizablePanel defaultSize={60} minSize={40}>
+      <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
         <SimilarGalleryPanel />
       </ResizablePanel>
     </ResizablePanelGroup>

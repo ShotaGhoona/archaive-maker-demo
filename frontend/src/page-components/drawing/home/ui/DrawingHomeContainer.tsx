@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
 import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
-import { CsvExportModalWidgets } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidgets';
+import { CsvExportModalWidget } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidget';
 import { ViewModeSwitch } from '@/widgets/view/shared/ui/ViewModeSwitch';
 import type { ViewMode } from '@/widgets/view/shared/model/types';
 
@@ -59,7 +59,7 @@ export function DrawingHomeContainer() {
           />
           <div className="ml-auto flex items-center gap-2">
             <DrawingColumnSettings />
-            <CsvExportModalWidgets
+            <CsvExportModalWidget
               columns={CSV_EXPORT_COLUMNS}
               data={data?.items ?? []}
             />

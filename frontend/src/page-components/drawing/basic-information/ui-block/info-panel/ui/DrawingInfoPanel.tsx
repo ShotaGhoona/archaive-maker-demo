@@ -87,7 +87,7 @@ export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-card">
       {/* ヘッダー */}
       <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
         <h2 className="text-lg font-semibold text-primary">基本情報</h2>
@@ -207,7 +207,7 @@ export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
       </ScrollArea>
 
       {/* フッター */}
-      <div className="shrink-0 border-t p-4">
+      <div className="shrink-0 border-t p-4 bg-card">
         <Button onClick={handleSave} className="w-full gap-2">
           <Save className="size-4" />
           保存
