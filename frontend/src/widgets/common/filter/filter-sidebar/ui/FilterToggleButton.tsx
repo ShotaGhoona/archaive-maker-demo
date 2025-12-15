@@ -8,17 +8,20 @@ interface FilterToggleButtonProps {
   onToggle: () => void;
 }
 
-export function FilterToggleButton({ open, onToggle }: FilterToggleButtonProps) {
+export function FilterToggleButton({
+  open,
+  onToggle,
+}: FilterToggleButtonProps) {
   return (
-    <Button size="xl" variant="outline" className="bg-card" onClick={onToggle}>
+    <Button size='xl' variant='outline' className='bg-card' onClick={onToggle}>
       {open ? (
         <>
-          <X className="h-5 w-5" />
+          <X className='h-5 w-5' />
           閉じる
         </>
       ) : (
         <>
-          <Filter className="h-5 w-5" />
+          <Filter className='h-5 w-5' />
           フィルター
         </>
       )}

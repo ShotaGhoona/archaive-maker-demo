@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from 'react';
 
 import type {
   FilterValues,
   AdvancedFilterValues,
   FilterFieldConfig,
-} from "@/widgets/common/filter/filter-sidebar/model/types";
+} from '@/widgets/common/filter/filter-sidebar/model/types';
 
 import {
   getFilterFieldsByTypeId,
   getSearchPlaceholderByTypeId,
-} from "../config/filter-config";
+} from '../config/filter-config';
 
 export interface UseDocumentFilterReturn {
   // 状態
@@ -31,22 +31,27 @@ export interface UseDocumentFilterReturn {
   resetFilters: () => void;
 }
 
-export function useDocumentFilter(selectedTypeId: string): UseDocumentFilterReturn {
+export function useDocumentFilter(
+  selectedTypeId: string,
+): UseDocumentFilterReturn {
   const [filterOpen, setFilterOpen] = useState(false);
-  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>({});
-  const [advancedFilterValues, setAdvancedFilterValues] = useState<AdvancedFilterValues>({
-    conditions: [],
-  });
-  const [searchQuery, setSearchQuery] = useState("");
+  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>(
+    {},
+  );
+  const [advancedFilterValues, setAdvancedFilterValues] =
+    useState<AdvancedFilterValues>({
+      conditions: [],
+    });
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filterFields = useMemo(
     () => getFilterFieldsByTypeId(selectedTypeId),
-    [selectedTypeId]
+    [selectedTypeId],
   );
 
   const searchPlaceholder = useMemo(
     () => getSearchPlaceholderByTypeId(selectedTypeId),
-    [selectedTypeId]
+    [selectedTypeId],
   );
 
   const toggleFilter = useCallback(() => {
@@ -56,7 +61,7 @@ export function useDocumentFilter(selectedTypeId: string): UseDocumentFilterRetu
   const resetFilters = useCallback(() => {
     setSimpleFilterValues({});
     setAdvancedFilterValues({ conditions: [] });
-    setSearchQuery("");
+    setSearchQuery('');
   }, []);
 
   return {

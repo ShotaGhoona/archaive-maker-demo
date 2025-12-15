@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { GalleryViewWidget } from "@/widgets/view/gallery-view/ui/GalleryViewWidget";
-import type { PaginationConfig } from "@/widgets/view/table-view/model/types";
-import type { GalleryCardConfig } from "@/widgets/view/gallery-view/model/types";
+import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWidget';
+import type { PaginationConfig } from '@/widgets/view/table-view/model/types';
+import type { GalleryCardConfig } from '@/widgets/view/gallery-view/model/types';
 
 import {
   getDocumentTypeById,
   getDocumentDataByTypeId,
-} from "../../../dummy-data/documents";
+} from '../../../dummy-data/documents';
 
 interface DocumentGalleryPanelProps {
   selectedTypeId: string;
@@ -29,14 +29,14 @@ export function DocumentGalleryPanel({
   const data = getDocumentDataByTypeId(selectedTypeId);
 
   const handleOpen = (row: unknown) => {
-    const typeName = selectedType?.name || "帳票";
+    const typeName = selectedType?.name || '帳票';
     alert(`${typeName}を開く（未実装）: ${JSON.stringify(row)}`);
     // TODO: router.push(`/document/${selectedTypeId}/${row.id}`)
   };
 
   // ギャラリービュー用のカード設定
   const galleryCardConfig: GalleryCardConfig<Record<string, unknown>> = {
-    thumbnailKey: "thumbnailUrl",
+    thumbnailKey: 'thumbnailUrl',
     contentRenderer: () => null,
   };
 

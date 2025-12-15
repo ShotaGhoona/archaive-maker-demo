@@ -5,7 +5,7 @@ import type { CustomerItem } from '../../../dummy-data/customers';
 
 export const createCustomerColumns = (
   onOpen: (row: CustomerItem) => void,
-  onDelete: (row: CustomerItem) => void
+  onDelete: (row: CustomerItem) => void,
 ): ColumnConfig<CustomerItem>[] => [
   {
     key: 'actions-left',
@@ -16,15 +16,15 @@ export const createCustomerColumns = (
     sticky: 'left',
     cellRenderer: (_, row) => (
       <Button
-        variant="outline"
-        size="lg"
-        className="bg-card text-primary hover:bg-primary/10"
+        variant='outline'
+        size='lg'
+        className='bg-card text-primary hover:bg-primary/10'
         onClick={(e) => {
           e.stopPropagation();
           onOpen(row);
         }}
       >
-        <ExternalLink className="size-5" />
+        <ExternalLink className='size-5' />
         開く
       </Button>
     ),
@@ -136,15 +136,15 @@ export const createCustomerColumns = (
     sticky: 'right',
     cellRenderer: (_, row) => (
       <Button
-        variant="outline"
-        size="lg"
-        className="bg-card text-destructive hover:bg-destructive/10 hover:text-destructive"
+        variant='outline'
+        size='lg'
+        className='bg-card text-destructive hover:bg-destructive/10 hover:text-destructive'
         onClick={(e) => {
           e.stopPropagation();
           onDelete(row);
         }}
       >
-        <Trash2 className="h-4 w-4" />
+        <Trash2 className='h-4 w-4' />
       </Button>
     ),
   },

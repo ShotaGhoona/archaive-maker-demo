@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { SearchBar } from "@/widgets/common/filter/search-bar/ui/SearchBar";
+import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
 
 interface DocumentSearchBarProps {
   value: string;
@@ -18,7 +18,7 @@ export function DocumentSearchBar({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      expandedWidth="w-96"
+      expandedWidth='w-96'
     />
   );
 }

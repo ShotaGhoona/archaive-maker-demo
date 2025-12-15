@@ -76,7 +76,7 @@ export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
 
   const updateField = <K extends keyof typeof formData>(
     key: K,
-    value: (typeof formData)[K]
+    value: (typeof formData)[K],
   ) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
@@ -87,118 +87,118 @@ export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
   };
 
   return (
-    <div className="flex h-full flex-col bg-card">
+    <div className='flex h-full flex-col bg-card'>
       {/* ヘッダー */}
-      <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
-        <h2 className="text-lg font-semibold text-primary">基本情報</h2>
+      <div className='flex shrink-0 items-center justify-between border-b px-4 py-3'>
+        <h2 className='text-lg font-semibold text-primary'>基本情報</h2>
         <FieldSettingsModal fields={fieldConfig} />
       </div>
 
       {/* フィールド一覧 */}
-      <ScrollArea className="min-h-0 flex-1 @container">
-        <div className="grid grid-cols-1 gap-4 p-4 @md:grid-cols-2">
+      <ScrollArea className='min-h-0 flex-1 @container'>
+        <div className='grid grid-cols-1 gap-4 p-4 @md:grid-cols-2'>
           <MultiSelectField
-            id="status"
-            label="ステータス"
+            id='status'
+            label='ステータス'
             value={formData.status}
             onChange={(v) => updateField('status', v)}
             options={statusOptions}
           />
           <MultiSelectField
-            id="tags"
-            label="タグ"
+            id='tags'
+            label='タグ'
             value={formData.tags}
             onChange={(v) => updateField('tags', v)}
             options={tagOptions}
           />
           <TextField
-            id="productNumber"
-            label="製品番号"
+            id='productNumber'
+            label='製品番号'
             value={formData.productNumber}
             onChange={(v) => updateField('productNumber', v)}
           />
           <TextField
-            id="name"
-            label="製品名"
+            id='name'
+            label='製品名'
             value={formData.name}
             onChange={(v) => updateField('name', v)}
           />
           <TextField
-            id="revision"
-            label="リビジョン"
+            id='revision'
+            label='リビジョン'
             value={formData.revision}
             onChange={(v) => updateField('revision', v)}
           />
           <TextField
-            id="category"
-            label="カテゴリ"
+            id='category'
+            label='カテゴリ'
             value={formData.category}
             onChange={(v) => updateField('category', v)}
           />
           <TextField
-            id="project"
-            label="プロジェクト"
+            id='project'
+            label='プロジェクト'
             value={formData.project}
             onChange={(v) => updateField('project', v)}
           />
           <TextField
-            id="department"
-            label="部署"
+            id='department'
+            label='部署'
             value={formData.department}
             onChange={(v) => updateField('department', v)}
           />
           <TextField
-            id="material"
-            label="材質"
+            id='material'
+            label='材質'
             value={formData.material}
             onChange={(v) => updateField('material', v)}
           />
           <TextField
-            id="createdBy"
-            label="作成者"
+            id='createdBy'
+            label='作成者'
             value={formData.createdBy}
             onChange={(v) => updateField('createdBy', v)}
             disabled
           />
           <DateField
-            id="createdAt"
-            label="作成日"
+            id='createdAt'
+            label='作成日'
             value={formData.createdAt}
             onChange={(v) => updateField('createdAt', v)}
             disabled
           />
           <TextField
-            id="updatedBy"
-            label="更新者"
+            id='updatedBy'
+            label='更新者'
             value={formData.updatedBy}
             onChange={(v) => updateField('updatedBy', v)}
             disabled
           />
           <DateField
-            id="updatedAt"
-            label="更新日"
+            id='updatedAt'
+            label='更新日'
             value={formData.updatedAt}
             onChange={(v) => updateField('updatedAt', v)}
             disabled
           />
           <TextField
-            id="approvedBy"
-            label="承認者"
+            id='approvedBy'
+            label='承認者'
             value={formData.approvedBy}
             onChange={(v) => updateField('approvedBy', v)}
             disabled
           />
           <DateField
-            id="approvedAt"
-            label="承認日"
+            id='approvedAt'
+            label='承認日'
             value={formData.approvedAt}
             onChange={(v) => updateField('approvedAt', v)}
             disabled
           />
-          <div className="@md:col-span-2">
+          <div className='@md:col-span-2'>
             <TextareaField
-              id="remarks"
-              label="備考"
+              id='remarks'
+              label='備考'
               value={formData.remarks}
               onChange={(v) => updateField('remarks', v)}
             />
@@ -207,9 +207,9 @@ export function DrawingInfoPanel({ product }: DrawingInfoPanelProps) {
       </ScrollArea>
 
       {/* フッター */}
-      <div className="shrink-0 border-t p-4 bg-card">
-        <Button onClick={handleSave} className="w-full gap-2">
-          <Save className="size-4" />
+      <div className='shrink-0 border-t bg-card p-4'>
+        <Button onClick={handleSave} className='w-full gap-2'>
+          <Save className='size-4' />
           保存
         </Button>
       </div>

@@ -31,24 +31,24 @@ export function FilterSidebarWidget({
   return (
     <div
       className={cn(
-        'flex h-full flex-col border-r bg-card transition-all duration-300 ease-in-out shadow-md',
+        'flex h-full flex-col border-r bg-card shadow-md transition-all duration-300 ease-in-out',
         open ? 'w-80' : 'w-0 overflow-hidden border-r-0',
-        className
+        className,
       )}
     >
-      <div className="flex min-w-80 min-h-0 flex-1 flex-col">
+      <div className='flex min-h-0 min-w-80 flex-1 flex-col'>
         {/* Tab Header */}
-        <div className="flex items-center gap-2 border-b px-4 py-3">
+        <div className='flex items-center gap-2 border-b px-4 py-3'>
           <Tabs
             value={activeTab}
             onValueChange={(v) => setActiveTab(v as FilterTab)}
-            className="flex-1"
+            className='flex-1'
           >
-            <TabsList className="w-full">
-              <TabsTrigger value="simple" className="flex-1">
+            <TabsList className='w-full'>
+              <TabsTrigger value='simple' className='flex-1'>
                 シンプル検索
               </TabsTrigger>
-              <TabsTrigger value="advanced" className="flex-1">
+              <TabsTrigger value='advanced' className='flex-1'>
                 高度な検索
               </TabsTrigger>
             </TabsList>

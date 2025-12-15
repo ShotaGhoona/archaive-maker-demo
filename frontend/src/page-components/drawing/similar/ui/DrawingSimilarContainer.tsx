@@ -19,7 +19,7 @@ export function DrawingSimilarContainer() {
     dummyProducts.find((p) => p.id === productId) ?? dummyProducts[0];
 
   return (
-    <ResizablePanelGroup direction="horizontal" className="h-full">
+    <ResizablePanelGroup direction='horizontal' className='h-full'>
       {/* 左：プレビューパネル */}
       <ResizablePanel defaultSize={70} minSize={40}>
         <DrawingPreviewPanel drawings={product.drawings} />

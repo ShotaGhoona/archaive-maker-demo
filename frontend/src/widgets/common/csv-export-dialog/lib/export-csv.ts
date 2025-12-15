@@ -29,7 +29,9 @@ function generateCsvString<T extends object>(
 
   // ヘッダー行
   if (includeHeader) {
-    const headerRow = columns.map((col) => escapeCsvCell(col.label ?? col.key)).join(',');
+    const headerRow = columns
+      .map((col) => escapeCsvCell(col.label ?? col.key))
+      .join(',');
     lines.push(headerRow);
   }
 

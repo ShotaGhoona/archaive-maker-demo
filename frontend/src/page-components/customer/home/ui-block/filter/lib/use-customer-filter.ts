@@ -27,10 +27,13 @@ export interface UseCustomerFilterReturn {
 
 export function useCustomerFilter(): UseCustomerFilterReturn {
   const [filterOpen, setFilterOpen] = useState(false);
-  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>({});
-  const [advancedFilterValues, setAdvancedFilterValues] = useState<AdvancedFilterValues>({
-    conditions: [],
-  });
+  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>(
+    {},
+  );
+  const [advancedFilterValues, setAdvancedFilterValues] =
+    useState<AdvancedFilterValues>({
+      conditions: [],
+    });
   const [searchQuery, setSearchQuery] = useState('');
 
   const toggleFilter = useCallback(() => {

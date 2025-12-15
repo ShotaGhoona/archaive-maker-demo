@@ -1,7 +1,11 @@
 'use client';
 
 import { ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
-import { TableHead, TableRow, TableHeader as ShadcnTableHeader } from '@/shared/ui/shadcn/ui/table';
+import {
+  TableHead,
+  TableRow,
+  TableHeader as ShadcnTableHeader,
+} from '@/shared/ui/shadcn/ui/table';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { ColumnConfig, SortState, SortDirection } from '../model/types';
 import type { ColumnWidths } from '../lib/use-column-resize';
@@ -62,7 +66,7 @@ export function TableHeader<T>({
   };
 
   return (
-    <ShadcnTableHeader className="[&_tr]:border-b-0">
+    <ShadcnTableHeader className='[&_tr]:border-b-0'>
       <TableRow>
         {columns.map((column) => {
           const key = String(column.key);

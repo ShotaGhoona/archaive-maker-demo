@@ -1,7 +1,10 @@
 'use client';
 
 import { Lock } from 'lucide-react';
-import { TableCell as ShadcnTableCell, TableRow } from '@/shared/ui/shadcn/ui/table';
+import {
+  TableCell as ShadcnTableCell,
+  TableRow,
+} from '@/shared/ui/shadcn/ui/table';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { ColumnConfig } from '../model/types';
 import type { ColumnWidths } from '../lib/use-column-resize';
@@ -9,7 +12,10 @@ import { calculateStickyPositions } from '../lib/calculate-sticky-positions';
 import { TextCell } from './cell-components/TextCell';
 import { EmailCell } from './cell-components/EmailCell';
 import { DateCell } from './cell-components/DateCell';
-import { MultiSelectCell, isMultiSelectCellValue } from './cell-components/MultiSelectCell';
+import {
+  MultiSelectCell,
+  isMultiSelectCellValue,
+} from './cell-components/MultiSelectCell';
 import { CheckboxCell } from './cell-components/CheckboxCell';
 import { BooleanCell } from './cell-components/BooleanCell';
 import type { ColumnType } from '../model/types';

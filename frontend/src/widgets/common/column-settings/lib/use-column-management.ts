@@ -13,7 +13,9 @@ interface UseColumnManagementProps {
  * - カラムの編集
  * - カラムの削除
  */
-export function useColumnManagement({ initialDefinitions }: UseColumnManagementProps) {
+export function useColumnManagement({
+  initialDefinitions,
+}: UseColumnManagementProps) {
   const [definitions, setDefinitions] = useState<ColumnDefinition[]>([]);
 
   // 初期化
@@ -40,7 +42,7 @@ export function useColumnManagement({ initialDefinitions }: UseColumnManagementP
   // ラベル取得
   const getLabel = useCallback(
     (key: string) => definitions.find((c) => c.key === key)?.label || key,
-    [definitions]
+    [definitions],
   );
 
   return {

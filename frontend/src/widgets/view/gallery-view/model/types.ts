@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
-import type { PaginationConfig, GridColumns } from '@/widgets/view/shared/model/types';
+import type {
+  PaginationConfig,
+  GridColumns,
+} from '@/widgets/view/shared/model/types';
 
 // re-export for convenience
 export type { PaginationConfig, GridColumns };

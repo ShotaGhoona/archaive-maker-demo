@@ -20,11 +20,11 @@ export function SimilarGalleryPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-card px-4 pt-4">
-      <h2 className="mb-4 text-lg font-semibold">類似図面</h2>
+    <div className='flex h-full flex-col bg-card px-4 pt-4'>
+      <h2 className='mb-4 text-lg font-semibold'>類似図面</h2>
       <GalleryViewWidget<SimilarDrawing>
         data={dummySimilarDrawings}
-        columns="responsive"
+        columns='responsive'
         cardConfig={similarDrawingCardConfig}
         onCardClick={handleCardClick}
         pagination={pagination}

@@ -34,7 +34,7 @@ export const drawingPageApi = {
           page: params.page,
           per_page: params.perPage,
         },
-      }
+      },
     );
     return response.data;
   },
@@ -60,7 +60,7 @@ export const drawingPageApi = {
         page: params.page,
         per_page: params.perPage,
         ...params.filters,
-      }
+      },
     );
     return response.data;
   },

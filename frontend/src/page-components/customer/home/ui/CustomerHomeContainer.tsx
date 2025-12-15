@@ -23,7 +23,7 @@ export function CustomerHomeContainer() {
   } = useCustomerFilter();
 
   return (
-    <div className="flex min-h-0 flex-1">
+    <div className='flex min-h-0 flex-1'>
       {/* サイドバーフィルター */}
       <CustomerFilterSidebar
         open={filterOpen}
@@ -35,18 +35,18 @@ export function CustomerHomeContainer() {
       />
 
       {/* メインコンテンツ */}
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col px-6 pt-4">
-        <div className="mb-4 flex items-center gap-4">
+      <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 pt-4'>
+        <div className='mb-4 flex items-center gap-4'>
           <CustomerFilterButton open={filterOpen} onToggle={toggleFilter} />
           <CustomerSearchBar value={searchQuery} onChange={setSearchQuery} />
-          <div className="ml-auto flex items-center gap-2">
+          <div className='ml-auto flex items-center gap-2'>
             <CustomerColumnSettings />
             <CustomerCsvExport />
             <CreateCustomerSheet />
           </div>
         </div>
 
-        <div className="flex min-h-0 flex-1 flex-col">
+        <div className='flex min-h-0 flex-1 flex-col'>
           <CustomerTablePanel />
         </div>
       </div>

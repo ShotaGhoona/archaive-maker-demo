@@ -8,7 +8,12 @@ import {
   DialogTrigger,
 } from '@/shared/ui/shadcn/ui/dialog';
 import { Button } from '@/shared/ui/shadcn/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/shadcn/ui/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/shared/ui/shadcn/ui/tabs';
 import {
   Settings2,
   X,
@@ -26,7 +31,12 @@ import { FilterVisibilityTab } from './tabs/FilterVisibilityTab';
 import { useColumnVisibility } from '../lib/use-column-visibility';
 import { useColumnManagement } from '../lib/use-column-management';
 import { useFilterVisibility } from '../lib/use-filter-visibility';
-import type { ColumnInput, FilterInput, SettingsTab, ColumnType } from '../model/types';
+import type {
+  ColumnInput,
+  FilterInput,
+  SettingsTab,
+  ColumnType,
+} from '../model/types';
 
 interface ColumnSettingsWidgetProps {
   columns: ColumnInput[];
@@ -39,7 +49,10 @@ interface ColumnSettingsWidgetProps {
  * - テーブル設定：カラムの追加・編集
  * - フィルター表示設定：フィルターの表示/非表示と順序
  */
-export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSettingsWidgetProps) {
+export function ColumnSettingsWidget({
+  columns,
+  filterFields = [],
+}: ColumnSettingsWidgetProps) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<SettingsTab>('visibility');
 
@@ -53,7 +66,7 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
           label: col.label || '',
           columnType: (col.columnType || 'text') as ColumnType,
         })),
-    [columns]
+    [columns],
   );
 
   // 初期カラム定義
@@ -65,7 +78,7 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
         columnType: c.columnType,
         isCustom: false,
       })),
-    [targetColumns]
+    [targetColumns],
   );
 
   // 各タブのフック
@@ -91,7 +104,9 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // カラム追加（表示リストにも追加）
-  const handleAddColumn = (column: Parameters<typeof columnManagement.addColumn>[0]) => {
+  const handleAddColumn = (
+    column: Parameters<typeof columnManagement.addColumn>[0],
+  ) => {
     const key = columnManagement.addColumn(column);
     columnVisibility.addToVisible(key);
   };
@@ -119,45 +134,45 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="xl" className="bg-card">
-          <Settings2 className="size-5" />
+        <Button variant='outline' size='xl' className='bg-card'>
+          <Settings2 className='size-5' />
           テーブル設定
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl">
+      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl'>
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as SettingsTab)}
-          className="flex min-h-0 flex-1 flex-col gap-0"
+          className='flex min-h-0 flex-1 flex-col gap-0'
         >
-          <div className="shrink-0 border-b">
-            <TabsList className="h-auto w-full justify-start gap-0 rounded-none bg-transparent p-0">
+          <div className='shrink-0 border-b'>
+            <TabsList className='h-auto w-full justify-start gap-0 rounded-none bg-transparent p-0'>
               <TabsTrigger
-                value="visibility"
-                className="flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                value='visibility'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
-                <Columns3 className="size-5" />
+                <Columns3 className='size-5' />
                 テーブル表示設定
               </TabsTrigger>
               <TabsTrigger
-                value="management"
-                className="flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                value='management'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
-                <SlidersHorizontal className="size-5" />
+                <SlidersHorizontal className='size-5' />
                 テーブル設定
               </TabsTrigger>
               <TabsTrigger
-                value="filter"
-                className="flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                value='filter'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
-                <Filter className="size-5" />
+                <Filter className='size-5' />
                 フィルター表示設定
               </TabsTrigger>
             </TabsList>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-hidden p-6">
-            <TabsContent value="visibility" className="mt-0 h-full">
+          <div className='min-h-0 flex-1 overflow-hidden p-6'>
+            <TabsContent value='visibility' className='mt-0 h-full'>
               <ColumnVisibilityTab
                 visibleKeys={columnVisibility.visibleKeys}
                 hiddenKeys={columnVisibility.hiddenKeys}
@@ -171,7 +186,7 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
               />
             </TabsContent>
 
-            <TabsContent value="management" className="mt-0 h-full">
+            <TabsContent value='management' className='mt-0 h-full'>
               <ColumnManagementTab
                 columns={columnManagement.definitions}
                 onAddColumn={handleAddColumn}
@@ -180,7 +195,7 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
               />
             </TabsContent>
 
-            <TabsContent value="filter" className="mt-0 h-full">
+            <TabsContent value='filter' className='mt-0 h-full'>
               <FilterVisibilityTab
                 visibleKeys={filterVisibility.visibleKeys}
                 hiddenKeys={filterVisibility.hiddenKeys}
@@ -196,42 +211,58 @@ export function ColumnSettingsWidget({ columns, filterFields = [] }: ColumnSetti
           </div>
         </Tabs>
 
-        <DialogFooter className="shrink-0 border-t px-6 py-4 bg-background">
+        <DialogFooter className='shrink-0 border-t bg-background px-6 py-4'>
           {/* アクションボタン（テーブル表示設定・フィルター表示設定で共通利用） */}
           {activeTab !== 'management' && (
-            <div className="mr-auto flex gap-2">
+            <div className='mr-auto flex gap-2'>
               <Button
-                type="button"
-                variant="outline"
-                onClick={activeTab === 'visibility' ? columnVisibility.reset : filterVisibility.reset}
+                type='button'
+                variant='outline'
+                onClick={
+                  activeTab === 'visibility'
+                    ? columnVisibility.reset
+                    : filterVisibility.reset
+                }
               >
-                <RotateCcw className="size-4" />
+                <RotateCcw className='size-4' />
                 リセット
               </Button>
               <Button
-                type="button"
-                variant="outline"
-                onClick={activeTab === 'visibility' ? columnVisibility.hideAll : filterVisibility.hideAll}
+                type='button'
+                variant='outline'
+                onClick={
+                  activeTab === 'visibility'
+                    ? columnVisibility.hideAll
+                    : filterVisibility.hideAll
+                }
               >
-                <EyeOff className="size-4" />
+                <EyeOff className='size-4' />
                 全て非表示
               </Button>
               <Button
-                type="button"
-                variant="outline"
-                onClick={activeTab === 'visibility' ? columnVisibility.showAll : filterVisibility.showAll}
+                type='button'
+                variant='outline'
+                onClick={
+                  activeTab === 'visibility'
+                    ? columnVisibility.showAll
+                    : filterVisibility.showAll
+                }
               >
-                <Eye className="size-4" />
+                <Eye className='size-4' />
                 全て表示
               </Button>
             </div>
           )}
-          <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-            <X className="size-4" />
+          <Button
+            type='button'
+            variant='outline'
+            onClick={() => setOpen(false)}
+          >
+            <X className='size-4' />
             キャンセル
           </Button>
-          <Button type="button" onClick={handleSave}>
-            <Check className="size-4" />
+          <Button type='button' onClick={handleSave}>
+            <Check className='size-4' />
             適用
           </Button>
         </DialogFooter>

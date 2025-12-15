@@ -37,7 +37,7 @@ export function PasswordField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
-          className='h-10 pr-10 bg-card text-base md:text-base'
+          className='h-10 bg-card pr-10 text-base md:text-base'
         />
         <button
           type='button'

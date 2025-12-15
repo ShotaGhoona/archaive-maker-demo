@@ -12,7 +12,9 @@ interface UseColumnVisibilityProps {
  * - 列の順序変更
  * - リセット/全て非表示/全て表示
  */
-export function useColumnVisibility({ initialVisibleKeys }: UseColumnVisibilityProps) {
+export function useColumnVisibility({
+  initialVisibleKeys,
+}: UseColumnVisibilityProps) {
   const [visibleKeys, setVisibleKeys] = useState<string[]>([]);
   const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
@@ -39,28 +41,34 @@ export function useColumnVisibility({ initialVisibleKeys }: UseColumnVisibilityP
   }, []);
 
   // 上に移動
-  const moveUp = useCallback((keys: string[], isVisible: boolean, key: string) => {
-    const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-    const index = keys.indexOf(key);
-    if (index <= 0) return;
-    setKeys((prev) => {
-      const next = [...prev];
-      [next[index - 1], next[index]] = [next[index], next[index - 1]];
-      return next;
-    });
-  }, []);
+  const moveUp = useCallback(
+    (keys: string[], isVisible: boolean, key: string) => {
+      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
+      const index = keys.indexOf(key);
+      if (index <= 0) return;
+      setKeys((prev) => {
+        const next = [...prev];
+        [next[index - 1], next[index]] = [next[index], next[index - 1]];
+        return next;
+      });
+    },
+    [],
+  );
 
   // 下に移動
-  const moveDown = useCallback((keys: string[], isVisible: boolean, key: string) => {
-    const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-    const index = keys.indexOf(key);
-    if (index < 0 || index >= keys.length - 1) return;
-    setKeys((prev) => {
-      const next = [...prev];
-      [next[index], next[index + 1]] = [next[index + 1], next[index]];
-      return next;
-    });
-  }, []);
+  const moveDown = useCallback(
+    (keys: string[], isVisible: boolean, key: string) => {
+      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
+      const index = keys.indexOf(key);
+      if (index < 0 || index >= keys.length - 1) return;
+      setKeys((prev) => {
+        const next = [...prev];
+        [next[index], next[index + 1]] = [next[index + 1], next[index]];
+        return next;
+      });
+    },
+    [],
+  );
 
   // リセット
   const reset = useCallback(() => {

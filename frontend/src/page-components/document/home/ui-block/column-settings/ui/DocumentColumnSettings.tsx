@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 import { ColumnSettingsWidget } from '@/widgets/common/column-settings/ui/ColumnSettingsWidget';
 
-import { getColumnsByTypeId } from "../../table-view/config/column-configs";
-import { getFilterFieldsByTypeId } from "../../filter/config/filter-config";
+import { getColumnsByTypeId } from '../../table-view/config/column-configs';
+import { getFilterFieldsByTypeId } from '../../filter/config/filter-config';
 
 interface DocumentColumnSettingsProps {
   selectedTypeId: string;
@@ -19,14 +19,14 @@ export function DocumentColumnSettings({
       getColumnsByTypeId(
         selectedTypeId,
         () => {}, // handleOpen placeholder
-        () => {} // handleDelete placeholder
+        () => {}, // handleDelete placeholder
       ),
-    [selectedTypeId]
+    [selectedTypeId],
   );
 
   const filterFields = useMemo(
     () => getFilterFieldsByTypeId(selectedTypeId),
-    [selectedTypeId]
+    [selectedTypeId],
   );
 
   return <ColumnSettingsWidget columns={columns} filterFields={filterFields} />;

@@ -38,7 +38,7 @@ export function NumberField({
         }}
         placeholder={placeholder}
         disabled={disabled}
-        className="h-10 bg-card text-base md:text-base"
+        className='h-10 bg-card text-base md:text-base'
       />
     </div>
   );

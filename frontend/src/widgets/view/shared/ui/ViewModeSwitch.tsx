@@ -19,16 +19,16 @@ export function ViewModeSwitch({
   onViewModeChange,
 }: ViewModeSwitchProps) {
   return (
-    <div className="flex rounded-lg border p-1 bg-card">
+    <div className='flex rounded-lg border bg-card p-1'>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
             variant={viewMode === 'table' ? 'default' : 'ghost'}
-            size="icon"
-            className="h-10 w-10"
+            size='icon'
+            className='h-10 w-10'
             onClick={() => onViewModeChange('table')}
           >
-            <Table className="size-5" />
+            <Table className='size-5' />
           </Button>
         </TooltipTrigger>
         <TooltipContent>テーブル</TooltipContent>
@@ -37,11 +37,11 @@ export function ViewModeSwitch({
         <TooltipTrigger asChild>
           <Button
             variant={viewMode === 'gallery' ? 'default' : 'ghost'}
-            size="icon"
-            className="h-10 w-10"
+            size='icon'
+            className='h-10 w-10'
             onClick={() => onViewModeChange('gallery')}
           >
-            <LayoutGrid className="size-5" />
+            <LayoutGrid className='size-5' />
           </Button>
         </TooltipTrigger>
         <TooltipContent>ギャラリー</TooltipContent>

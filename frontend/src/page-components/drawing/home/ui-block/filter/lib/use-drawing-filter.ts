@@ -25,10 +25,13 @@ export interface UseDrawingFilterReturn {
 
 export function useDrawingFilter(): UseDrawingFilterReturn {
   const [filterOpen, setFilterOpen] = useState(false);
-  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>({});
-  const [advancedFilterValues, setAdvancedFilterValues] = useState<AdvancedFilterValues>({
-    conditions: [],
-  });
+  const [simpleFilterValues, setSimpleFilterValues] = useState<FilterValues>(
+    {},
+  );
+  const [advancedFilterValues, setAdvancedFilterValues] =
+    useState<AdvancedFilterValues>({
+      conditions: [],
+    });
   const [searchQuery, setSearchQuery] = useState('');
 
   const toggleFilter = useCallback(() => {

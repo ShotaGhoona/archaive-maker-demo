@@ -24,7 +24,7 @@ interface ViewPaginationProps {
 
 function getPageNumbers(
   currentPage: number,
-  totalPages: number
+  totalPages: number,
 ): (number | 'ellipsis')[] {
   const pages: (number | 'ellipsis')[] = [];
 
@@ -82,27 +82,27 @@ export function ViewPagination({
   const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <div className="flex shrink-0 items-center justify-between border-t px-4 py-3">
-      <span className="min-w-[100px] text-sm text-muted-foreground">
+    <div className='flex shrink-0 items-center justify-between border-t px-4 py-3'>
+      <span className='min-w-[100px] text-sm text-muted-foreground'>
         {startItem}-{endItem}/{totalItems}
       </span>
 
-      <div className="flex items-center gap-1">
+      <div className='flex items-center gap-1'>
         <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8"
+          variant='ghost'
+          size='icon'
+          className='h-8 w-8'
           onClick={() => onPageChange?.(currentPage - 1)}
           disabled={!canGoPrevious}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className='h-4 w-4' />
         </Button>
 
         {pageNumbers.map((page, index) =>
           page === 'ellipsis' ? (
             <span
               key={`ellipsis-${index}`}
-              className="px-2 text-muted-foreground"
+              className='px-2 text-muted-foreground'
             >
               ...
             </span>
@@ -110,34 +110,34 @@ export function ViewPagination({
             <Button
               key={page}
               variant={page === currentPage ? 'default' : 'ghost'}
-              size="icon"
-              className="h-8 w-8"
+              size='icon'
+              className='h-8 w-8'
               onClick={() => onPageChange?.(page)}
             >
               {page}
             </Button>
-          )
+          ),
         )}
 
         <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8"
+          variant='ghost'
+          size='icon'
+          className='h-8 w-8'
           onClick={() => onPageChange?.(currentPage + 1)}
           disabled={!canGoNext}
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className='h-4 w-4' />
         </Button>
       </div>
 
-      <div className="flex min-w-[100px] items-center justify-end gap-4 text-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
+      <div className='flex min-w-[100px] items-center justify-end gap-4 text-sm text-muted-foreground'>
+        <div className='flex items-center gap-2'>
           <span>ページサイズ</span>
           <Select
             value={String(pageSize)}
             onValueChange={(value) => onPageSizeChange?.(Number(value))}
           >
-            <SelectTrigger className="h-8 w-[70px] bg-card">
+            <SelectTrigger className='h-8 w-[70px] bg-card'>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -151,13 +151,15 @@ export function ViewPagination({
         </div>
 
         {showGridColumns && onGridColumnsChange && (
-          <div className="flex items-center gap-2">
-            <Grid3x3 className="h-4 w-4" />
+          <div className='flex items-center gap-2'>
+            <Grid3x3 className='h-4 w-4' />
             <Select
               value={String(gridColumns)}
-              onValueChange={(value) => onGridColumnsChange(Number(value) as GridColumns)}
+              onValueChange={(value) =>
+                onGridColumnsChange(Number(value) as GridColumns)
+              }
             >
-              <SelectTrigger className="h-8 w-[70px] bg-card">
+              <SelectTrigger className='h-8 w-[70px] bg-card'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

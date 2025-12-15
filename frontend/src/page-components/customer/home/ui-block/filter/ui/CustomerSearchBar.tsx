@@ -7,16 +7,13 @@ interface CustomerSearchBarProps {
   onChange: (value: string) => void;
 }
 
-export function CustomerSearchBar({
-  value,
-  onChange,
-}: CustomerSearchBarProps) {
+export function CustomerSearchBar({ value, onChange }: CustomerSearchBarProps) {
   return (
     <SearchBar
       value={value}
       onChange={onChange}
-      placeholder="顧客コード、会社名で検索..."
-      expandedWidth="w-96"
+      placeholder='顧客コード、会社名で検索...'
+      expandedWidth='w-96'
     />
   );
 }

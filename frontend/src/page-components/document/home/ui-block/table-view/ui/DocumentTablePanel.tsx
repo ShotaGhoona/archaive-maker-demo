@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 
-import { TableViewWidget } from "@/widgets/view/table-view/ui/TableViewWidget";
+import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidget';
 import type {
   SortState,
   PaginationConfig,
   ColumnConfig,
-} from "@/widgets/view/table-view/model/types";
+} from '@/widgets/view/table-view/model/types';
 
-import { getColumnsByTypeId } from "../config/column-configs";
+import { getColumnsByTypeId } from '../config/column-configs';
 import {
   getDocumentTypeById,
   getDocumentDataByTypeId,
-} from "../../../dummy-data/documents";
+} from '../../../dummy-data/documents';
 
 interface DocumentTablePanelProps {
   selectedTypeId: string;
@@ -23,8 +23,8 @@ export function DocumentTablePanel({
   selectedTypeId,
 }: DocumentTablePanelProps) {
   const [sortState, setSortState] = useState<SortState>({
-    key: "updatedAt",
-    direction: "desc",
+    key: 'updatedAt',
+    direction: 'desc',
   });
   const [pagination, setPagination] = useState<PaginationConfig>({
     currentPage: 1,
@@ -37,13 +37,13 @@ export function DocumentTablePanel({
   const data = getDocumentDataByTypeId(selectedTypeId);
 
   const handleOpen = (row: unknown) => {
-    const typeName = selectedType?.name || "帳票";
+    const typeName = selectedType?.name || '帳票';
     alert(`${typeName}を開く（未実装）: ${JSON.stringify(row)}`);
     // TODO: router.push(`/document/${selectedTypeId}/${row.id}`)
   };
 
   const handleDelete = (row: unknown) => {
-    const typeName = selectedType?.name || "帳票";
+    const typeName = selectedType?.name || '帳票';
     alert(`${typeName}を削除（未実装）: ${JSON.stringify(row)}`);
     // TODO: API呼び出し
   };
@@ -53,10 +53,10 @@ export function DocumentTablePanel({
       getColumnsByTypeId(
         selectedTypeId,
         handleOpen,
-        handleDelete
+        handleDelete,
       ) as ColumnConfig<Record<string, unknown>>[],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedTypeId]
+    [selectedTypeId],
   );
 
   const handlePageChange = (page: number) => {
@@ -80,7 +80,7 @@ export function DocumentTablePanel({
 
   if (columns.length === 0) {
     return (
-      <div className="flex flex-1 items-center justify-center text-gray-500">
+      <div className='flex flex-1 items-center justify-center text-gray-500'>
         この帳票種別はまだ実装されていません
       </div>
     );

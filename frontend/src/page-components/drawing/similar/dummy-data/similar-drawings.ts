@@ -29,7 +29,10 @@ function generateSimilarDrawings(count: number): SimilarDrawing[] {
   const drawings: SimilarDrawing[] = [];
 
   for (let i = 0; i < count; i++) {
-    const similarity = Math.max(50, 100 - i * 3 - Math.floor(Math.random() * 5));
+    const similarity = Math.max(
+      50,
+      100 - i * 3 - Math.floor(Math.random() * 5),
+    );
     drawings.push({
       id: `similar-${i + 1}`,
       drawingNumber: `DWG-${2024}-${String(100 + i).padStart(3, '0')}`,
@@ -45,4 +48,5 @@ function generateSimilarDrawings(count: number): SimilarDrawing[] {
   return drawings.sort((a, b) => b.similarity - a.similarity);
 }
 
-export const dummySimilarDrawings: SimilarDrawing[] = generateSimilarDrawings(24);
+export const dummySimilarDrawings: SimilarDrawing[] =
+  generateSimilarDrawings(24);

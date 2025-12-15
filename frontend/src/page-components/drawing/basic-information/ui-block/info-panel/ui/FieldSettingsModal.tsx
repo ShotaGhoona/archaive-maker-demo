@@ -78,35 +78,35 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-card">
-          <Settings className="size-4" />
+        <Button variant='outline' className='bg-card'>
+          <Settings className='size-4' />
           表示項目設定
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-[80vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-5xl">
-        <DialogHeader className="shrink-0 border-b px-6 py-4">
+      <DialogContent className='flex h-[80vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-5xl'>
+        <DialogHeader className='shrink-0 border-b px-6 py-4'>
           <DialogTitle>表示項目の設定</DialogTitle>
         </DialogHeader>
 
-        <div className="flex min-h-0 flex-1 flex-col p-6">
+        <div className='flex min-h-0 flex-1 flex-col p-6'>
           {/* リスト */}
-          <div className="grid min-h-0 flex-1 grid-cols-2 gap-6">
+          <div className='grid min-h-0 flex-1 grid-cols-2 gap-6'>
             {/* 非表示列 */}
-            <div className="flex min-h-0 flex-col rounded-lg border bg-card py-4">
-              <h3 className="mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium">
-                <X className="size-5 text-muted-foreground" />
+            <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+              <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
+                <X className='size-5 text-muted-foreground' />
                 非表示の項目
-                <span className="text-muted-foreground">
+                <span className='text-muted-foreground'>
                   ({hiddenKeys.length})
                 </span>
               </h3>
-              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
+              <div className='flex min-h-0 flex-1 flex-col overflow-y-auto px-4'>
                 {hiddenKeys.length === 0 ? (
-                  <div className="flex flex-1 items-center justify-center">
-                    <NoData title="すべての項目が表示されています" size="sm" />
+                  <div className='flex flex-1 items-center justify-center'>
+                    <NoData title='すべての項目が表示されています' size='sm' />
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className='space-y-2'>
                     {hiddenKeys.map((key, index) => (
                       <FieldItem
                         key={key}
@@ -118,7 +118,7 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
                         onMoveUp={handleMoveUp}
                         onMoveDown={handleMoveDown}
                         onTransfer={handleMoveToVisible}
-                        transferIcon={<ChevronRight className="size-4" />}
+                        transferIcon={<ChevronRight className='size-4' />}
                       />
                     ))}
                   </div>
@@ -127,21 +127,21 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
             </div>
 
             {/* 表示列 */}
-            <div className="flex min-h-0 flex-col rounded-lg border bg-card py-4">
-              <h3 className="mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium">
-                <Check className="size-5 text-muted-foreground" />
+            <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+              <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
+                <Check className='size-5 text-muted-foreground' />
                 表示する項目
-                <span className="text-muted-foreground">
+                <span className='text-muted-foreground'>
                   ({visibleKeys.length})
                 </span>
               </h3>
-              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
+              <div className='flex min-h-0 flex-1 flex-col overflow-y-auto px-4'>
                 {visibleKeys.length === 0 ? (
-                  <div className="flex flex-1 items-center justify-center">
-                    <NoData title="表示する項目がありません" size="sm" />
+                  <div className='flex flex-1 items-center justify-center'>
+                    <NoData title='表示する項目がありません' size='sm' />
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className='space-y-2'>
                     {visibleKeys.map((key, index) => (
                       <FieldItem
                         key={key}
@@ -153,7 +153,7 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
                         onMoveUp={handleMoveUp}
                         onMoveDown={handleMoveDown}
                         onTransfer={handleMoveToHidden}
-                        transferIcon={<ChevronLeft className="size-4" />}
+                        transferIcon={<ChevronLeft className='size-4' />}
                       />
                     ))}
                   </div>
@@ -164,27 +164,27 @@ export function FieldSettingsModal({ fields }: FieldSettingsModalProps) {
         </div>
 
         {/* フッター */}
-        <DialogFooter className="shrink-0 border-t bg-background px-6 py-4">
-          <div className="mr-auto flex gap-2">
-            <Button type="button" variant="outline" onClick={handleReset}>
-              <RotateCcw className="size-4" />
+        <DialogFooter className='shrink-0 border-t bg-background px-6 py-4'>
+          <div className='mr-auto flex gap-2'>
+            <Button type='button' variant='outline' onClick={handleReset}>
+              <RotateCcw className='size-4' />
               リセット
             </Button>
-            <Button type="button" variant="outline" onClick={handleHideAll}>
-              <EyeOff className="size-4" />
+            <Button type='button' variant='outline' onClick={handleHideAll}>
+              <EyeOff className='size-4' />
               全て非表示
             </Button>
-            <Button type="button" variant="outline" onClick={handleShowAll}>
-              <Eye className="size-4" />
+            <Button type='button' variant='outline' onClick={handleShowAll}>
+              <Eye className='size-4' />
               全て表示
             </Button>
           </div>
-          <Button type="button" variant="outline">
-            <X className="size-4" />
+          <Button type='button' variant='outline'>
+            <X className='size-4' />
             キャンセル
           </Button>
-          <Button type="button">
-            <Check className="size-4" />
+          <Button type='button'>
+            <Check className='size-4' />
             保存
           </Button>
         </DialogFooter>

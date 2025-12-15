@@ -12,10 +12,15 @@ export function CustomerColumnSettings() {
     () =>
       createCustomerColumns(
         () => {}, // handleOpen placeholder
-        () => {} // handleDelete placeholder
+        () => {}, // handleDelete placeholder
       ),
-    []
+    [],
   );
 
-  return <ColumnSettingsWidget columns={columns} filterFields={customerFilterFields} />;
+  return (
+    <ColumnSettingsWidget
+      columns={columns}
+      filterFields={customerFilterFields}
+    />
+  );
 }

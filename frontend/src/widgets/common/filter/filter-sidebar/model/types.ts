@@ -46,15 +46,15 @@ export type FilterValues = Record<string, unknown>;
 
 // 高度なフィルター条件の演算子
 export type AdvancedFilterOperator =
-  | 'equals'        // 等しい
-  | 'not_equals'    // 等しくない
-  | 'contains'      // 含む
-  | 'not_contains'  // 含まない
-  | 'starts_with'   // で始まる
-  | 'ends_with'     // で終わる
-  | 'greater_than'  // より大きい
-  | 'less_than'     // より小さい
-  | 'is_empty'      // 空
+  | 'equals' // 等しい
+  | 'not_equals' // 等しくない
+  | 'contains' // 含む
+  | 'not_contains' // 含まない
+  | 'starts_with' // で始まる
+  | 'ends_with' // で終わる
+  | 'greater_than' // より大きい
+  | 'less_than' // より小さい
+  | 'is_empty' // 空
   | 'is_not_empty'; // 空でない
 
 // 高度なフィルター条件

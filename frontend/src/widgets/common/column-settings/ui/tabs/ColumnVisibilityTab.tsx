@@ -28,23 +28,23 @@ export function ColumnVisibilityTab({
   onMoveToVisible,
 }: ColumnVisibilityTabProps) {
   return (
-    <div className="flex h-full flex-col">
+    <div className='flex h-full flex-col'>
       {/* リスト */}
-      <div className="grid min-h-0 flex-1 grid-cols-2 gap-6">
+      <div className='grid min-h-0 flex-1 grid-cols-2 gap-6'>
         {/* 非表示列 */}
-        <div className="flex min-h-0 flex-col rounded-lg border bg-card py-4">
-          <h3 className="mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium">
-            <X className="size-5 text-muted-foreground" />
+        <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+          <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
+            <X className='size-5 text-muted-foreground' />
             非表示の列
-            <span className="text-muted-foreground">({hiddenKeys.length})</span>
+            <span className='text-muted-foreground'>({hiddenKeys.length})</span>
           </h3>
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
+          <div className='flex min-h-0 flex-1 flex-col overflow-y-auto px-4'>
             {hiddenKeys.length === 0 ? (
-              <div className="flex flex-1 items-center justify-center">
-                <NoData title="すべての列が表示されています" size="sm" />
+              <div className='flex flex-1 items-center justify-center'>
+                <NoData title='すべての列が表示されています' size='sm' />
               </div>
             ) : (
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 {hiddenKeys.map((key, index) => (
                   <ColumnItem
                     key={key}
@@ -56,7 +56,7 @@ export function ColumnVisibilityTab({
                     onMoveUp={() => onMoveUp(hiddenKeys, false, key)}
                     onMoveDown={() => onMoveDown(hiddenKeys, false, key)}
                     onTransfer={() => onMoveToVisible(key)}
-                    transferIcon={<ChevronRight className="size-4" />}
+                    transferIcon={<ChevronRight className='size-4' />}
                   />
                 ))}
               </div>
@@ -65,19 +65,21 @@ export function ColumnVisibilityTab({
         </div>
 
         {/* 表示列 */}
-        <div className="flex min-h-0 flex-col rounded-lg border bg-card py-4">
-          <h3 className="mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium">
-            <Check className="size-5 text-muted-foreground" />
+        <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+          <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
+            <Check className='size-5 text-muted-foreground' />
             表示する列
-            <span className="text-muted-foreground">({visibleKeys.length})</span>
+            <span className='text-muted-foreground'>
+              ({visibleKeys.length})
+            </span>
           </h3>
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4">
+          <div className='flex min-h-0 flex-1 flex-col overflow-y-auto px-4'>
             {visibleKeys.length === 0 ? (
-              <div className="flex flex-1 items-center justify-center">
-                <NoData title="表示する列がありません" size="sm" />
+              <div className='flex flex-1 items-center justify-center'>
+                <NoData title='表示する列がありません' size='sm' />
               </div>
             ) : (
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 {visibleKeys.map((key, index) => (
                   <ColumnItem
                     key={key}
@@ -89,7 +91,7 @@ export function ColumnVisibilityTab({
                     onMoveUp={() => onMoveUp(visibleKeys, true, key)}
                     onMoveDown={() => onMoveDown(visibleKeys, true, key)}
                     onTransfer={() => onMoveToHidden(key)}
-                    transferIcon={<ChevronLeft className="size-4" />}
+                    transferIcon={<ChevronLeft className='size-4' />}
                   />
                 ))}
               </div>

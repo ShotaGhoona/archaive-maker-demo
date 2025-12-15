@@ -27,5 +27,5 @@ export const drawingCategoryOptions: SelectOption[] = DRAWING_CATEGORIES.map(
   (c) => ({
     label: c.name,
     value: c.name,
-  })
+  }),
 );

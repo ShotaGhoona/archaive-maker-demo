@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { FilterToggleButton } from "@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton";
+import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
 
 interface DocumentFilterButtonProps {
   open: boolean;

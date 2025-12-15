@@ -44,41 +44,41 @@ export function SearchBar({
     <div
       className={cn(
         'relative transition-all duration-200',
-        isExpanded ? expandedWidth : 'w-12'
+        isExpanded ? expandedWidth : 'w-12',
       )}
     >
       {isExpanded ? (
         <>
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className='absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground' />
           <input
             ref={inputRef}
-            type="text"
+            type='text'
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onBlur={handleCollapse}
             placeholder={placeholder}
-            className="h-12 w-full rounded-lg border bg-card pl-9 pr-9 text-base outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            className='h-12 w-full rounded-lg border bg-card pl-9 pr-9 text-base outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50'
           />
           {value && (
             <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-1.5 top-1/2 size-7 -translate-y-1/2"
+              variant='ghost'
+              size='icon'
+              className='absolute right-1.5 top-1/2 size-7 -translate-y-1/2'
               onMouseDown={(e) => e.preventDefault()}
               onClick={handleClear}
             >
-              <X className="size-4" />
+              <X className='size-4' />
             </Button>
           )}
         </>
       ) : (
         <Button
-          variant="outline"
-          size="icon-xl"
-          className="bg-card"
+          variant='outline'
+          size='icon-xl'
+          className='bg-card'
           onClick={handleExpand}
         >
-          <Search className="size-5" />
+          <Search className='size-5' />
         </Button>
       )}
     </div>

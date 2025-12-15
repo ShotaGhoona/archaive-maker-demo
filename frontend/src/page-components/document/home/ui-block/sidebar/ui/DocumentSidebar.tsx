@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ClipboardList, Settings } from "lucide-react";
+import { useState } from 'react';
+import { ClipboardList, Settings } from 'lucide-react';
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/shared/ui/shadcn/ui/tooltip";
-import { cn } from "@/shared/ui/shadcn/lib/utils";
+} from '@/shared/ui/shadcn/ui/tooltip';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 import {
   documentTypes,
   type DocumentCategory,
-} from "../../../dummy-data/documents";
-import { DocumentTypeManageDialog } from "./DocumentTypeManageDialog";
-import { SidebarSearchFilter } from "./components/SidebarSearchFilter";
-import { DocumentTypeItem } from "./components/DocumentTypeItem";
+} from '../../../dummy-data/documents';
+import { DocumentTypeManageDialog } from './DocumentTypeManageDialog';
+import { SidebarSearchFilter } from './components/SidebarSearchFilter';
+import { DocumentTypeItem } from './components/DocumentTypeItem';
 
 interface DocumentSidebarProps {
   selectedTypeId: string;
@@ -30,8 +30,10 @@ export function DocumentSidebar({
   onSelectType,
   collapsed = false,
 }: DocumentSidebarProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<DocumentCategory | "all">("all");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<
+    DocumentCategory | 'all'
+  >('all');
 
   // フィルタリング
   const filteredTypes = documentTypes.filter((type) => {
@@ -39,7 +41,7 @@ export function DocumentSidebar({
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const matchesCategory =
-      categoryFilter === "all" || type.category === categoryFilter;
+      categoryFilter === 'all' || type.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
 
@@ -47,29 +49,29 @@ export function DocumentSidebar({
   if (collapsed) {
     return (
       <TooltipProvider delayDuration={0}>
-        <aside className="flex h-full w-14 flex-col border-r bg-card shadow-md">
-          <nav className="flex-1 overflow-y-auto p-2">
+        <aside className='flex h-full w-14 flex-col border-r bg-card shadow-md'>
+          <nav className='flex-1 overflow-y-auto p-2'>
             {/* 帳票種別管理ボタン */}
-            <div className="mb-2">
+            <div className='mb-2'>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div>
                     <DocumentTypeManageDialog
                       trigger={
-                        <button className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-400 transition-colors hover:border-gray-400 hover:bg-gray-50 hover:text-gray-600">
-                          <Settings className="size-5" />
+                        <button className='flex h-10 w-10 items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-400 transition-colors hover:border-gray-400 hover:bg-gray-50 hover:text-gray-600'>
+                          <Settings className='size-5' />
                         </button>
                       }
                     />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="right">
+                <TooltipContent side='right'>
                   <p>帳票種別を管理</p>
                 </TooltipContent>
               </Tooltip>
             </div>
 
-            <ul className="space-y-1">
+            <ul className='space-y-1'>
               {filteredTypes.map((type) => (
                 <li key={type.id}>
                   <Tooltip>
@@ -77,16 +79,16 @@ export function DocumentSidebar({
                       <button
                         onClick={() => onSelectType(type.id)}
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
+                          'flex h-10 w-10 items-center justify-center rounded-md transition-colors',
                           selectedTypeId === type.id
-                            ? "bg-blue-100 text-blue-700"
-                            : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                            ? 'bg-blue-100 text-blue-700'
+                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700',
                         )}
                       >
-                        <ClipboardList className="size-5" />
+                        <ClipboardList className='size-5' />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
+                    <TooltipContent side='right'>
                       <p>{type.name}</p>
                     </TooltipContent>
                   </Tooltip>
@@ -100,9 +102,9 @@ export function DocumentSidebar({
   }
 
   return (
-    <aside className="flex h-full w-64 flex-col border-r bg-card shadow-md">
+    <aside className='flex h-full w-64 flex-col border-r bg-card shadow-md'>
       {/* 帳票種別管理ボタン */}
-      <div className="px-2 py-4 border-b">
+      <div className='border-b px-2 py-4'>
         <DocumentTypeManageDialog />
       </div>
       <SidebarSearchFilter
@@ -112,8 +114,8 @@ export function DocumentSidebar({
         onCategoryFilterChange={setCategoryFilter}
       />
 
-      <nav className="flex-1 overflow-y-auto p-2">
-        <ul className="space-y-1">
+      <nav className='flex-1 overflow-y-auto p-2'>
+        <ul className='space-y-1'>
           {filteredTypes.map((type) => (
             <DocumentTypeItem
               key={type.id}

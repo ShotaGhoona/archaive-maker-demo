@@ -35,40 +35,40 @@ export function FieldItem({
       }`}
       onClick={onSelect}
     >
-      <GripVertical className="size-5 text-muted-foreground" />
-      <span className="flex-1 text-base">{label}</span>
-      <div className="flex items-center gap-1">
+      <GripVertical className='size-5 text-muted-foreground' />
+      <span className='flex-1 text-base'>{label}</span>
+      <div className='flex items-center gap-1'>
         <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="size-9"
+          type='button'
+          variant='ghost'
+          size='icon'
+          className='size-9'
           onClick={(e) => {
             e.stopPropagation();
             onMoveUp();
           }}
           disabled={isFirst}
         >
-          <ChevronUp className="size-5" />
+          <ChevronUp className='size-5' />
         </Button>
         <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="size-9"
+          type='button'
+          variant='ghost'
+          size='icon'
+          className='size-9'
           onClick={(e) => {
             e.stopPropagation();
             onMoveDown();
           }}
           disabled={isLast}
         >
-          <ChevronDown className="size-5" />
+          <ChevronDown className='size-5' />
         </Button>
         <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="size-9"
+          type='button'
+          variant='ghost'
+          size='icon'
+          className='size-9'
           onClick={(e) => {
             e.stopPropagation();
             onTransfer();

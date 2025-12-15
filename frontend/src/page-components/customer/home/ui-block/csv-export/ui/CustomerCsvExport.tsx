@@ -12,9 +12,9 @@ export function CustomerCsvExport() {
     () =>
       createCustomerColumns(
         () => {}, // handleOpen placeholder
-        () => {} // handleDelete placeholder
+        () => {}, // handleDelete placeholder
       ),
-    []
+    [],
   );
 
   return <CsvExportModalWidget columns={columns} data={dummyCustomers} />;

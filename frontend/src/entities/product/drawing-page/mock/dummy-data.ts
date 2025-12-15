@@ -169,14 +169,15 @@ function generateDrawingPagesDTO(count: number): DrawingPageDTO[] {
 // ============================================
 
 /** ダミーデータ（50件） */
-export const dummyDrawingPagesDTO: DrawingPageDTO[] = generateDrawingPagesDTO(50);
+export const dummyDrawingPagesDTO: DrawingPageDTO[] =
+  generateDrawingPagesDTO(50);
 
 /**
  * ページネーション付きダミーレスポンスを生成
  */
 export function getDummyDrawingPageListDTO(
   page: number = 1,
-  perPage: number = 20
+  perPage: number = 20,
 ): DrawingPageListDTO {
   const startIndex = (page - 1) * perPage;
   const items = dummyDrawingPagesDTO.slice(startIndex, startIndex + perPage);

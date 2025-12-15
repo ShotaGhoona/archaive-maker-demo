@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { FilterSidebarWidget } from "@/widgets/common/filter/filter-sidebar/ui/FilterSidebarWidget";
+import { FilterSidebarWidget } from '@/widgets/common/filter/filter-sidebar/ui/FilterSidebarWidget';
 import type {
   FilterValues,
   AdvancedFilterValues,
   FilterFieldConfig,
-} from "@/widgets/common/filter/filter-sidebar/model/types";
+} from '@/widgets/common/filter/filter-sidebar/model/types';
 
 interface DocumentFilterSidebarProps {
   open: boolean;

@@ -83,7 +83,10 @@ function getThumbnailUrl(seed: number): string {
 }
 
 // ダミーサムネイル（書き込み済みバージョン）を生成
-function generateThumbnails(drawingId: string, count: number): DrawingThumbnail[] {
+function generateThumbnails(
+  drawingId: string,
+  count: number,
+): DrawingThumbnail[] {
   const creators = ['山田太郎', '佐藤花子', '田中一郎', '鈴木次郎'];
   const thumbnailNames = [
     'オリジナル',
@@ -99,7 +102,9 @@ function generateThumbnails(drawingId: string, count: number): DrawingThumbnail[
       id: `thumbnail-${drawingId}-${i + 1}`,
       drawingId,
       name: thumbnailNames[i % thumbnailNames.length],
-      thumbnailUrl: getThumbnailUrl(parseInt(drawingId.split('-')[1] || '1') * 100 + i),
+      thumbnailUrl: getThumbnailUrl(
+        parseInt(drawingId.split('-')[1] || '1') * 100 + i,
+      ),
       createdBy: creators[i % creators.length],
       createdAt: `2024-${String(Math.floor(i / 2) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
       isOriginal: i === 0,
@@ -236,7 +241,7 @@ export function getProductDrawings(productId: string): DrawingItem[] {
 // 図面のサムネイルを取得するヘルパー関数
 export function getDrawingThumbnails(
   productId: string,
-  drawingId: string
+  drawingId: string,
 ): DrawingThumbnail[] {
   const drawings = getProductDrawings(productId);
   const drawing = drawings.find((d) => d.id === drawingId);

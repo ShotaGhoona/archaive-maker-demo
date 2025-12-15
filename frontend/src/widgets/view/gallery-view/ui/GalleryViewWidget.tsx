@@ -35,16 +35,18 @@ export function GalleryViewWidget<T extends object>({
       }[columns] || 'grid-cols-4';
 
   return (
-    <div className={`flex min-h-0 flex-1 flex-col ${isResponsive ? '@container' : ''}`}>
+    <div
+      className={`flex min-h-0 flex-1 flex-col ${isResponsive ? '@container' : ''}`}
+    >
       {data.length === 0 ? (
-        <div className="flex min-h-0 flex-1 items-center justify-center">
+        <div className='flex min-h-0 flex-1 items-center justify-center'>
           <NoData
-            title="データがありません"
-            description="フィルター条件を変更してください"
+            title='データがありません'
+            description='フィルター条件を変更してください'
           />
         </div>
       ) : (
-        <div className="min-h-0 flex-1 overflow-auto">
+        <div className='min-h-0 flex-1 overflow-auto'>
           <div className={`grid ${gridColsClass} gap-4`}>
             {data.map((item, index) => (
               <GalleryCard

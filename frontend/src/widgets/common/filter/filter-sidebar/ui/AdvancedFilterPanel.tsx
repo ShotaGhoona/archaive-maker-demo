@@ -71,11 +71,11 @@ export function AdvancedFilterPanel({
   const handleConditionChange = (
     id: string,
     key: keyof AdvancedFilterCondition,
-    value: unknown
+    value: unknown,
   ) => {
     onValuesChange({
       conditions: conditions.map((c) =>
-        c.id === id ? { ...c, [key]: value } : c
+        c.id === id ? { ...c, [key]: value } : c,
       ),
     });
   };
@@ -90,96 +90,106 @@ export function AdvancedFilterPanel({
   };
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex-1 overflow-auto p-4">
+    <div className='flex flex-1 flex-col'>
+      <div className='flex-1 overflow-auto p-4'>
         {conditions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
-            <p className="text-sm">条件が設定されていません</p>
-            <p className="text-xs mt-1">下のボタンから条件を追加してください</p>
+          <div className='flex flex-col items-center justify-center py-8 text-center text-muted-foreground'>
+            <p className='text-sm'>条件が設定されていません</p>
+            <p className='mt-1 text-xs'>下のボタンから条件を追加してください</p>
           </div>
         ) : (
-          <div className="flex flex-col">
+          <div className='flex flex-col'>
             {conditions.map((condition, index) => (
               <div key={condition.id}>
                 {index > 0 && (
-                  <div className="flex items-center justify-center py-2">
-                    <span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">
+                  <div className='flex items-center justify-center py-2'>
+                    <span className='rounded bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground'>
                       AND
                     </span>
                   </div>
                 )}
-                <div className="group relative rounded-lg border bg-card p-3 flex flex-col gap-2">
+                <div className='group relative flex flex-col gap-2 rounded-lg border bg-card p-3'>
                   {/* 削除ボタン（ホバー時のみ表示） */}
                   <button
-                    type="button"
+                    type='button'
                     onClick={() => handleRemoveCondition(condition.id)}
-                    className="absolute -right-2 -top-2 rounded-full bg-muted p-1 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:bg-destructive hover:text-destructive-foreground"
+                    className='absolute -right-2 -top-2 rounded-full bg-muted p-1 text-muted-foreground opacity-0 transition-opacity hover:bg-destructive hover:text-destructive-foreground group-hover:opacity-100'
                   >
-                    <X className="h-3 w-3" />
+                    <X className='h-3 w-3' />
                   </button>
 
-                {/* 対象フィールド */}
-                <div className="flex items-center gap-2">
-                  <Label className="w-8 shrink-0 text-xs text-muted-foreground">対象</Label>
-                  <Select
-                    value={condition.field}
-                    onValueChange={(v) =>
-                      handleConditionChange(condition.id, 'field', v)
-                    }
-                  >
-                    <SelectTrigger className="bg-card w-full">
-                      <SelectValue placeholder="対象を選択" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {fields.map((field) => (
-                        <SelectItem key={field.key} value={field.key}>
-                          {field.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* 条件 */}
-                <div className="flex items-center gap-2">
-                  <Label className="w-8 shrink-0 text-xs text-muted-foreground">条件</Label>
-                  <Select
-                    value={condition.operator}
-                    onValueChange={(v) =>
-                      handleConditionChange(
-                        condition.id,
-                        'operator',
-                        v as AdvancedFilterOperator
-                      )
-                    }
-                  >
-                    <SelectTrigger className="bg-card w-full">
-                      <SelectValue placeholder="条件を選択" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {OPERATORS.map((op) => (
-                        <SelectItem key={op.value} value={op.value}>
-                          {op.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* 値 */}
-                {isValueRequired(condition.operator) && (
-                  <div className="flex items-center gap-2">
-                    <Label className="w-8 shrink-0 text-xs text-muted-foreground">値</Label>
-                    <Input
-                      placeholder="値を入力"
-                      value={(condition.value as string) ?? ''}
-                      onChange={(e) =>
-                        handleConditionChange(condition.id, 'value', e.target.value)
+                  {/* 対象フィールド */}
+                  <div className='flex items-center gap-2'>
+                    <Label className='w-8 shrink-0 text-xs text-muted-foreground'>
+                      対象
+                    </Label>
+                    <Select
+                      value={condition.field}
+                      onValueChange={(v) =>
+                        handleConditionChange(condition.id, 'field', v)
                       }
-                      className="bg-card"
-                    />
+                    >
+                      <SelectTrigger className='w-full bg-card'>
+                        <SelectValue placeholder='対象を選択' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {fields.map((field) => (
+                          <SelectItem key={field.key} value={field.key}>
+                            {field.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                )}
+
+                  {/* 条件 */}
+                  <div className='flex items-center gap-2'>
+                    <Label className='w-8 shrink-0 text-xs text-muted-foreground'>
+                      条件
+                    </Label>
+                    <Select
+                      value={condition.operator}
+                      onValueChange={(v) =>
+                        handleConditionChange(
+                          condition.id,
+                          'operator',
+                          v as AdvancedFilterOperator,
+                        )
+                      }
+                    >
+                      <SelectTrigger className='w-full bg-card'>
+                        <SelectValue placeholder='条件を選択' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {OPERATORS.map((op) => (
+                          <SelectItem key={op.value} value={op.value}>
+                            {op.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* 値 */}
+                  {isValueRequired(condition.operator) && (
+                    <div className='flex items-center gap-2'>
+                      <Label className='w-8 shrink-0 text-xs text-muted-foreground'>
+                        値
+                      </Label>
+                      <Input
+                        placeholder='値を入力'
+                        value={(condition.value as string) ?? ''}
+                        onChange={(e) =>
+                          handleConditionChange(
+                            condition.id,
+                            'value',
+                            e.target.value,
+                          )
+                        }
+                        className='bg-card'
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -188,17 +198,17 @@ export function AdvancedFilterPanel({
 
         {/* 条件追加ボタン */}
         <Button
-          variant="outline"
-          className="w-full mt-4"
+          variant='outline'
+          className='mt-4 w-full'
           onClick={handleAddCondition}
         >
-          <Plus className="h-4 w-4 mr-1" />
+          <Plus className='mr-1 h-4 w-4' />
           条件を追加
         </Button>
       </div>
 
-      <div className="border-t px-4 py-3">
-        <Button variant="outline" className="w-full" onClick={handleReset}>
+      <div className='border-t px-4 py-3'>
+        <Button variant='outline' className='w-full' onClick={handleReset}>
           リセット
         </Button>
       </div>

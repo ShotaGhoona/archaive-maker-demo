@@ -29,7 +29,8 @@ export function SimpleFilterPanel({
   const handleReset = () => {
     const resetValues: FilterValues = {};
     fields.forEach((field) => {
-      resetValues[field.key] = field.defaultValue ?? getDefaultValue(field.type);
+      resetValues[field.key] =
+        field.defaultValue ?? getDefaultValue(field.type);
     });
     onValuesChange(resetValues);
     onReset?.();
@@ -106,12 +107,12 @@ export function SimpleFilterPanel({
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <div className="min-h-0 flex-1 space-y-4 overflow-auto p-4">
+    <div className='flex min-h-0 flex-1 flex-col'>
+      <div className='min-h-0 flex-1 space-y-4 overflow-auto p-4'>
         {fields.map(renderField)}
       </div>
-      <div className="border-t px-4 py-3">
-        <Button variant="outline" className="w-full" onClick={handleReset}>
+      <div className='border-t px-4 py-3'>
+        <Button variant='outline' className='w-full' onClick={handleReset}>
           リセット
         </Button>
       </div>

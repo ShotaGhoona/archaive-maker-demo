@@ -56,9 +56,9 @@ export function DrawingDetailHeader() {
   };
 
   return (
-    <header className="flex h-12 shrink-0 items-center border-b bg-card">
+    <header className='flex h-12 shrink-0 items-center border-b bg-card'>
       {/* Navigation Tabs */}
-      <nav className="flex h-full items-center">
+      <nav className='flex h-full items-center'>
         {tabs.map((tab, index) => {
           const Icon = tab.icon;
           return (
@@ -71,13 +71,13 @@ export function DrawingDetailHeader() {
                 index !== 0 && 'border-l border-border/50',
                 currentPath === tab.path
                   ? 'text-foreground'
-                  : 'text-muted-foreground'
+                  : 'text-muted-foreground',
               )}
             >
-              <Icon className="size-4" />
+              <Icon className='size-4' />
               {tab.label}
               {currentPath === tab.path && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-primary' />
               )}
             </Link>
           );
@@ -85,17 +85,17 @@ export function DrawingDetailHeader() {
       </nav>
 
       {/* Spacer */}
-      <div className="flex-1" />
+      <div className='flex-1' />
 
       {/* Actions Menu */}
-      <div className="flex h-full items-center border-l border-border/50 px-2">
+      <div className='flex h-full items-center border-l border-border/50 px-2'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="size-8">
-              <MoreHorizontal className="size-4" />
+            <Button variant='ghost' size='icon' className='size-8'>
+              <MoreHorizontal className='size-4' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuItem onClick={handleBack}>
               <ArrowLeft />
               一覧に戻る
@@ -109,7 +109,7 @@ export function DrawingDetailHeader() {
               ダウンロード
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onClick={handleDelete}>
+            <DropdownMenuItem variant='destructive' onClick={handleDelete}>
               <Trash2 />
               削除
             </DropdownMenuItem>

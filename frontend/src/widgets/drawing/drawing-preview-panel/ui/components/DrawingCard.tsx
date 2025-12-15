@@ -23,20 +23,20 @@ export function DrawingCard({
     <div
       className={cn(
         'w-36 cursor-pointer overflow-hidden rounded-lg border bg-card shadow-sm transition-colors hover:border-primary/50',
-        isSelected && 'border-primary ring-1 ring-primary/30'
+        isSelected && 'border-primary ring-1 ring-primary/30',
       )}
       onClick={onClick}
     >
-      <div className="aspect-[4/3] overflow-hidden bg-muted">
+      <div className='aspect-[4/3] overflow-hidden bg-muted'>
         <img
           src={thumbnail.thumbnailUrl}
           alt={thumbnail.name}
-          className="size-full object-cover"
+          className='size-full object-cover'
         />
       </div>
-      <div className="p-2">
-        <p className="truncate text-base font-medium">{thumbnail.name}</p>
-        <p className="truncate text-sm text-muted-foreground">
+      <div className='p-2'>
+        <p className='truncate text-base font-medium'>{thumbnail.name}</p>
+        <p className='truncate text-sm text-muted-foreground'>
           {drawingNumber}
         </p>
       </div>

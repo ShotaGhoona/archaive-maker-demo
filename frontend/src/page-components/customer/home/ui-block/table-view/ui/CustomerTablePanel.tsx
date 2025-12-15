@@ -9,7 +9,10 @@ import type {
 } from '@/widgets/view/table-view/model/types';
 
 import { createCustomerColumns } from '../config/column-config';
-import { dummyCustomers, type CustomerItem } from '../../../dummy-data/customers';
+import {
+  dummyCustomers,
+  type CustomerItem,
+} from '../../../dummy-data/customers';
 
 export function CustomerTablePanel() {
   const [sortState, setSortState] = useState<SortState>({
@@ -36,7 +39,7 @@ export function CustomerTablePanel() {
 
   const columns = useMemo(
     () => createCustomerColumns(handleOpen, handleDelete),
-    []
+    [],
   );
 
   const handlePageChange = (page: number) => {

@@ -18,7 +18,8 @@ export function GalleryCard<T extends object>({
   cardConfig,
   onClick,
 }: GalleryCardProps<T>) {
-  const { thumbnailKey, contentRenderer, overlayRenderer, cardRenderer } = cardConfig;
+  const { thumbnailKey, contentRenderer, overlayRenderer, cardRenderer } =
+    cardConfig;
 
   // カスタムカードレンダラーがある場合はそれを使用
   if (cardRenderer) {
@@ -31,32 +32,30 @@ export function GalleryCard<T extends object>({
   return (
     <Card
       className={cn(
-        'group relative overflow-hidden transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)] p-3 gap-3',
-        onClick && 'cursor-pointer space-y-0'
+        'group relative gap-3 overflow-hidden p-3 transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)]',
+        onClick && 'cursor-pointer space-y-0',
       )}
       onClick={() => onClick?.(item, index)}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-card">
+      <div className='relative aspect-[4/3] w-full overflow-hidden bg-card'>
         {thumbnail ? (
           <Image
             src={thumbnail}
-            alt=""
+            alt=''
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className='object-cover'
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw'
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-muted-foreground">
+          <div className='flex h-full items-center justify-center text-muted-foreground'>
             No Image
           </div>
         )}
       </div>
-      <CardContent className="p-0">
-        {contentRenderer(item, index)}
-      </CardContent>
+      <CardContent className='p-0'>{contentRenderer(item, index)}</CardContent>
       {/* ホバーオーバーレイ（カード全体） */}
       {hasOverlay && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
+        <div className='absolute inset-0 flex items-center justify-center rounded-lg bg-black/60 opacity-0 transition-opacity group-hover:opacity-100'>
           {overlayRenderer(item, index)}
         </div>
       )}

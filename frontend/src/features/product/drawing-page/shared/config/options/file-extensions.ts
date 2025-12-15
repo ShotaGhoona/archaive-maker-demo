@@ -16,5 +16,5 @@ export const fileExtensionOptions: SelectOption[] = FILE_EXTENSIONS.map(
   (ext) => ({
     label: ext,
     value: ext,
-  })
+  }),
 );

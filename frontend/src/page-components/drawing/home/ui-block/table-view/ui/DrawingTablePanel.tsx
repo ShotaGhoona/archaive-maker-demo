@@ -4,7 +4,10 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { TableViewWidget } from '@/widgets/view/table-view/ui/TableViewWidget';
-import type { SortState, PaginationConfig } from '@/widgets/view/table-view/model/types';
+import type {
+  SortState,
+  PaginationConfig,
+} from '@/widgets/view/table-view/model/types';
 
 import { useDrawingPages } from '@/features/product/drawing-page/get-list/lib/use-drawing-pages';
 import type { DrawingPage } from '@/entities/product/drawing-page/model/entity';
@@ -29,13 +32,13 @@ export function DrawingTablePanel() {
 
   const handleDelete = (row: DrawingPage) => {
     alert(
-      `図面を削除（未実装）: ${row.drawingNumber} - ${row.leafProductName || row.drawingFileName}`
+      `図面を削除（未実装）: ${row.drawingNumber} - ${row.leafProductName || row.drawingFileName}`,
     );
   };
 
   const columns = useMemo(
     () => createTableColumns(handleOpen, handleDelete),
-    []
+    [],
   );
 
   const pagination: PaginationConfig = {
