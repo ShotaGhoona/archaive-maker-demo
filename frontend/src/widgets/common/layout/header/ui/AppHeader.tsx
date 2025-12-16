@@ -5,6 +5,7 @@ import {
   Package,
   ClipboardList,
   Users,
+  Briefcase,
   Settings,
   HelpCircle,
   LogOut,
@@ -45,6 +46,12 @@ const navItems: NavItem[] = [
     label: 'BOM管理',
     icon: <Package className='size-5' />,
     href: '/bom',
+  },
+  {
+    id: 'project',
+    label: '案件管理',
+    icon: <Briefcase className='size-5' />,
+    href: '/project',
   },
   {
     id: 'document',
