@@ -26,11 +26,13 @@ export function BomTreeBlock({ treeNodes }: BomTreeBlockProps) {
   };
 
   return (
-    <BomTreePanel
-      treeNodes={treeNodes}
-      selectedNodeId={null}
-      onSelectNode={handleSelectNode}
-      emptyMessage='子要素がありません'
-    />
+    <div className='min-h-0 flex-1 overflow-auto px-4 flex flex-col'>
+      <BomTreePanel
+        treeNodes={treeNodes}
+        selectedNodeId={null}
+        onSelectNode={handleSelectNode}
+        emptyMessage='子要素がありません'
+      />
+    </div>
   );
 }
