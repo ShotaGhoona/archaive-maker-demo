@@ -1,4 +1,5 @@
-import type { BomTreeNode, FlattenedNode, Connector } from '../ui-block/node/dummy-data/node-data';
+import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
+import type { FlattenedNode, Connector } from '../model/canvas-types';
 
 // レイアウト定数
 const NODE_WIDTH = 250;

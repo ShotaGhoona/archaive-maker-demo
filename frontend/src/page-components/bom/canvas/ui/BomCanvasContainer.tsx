@@ -8,7 +8,7 @@ import { NodeConnector } from '../ui-block/connector/ui/NodeConnector';
 import { calculateBomTreeLayout } from '../lib/tree-layout';
 
 import bomData from '@/shared/dummy-data/bom/mock6LayerRobotArm.json';
-import type { BomData } from '../ui-block/node/dummy-data/node-data';
+import type { BomData } from '@/shared/dummy-data/bom/types';
 
 export function BomCanvasContainer() {
   const { nodes, connectors } = useMemo(() => {

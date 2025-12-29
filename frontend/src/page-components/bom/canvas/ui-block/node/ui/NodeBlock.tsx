@@ -5,7 +5,7 @@ import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSh
 import { DocumentPreviewDialog } from '@/widgets/bom/canvas/document-preview/ui/DocumentPreviewDialog';
 import { DrawingPreviewDialog } from '@/widgets/bom/canvas/drawing-preview/ui/DrawingPreviewDialog';
 
-import type { BomTreeNode } from '../dummy-data/node-data';
+import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
 
 interface NodeBlockProps {
   node: BomTreeNode;

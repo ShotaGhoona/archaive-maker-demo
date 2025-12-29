@@ -18,7 +18,7 @@ import {
   TooltipTrigger,
 } from '@/shared/ui/shadcn/ui/tooltip';
 
-import type { Drawing } from '@/page-components/bom/canvas/ui-block/node/dummy-data/node-data';
+import type { Drawing } from '@/shared/dummy-data/bom/types';
 
 interface DrawingPreviewDialogProps {
   drawing: Drawing;
