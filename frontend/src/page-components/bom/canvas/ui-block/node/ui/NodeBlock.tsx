@@ -5,10 +5,10 @@ import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSh
 import { DocumentPreviewDialog } from '@/widgets/bom/canvas/document-preview/ui/DocumentPreviewDialog';
 import { DrawingPreviewDialog } from '@/widgets/bom/canvas/drawing-preview/ui/DrawingPreviewDialog';
 
-import type { BomNode } from '../dummy-data/node-data';
+import type { BomTreeNode } from '../dummy-data/node-data';
 
 interface NodeBlockProps {
-  node: BomNode;
+  node: BomTreeNode;
 }
 
 export function NodeBlock({ node }: NodeBlockProps) {
@@ -17,12 +17,19 @@ export function NodeBlock({ node }: NodeBlockProps) {
   const partNumber = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
   const displayName = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : node.name;
 
+  // タイプ名を取得
+  const typeName = node.type === 'directory' ? node.directoryTypeName : 'Parts';
+
+  // ドキュメントと図面を取得
+  const documents = node.type === 'directory' ? node.documents : [];
+  const drawings = node.type === 'leaf-product' ? node.drawings : [];
+
   return (
     <div className="relative flex h-[150px] w-[250px] flex-col rounded-lg border bg-white shadow-sm">
       {/* 左上: タイプバッジ */}
       <div className="absolute left-2 top-2">
         <Badge variant="secondary" className="text-xs">
-          {node.directoryTypeName || node.type}
+          {typeName}
         </Badge>
       </div>
 
@@ -40,17 +47,17 @@ export function NodeBlock({ node }: NodeBlockProps) {
       <div className="flex items-center justify-between px-2 pb-2">
         {/* 左下: 図面・帳票アイコン（各アイテムごとにアイコン表示） */}
         <div className="flex items-center gap-0.5">
-          {node.drawings.map((drawing) => (
+          {drawings.map((drawing) => (
             <DrawingPreviewDialog key={drawing.id} drawing={drawing} />
           ))}
-          {node.documents.map((document) => (
+          {documents.map((document) => (
             <DocumentPreviewDialog key={document.id} document={document} />
           ))}
         </div>
 
         {/* 右下: メタデータボタン */}
         <div>
-          <MetadataSheet nodeName={node.name} customFields={node.customFields} />
+          <MetadataSheet nodeName={node.name} customItems={node.customItems} />
         </div>
       </div>
     </div>
