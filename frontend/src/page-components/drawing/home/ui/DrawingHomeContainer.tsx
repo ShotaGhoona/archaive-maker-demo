@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { FilterToggleButton } from '@/widgets/common/filter/filter-sidebar/ui/FilterToggleButton';
 import { SearchBar } from '@/widgets/common/filter/search-bar/ui/SearchBar';
 import { CsvExportModalWidget } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidget';
-import { ViewModeSwitch } from '@/widgets/view/shared/ui/ViewModeSwitch';
-import type { ViewMode } from '@/widgets/view/shared/model/types';
+import {
+  ViewSwitch,
+  type ViewMode,
+} from '@/shared/ui/components/view-switch/ui/ViewSwitch';
 
 import { useDrawingPages } from '@/features/product/drawing-page/get-list/lib/use-drawing-pages';
 
@@ -49,7 +51,11 @@ export function DrawingHomeContainer() {
       {/* メインコンテンツ */}
       <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 pt-4'>
         <div className='mb-4 flex items-center gap-4'>
-          <ViewModeSwitch viewMode={viewMode} onViewModeChange={setViewMode} />
+          <ViewSwitch
+            modes={['table', 'gallery']}
+            value={viewMode}
+            onChange={setViewMode}
+          />
           <FilterToggleButton open={filterOpen} onToggle={toggleFilter} />
           <SearchBar
             value={searchQuery}

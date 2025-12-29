@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { GripVerticalIcon } from 'lucide-react';
 import * as ResizablePrimitive from 'react-resizable-panels';
 
 import { cn } from '../lib/utils';
@@ -45,9 +44,7 @@ function ResizableHandle({
       {...props}
     >
       {withHandle && (
-        <div className='rounded-xs z-10 flex h-4 w-3 items-center justify-center border bg-border'>
-          <GripVerticalIcon className='size-2.5' />
-        </div>
+        <div className='z-10 flex h-10 w-1.5 items-center justify-center rounded-full bg-muted-foreground/50' />
       )}
     </ResizablePrimitive.PanelResizeHandle>
   );
