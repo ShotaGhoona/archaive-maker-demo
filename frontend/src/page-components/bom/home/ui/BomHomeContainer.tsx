@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { LayoutGrid } from 'lucide-react';
 
+import { Button } from '@/shared/ui/shadcn/ui/button';
 import { ProductSearchPanel } from '../ui-block/product-search-panel/ui/ProductSearchPanel';
 import { BomTreeBlock } from '../ui-block/bom-tree/ui/BomTreeBlock';
 import { BomDetailPanel } from '../ui-block/detail-panel/ui/BomDetailPanel';
@@ -54,10 +57,18 @@ export function BomHomeContainer() {
 
       {/* メインコンテンツ */}
       <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 py-4'>
-        <div className='mb-4'>
+        <div className='mb-4 flex items-center justify-between'>
           <h2 className='text-lg font-semibold'>
             {selectedProduct?.productName ?? 'BOM構成'}
           </h2>
+          {selectedProductId && (
+            <Button size='xl' asChild>
+              <Link href={`/bom/${selectedProductId}/canvas`}>
+                <LayoutGrid className='mr-2 h-4 w-4' />
+                Canvas表示
+              </Link>
+            </Button>
+          )}
         </div>
 
         <div className='flex min-h-0 flex-1 gap-4'>
