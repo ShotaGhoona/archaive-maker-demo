@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useId } from 'react';
 
 const GRID_SIZE = 20;
 const DOT_SIZE = 1;
@@ -18,7 +18,7 @@ export function DottedGridBackground({
   offsetY,
   scale,
 }: DottedGridBackgroundProps) {
-  const patternId = useMemo(() => `dotted-grid-${Math.random().toString(36).substr(2, 9)}`, []);
+  const patternId = useId();
 
   // スケールに応じてグリッドサイズを調整
   const scaledGridSize = GRID_SIZE * scale;

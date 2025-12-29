@@ -25,6 +25,18 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'picsum.photos',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lunar-creation.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'jp.meviy.misumi-ec.com',
+      },
     ],
   },
 };
