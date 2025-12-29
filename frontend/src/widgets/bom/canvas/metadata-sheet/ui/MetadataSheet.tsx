@@ -11,9 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/shared/ui/shadcn/ui/sheet';
-import { TextField } from '@/shared/ui/form-fields/ui/TextField';
-import { NumberField } from '@/shared/ui/form-fields/ui/NumberField';
-import { BooleanField } from '@/shared/ui/form-fields/ui/BooleanField';
+import { renderDynamicFields } from '@/shared/ui/form-fields/lib/render-dynamic-field';
 
 interface MetadataSheetProps {
   nodeName: string;
@@ -32,41 +30,6 @@ export function MetadataSheet({ nodeName, customItems }: MetadataSheetProps) {
     // TODO: API呼び出し
     alert(`メタデータを保存しました（未実装）\n${JSON.stringify(items, null, 2)}`);
   }, [items]);
-
-  const renderField = (key: string, value: unknown) => {
-    if (typeof value === 'boolean') {
-      return (
-        <BooleanField
-          key={key}
-          id={key}
-          label={key}
-          value={value}
-          onChange={(v) => updateItem(key, v)}
-        />
-      );
-    }
-    if (typeof value === 'number') {
-      return (
-        <NumberField
-          key={key}
-          id={key}
-          label={key}
-          value={value}
-          onChange={(v) => updateItem(key, v === '' ? 0 : v)}
-        />
-      );
-    }
-    // デフォルトはテキストフィールド
-    return (
-      <TextField
-        key={key}
-        id={key}
-        label={key}
-        value={String(value)}
-        onChange={(v) => updateItem(key, v)}
-      />
-    );
-  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -87,7 +50,7 @@ export function MetadataSheet({ nodeName, customItems }: MetadataSheetProps) {
         <div className="flex flex-1 flex-col justify-between px-4">
           <div className="mt-6 space-y-4">
             <div className="space-y-4">
-              {Object.entries(items).map(([key, value]) => renderField(key, value))}
+              {renderDynamicFields(items, updateItem)}
             </div>
           </div>
           <div className="border-t pb-4 pt-6">
