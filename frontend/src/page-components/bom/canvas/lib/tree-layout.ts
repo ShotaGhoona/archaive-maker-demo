@@ -1,11 +1,14 @@
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode, Connector } from '../model/canvas-types';
+import type { FlattenedNode } from '../ui-block/node/model/types';
+import type { Connector } from '../ui-block/connector/model/types';
+import {
+  NODE_WIDTH,
+  NODE_HEIGHT,
+  HORIZONTAL_GAP,
+  VERTICAL_GAP,
+} from '@/shared/canvas/constant/size';
 
-// レイアウト定数
-const NODE_WIDTH = 250;
-const NODE_HEIGHT = 150;
-const HORIZONTAL_GAP = 100;
-const VERTICAL_GAP = 40;
+// 初期位置（このファイル固有）
 const INITIAL_X = 100;
 const INITIAL_Y = 100;
 

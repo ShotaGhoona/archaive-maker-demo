@@ -4,6 +4,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSheet';
 import { DocumentPreviewDialog } from '@/widgets/bom/canvas/document-preview/ui/DocumentPreviewDialog';
 import { DrawingPreviewDialog } from '@/widgets/bom/canvas/drawing-preview/ui/DrawingPreviewDialog';
+import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
 
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
 
@@ -31,7 +32,10 @@ export function NodeBlock({ node }: NodeBlockProps) {
   const drawings = node.type === 'parts' ? node.drawings : [];
 
   return (
-    <div className="relative flex h-[150px] w-[250px] flex-col rounded-lg border bg-white shadow-sm">
+    <div
+      className="relative flex flex-col rounded-lg border bg-white shadow-sm"
+      style={{ width: NODE_WIDTH, height: NODE_HEIGHT }}
+    >
       {/* 左上: タイプバッジ */}
       <div className="absolute left-2 top-2">
         <Badge variant="secondary" className="text-xs">
