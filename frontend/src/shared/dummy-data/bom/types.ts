@@ -1,4 +1,4 @@
-// 型定義（mock6LayerRobotArm.jsonに合わせた構造）
+// BOM 型定義
 
 export interface DrawingPage {
   id: string;
@@ -59,14 +59,10 @@ export interface Document {
   versions: DocumentVersion[];
 }
 
-// ディレクトリノード
-export interface DirectoryNode {
+// ノード共通フィールド
+interface BaseNode {
   id: string;
   ulid: string;
-  type: 'directory';
-  seqNumber: number;
-  directoryTypeId: string;
-  directoryTypeName: string;
   name: string;
   customItems: Record<string, unknown>;
   remarks: string;
@@ -75,37 +71,45 @@ export interface DirectoryNode {
   updatedBy: string;
   createdAt: string;
   updatedAt: string;
+}
+
+// 製品ノード（最上位）
+export interface ProductNode extends BaseNode {
+  type: 'product';
+  seqNumber: number;
+  directoryTypeId: string;
+  directoryTypeName: string;
   documents: Document[];
   children: BomTreeNode[];
 }
 
-// リーフプロダクトノード
-export interface LeafProductNode {
-  id: string;
-  ulid: string;
-  type: 'leaf-product';
-  name: string;
+// アセンブリノード（中間）
+export interface AssyNode extends BaseNode {
+  type: 'assy';
+  seqNumber: number;
+  directoryTypeId: string;
+  directoryTypeName: string;
+  documents: Document[];
+  children: BomTreeNode[];
+}
+
+// パーツノード（末端）
+export interface PartsNode extends BaseNode {
+  type: 'parts';
   revisionSetId: string;
   revisionNumber: number;
   isLatest: boolean;
   quantity: number;
-  customItems: Record<string, unknown>;
-  remarks: string;
   directoryId: string;
-  customerId: string;
-  createdBy: string;
-  updatedBy: string;
-  createdAt: string;
-  updatedAt: string;
   drawings: Drawing[];
 }
 
-export type BomTreeNode = DirectoryNode | LeafProductNode;
+export type BomTreeNode = ProductNode | AssyNode | PartsNode;
 
 // BOMデータ全体
 export interface BomData {
   id: string;
   customerId: string;
   customerName: string;
-  root: DirectoryNode;
+  root: ProductNode;
 }

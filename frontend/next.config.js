@@ -37,6 +37,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'jp.meviy.misumi-ec.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'image.itmedia.co.jp',
+      },
     ],
   },
 };

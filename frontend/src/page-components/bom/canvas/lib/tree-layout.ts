@@ -1,17 +1,25 @@
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode, Connector } from '../model/canvas-types';
+import type { FlattenedNode } from '../ui-block/node/model/types';
+import type { Connector } from '../ui-block/connector/model/types';
+import {
+  NODE_WIDTH,
+  NODE_HEIGHT,
+  HORIZONTAL_GAP,
+  VERTICAL_GAP,
+} from '@/shared/canvas/constant/size';
 
-// レイアウト定数
-const NODE_WIDTH = 250;
-const NODE_HEIGHT = 150;
-const HORIZONTAL_GAP = 100;
-const VERTICAL_GAP = 40;
+// 初期位置（このファイル固有）
 const INITIAL_X = 100;
 const INITIAL_Y = 100;
 
 // サブツリーの高さを計算（子孫全体を含む高さ）
 function calculateSubtreeHeight(node: BomTreeNode): number {
-  if (node.type !== 'directory' || !node.children?.length) {
+  // partsは末端ノード（childrenを持たない）
+  if (node.type === 'parts') {
+    return NODE_HEIGHT;
+  }
+
+  if (!node.children?.length) {
     return NODE_HEIGHT;
   }
 
@@ -25,20 +33,19 @@ function calculateSubtreeHeight(node: BomTreeNode): number {
   return totalHeight;
 }
 
-// ツリーをレイアウト（親ノードを子のサブツリー中央に配置）
+// ツリーをレイアウト（親と長男が同じ高さに揃う）
 function layoutTree(
   node: BomTreeNode,
   depth: number,
   startY: number,
-  subtreeHeight: number,
   parentId: string | null
 ): { nodes: FlattenedNode[]; connectors: Connector[] } {
   const nodes: FlattenedNode[] = [];
   const connectors: Connector[] = [];
 
   const x = INITIAL_X + depth * (NODE_WIDTH + HORIZONTAL_GAP);
-  // 親ノードをサブツリーの中央に配置
-  const y = startY + (subtreeHeight - NODE_HEIGHT) / 2;
+  // 親は開始位置に配置（長男と同じ高さ）
+  const y = startY;
 
   nodes.push({
     node,
@@ -47,13 +54,13 @@ function layoutTree(
     parentId,
   });
 
-  // 子要素を処理
-  if (node.type === 'directory' && node.children && node.children.length > 0) {
+  // 子要素を処理（product, assyはchildrenを持つ）
+  if (node.type !== 'parts' && node.children && node.children.length > 0) {
     let childStartY = startY;
 
     for (const child of node.children) {
       const childSubtreeHeight = calculateSubtreeHeight(child);
-      const childResult = layoutTree(child, depth + 1, childStartY, childSubtreeHeight, node.id);
+      const childResult = layoutTree(child, depth + 1, childStartY, node.id);
 
       nodes.push(...childResult.nodes);
       connectors.push(...childResult.connectors);
@@ -81,6 +88,5 @@ export function calculateBomTreeLayout(root: BomTreeNode): {
   nodes: FlattenedNode[];
   connectors: Connector[];
 } {
-  const rootSubtreeHeight = calculateSubtreeHeight(root);
-  return layoutTree(root, 0, INITIAL_Y, rootSubtreeHeight, null);
+  return layoutTree(root, 0, INITIAL_Y, null);
 }
