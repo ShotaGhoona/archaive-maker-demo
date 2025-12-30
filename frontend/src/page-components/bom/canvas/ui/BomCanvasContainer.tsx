@@ -9,6 +9,8 @@ import { NodeBlock } from '../ui-block/node/ui/NodeBlock';
 import { NodeConnector } from '../ui-block/connector/ui/NodeConnector';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
 import { useStickyNotes } from '../ui-block/sticky-note/lib/use-sticky-notes';
+import { CommentLayer } from '../ui-block/comment/ui/CommentLayer';
+import { useComments } from '../ui-block/comment/lib/use-comments';
 import { calculateBomTreeLayout } from '../lib/tree-layout';
 
 import bomData from '@/shared/dummy-data/bom/mock6LayerRobotArm.json';
@@ -23,7 +25,17 @@ const TOOL_CURSOR_MAP: Record<Exclude<CanvasToolType, null>, string> = {
 export function BomCanvasContainer() {
   const [selectedTool, setSelectedTool] = useState<CanvasToolType>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
+  const [pendingCommentPosition, setPendingCommentPosition] = useState<{ x: number; y: number } | null>(null);
+
   const { notes: stickyNotes, addNote, updateNote } = useStickyNotes();
+  const {
+    threads: commentThreads,
+    addThread,
+    addReply,
+    updateComment,
+    moveThread,
+    resolveThread,
+  } = useComments();
 
   const { nodes, connectors } = useMemo(() => {
     const data = bomData as BomData;
@@ -37,11 +49,28 @@ export function BomCanvasContainer() {
         addNote(event.canvasX, event.canvasY);
         setSelectedTool(null);
         setMousePosition(null);
+      } else if (selectedTool === 'comment') {
+        setPendingCommentPosition({ x: event.canvasX, y: event.canvasY });
+        setSelectedTool(null);
       }
-      // TODO: comment, node ツールの処理
+      // TODO: node ツールの処理
     },
     [selectedTool, addNote]
   );
+
+  // コメント作成完了
+  const handleCreateThread = useCallback(
+    (x: number, y: number, content: string) => {
+      addThread(x, y, content);
+      setPendingCommentPosition(null);
+    },
+    [addThread]
+  );
+
+  // コメント作成キャンセル
+  const handleCancelCreate = useCallback(() => {
+    setPendingCommentPosition(null);
+  }, []);
 
   // マウス移動処理
   const handleCanvasMouseMove = useCallback(
@@ -107,6 +136,18 @@ export function BomCanvasContainer() {
             notes={stickyNotes}
             onUpdate={updateNote}
             previewPosition={selectedTool === 'sticky' ? mousePosition : null}
+          />
+
+          {/* コメントレイヤー */}
+          <CommentLayer
+            threads={commentThreads}
+            pendingPosition={pendingCommentPosition}
+            onCreateThread={handleCreateThread}
+            onCancelCreate={handleCancelCreate}
+            onMoveThread={moveThread}
+            onAddReply={addReply}
+            onUpdateComment={updateComment}
+            onResolveThread={resolveThread}
           />
         </CanvasViewport>
 

@@ -26,6 +26,11 @@ export const STICKY_NOTE_FONT_SIZES: Record<StickyNoteFontSize, StickyNoteFontCo
   large: { size: 18, label: '大' },
 };
 
+// コメントサイズ
+export const COMMENT_AVATAR_SIZE = 32;
+export const COMMENT_PREVIEW_WIDTH = 240;
+export const COMMENT_EXPANDED_WIDTH = 320;
+
 // コネクタ太さ
 export type ConnectorStrokeWidth = 'thin' | 'medium' | 'thick';
 
