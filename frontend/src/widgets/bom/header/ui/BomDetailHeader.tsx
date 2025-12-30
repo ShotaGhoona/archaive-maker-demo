@@ -12,6 +12,8 @@ import {
   GitBranch,
   FileText,
   Image,
+  MessageSquare,
+  CheckSquare,
   type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -29,6 +31,8 @@ const tabs: { label: string; path: string; icon: LucideIcon }[] = [
   { label: 'BOM構成', path: 'structure', icon: GitBranch },
   { label: 'ドキュメント', path: 'documents', icon: FileText },
   { label: '図面', path: 'drawings', icon: Image },
+  { label: 'コメント', path: 'comments', icon: MessageSquare },
+  { label: 'タスク', path: 'tasks', icon: CheckSquare },
 ];
 
 export function BomDetailHeader() {
