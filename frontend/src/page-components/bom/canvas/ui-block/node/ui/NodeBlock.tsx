@@ -11,25 +11,31 @@ interface NodeBlockProps {
   node: BomTreeNode;
 }
 
+const TYPE_LABELS: Record<BomTreeNode['type'], string> = {
+  product: 'Product',
+  assy: 'Assy',
+  parts: 'Parts',
+};
+
 export function NodeBlock({ node }: NodeBlockProps) {
   // 名前から品番を抽出（最後のスペース区切りの文字列）
   const nameParts = node.name.split(' ');
   const partNumber = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
   const displayName = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : node.name;
 
-  // タイプ名を取得
-  const typeName = node.type === 'directory' ? node.directoryTypeName : 'Parts';
+  // タイプラベル
+  const typeLabel = TYPE_LABELS[node.type];
 
   // ドキュメントと図面を取得
-  const documents = node.type === 'directory' ? node.documents : [];
-  const drawings = node.type === 'leaf-product' ? node.drawings : [];
+  const documents = node.type === 'parts' ? [] : node.documents;
+  const drawings = node.type === 'parts' ? node.drawings : [];
 
   return (
     <div className="relative flex h-[150px] w-[250px] flex-col rounded-lg border bg-white shadow-sm">
       {/* 左上: タイプバッジ */}
       <div className="absolute left-2 top-2">
         <Badge variant="secondary" className="text-xs">
-          {typeName}
+          {typeLabel}
         </Badge>
       </div>
 
@@ -45,7 +51,7 @@ export function NodeBlock({ node }: NodeBlockProps) {
 
       {/* 下部: アイコン類 */}
       <div className="flex items-center justify-between px-2 pb-2">
-        {/* 左下: 図面・帳票アイコン（各アイテムごとにアイコン表示） */}
+        {/* 左下: 図面・帳票アイコン */}
         <div className="flex items-center gap-0.5">
           {drawings.map((drawing) => (
             <DrawingPreviewDialog key={drawing.id} drawing={drawing} />

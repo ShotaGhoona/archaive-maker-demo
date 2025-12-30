@@ -5,7 +5,7 @@
   "root": {
     "id": "DIR-1000",
     "ulid": "01JCQR8X9Y00000000001006",
-    "type": "directory",
+    "type": "product",
     "seqNumber": 1000,
     "directoryTypeId": "DT-01",
     "directoryTypeName": "製品",
@@ -124,7 +124,7 @@
       {
         "id": "DIR-1001",
         "ulid": "01JCQR8X9Y00000000001009",
-        "type": "directory",
+        "type": "assy",
         "seqNumber": 1000,
         "directoryTypeId": "DT-02",
         "directoryTypeName": "Assy",
@@ -178,7 +178,7 @@
           {
             "id": "DIR-1002",
             "ulid": "01JCQR8X9Y00000000001012",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 1100,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -232,7 +232,7 @@
               {
                 "id": "DIR-1003",
                 "ulid": "01JCQR8X9Y00000000001013",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 1110,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -253,7 +253,7 @@
                   {
                     "id": "DIR-1004",
                     "ulid": "01JCQR8X9Y00000000001014",
-                    "type": "directory",
+                    "type": "assy",
                     "seqNumber": 1111,
                     "directoryTypeId": "DT-05",
                     "directoryTypeName": "Module",
@@ -274,7 +274,7 @@
                       {
                         "id": "LEAF-1",
                         "ulid": "01JCQR8X9Y00000000001015",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "制御IC IC-1111A",
                         "revisionSetId": "REV-SET-LEAF-1",
                         "revisionNumber": 1,
@@ -459,7 +459,7 @@
                       {
                         "id": "LEAF-2",
                         "ulid": "01JCQR8X9Y00000000001026",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "コンデンサ CAP-1111B",
                         "revisionSetId": "REV-SET-LEAF-2",
                         "revisionNumber": 1,
@@ -644,7 +644,7 @@
                       {
                         "id": "LEAF-3",
                         "ulid": "01JCQR8X9Y00000000001037",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "抵抗 RES-1111C",
                         "revisionSetId": "REV-SET-LEAF-3",
                         "revisionNumber": 1,
@@ -829,7 +829,7 @@
                       {
                         "id": "LEAF-4",
                         "ulid": "01JCQR8X9Y00000000001048",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "コネクタ CONN-1111D",
                         "revisionSetId": "REV-SET-LEAF-4",
                         "revisionNumber": 1,
@@ -1016,7 +1016,7 @@
                   {
                     "id": "DIR-1005",
                     "ulid": "01JCQR8X9Y00000000001059",
-                    "type": "directory",
+                    "type": "assy",
                     "seqNumber": 1112,
                     "directoryTypeId": "DT-05",
                     "directoryTypeName": "Module",
@@ -1037,7 +1037,7 @@
                       {
                         "id": "LEAF-5",
                         "ulid": "01JCQR8X9Y00000000001060",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "モータードライバIC DRV-1112A",
                         "revisionSetId": "REV-SET-LEAF-5",
                         "revisionNumber": 1,
@@ -1222,7 +1222,7 @@
                       {
                         "id": "LEAF-6",
                         "ulid": "01JCQR8X9Y00000000001071",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "ヒートシンク HEAT-1112B",
                         "revisionSetId": "REV-SET-LEAF-6",
                         "revisionNumber": 1,
@@ -1407,7 +1407,7 @@
                       {
                         "id": "LEAF-7",
                         "ulid": "01JCQR8X9Y00000000001082",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "絶縁シート SHEET-1112C",
                         "revisionSetId": "REV-SET-LEAF-7",
                         "revisionNumber": 1,
@@ -1594,7 +1594,7 @@
                   {
                     "id": "LEAF-8",
                     "ulid": "01JCQR8X9Y00000000001093",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "制御基板本体 PCB-1110A",
                     "revisionSetId": "REV-SET-LEAF-8",
                     "revisionNumber": 1,
@@ -1779,7 +1779,7 @@
                   {
                     "id": "LEAF-9",
                     "ulid": "01JCQR8X9Y00000000001104",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "放熱ファン FAN-1110B",
                     "revisionSetId": "REV-SET-LEAF-9",
                     "revisionNumber": 1,
@@ -1966,7 +1966,7 @@
               {
                 "id": "DIR-1006",
                 "ulid": "01JCQR8X9Y00000000001117",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 1120,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -2020,7 +2020,7 @@
                   {
                     "id": "LEAF-10",
                     "ulid": "01JCQR8X9Y00000000001118",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "サーボモーター本体 MOTOR-1120A",
                     "revisionSetId": "REV-SET-LEAF-10",
                     "revisionNumber": 1,
@@ -2205,7 +2205,7 @@
                   {
                     "id": "LEAF-11",
                     "ulid": "01JCQR8X9Y00000000001129",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "エンコーダ ENC-1120B",
                     "revisionSetId": "REV-SET-LEAF-11",
                     "revisionNumber": 1,
@@ -2390,7 +2390,7 @@
                   {
                     "id": "LEAF-12",
                     "ulid": "01JCQR8X9Y00000000001140",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "モーターブラケット BRKT-1120C",
                     "revisionSetId": "REV-SET-LEAF-12",
                     "revisionNumber": 1,
@@ -2577,7 +2577,7 @@
               {
                 "id": "LEAF-13",
                 "ulid": "01JCQR8X9Y00000000001151",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "電源ケーブル5m CABLE-1100A",
                 "revisionSetId": "REV-SET-LEAF-13",
                 "revisionNumber": 1,
@@ -2762,7 +2762,7 @@
               {
                 "id": "LEAF-14",
                 "ulid": "01JCQR8X9Y00000000001162",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "制御ケーブル3m CABLE-1100B",
                 "revisionSetId": "REV-SET-LEAF-14",
                 "revisionNumber": 1,
@@ -2949,7 +2949,7 @@
           {
             "id": "DIR-1007",
             "ulid": "01JCQR8X9Y00000000001173",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 1200,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -2970,7 +2970,7 @@
               {
                 "id": "LEAF-15",
                 "ulid": "01JCQR8X9Y00000000001174",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "ベースプレート PLATE-1200A",
                 "revisionSetId": "REV-SET-LEAF-15",
                 "revisionNumber": 1,
@@ -3155,7 +3155,7 @@
               {
                 "id": "LEAF-16",
                 "ulid": "01JCQR8X9Y00000000001185",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "サイドフレーム左 FRAME-1200B",
                 "revisionSetId": "REV-SET-LEAF-16",
                 "revisionNumber": 1,
@@ -3340,7 +3340,7 @@
               {
                 "id": "LEAF-17",
                 "ulid": "01JCQR8X9Y00000000001196",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "サイドフレーム右 FRAME-1200C",
                 "revisionSetId": "REV-SET-LEAF-17",
                 "revisionNumber": 1,
@@ -3525,7 +3525,7 @@
               {
                 "id": "LEAF-18",
                 "ulid": "01JCQR8X9Y00000000001207",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "防振ゴム RUBBER-1200D",
                 "revisionSetId": "REV-SET-LEAF-18",
                 "revisionNumber": 1,
@@ -3710,7 +3710,7 @@
               {
                 "id": "LEAF-19",
                 "ulid": "01JCQR8X9Y00000000001218",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "アンカーボルトM16 BOLT-1200E",
                 "revisionSetId": "REV-SET-LEAF-19",
                 "revisionNumber": 1,
@@ -3897,7 +3897,7 @@
           {
             "id": "LEAF-20",
             "ulid": "01JCQR8X9Y00000000001229",
-            "type": "leaf-product",
+            "type": "parts",
             "name": "カバープレート COVER-1000A",
             "revisionSetId": "REV-SET-LEAF-20",
             "revisionNumber": 1,
@@ -4084,7 +4084,7 @@
       {
         "id": "DIR-1008",
         "ulid": "01JCQR8X9Y00000000001242",
-        "type": "directory",
+        "type": "assy",
         "seqNumber": 2000,
         "directoryTypeId": "DT-02",
         "directoryTypeName": "Assy",
@@ -4138,7 +4138,7 @@
           {
             "id": "DIR-1009",
             "ulid": "01JCQR8X9Y00000000001243",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 2100,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -4159,7 +4159,7 @@
               {
                 "id": "DIR-1010",
                 "ulid": "01JCQR8X9Y00000000001246",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 2110,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -4213,7 +4213,7 @@
                   {
                     "id": "DIR-1011",
                     "ulid": "01JCQR8X9Y00000000001247",
-                    "type": "directory",
+                    "type": "assy",
                     "seqNumber": 2111,
                     "directoryTypeId": "DT-05",
                     "directoryTypeName": "Module",
@@ -4234,7 +4234,7 @@
                       {
                         "id": "LEAF-21",
                         "ulid": "01JCQR8X9Y00000000001248",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "ハーモニックドライブ HD-2111A",
                         "revisionSetId": "REV-SET-LEAF-21",
                         "revisionNumber": 1,
@@ -4419,7 +4419,7 @@
                       {
                         "id": "LEAF-22",
                         "ulid": "01JCQR8X9Y00000000001259",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "入力シャフト SHAFT-2111B",
                         "revisionSetId": "REV-SET-LEAF-22",
                         "revisionNumber": 1,
@@ -4604,7 +4604,7 @@
                       {
                         "id": "LEAF-23",
                         "ulid": "01JCQR8X9Y00000000001270",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "出力フランジ FLANGE-2111C",
                         "revisionSetId": "REV-SET-LEAF-23",
                         "revisionNumber": 1,
@@ -4789,7 +4789,7 @@
                       {
                         "id": "LEAF-24",
                         "ulid": "01JCQR8X9Y00000000001281",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "ベアリング BEARING-2111D",
                         "revisionSetId": "REV-SET-LEAF-24",
                         "revisionNumber": 1,
@@ -4976,7 +4976,7 @@
                   {
                     "id": "LEAF-25",
                     "ulid": "01JCQR8X9Y00000000001292",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "関節ハウジング HOUSING-2110A",
                     "revisionSetId": "REV-SET-LEAF-25",
                     "revisionNumber": 1,
@@ -5161,7 +5161,7 @@
                   {
                     "id": "LEAF-26",
                     "ulid": "01JCQR8X9Y00000000001303",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "関節カバー COVER-2110B",
                     "revisionSetId": "REV-SET-LEAF-26",
                     "revisionNumber": 1,
@@ -5348,7 +5348,7 @@
               {
                 "id": "DIR-1012",
                 "ulid": "01JCQR8X9Y00000000001314",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 2120,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -5369,7 +5369,7 @@
                   {
                     "id": "LEAF-27",
                     "ulid": "01JCQR8X9Y00000000001315",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "位置センサ SENSOR-2120A",
                     "revisionSetId": "REV-SET-LEAF-27",
                     "revisionNumber": 1,
@@ -5554,7 +5554,7 @@
                   {
                     "id": "LEAF-28",
                     "ulid": "01JCQR8X9Y00000000001326",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "トルクセンサ SENSOR-2120B",
                     "revisionSetId": "REV-SET-LEAF-28",
                     "revisionNumber": 1,
@@ -5739,7 +5739,7 @@
                   {
                     "id": "LEAF-29",
                     "ulid": "01JCQR8X9Y00000000001337",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "センサブラケット BRKT-2120C",
                     "revisionSetId": "REV-SET-LEAF-29",
                     "revisionNumber": 1,
@@ -5926,7 +5926,7 @@
               {
                 "id": "LEAF-30",
                 "ulid": "01JCQR8X9Y00000000001348",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "配線ハーネス HARNESS-2100A",
                 "revisionSetId": "REV-SET-LEAF-30",
                 "revisionNumber": 1,
@@ -6113,7 +6113,7 @@
           {
             "id": "DIR-1013",
             "ulid": "01JCQR8X9Y00000000001359",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 2200,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -6134,7 +6134,7 @@
               {
                 "id": "DIR-1014",
                 "ulid": "01JCQR8X9Y00000000001362",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 2210,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -6188,7 +6188,7 @@
                   {
                     "id": "LEAF-31",
                     "ulid": "01JCQR8X9Y00000000001363",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "減速機 GEAR-2210A",
                     "revisionSetId": "REV-SET-LEAF-31",
                     "revisionNumber": 1,
@@ -6373,7 +6373,7 @@
                   {
                     "id": "LEAF-32",
                     "ulid": "01JCQR8X9Y00000000001374",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "関節ハウジング HOUSING-2210B",
                     "revisionSetId": "REV-SET-LEAF-32",
                     "revisionNumber": 1,
@@ -6558,7 +6558,7 @@
                   {
                     "id": "LEAF-33",
                     "ulid": "01JCQR8X9Y00000000001385",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "関節カバー COVER-2210C",
                     "revisionSetId": "REV-SET-LEAF-33",
                     "revisionNumber": 1,
@@ -6745,7 +6745,7 @@
               {
                 "id": "LEAF-34",
                 "ulid": "01JCQR8X9Y00000000001396",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "配線ハーネス HARNESS-2200A",
                 "revisionSetId": "REV-SET-LEAF-34",
                 "revisionNumber": 1,
@@ -6932,7 +6932,7 @@
           {
             "id": "DIR-1015",
             "ulid": "01JCQR8X9Y00000000001407",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 2300,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -6953,7 +6953,7 @@
               {
                 "id": "LEAF-35",
                 "ulid": "01JCQR8X9Y00000000001408",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "アームパイプ上部 PIPE-2300A",
                 "revisionSetId": "REV-SET-LEAF-35",
                 "revisionNumber": 1,
@@ -7138,7 +7138,7 @@
               {
                 "id": "LEAF-36",
                 "ulid": "01JCQR8X9Y00000000001419",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "アームパイプ下部 PIPE-2300B",
                 "revisionSetId": "REV-SET-LEAF-36",
                 "revisionNumber": 1,
@@ -7323,7 +7323,7 @@
               {
                 "id": "LEAF-37",
                 "ulid": "01JCQR8X9Y00000000001430",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "補強リブ RIB-2300C",
                 "revisionSetId": "REV-SET-LEAF-37",
                 "revisionNumber": 1,
@@ -7508,7 +7508,7 @@
               {
                 "id": "LEAF-38",
                 "ulid": "01JCQR8X9Y00000000001441",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "配線ガイド GUIDE-2300D",
                 "revisionSetId": "REV-SET-LEAF-38",
                 "revisionNumber": 1,
@@ -7695,7 +7695,7 @@
           {
             "id": "LEAF-39",
             "ulid": "01JCQR8X9Y00000000001452",
-            "type": "leaf-product",
+            "type": "parts",
             "name": "エアホース10m HOSE-2000A",
             "revisionSetId": "REV-SET-LEAF-39",
             "revisionNumber": 1,
@@ -7882,7 +7882,7 @@
       {
         "id": "DIR-1016",
         "ulid": "01JCQR8X9Y00000000001465",
-        "type": "directory",
+        "type": "assy",
         "seqNumber": 3000,
         "directoryTypeId": "DT-02",
         "directoryTypeName": "Assy",
@@ -7936,7 +7936,7 @@
           {
             "id": "DIR-1017",
             "ulid": "01JCQR8X9Y00000000001466",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 3100,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -7957,7 +7957,7 @@
               {
                 "id": "DIR-1018",
                 "ulid": "01JCQR8X9Y00000000001467",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 3110,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -7978,7 +7978,7 @@
                   {
                     "id": "DIR-1019",
                     "ulid": "01JCQR8X9Y00000000001468",
-                    "type": "directory",
+                    "type": "assy",
                     "seqNumber": 3111,
                     "directoryTypeId": "DT-05",
                     "directoryTypeName": "Module",
@@ -7999,7 +7999,7 @@
                       {
                         "id": "LEAF-40",
                         "ulid": "01JCQR8X9Y00000000001469",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "フィンガー本体 FINGER-3111A",
                         "revisionSetId": "REV-SET-LEAF-40",
                         "revisionNumber": 1,
@@ -8184,7 +8184,7 @@
                       {
                         "id": "LEAF-41",
                         "ulid": "01JCQR8X9Y00000000001480",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "グリップパッド PAD-3111B",
                         "revisionSetId": "REV-SET-LEAF-41",
                         "revisionNumber": 1,
@@ -8369,7 +8369,7 @@
                       {
                         "id": "LEAF-42",
                         "ulid": "01JCQR8X9Y00000000001491",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "取付ブラケット BRKT-3111C",
                         "revisionSetId": "REV-SET-LEAF-42",
                         "revisionNumber": 1,
@@ -8556,7 +8556,7 @@
                   {
                     "id": "DIR-1020",
                     "ulid": "01JCQR8X9Y00000000001502",
-                    "type": "directory",
+                    "type": "assy",
                     "seqNumber": 3112,
                     "directoryTypeId": "DT-05",
                     "directoryTypeName": "Module",
@@ -8577,7 +8577,7 @@
                       {
                         "id": "LEAF-43",
                         "ulid": "01JCQR8X9Y00000000001503",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "フィンガー本体 FINGER-3112A",
                         "revisionSetId": "REV-SET-LEAF-43",
                         "revisionNumber": 1,
@@ -8762,7 +8762,7 @@
                       {
                         "id": "LEAF-44",
                         "ulid": "01JCQR8X9Y00000000001514",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "グリップパッド PAD-3112B",
                         "revisionSetId": "REV-SET-LEAF-44",
                         "revisionNumber": 1,
@@ -8947,7 +8947,7 @@
                       {
                         "id": "LEAF-45",
                         "ulid": "01JCQR8X9Y00000000001525",
-                        "type": "leaf-product",
+                        "type": "parts",
                         "name": "取付ブラケット BRKT-3112C",
                         "revisionSetId": "REV-SET-LEAF-45",
                         "revisionNumber": 1,
@@ -9134,7 +9134,7 @@
                   {
                     "id": "LEAF-46",
                     "ulid": "01JCQR8X9Y00000000001536",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "駆動シリンダ CYL-3110A",
                     "revisionSetId": "REV-SET-LEAF-46",
                     "revisionNumber": 1,
@@ -9319,7 +9319,7 @@
                   {
                     "id": "LEAF-47",
                     "ulid": "01JCQR8X9Y00000000001547",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "リンク機構 LINK-3110B",
                     "revisionSetId": "REV-SET-LEAF-47",
                     "revisionNumber": 1,
@@ -9506,7 +9506,7 @@
               {
                 "id": "DIR-1021",
                 "ulid": "01JCQR8X9Y00000000001558",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 3120,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -9527,7 +9527,7 @@
                   {
                     "id": "LEAF-48",
                     "ulid": "01JCQR8X9Y00000000001559",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "力覚センサ FSENSOR-3120A",
                     "revisionSetId": "REV-SET-LEAF-48",
                     "revisionNumber": 1,
@@ -9712,7 +9712,7 @@
                   {
                     "id": "LEAF-49",
                     "ulid": "01JCQR8X9Y00000000001570",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "近接センサ PSENSOR-3120B",
                     "revisionSetId": "REV-SET-LEAF-49",
                     "revisionNumber": 1,
@@ -9897,7 +9897,7 @@
                   {
                     "id": "LEAF-50",
                     "ulid": "01JCQR8X9Y00000000001581",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "センサアンプ AMP-3120C",
                     "revisionSetId": "REV-SET-LEAF-50",
                     "revisionNumber": 1,
@@ -10084,7 +10084,7 @@
               {
                 "id": "LEAF-51",
                 "ulid": "01JCQR8X9Y00000000001592",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "エア配管 PIPE-3100A",
                 "revisionSetId": "REV-SET-LEAF-51",
                 "revisionNumber": 1,
@@ -10271,7 +10271,7 @@
           {
             "id": "DIR-1022",
             "ulid": "01JCQR8X9Y00000000001603",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 3200,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -10292,7 +10292,7 @@
               {
                 "id": "LEAF-52",
                 "ulid": "01JCQR8X9Y00000000001604",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "マウントプレート MOUNT-3200A",
                 "revisionSetId": "REV-SET-LEAF-52",
                 "revisionNumber": 1,
@@ -10477,7 +10477,7 @@
               {
                 "id": "LEAF-53",
                 "ulid": "01JCQR8X9Y00000000001615",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "取付ボルトM8 BOLT-3200B",
                 "revisionSetId": "REV-SET-LEAF-53",
                 "revisionNumber": 1,
@@ -10662,7 +10662,7 @@
               {
                 "id": "LEAF-54",
                 "ulid": "01JCQR8X9Y00000000001626",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "スプリングワッシャー WASHER-3200C",
                 "revisionSetId": "REV-SET-LEAF-54",
                 "revisionNumber": 1,
@@ -10851,7 +10851,7 @@
       {
         "id": "DIR-1023",
         "ulid": "01JCQR8X9Y00000000001641",
-        "type": "directory",
+        "type": "assy",
         "seqNumber": 4000,
         "directoryTypeId": "DT-02",
         "directoryTypeName": "Assy",
@@ -10937,7 +10937,7 @@
           {
             "id": "DIR-1024",
             "ulid": "01JCQR8X9Y00000000001642",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 4100,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -10958,7 +10958,7 @@
               {
                 "id": "DIR-1025",
                 "ulid": "01JCQR8X9Y00000000001643",
-                "type": "directory",
+                "type": "assy",
                 "seqNumber": 4110,
                 "directoryTypeId": "DT-04",
                 "directoryTypeName": "SubSubAssy",
@@ -10979,7 +10979,7 @@
                   {
                     "id": "LEAF-55",
                     "ulid": "01JCQR8X9Y00000000001644",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "PLC本体 PLC-4110A",
                     "revisionSetId": "REV-SET-LEAF-55",
                     "revisionNumber": 1,
@@ -11164,7 +11164,7 @@
                   {
                     "id": "LEAF-56",
                     "ulid": "01JCQR8X9Y00000000001655",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "入力モジュール INPUT-4110B",
                     "revisionSetId": "REV-SET-LEAF-56",
                     "revisionNumber": 1,
@@ -11349,7 +11349,7 @@
                   {
                     "id": "LEAF-57",
                     "ulid": "01JCQR8X9Y00000000001666",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "出力モジュール OUTPUT-4110C",
                     "revisionSetId": "REV-SET-LEAF-57",
                     "revisionNumber": 1,
@@ -11534,7 +11534,7 @@
                   {
                     "id": "LEAF-58",
                     "ulid": "01JCQR8X9Y00000000001677",
-                    "type": "leaf-product",
+                    "type": "parts",
                     "name": "通信モジュール COMM-4110D",
                     "revisionSetId": "REV-SET-LEAF-58",
                     "revisionNumber": 1,
@@ -11721,7 +11721,7 @@
               {
                 "id": "LEAF-59",
                 "ulid": "01JCQR8X9Y00000000001688",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "DINレール RAIL-4100A",
                 "revisionSetId": "REV-SET-LEAF-59",
                 "revisionNumber": 1,
@@ -11906,7 +11906,7 @@
               {
                 "id": "LEAF-60",
                 "ulid": "01JCQR8X9Y00000000001699",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "端子台 TERM-4100B",
                 "revisionSetId": "REV-SET-LEAF-60",
                 "revisionNumber": 1,
@@ -12091,7 +12091,7 @@
               {
                 "id": "LEAF-61",
                 "ulid": "01JCQR8X9Y00000000001710",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "配線ダクト DUCT-4100C",
                 "revisionSetId": "REV-SET-LEAF-61",
                 "revisionNumber": 1,
@@ -12278,7 +12278,7 @@
           {
             "id": "DIR-1026",
             "ulid": "01JCQR8X9Y00000000001721",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 4200,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -12299,7 +12299,7 @@
               {
                 "id": "LEAF-62",
                 "ulid": "01JCQR8X9Y00000000001722",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "電源ユニット24V PSU-4200A",
                 "revisionSetId": "REV-SET-LEAF-62",
                 "revisionNumber": 1,
@@ -12484,7 +12484,7 @@
               {
                 "id": "LEAF-63",
                 "ulid": "01JCQR8X9Y00000000001733",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "電源ユニット5V PSU-4200B",
                 "revisionSetId": "REV-SET-LEAF-63",
                 "revisionNumber": 1,
@@ -12669,7 +12669,7 @@
               {
                 "id": "LEAF-64",
                 "ulid": "01JCQR8X9Y00000000001744",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "サーキットブレーカ BREAKER-4200C",
                 "revisionSetId": "REV-SET-LEAF-64",
                 "revisionNumber": 1,
@@ -12854,7 +12854,7 @@
               {
                 "id": "LEAF-65",
                 "ulid": "01JCQR8X9Y00000000001755",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "ノイズフィルタ FILTER-4200D",
                 "revisionSetId": "REV-SET-LEAF-65",
                 "revisionNumber": 1,
@@ -13041,7 +13041,7 @@
           {
             "id": "DIR-1027",
             "ulid": "01JCQR8X9Y00000000001766",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 4300,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -13062,7 +13062,7 @@
               {
                 "id": "LEAF-66",
                 "ulid": "01JCQR8X9Y00000000001767",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "タッチパネル HMI-4300A",
                 "revisionSetId": "REV-SET-LEAF-66",
                 "revisionNumber": 1,
@@ -13247,7 +13247,7 @@
               {
                 "id": "LEAF-67",
                 "ulid": "01JCQR8X9Y00000000001778",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "非常停止ボタン ESTOP-4300B",
                 "revisionSetId": "REV-SET-LEAF-67",
                 "revisionNumber": 1,
@@ -13432,7 +13432,7 @@
               {
                 "id": "LEAF-68",
                 "ulid": "01JCQR8X9Y00000000001789",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "起動ボタン START-4300C",
                 "revisionSetId": "REV-SET-LEAF-68",
                 "revisionNumber": 1,
@@ -13617,7 +13617,7 @@
               {
                 "id": "LEAF-69",
                 "ulid": "01JCQR8X9Y00000000001800",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "停止ボタン STOP-4300D",
                 "revisionSetId": "REV-SET-LEAF-69",
                 "revisionNumber": 1,
@@ -13804,7 +13804,7 @@
           {
             "id": "LEAF-70",
             "ulid": "01JCQR8X9Y00000000001811",
-            "type": "leaf-product",
+            "type": "parts",
             "name": "制御盤筐体 ENCLOSURE-4000A",
             "revisionSetId": "REV-SET-LEAF-70",
             "revisionNumber": 1,
@@ -13991,7 +13991,7 @@
       {
         "id": "DIR-1028",
         "ulid": "01JCQR8X9Y00000000001824",
-        "type": "directory",
+        "type": "assy",
         "seqNumber": 5000,
         "directoryTypeId": "DT-02",
         "directoryTypeName": "Assy",
@@ -14045,7 +14045,7 @@
           {
             "id": "DIR-1029",
             "ulid": "01JCQR8X9Y00000000001825",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 5100,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -14066,7 +14066,7 @@
               {
                 "id": "LEAF-71",
                 "ulid": "01JCQR8X9Y00000000001826",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "レーザースキャナ SCANNER-5100A",
                 "revisionSetId": "REV-SET-LEAF-71",
                 "revisionNumber": 1,
@@ -14251,7 +14251,7 @@
               {
                 "id": "LEAF-72",
                 "ulid": "01JCQR8X9Y00000000001837",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "取付ブラケット BRKT-5100B",
                 "revisionSetId": "REV-SET-LEAF-72",
                 "revisionNumber": 1,
@@ -14436,7 +14436,7 @@
               {
                 "id": "LEAF-73",
                 "ulid": "01JCQR8X9Y00000000001848",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "安全リレー RELAY-5100C",
                 "revisionSetId": "REV-SET-LEAF-73",
                 "revisionNumber": 1,
@@ -14623,7 +14623,7 @@
           {
             "id": "DIR-1030",
             "ulid": "01JCQR8X9Y00000000001859",
-            "type": "directory",
+            "type": "assy",
             "seqNumber": 5200,
             "directoryTypeId": "DT-03",
             "directoryTypeName": "SubAssy",
@@ -14644,7 +14644,7 @@
               {
                 "id": "LEAF-74",
                 "ulid": "01JCQR8X9Y00000000001860",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "安全ドアスイッチ SWITCH-5200A",
                 "revisionSetId": "REV-SET-LEAF-74",
                 "revisionNumber": 1,
@@ -14829,7 +14829,7 @@
               {
                 "id": "LEAF-75",
                 "ulid": "01JCQR8X9Y00000000001871",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "インターロックスイッチ ILOCK-5200B",
                 "revisionSetId": "REV-SET-LEAF-75",
                 "revisionNumber": 1,
@@ -15014,7 +15014,7 @@
               {
                 "id": "LEAF-76",
                 "ulid": "01JCQR8X9Y00000000001882",
-                "type": "leaf-product",
+                "type": "parts",
                 "name": "安全マット MAT-5200C",
                 "revisionSetId": "REV-SET-LEAF-76",
                 "revisionNumber": 1,
@@ -15201,7 +15201,7 @@
           {
             "id": "LEAF-77",
             "ulid": "01JCQR8X9Y00000000001893",
-            "type": "leaf-product",
+            "type": "parts",
             "name": "警告灯 LIGHT-5000A",
             "revisionSetId": "REV-SET-LEAF-77",
             "revisionNumber": 1,
