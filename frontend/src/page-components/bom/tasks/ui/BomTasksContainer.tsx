@@ -1,0 +1,145 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import { CheckSquare, Circle, Clock, CheckCircle2 } from 'lucide-react';
+import {
+  ResizablePanelGroup,
+  ResizablePanel,
+  ResizableHandle,
+} from '@/shared/ui/shadcn/ui/resizable';
+import { Button } from '@/shared/ui/shadcn/ui/button';
+import { Badge } from '@/shared/ui/shadcn/ui/badge';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
+import { TaskListPanel } from '../ui-block/task-list/ui/TaskListPanel';
+import { TaskDetailPanel } from '../ui-block/task-detail/ui/TaskDetailPanel';
+import { dummyTasks, type TaskStatus } from '../dummy-data/tasks';
+
+type FilterStatus = 'all' | TaskStatus;
+
+const filterOptions: { value: FilterStatus; label: string; icon: React.ReactNode }[] = [
+  { value: 'all', label: 'すべて', icon: <CheckSquare className='size-3' /> },
+  { value: 'todo', label: '未着手', icon: <Circle className='size-3' /> },
+  { value: 'in_progress', label: '進行中', icon: <Clock className='size-3' /> },
+  { value: 'done', label: '完了', icon: <CheckCircle2 className='size-3' /> },
+];
+
+export function BomTasksContainer() {
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+  // TODO: API呼び出し
+  const tasks = dummyTasks;
+
+  // 今後消す==========================================
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      if (filterStatus === 'all') return true;
+      return task.status === filterStatus;
+    });
+  }, [tasks, filterStatus]);
+  // =================================================
+
+  const selectedTask = useMemo(() => {
+    return tasks.find((t) => t.id === selectedTaskId) || null;
+  }, [tasks, selectedTaskId]);
+
+  const todoCount = tasks.filter((t) => t.status === 'todo').length;
+  const inProgressCount = tasks.filter((t) => t.status === 'in_progress').length;
+  const doneCount = tasks.filter((t) => t.status === 'done').length;
+
+  const handleSelectTask = (taskId: string) => {
+    setSelectedTaskId(taskId);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedTaskId(null);
+  };
+
+  return (
+    <div className='flex h-full flex-col'>
+      {/* Header */}
+      <div className='flex shrink-0 items-center justify-between border-b px-6 py-3'>
+        <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-2'>
+            <Badge variant='outline' className='gap-1'>
+              <Circle className='size-3 text-gray-400' />
+              未着手 {todoCount}
+            </Badge>
+            <Badge variant='secondary' className='gap-1'>
+              <Clock className='size-3 text-blue-500' />
+              進行中 {inProgressCount}
+            </Badge>
+            <Badge variant='outline' className='gap-1'>
+              <CheckCircle2 className='size-3 text-green-500' />
+              完了 {doneCount}
+            </Badge>
+          </div>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
+          {filterOptions.map((option) => (
+            <Button
+              key={option.value}
+              variant='ghost'
+              size='sm'
+              onClick={() => setFilterStatus(option.value)}
+              className={cn(
+                'gap-1.5 px-3',
+                filterStatus === option.value && 'bg-background shadow-sm'
+              )}
+            >
+              {option.icon}
+              {option.label}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className='min-h-0 flex-1'>
+        {filteredTasks.length > 0 ? (
+          <ResizablePanelGroup direction='horizontal' className='h-full'>
+            {/* Task List */}
+            <ResizablePanel defaultSize={selectedTask ? 40 : 100} minSize={30}>
+              <TaskListPanel
+                tasks={filteredTasks}
+                selectedTaskId={selectedTaskId}
+                onSelectTask={handleSelectTask}
+              />
+            </ResizablePanel>
+
+            {/* Detail Panel */}
+            {selectedTask && (
+              <>
+                <ResizableHandle withHandle />
+                <ResizablePanel defaultSize={60} minSize={40}>
+                  <TaskDetailPanel
+                    task={selectedTask}
+                    onClose={handleCloseDetail}
+                  />
+                </ResizablePanel>
+              </>
+            )}
+          </ResizablePanelGroup>
+        ) : (
+          <div className='flex h-full flex-col items-center justify-center text-muted-foreground'>
+            <CheckSquare className='mb-4 size-12 opacity-50' />
+            <p className='text-lg font-medium'>
+              {filterStatus === 'all'
+                ? 'タスクはありません'
+                : filterStatus === 'todo'
+                  ? '未着手のタスクはありません'
+                  : filterStatus === 'in_progress'
+                    ? '進行中のタスクはありません'
+                    : '完了したタスクはありません'}
+            </p>
+            <p className='mt-1 text-sm'>
+              キャンバスモードでタスクを追加できます
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
