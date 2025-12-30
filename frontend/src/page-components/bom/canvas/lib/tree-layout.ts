@@ -1,6 +1,5 @@
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode } from '../ui-block/node/model/types';
-import type { Connector } from '../ui-block/connector/model/types';
+import type { FlattenedNode, Connector } from '../ui-block/node/model/types';
 import {
   NODE_WIDTH,
   NODE_HEIGHT,

@@ -5,11 +5,16 @@ import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSh
 import { DocumentPreviewDialog } from '@/widgets/bom/canvas/document-preview/ui/DocumentPreviewDialog';
 import { DrawingPreviewDialog } from '@/widgets/bom/canvas/drawing-preview/ui/DrawingPreviewDialog';
 import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
+import { useDrag } from '../lib/use-drag';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
 
 interface NodeBlockProps {
   node: BomTreeNode;
+  x: number;
+  y: number;
+  onMove: (x: number, y: number) => void;
 }
 
 const TYPE_LABELS: Record<BomTreeNode['type'], string> = {
@@ -18,7 +23,7 @@ const TYPE_LABELS: Record<BomTreeNode['type'], string> = {
   parts: 'Parts',
 };
 
-export function NodeBlock({ node }: NodeBlockProps) {
+export function NodeBlock({ node, x, y, onMove }: NodeBlockProps) {
   // 名前から品番を抽出（最後のスペース区切りの文字列）
   const nameParts = node.name.split(' ');
   const partNumber = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
@@ -31,10 +36,29 @@ export function NodeBlock({ node }: NodeBlockProps) {
   const documents = node.type === 'parts' ? [] : node.documents;
   const drawings = node.type === 'parts' ? node.drawings : [];
 
+  // ドラッグフック
+  const { isDragging, handleDragMouseDown } = useDrag({
+    initialX: x,
+    initialY: y,
+    onDrag: onMove,
+  });
+
   return (
     <div
-      className="relative flex flex-col rounded-lg border bg-white shadow-sm"
-      style={{ width: NODE_WIDTH, height: NODE_HEIGHT }}
+      data-node
+      data-node-id={node.id}
+      className={cn(
+        'relative flex flex-col rounded-lg border bg-white shadow-sm',
+        isDragging ? 'cursor-grabbing shadow-lg' : 'cursor-grab'
+      )}
+      style={{
+        position: 'absolute',
+        left: x,
+        top: y,
+        width: NODE_WIDTH,
+        height: NODE_HEIGHT,
+      }}
+      onMouseDown={handleDragMouseDown}
     >
       {/* 左上: タイプバッジ */}
       <div className="absolute left-2 top-2">

@@ -5,8 +5,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { CanvasViewportProvider } from '@/widgets/bom/canvas/viewport/ui/CanvasViewportProvider';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
 import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
-import { NodeBlock } from '../ui-block/node/ui/NodeBlock';
-import { NodeConnector } from '../ui-block/connector/ui/NodeConnector';
+import { NodeLayer } from '../ui-block/node/ui/NodeLayer';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
 import { useStickyNotes } from '../ui-block/sticky-note/lib/use-sticky-notes';
 import { CommentLayer } from '../ui-block/comment/ui/CommentLayer';
@@ -100,36 +99,8 @@ export function BomCanvasContainer() {
           onCanvasMouseMove={handleCanvasMouseMove}
           onCanvasMouseLeave={handleCanvasMouseLeave}
         >
-          {/* コネクタ（SVGレイヤー） */}
-          <svg
-            className="pointer-events-none absolute inset-0"
-            style={{ overflow: 'visible' }}
-          >
-            {connectors.map((connector) => (
-              <NodeConnector
-                key={`${connector.fromId}-${connector.toId}`}
-                fromX={connector.fromX}
-                fromY={connector.fromY}
-                toX={connector.toX}
-                toY={connector.toY}
-              />
-            ))}
-          </svg>
-
-          {/* ノード */}
-          {nodes.map((flatNode) => (
-            <div
-              key={flatNode.node.id}
-              data-node
-              style={{
-                position: 'absolute',
-                left: flatNode.x,
-                top: flatNode.y,
-              }}
-            >
-              <NodeBlock node={flatNode.node} />
-            </div>
-          ))}
+          {/* ノードレイヤー */}
+          <NodeLayer initialNodes={nodes} initialConnectors={connectors} />
 
           {/* 付箋レイヤー */}
           <StickyNoteLayer
