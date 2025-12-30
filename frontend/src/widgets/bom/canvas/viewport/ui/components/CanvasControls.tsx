@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { HelpCircle, X } from 'lucide-react';
 
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 
 const HELP_CONTENT = [
@@ -13,11 +14,15 @@ const HELP_CONTENT = [
   { action: 'リセット', mouse: 'ダブルクリック', trackpad: 'ダブルクリック' },
 ];
 
-export function CanvasControls() {
+interface CanvasControlsProps {
+  className?: string;
+}
+
+export function CanvasControls({ className }: CanvasControlsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="absolute bottom-4 left-4">
+    <div className={cn('absolute', className)}>
       {isOpen ? (
         <div className="rounded-lg border bg-white/95 p-3 shadow-lg backdrop-blur-sm">
           <div className="mb-2 flex items-center justify-between">

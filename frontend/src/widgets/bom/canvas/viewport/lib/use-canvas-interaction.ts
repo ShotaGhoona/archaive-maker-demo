@@ -9,34 +9,21 @@ import {
   type MouseEvent,
 } from 'react';
 
-export interface ViewportState {
-  offsetX: number;
-  offsetY: number;
-  scale: number;
-}
+import type { ViewportState, CursorMode, ContentBounds } from '../model/types';
 
-export type CursorMode = 'default' | 'grab' | 'grabbing';
-
-interface UseCanvasViewportOptions {
+interface UseCanvasInteractionOptions {
   minScale?: number;
   maxScale?: number;
   zoomSensitivity?: number;
 }
 
-interface ContentBounds {
-  minX: number;
-  minY: number;
-  maxX: number;
-  maxY: number;
-}
-
-const DEFAULT_OPTIONS: Required<UseCanvasViewportOptions> = {
+const DEFAULT_OPTIONS: Required<UseCanvasInteractionOptions> = {
   minScale: 0.1,
   maxScale: 5,
   zoomSensitivity: 0.002,
 };
 
-export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
+export function useCanvasInteraction(options: UseCanvasInteractionOptions = {}) {
   const { minScale, maxScale, zoomSensitivity } = { ...DEFAULT_OPTIONS, ...options };
 
   const [viewport, setViewport] = useState<ViewportState>({
@@ -89,7 +76,6 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
       const mouseY = e.clientY - rect.top;
 
       // トラックパッドの2本指スクロール検出
-      // ctrlKeyがfalseで、deltaXがある場合は2本指スクロール → パン
       const isTrackpadScroll = !e.ctrlKey && !e.metaKey && Math.abs(e.deltaX) > 0;
 
       if (isTrackpadScroll) {
@@ -104,28 +90,22 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
 
       // マウスホイール or ピンチズーム → ズーム
       const delta = -e.deltaY * zoomSensitivity;
-      const newScale = Math.min(maxScale, Math.max(minScale, viewport.scale * (1 + delta)));
-      const scaleRatio = newScale / viewport.scale;
+      setViewport((prev) => {
+        const newScale = Math.min(maxScale, Math.max(minScale, prev.scale * (1 + delta)));
+        const scaleRatio = newScale / prev.scale;
 
-      // マウス位置を中心にズーム
-      const newOffsetX = mouseX - (mouseX - viewport.offsetX) * scaleRatio;
-      const newOffsetY = mouseY - (mouseY - viewport.offsetY) * scaleRatio;
-
-      setViewport({
-        offsetX: newOffsetX,
-        offsetY: newOffsetY,
-        scale: newScale,
+        return {
+          offsetX: mouseX - (mouseX - prev.offsetX) * scaleRatio,
+          offsetY: mouseY - (mouseY - prev.offsetY) * scaleRatio,
+          scale: newScale,
+        };
       });
     },
-    [viewport, minScale, maxScale, zoomSensitivity]
+    [minScale, maxScale, zoomSensitivity]
   );
 
   // マウスダウン
   const handleMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
-    // パン開始条件:
-    // - 中クリック（button === 1）
-    // - 右クリック（button === 2）
-    // - Space + 左クリック
     const shouldPan =
       e.button === 1 || e.button === 2 || (e.button === 0 && isSpacePressed.current);
 
@@ -171,16 +151,13 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
   }, []);
 
   // ダブルクリックで全体表示
-  const handleDoubleClick = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      // ノード上でのダブルクリックは無視（イベントバブリングで来た場合）
-      if ((e.target as HTMLElement).closest('[data-node]')) {
-        return;
-      }
-      resetViewport();
-    },
-    []
-  );
+  const handleDoubleClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    // ノードや付箋上でのダブルクリックは無視
+    if ((e.target as HTMLElement).closest('[data-node], [data-sticky]')) {
+      return;
+    }
+    setViewport({ offsetX: 0, offsetY: 0, scale: 1 });
+  }, []);
 
   // ビューポートリセット
   const resetViewport = useCallback(() => {
@@ -201,12 +178,10 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
         return;
       }
 
-      // パディングを考慮したスケール計算
       const scaleX = (containerRect.width - padding * 2) / contentWidth;
       const scaleY = (containerRect.height - padding * 2) / contentHeight;
       const newScale = Math.min(Math.max(Math.min(scaleX, scaleY), minScale), maxScale);
 
-      // 中央に配置するためのオフセット計算
       const contentCenterX = bounds.minX + contentWidth / 2;
       const contentCenterY = bounds.minY + contentHeight / 2;
       const newOffsetX = containerRect.width / 2 - contentCenterX * newScale;
@@ -229,15 +204,16 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const newScale = Math.min(maxScale, viewport.scale * 1.2);
-    const scaleRatio = newScale / viewport.scale;
-
-    setViewport({
-      offsetX: centerX - (centerX - viewport.offsetX) * scaleRatio,
-      offsetY: centerY - (centerY - viewport.offsetY) * scaleRatio,
-      scale: newScale,
+    setViewport((prev) => {
+      const newScale = Math.min(maxScale, prev.scale * 1.2);
+      const scaleRatio = newScale / prev.scale;
+      return {
+        offsetX: centerX - (centerX - prev.offsetX) * scaleRatio,
+        offsetY: centerY - (centerY - prev.offsetY) * scaleRatio,
+        scale: newScale,
+      };
     });
-  }, [viewport, maxScale]);
+  }, [maxScale]);
 
   // ズームアウト
   const zoomOut = useCallback(() => {
@@ -247,19 +223,19 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const newScale = Math.max(minScale, viewport.scale / 1.2);
-    const scaleRatio = newScale / viewport.scale;
-
-    setViewport({
-      offsetX: centerX - (centerX - viewport.offsetX) * scaleRatio,
-      offsetY: centerY - (centerY - viewport.offsetY) * scaleRatio,
-      scale: newScale,
+    setViewport((prev) => {
+      const newScale = Math.max(minScale, prev.scale / 1.2);
+      const scaleRatio = newScale / prev.scale;
+      return {
+        offsetX: centerX - (centerX - prev.offsetX) * scaleRatio,
+        offsetY: centerY - (centerY - prev.offsetY) * scaleRatio,
+        scale: newScale,
+      };
     });
-  }, [viewport, minScale]);
+  }, [minScale]);
 
   return {
     viewport,
-    setViewport,
     cursorMode,
     containerRef,
     handlers: {

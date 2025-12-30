@@ -9,6 +9,22 @@ export const VERTICAL_GAP = 40;
 // 付箋サイズ
 export const STICKY_NOTE_WIDTH = 200;
 export const STICKY_NOTE_HEIGHT = 150;
+export const STICKY_NOTE_MIN_WIDTH = 100;
+export const STICKY_NOTE_MIN_HEIGHT = 80;
+
+// 付箋フォントサイズ
+export type StickyNoteFontSize = 'small' | 'medium' | 'large';
+
+export interface StickyNoteFontConfig {
+  size: number;
+  label: string;
+}
+
+export const STICKY_NOTE_FONT_SIZES: Record<StickyNoteFontSize, StickyNoteFontConfig> = {
+  small: { size: 12, label: '小' },
+  medium: { size: 14, label: '中' },
+  large: { size: 18, label: '大' },
+};
 
 // コネクタ太さ
 export type ConnectorStrokeWidth = 'thin' | 'medium' | 'thick';
