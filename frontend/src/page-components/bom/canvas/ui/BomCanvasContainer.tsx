@@ -39,6 +39,7 @@ export function BomCanvasContainer() {
         {nodes.map((flatNode) => (
           <div
             key={flatNode.node.id}
+            data-node
             style={{
               position: 'absolute',
               left: flatNode.x,

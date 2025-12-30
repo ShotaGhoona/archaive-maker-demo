@@ -5,24 +5,29 @@ import { type ReactNode } from 'react';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 import { DottedGridBackground } from './DottedGridBackground';
-import { useCanvasViewport } from '../lib/use-canvas-viewport';
+import { CanvasControls } from './CanvasControls';
+import { useCanvasViewport, type CursorMode } from '../lib/use-canvas-viewport';
 
 interface InfiniteCanvasProps {
   children?: ReactNode;
   className?: string;
 }
 
-export function InfiniteCanvas({
-  children,
-  className,
-}: InfiniteCanvasProps) {
-  const { viewport, handlers } = useCanvasViewport();
+const CURSOR_MAP: Record<CursorMode, string> = {
+  default: 'default',
+  grab: 'grab',
+  grabbing: 'grabbing',
+};
+
+export function InfiniteCanvas({ children, className }: InfiniteCanvasProps) {
+  const { viewport, cursorMode, containerRef, handlers, actions } = useCanvasViewport();
 
   return (
     <div
-      className={cn('relative h-full w-full overflow-hidden', className)}
+      ref={containerRef}
+      className={cn('relative h-full w-full overflow-hidden select-none', className)}
       {...handlers}
-      style={{ cursor: 'default' }}
+      style={{ cursor: CURSOR_MAP[cursorMode] }}
     >
       {/* 背景グリッド */}
       <DottedGridBackground
@@ -42,10 +47,8 @@ export function InfiniteCanvas({
         {children}
       </div>
 
-      {/* ズームレベル表示 */}
-      <div className="absolute bottom-4 right-4 rounded-md bg-white/80 px-2 py-1 text-xs text-gray-500 shadow-sm backdrop-blur-sm">
-        {Math.round(viewport.scale * 100)}%
-      </div>
+      {/* コントロールUI */}
+      <CanvasControls />
     </div>
   );
 }
