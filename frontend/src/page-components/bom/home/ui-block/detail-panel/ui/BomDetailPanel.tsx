@@ -1,12 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ExternalLink, FileText, Image, X } from 'lucide-react';
+import { ExternalLink, Save, X } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
-import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Card } from '@/shared/ui/shadcn/ui/card';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { Separator } from '@/shared/ui/shadcn/ui/separator';
+import { MetadataFields, type MetadataFormData } from './components/MetadataFields';
+import { DocumentList } from './components/DocumentList';
+import { DrawingList } from './components/DrawingList';
 
 import type { BomNodeDetail } from '@/shared/dummy-data/bom/products';
 
@@ -18,22 +21,55 @@ interface BomDetailPanelProps {
 export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
   const router = useRouter();
 
+  // フォーム状態管理
+  const [formData, setFormData] = useState<MetadataFormData>({
+    id: detail.id,
+    name: detail.name,
+    nodeType: detail.nodeType,
+    quantity: detail.quantity,
+    createdAt: detail.createdAt,
+    updatedAt: detail.updatedAt,
+    customItems: { ...detail.customItems },
+  });
+
+  // detailが変わったらformDataをリセット
+  useEffect(() => {
+    setFormData({
+      id: detail.id,
+      name: detail.name,
+      nodeType: detail.nodeType,
+      quantity: detail.quantity,
+      createdAt: detail.createdAt,
+      updatedAt: detail.updatedAt,
+      customItems: { ...detail.customItems },
+    });
+  }, [detail]);
+
+  const updateField = <K extends keyof typeof formData>(
+    key: K,
+    value: (typeof formData)[K],
+  ) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const updateCustomItem = (key: string, value: unknown) => {
+    setFormData((prev) => ({
+      ...prev,
+      customItems: { ...prev.customItems, [key]: value as string | number | '' | boolean },
+    }));
+  };
+
   const handleGoToDetail = () => {
     router.push(`/bom/${detail.id}/basic-information`);
   };
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return '-';
-    return new Date(dateString).toLocaleDateString('ja-JP');
-  };
-
-  const formatValue = (value: string | number | boolean) => {
-    if (typeof value === 'boolean') return value ? 'あり' : 'なし';
-    return String(value);
+  const handleSave = () => {
+    alert('保存（未実装）');
+    // TODO: API呼び出し
   };
 
   return (
-    <Card className='flex w-96 shrink-0 flex-col border-l py-0 gap-0'>
+    <Card className='flex min-h-0 w-[600px] shrink-0 flex-col border-l py-0 gap-0'>
       {/* ヘッダー */}
       <div className='flex items-center justify-between border-b p-4'>
         <div className='min-w-0 flex-1'>
@@ -45,80 +81,20 @@ export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
       </div>
 
       {/* コンテンツ */}
-      <ScrollArea className='flex-1'>
+      <ScrollArea className='min-h-0 flex-1'>
         <div className='space-y-4 p-4'>
-          {/* 基本情報 */}
-          <div>
-            <h4 className='mb-2 text-base font-medium text-primary'>
-              基本情報
-            </h4>
-            <div className='space-y-2 text-base'>
-              <div className='flex justify-between'>
-                <span className='text-muted-foreground'>ID</span>
-                <span className='font-mono'>{detail.id}</span>
-              </div>
-              {detail.quantity > 1 && (
-                <div className='flex justify-between'>
-                  <span className='text-muted-foreground'>数量</span>
-                  <span>{detail.quantity}</span>
-                </div>
-              )}
-              <div className='flex justify-between'>
-                <span className='text-muted-foreground'>作成日</span>
-                <span>{formatDate(detail.createdAt)}</span>
-              </div>
-              <div className='flex justify-between'>
-                <span className='text-muted-foreground'>更新日</span>
-                <span>{formatDate(detail.updatedAt)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* カスタム項目 */}
-          {Object.keys(detail.customItems).length > 0 && (
-            <>
-              <Separator />
-              <div>
-                <h4 className='mb-2 text-base font-medium text-primary'>
-                  属性
-                </h4>
-                <div className='space-y-2 text-base'>
-                  {Object.entries(detail.customItems).map(([key, value]) => (
-                    <div key={key} className='flex justify-between'>
-                      <span className='text-muted-foreground'>{key}</span>
-                      <span>{formatValue(value)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
+          {/* 編集可能フィールド */}
+          <MetadataFields
+            formData={formData}
+            onFieldChange={updateField}
+            onCustomItemChange={updateCustomItem}
+          />
 
           {/* ドキュメント */}
           {detail.documents.length > 0 && (
             <>
               <Separator />
-              <div>
-                <h4 className='mb-2 text-base font-medium text-primary'>
-                  ドキュメント ({detail.documents.length})
-                </h4>
-                <div className='space-y-2'>
-                  {detail.documents.map((doc) => (
-                    <div
-                      key={doc.id}
-                      className='flex items-center gap-2 rounded-md bg-muted/50 p-2 text-base'
-                    >
-                      <FileText className='h-5 w-5 shrink-0 text-muted-foreground' />
-                      <div className='min-w-0 flex-1'>
-                        <p className='truncate'>{doc.name || doc.typeName}</p>
-                        <p className='text-sm text-muted-foreground'>
-                          {doc.typeName}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <DocumentList documents={detail.documents} />
             </>
           )}
 
@@ -126,35 +102,19 @@ export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
           {detail.drawings.length > 0 && (
             <>
               <Separator />
-              <div>
-                <h4 className='mb-2 text-base font-medium text-primary'>
-                  図面 ({detail.drawings.length})
-                </h4>
-                <div className='space-y-2'>
-                  {detail.drawings.slice(0, 3).map((drw) => (
-                    <div
-                      key={drw.id}
-                      className='flex items-center gap-2 rounded-md bg-muted/50 p-2 text-base'
-                    >
-                      <Image className='h-5 w-5 shrink-0 text-muted-foreground' />
-                      <span className='min-w-0 flex-1 truncate'>{drw.name}</span>
-                    </div>
-                  ))}
-                  {detail.drawings.length > 3 && (
-                    <p className='text-sm text-muted-foreground'>
-                      他 {detail.drawings.length - 3} 件
-                    </p>
-                  )}
-                </div>
-              </div>
+              <DrawingList drawings={detail.drawings} />
             </>
           )}
         </div>
       </ScrollArea>
 
       {/* フッター */}
-      <div className='border-t p-4'>
-        <Button className='w-full' onClick={handleGoToDetail}>
+      <div className='flex gap-2 border-t p-4'>
+        <Button className='flex-1' onClick={handleSave}>
+          <Save className='mr-2 h-4 w-4' />
+          保存
+        </Button>
+        <Button className='flex-1' onClick={handleGoToDetail}>
           <ExternalLink className='mr-2 h-4 w-4' />
           詳細ページを開く
         </Button>

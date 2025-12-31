@@ -86,7 +86,7 @@ interface JsonDirectory {
 
 interface JsonLeafProduct {
   id: string;
-  type: 'leaf-product';
+  type: 'leaf-product' | 'parts';
   name: string;
   quantity: number;
   customItems?: Record<string, string | number | boolean>;
@@ -103,7 +103,7 @@ interface JsonRoot {
 
 // directoryTypeNameをNodeTypeに変換
 function toNodeType(directoryTypeName?: string, type?: string): NodeType {
-  if (type === 'leaf-product') return 'Part';
+  if (type === 'leaf-product' || type === 'parts') return 'Part';
   switch (directoryTypeName) {
     case '製品':
       return '製品';
@@ -122,7 +122,7 @@ function toNodeType(directoryTypeName?: string, type?: string): NodeType {
 
 // JSONからBomNodeツリーに変換
 function convertToBomNode(node: JsonDirectory | JsonLeafProduct): BomNode {
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   const dir = node as JsonDirectory;
 
   const bomNode: BomNode = {
@@ -143,7 +143,7 @@ function convertToBomNode(node: JsonDirectory | JsonLeafProduct): BomNode {
 const detailMap = new Map<string, BomNodeDetail>();
 
 function buildDetailMap(node: JsonDirectory | JsonLeafProduct): void {
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   const dir = node as JsonDirectory;
   const leaf = node as JsonLeafProduct;
 
@@ -221,7 +221,7 @@ const rawNodeMap = new Map<string, JsonDirectory | JsonLeafProduct>();
 
 function buildRawNodeMap(node: JsonDirectory | JsonLeafProduct): void {
   rawNodeMap.set(node.id, node);
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   if (!isLeaf) {
     const dir = node as JsonDirectory;
     if (dir.children) {
@@ -245,7 +245,7 @@ export function getChildGalleryItems(nodeId: string): GalleryItem[] {
   if (!node) return [];
 
   const items: GalleryItem[] = [];
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
 
   // 子ディレクトリ/リーフプロダクト
   if (!isLeaf) {
@@ -301,7 +301,7 @@ export function getChildBomNodes(nodeId: string): BomNode[] {
   const node = rawNodeMap.get(nodeId);
   if (!node) return [];
 
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   if (isLeaf) return [];
 
   const dir = node as JsonDirectory;
@@ -312,7 +312,7 @@ export function getChildBomNodes(nodeId: string): BomNode[] {
 
 // JSONノードからTreeNodeに変換（再帰的に全階層を含む）
 function convertToTreeNode(node: JsonDirectory | JsonLeafProduct): TreeNode {
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   const dir = node as JsonDirectory;
   const leaf = node as JsonLeafProduct;
 
@@ -367,7 +367,7 @@ export function getTreeNodesFromNodeId(nodeId: string): TreeNode[] {
   const node = rawNodeMap.get(nodeId);
   if (!node) return [];
 
-  const isLeaf = node.type === 'leaf-product';
+  const isLeaf = node.type === 'leaf-product' || node.type === 'parts';
   const dir = node as JsonDirectory;
   const leaf = node as JsonLeafProduct;
 
