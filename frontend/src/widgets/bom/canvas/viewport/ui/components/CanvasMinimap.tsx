@@ -2,12 +2,13 @@
 
 import { useCallback, useRef, useMemo, useState, useEffect } from 'react';
 
-import type { ViewportState, MinimapNode } from '../../model/types';
+import type { ViewportState, MinimapNode, MinimapConnector } from '../../model/types';
 
 interface CanvasMinimapProps {
   viewport: ViewportState;
   containerRef: React.RefObject<HTMLDivElement | null>;
   nodes: MinimapNode[];
+  connectors?: MinimapConnector[];
   onPanTo: (canvasX: number, canvasY: number) => void;
 }
 
@@ -65,6 +66,7 @@ export function CanvasMinimap({
   viewport,
   containerRef,
   nodes,
+  connectors,
   onPanTo,
 }: CanvasMinimapProps) {
   const minimapRef = useRef<HTMLDivElement>(null);
@@ -205,6 +207,30 @@ export function CanvasMinimap({
     >
       {/* 背景 */}
       <div className="absolute inset-0 bg-gray-100" />
+
+      {/* コネクタのプレビュー */}
+      {connectors && connectors.length > 0 && (
+        <svg
+          className="absolute inset-0"
+          style={{ width: minimapSize.width, height: minimapSize.height }}
+        >
+          {connectors.map((connector, index) => {
+            const from = contentToMinimap(connector.fromX, connector.fromY);
+            const to = contentToMinimap(connector.toX, connector.toY);
+            const midX = (from.x + to.x) / 2;
+            const path = `M ${from.x} ${from.y} H ${midX} V ${to.y} H ${to.x}`;
+            return (
+              <path
+                key={index}
+                d={path}
+                stroke="#94a3b8"
+                strokeWidth={1}
+                fill="none"
+              />
+            );
+          })}
+        </svg>
+      )}
 
       {/* ノードのプレビュー */}
       {nodes.map((node) => {

@@ -38,3 +38,10 @@ export interface MinimapNode {
   width: number;
   height: number;
 }
+
+export interface MinimapConnector {
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+}

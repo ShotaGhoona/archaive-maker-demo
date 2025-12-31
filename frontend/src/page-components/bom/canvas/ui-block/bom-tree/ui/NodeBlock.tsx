@@ -5,6 +5,7 @@ import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSh
 import { DocumentListSheet } from '@/widgets/bom/canvas/document-sheet/ui/DocumentListSheet';
 import { DrawingListSheet } from '@/widgets/bom/canvas/drawing-sheet/ui/DrawingListSheet';
 import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
+import { DetailLinkButton } from './components/DetailLinkButton';
 
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
 
@@ -41,6 +42,11 @@ export function NodeBlock({ node }: NodeBlockProps) {
         <Badge variant="secondary" className="text-xs">
           {typeLabel}
         </Badge>
+      </div>
+
+      {/* 右上: 詳細ページへのリンク */}
+      <div className="absolute right-2 top-2">
+        <DetailLinkButton nodeId={node.id} />
       </div>
 
       {/* 中央: 名前と品番 */}

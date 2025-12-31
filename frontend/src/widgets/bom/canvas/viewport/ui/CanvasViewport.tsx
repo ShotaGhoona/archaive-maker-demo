@@ -14,8 +14,9 @@ import type {
   ViewportHandlers,
   ViewportActions,
   MinimapNode,
+  MinimapConnector,
 } from '../model/types';
-export type { MinimapNode } from '../model/types';
+export type { MinimapNode, MinimapConnector } from '../model/types';
 import { DottedGridBackground } from './components/DottedGridBackground';
 import { CanvasControls } from './components/CanvasControls';
 import { CanvasMinimap } from './components/CanvasMinimap';
@@ -32,6 +33,7 @@ interface CanvasViewportProps {
   actions: ViewportActions;
   // ミニマップ用ノード（渡された場合のみミニマップ表示）
   minimapNodes?: MinimapNode[];
+  minimapConnectors?: MinimapConnector[];
   // イベント
   onCanvasClick?: (event: CanvasCoordinates) => void;
   onCanvasMouseMove?: (event: CanvasCoordinates) => void;
@@ -54,6 +56,7 @@ export function CanvasViewport({
   handlers,
   actions,
   minimapNodes,
+  minimapConnectors,
   onCanvasClick,
   onCanvasMouseMove,
   onCanvasMouseLeave,
@@ -135,6 +138,7 @@ export function CanvasViewport({
           viewport={viewport}
           containerRef={containerRef}
           nodes={minimapNodes}
+          connectors={minimapConnectors}
           onPanTo={actions.panTo}
         />
       )}

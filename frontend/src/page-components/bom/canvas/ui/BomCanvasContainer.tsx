@@ -45,6 +45,16 @@ export function BomCanvasContainer() {
     return calculateBomTreeLayout(data.root);
   }, []);
 
+  // ミニマップ用コネクタ（座標のみ抽出）
+  const minimapConnectors = useMemo(() => {
+    return bomTreeLayout.connectors.map(({ fromX, fromY, toX, toY }) => ({
+      fromX,
+      fromY,
+      toX,
+      toY,
+    }));
+  }, [bomTreeLayout.connectors]);
+
   // キャンバスクリック処理
   const handleCanvasClick = useCallback(
     (event: { canvasX: number; canvasY: number }) => {
@@ -100,6 +110,7 @@ export function BomCanvasContainer() {
         {...canvasViewport}
         cursor={toolCursor}
         minimapNodes={bomTreeLayout.minimapNodes}
+        minimapConnectors={minimapConnectors}
         onCanvasClick={handleCanvasClick}
         onCanvasMouseMove={handleCanvasMouseMove}
         onCanvasMouseLeave={handleCanvasMouseLeave}
