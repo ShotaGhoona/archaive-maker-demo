@@ -2,8 +2,8 @@
 
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSheet';
-import { DocumentPreviewDialog } from '@/widgets/bom/canvas/document-preview/ui/DocumentPreviewDialog';
-import { DrawingPreviewDialog } from '@/widgets/bom/canvas/drawing-preview/ui/DrawingPreviewDialog';
+import { DocumentListSheet } from '@/widgets/bom/canvas/document-sheet/ui/DocumentListSheet';
+import { DrawingListSheet } from '@/widgets/bom/canvas/drawing-sheet/ui/DrawingListSheet';
 import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
 
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
@@ -53,22 +53,11 @@ export function NodeBlock({ node }: NodeBlockProps) {
         </p>
       </div>
 
-      {/* 下部: アイコン類 */}
-      <div className="flex items-center justify-between px-2 pb-2">
-        {/* 左下: 図面・帳票アイコン */}
-        <div className="flex items-center gap-0.5">
-          {drawings.map((drawing) => (
-            <DrawingPreviewDialog key={drawing.id} drawing={drawing} />
-          ))}
-          {documents.map((document) => (
-            <DocumentPreviewDialog key={document.id} document={document} />
-          ))}
-        </div>
-
-        {/* 右下: メタデータボタン */}
-        <div>
-          <MetadataSheet nodeName={node.name} customItems={node.customItems} />
-        </div>
+      {/* 右下: 帳票・図面・メタデータアイコン */}
+      <div className="flex items-center justify-end gap-0.5 px-2 pb-2">
+        {documents.length > 0 && <DocumentListSheet documents={documents} />}
+        {drawings.length > 0 && <DrawingListSheet drawings={drawings} />}
+        <MetadataSheet nodeName={node.name} customItems={node.customItems} />
       </div>
     </div>
   );

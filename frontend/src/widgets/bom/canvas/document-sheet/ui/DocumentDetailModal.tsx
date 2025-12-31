@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { FileText } from 'lucide-react';
 import Image from 'next/image';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -10,13 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/shared/ui/shadcn/ui/dialog';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/shared/ui/shadcn/ui/tooltip';
 import {
   ResizablePanelGroup,
   ResizablePanel,
@@ -26,12 +19,17 @@ import { renderDynamicFields } from '@/shared/ui/form-fields/lib/render-dynamic-
 
 import type { Document } from '@/shared/dummy-data/bom/types';
 
-interface DocumentPreviewDialogProps {
+interface DocumentDetailModalProps {
   document: Document;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-export function DocumentPreviewDialog({ document }: DocumentPreviewDialogProps) {
-  const [open, setOpen] = useState(false);
+export function DocumentDetailModal({
+  document,
+  open,
+  onOpenChange,
+}: DocumentDetailModalProps) {
   const latestVersion = document.versions[document.versions.length - 1];
 
   // 基本情報とカスタム項目を統合
@@ -52,24 +50,7 @@ export function DocumentPreviewDialog({ document }: DocumentPreviewDialogProps) 
   }, [metadata]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DialogTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <FileText className="h-4 w-4" />
-            </Button>
-          </DialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{document.typeName}</p>
-        </TooltipContent>
-      </Tooltip>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-7xl">
         <DialogHeader>
           <DialogTitle>{document.typeName}</DialogTitle>

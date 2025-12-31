@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { PenTool } from 'lucide-react';
 import Image from 'next/image';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -10,13 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/shared/ui/shadcn/ui/dialog';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/shared/ui/shadcn/ui/tooltip';
 import {
   ResizablePanelGroup,
   ResizablePanel,
@@ -26,8 +19,10 @@ import { renderDynamicFields } from '@/shared/ui/form-fields/lib/render-dynamic-
 
 import type { Drawing } from '@/shared/dummy-data/bom/types';
 
-interface DrawingPreviewDialogProps {
+interface DrawingDetailModalProps {
   drawing: Drawing;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 // 図面データをフラットなメタデータに変換
@@ -51,9 +46,11 @@ function buildMetadata(drawing: Drawing): Record<string, unknown> {
   return metadata;
 }
 
-export function DrawingPreviewDialog({ drawing }: DrawingPreviewDialogProps) {
-  const [open, setOpen] = useState(false);
-
+export function DrawingDetailModal({
+  drawing,
+  open,
+  onOpenChange,
+}: DrawingDetailModalProps) {
   const [metadata, setMetadata] = useState<Record<string, unknown>>(() =>
     buildMetadata(drawing)
   );
@@ -68,24 +65,7 @@ export function DrawingPreviewDialog({ drawing }: DrawingPreviewDialogProps) {
   }, [metadata]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DialogTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <PenTool className="h-4 w-4" />
-            </Button>
-          </DialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{drawing.name}</p>
-        </TooltipContent>
-      </Tooltip>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-7xl">
         <DialogHeader>
           <DialogTitle>{drawing.name}</DialogTitle>
