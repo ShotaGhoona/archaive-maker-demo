@@ -5,14 +5,12 @@ import { useMemo, useState, useCallback } from 'react';
 import { useCanvasViewport } from '@/widgets/bom/canvas/viewport/lib/use-canvas-viewport';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
 import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
-import { NodeBlock } from '../ui-block/node/ui/NodeBlock';
-import { NodeConnector } from '../ui-block/connector/ui/NodeConnector';
+import { BomTreeLayer } from '../ui-block/bom-tree/ui/BomTreeLayer';
+import { calculateBomTreeLayout } from '../ui-block/bom-tree/lib/tree-layout';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
 import { useStickyNotes } from '../ui-block/sticky-note/lib/use-sticky-notes';
 import { CommentLayer } from '../ui-block/comment/ui/CommentLayer';
 import { useComments } from '../ui-block/comment/lib/use-comments';
-import { calculateBomTreeLayout } from '../lib/tree-layout';
-import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
 
 import bomData from '@/shared/dummy-data/bom/mock6LayerRobotArm.json';
 import type { BomData } from '@/shared/dummy-data/bom/types';
@@ -41,17 +39,10 @@ export function BomCanvasContainer() {
     resolveThread,
   } = useComments();
 
-  const { nodes, connectors, minimapNodes } = useMemo(() => {
+  // BOMツリーレイアウト計算
+  const bomTreeLayout = useMemo(() => {
     const data = bomData as BomData;
-    const layout = calculateBomTreeLayout(data.root);
-    const minimap = layout.nodes.map((flatNode) => ({
-      id: flatNode.node.id,
-      x: flatNode.x,
-      y: flatNode.y,
-      width: NODE_WIDTH,
-      height: NODE_HEIGHT,
-    }));
-    return { ...layout, minimapNodes: minimap };
+    return calculateBomTreeLayout(data.root);
   }, []);
 
   // キャンバスクリック処理
@@ -108,41 +99,16 @@ export function BomCanvasContainer() {
       <CanvasViewport
         {...canvasViewport}
         cursor={toolCursor}
-        minimapNodes={minimapNodes}
+        minimapNodes={bomTreeLayout.minimapNodes}
         onCanvasClick={handleCanvasClick}
         onCanvasMouseMove={handleCanvasMouseMove}
         onCanvasMouseLeave={handleCanvasMouseLeave}
       >
-        {/* コネクタ（SVGレイヤー） */}
-        <svg
-          className="pointer-events-none absolute inset-0"
-          style={{ overflow: 'visible' }}
-        >
-          {connectors.map((connector) => (
-            <NodeConnector
-              key={`${connector.fromId}-${connector.toId}`}
-              fromX={connector.fromX}
-              fromY={connector.fromY}
-              toX={connector.toX}
-              toY={connector.toY}
-            />
-          ))}
-        </svg>
-
-        {/* ノード */}
-        {nodes.map((flatNode) => (
-          <div
-            key={flatNode.node.id}
-            data-node
-            style={{
-              position: 'absolute',
-              left: flatNode.x,
-              top: flatNode.y,
-            }}
-          >
-            <NodeBlock node={flatNode.node} />
-          </div>
-        ))}
+        {/* BOMツリー（ノード+コネクタ） */}
+        <BomTreeLayer
+          nodes={bomTreeLayout.nodes}
+          connectors={bomTreeLayout.connectors}
+        />
 
         {/* 付箋レイヤー */}
         <StickyNoteLayer

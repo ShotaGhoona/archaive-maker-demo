@@ -21,22 +21,19 @@
 frontend/src/page-components/bom/canvas/
 ├── ui/
 │   └── BomCanvasContainer.tsx              # メインコンテナ
-├── lib/
-│   └── tree-layout.ts                      # BOMツリーレイアウト計算
 └── ui-block/
-    ├── node/
+    ├── bom-tree/                           # BOMツリー（ノード+コネクタ）
     │   ├── model/
-    │   │   └── types.ts                    # FlattenedNode型
+    │   │   └── types.ts                    # FlattenedNode, Connector, MinimapNode型
+    │   ├── lib/
+    │   │   └── tree-layout.ts              # BOMツリーレイアウト計算
     │   └── ui/
-    │       └── NodeBlock.tsx               # BOMノード表示
+    │       ├── BomTreeLayer.tsx            # ノード+コネクタを一括レンダリング
+    │       ├── NodeBlock.tsx               # 個別ノード表示
+    │       └── components/
+    │           └── NodeConnector.tsx       # 親子接続線（SVG path）
     │
-    ├── connector/
-    │   ├── model/
-    │   │   └── types.ts                    # Connector型
-    │   └── ui/
-    │       └── NodeConnector.tsx           # 親子接続線（SVG）
-    │
-    ├── sticky-note/
+    ├── sticky-note/                        # 付箋機能
     │   ├── model/
     │   │   └── types.ts                    # StickyNote型
     │   ├── lib/
@@ -51,7 +48,7 @@ frontend/src/page-components/bom/canvas/
     │           ├── StickyNoteToolbar.tsx   # 色・フォントサイズ選択
     │           └── StickyNotePlaceholder.tsx # 配置プレビュー
     │
-    └── comment/
+    └── comment/                            # コメント機能
         ├── model/
         │   └── types.ts                    # Comment, CommentThread型
         ├── lib/
@@ -64,7 +61,6 @@ frontend/src/page-components/bom/canvas/
                 ├── CommentBubble.tsx       # 折りたたみ状態表示
                 ├── CommentExpanded.tsx     # 展開状態表示
                 └── CommentCreator.tsx      # 新規コメント作成
-
 ```
 
 ### 関連する Widgets
@@ -116,31 +112,78 @@ frontend/src/shared/canvas/
 BOMキャンバス全体を統括するメインコンポーネント。
 
 **責務:**
-- BOMツリーレイアウトの計算と初期化
 - ツール選択状態の管理（sticky, comment, node）
 - マウス位置の追跡
-- キャンバス上のすべてのレイヤーの統合
+- 各レイヤー（BomTreeLayer, StickyNoteLayer, CommentLayer）の統合
 - ツールバーとビューポートの連携
 
-### ツリーレイアウト
+**ポイント:** レンダリングロジックは各レイヤーに委譲し、Container は薄く保つ。
+
+---
+
+### ui-block/bom-tree
+
+BOMツリーの表示を担当。ノードとコネクタを一体で管理。
+
+#### types.ts
+
+```typescript
+// フラット化されたノード（座標付き）
+interface FlattenedNode {
+  node: BomTreeNode;
+  x: number;
+  y: number;
+  parentId: string | null;
+}
+
+// コネクタ情報
+interface Connector {
+  fromId: string;
+  toId: string;
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+}
+
+// ミニマップ用ノード
+interface MinimapNode {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+// ツリーレイアウト結果
+interface BomTreeLayout {
+  nodes: FlattenedNode[];
+  connectors: Connector[];
+  minimapNodes: MinimapNode[];
+}
+```
 
 #### tree-layout.ts
 
 BOMツリーを平面座標系に変換するロジック。
 
 **主要関数:**
-- `calculateBomTreeLayout()`: ツリー構造からフラット化されたノードと接続線を生成
-- `layoutTree()`: 深さ優先探索でノードの位置を決定
-- `calculateSubtreeHeight()`: サブツリーの高さを計算
+- `calculateBomTreeLayout()`: ツリー構造からレイアウト結果を生成
 
 **レイアウトルール:**
 - 親と長男が同じY座標に揃う
 - 水平方向: `depth × (NODE_WIDTH + HORIZONTAL_GAP)`
 - 垂直方向: subtree_height で積み重ね、VERTICAL_GAP で分離
 
----
+#### BomTreeLayer.tsx
 
-### ui-block/node
+ノードとコネクタを一括レンダリング。
+
+**Props:**
+| プロパティ | 型 | 説明 |
+|-----------|-----|------|
+| nodes | FlattenedNode[] | 座標付きノード配列 |
+| connectors | Connector[] | 接続線配列 |
 
 #### NodeBlock.tsx
 
@@ -153,10 +196,6 @@ BOMツリーの個別ノード表示コンポーネント。
 - メタデータシートへのアクセス
 
 **サイズ:** `NODE_WIDTH × NODE_HEIGHT`（250 × 150px）
-
----
-
-### ui-block/connector
 
 #### NodeConnector.tsx
 
@@ -196,10 +235,6 @@ const { notes, addNote, updateNote, deleteNote } = useStickyNotes();
 ```
 
 **初期サイズ:** `STICKY_NOTE_WIDTH × STICKY_NOTE_HEIGHT`（200 × 150px）
-
-#### use-drag.ts / use-resize.ts / use-editable-text.ts
-
-各操作のカスタムフック。
 
 ---
 
@@ -242,10 +277,6 @@ const {
 - 最初のコメント削除 → スレッド全体削除
 - その他のコメント削除 → そのコメントのみ削除
 
-#### CommentBubble.tsx / CommentExpanded.tsx / CommentCreator.tsx
-
-コメントの表示状態別コンポーネント。
-
 ---
 
 ## コンポーネント依存関係
@@ -260,13 +291,13 @@ BomCanvasContainer
 ├─ CanvasToolbar (widget)
 │   └─ Button, ButtonGroup (shadcn/ui)
 │
-├─ NodeBlock × n (ui-block)
-│   ├─ Badge (shadcn/ui)
-│   ├─ MetadataSheet (widget)
-│   ├─ DrawingPreviewDialog (widget)
-│   └─ DocumentPreviewDialog (widget)
-│
-├─ NodeConnector × n (ui-block/SVG)
+├─ BomTreeLayer (ui-block)
+│   ├─ NodeBlock × n
+│   │   ├─ Badge (shadcn/ui)
+│   │   ├─ MetadataSheet (widget)
+│   │   ├─ DrawingPreviewDialog (widget)
+│   │   └─ DocumentPreviewDialog (widget)
+│   └─ NodeConnector × n (SVG path)
 │
 ├─ StickyNoteLayer (ui-block)
 │   ├─ StickyNoteItem × n
@@ -394,6 +425,10 @@ BomCanvasContainer
 │   ├─ cursorMode ('default' | 'grab' | 'grabbing')
 │   └─ handlers, actions
 │
+├─ bomTreeLayout (useMemo)
+│   └─ calculateBomTreeLayout() の結果
+│       └─ nodes, connectors, minimapNodes
+│
 ├─ useStickyNotes() hook
 │   └─ notes[], addNote(), updateNote(), deleteNote()
 │
@@ -448,11 +483,12 @@ BomCanvasContainer
 ### レンダリング層（下から順）
 
 1. **背景層**: DottedGridBackground
-2. **SVG層**: NodeConnector（`<svg><path/>`）
-3. **ノード層**: NodeBlock（`position: absolute`）
-4. **付箋層**: StickyNoteItem（`position: absolute`）
-5. **コメント層**: CommentThread（`position: absolute`）
-6. **UI層**: CanvasToolbar（`position: absolute`）
+2. **BOMツリー層**: BomTreeLayer
+   - SVG層: NodeConnector（`<svg><path/>`）
+   - ノード層: NodeBlock（`position: absolute`）
+3. **付箋層**: StickyNoteItem（`position: absolute`）
+4. **コメント層**: CommentThread（`position: absolute`）
+5. **UI層**: CanvasToolbar（`position: absolute`）
 
 ---
 
