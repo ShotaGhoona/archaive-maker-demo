@@ -8,6 +8,8 @@ import { Button } from '@/shared/ui/shadcn/ui/button';
 import { ProductSearchPanel } from '../ui-block/product-search-panel/ui/ProductSearchPanel';
 import { BomTreeBlock } from '../ui-block/bom-tree/ui/BomTreeBlock';
 import { BomDetailPanel } from '../ui-block/detail-panel/ui/BomDetailPanel';
+import { BomTreeSearchBar } from '@/widgets/bom/bom-tree-panel/ui/components/BomTreeSearchBar';
+import { useBomTreeSearch } from '@/widgets/bom/bom-tree-panel/hooks/useBomTreeSearch';
 import {
   dummyProducts,
   getBomByProductId,
@@ -33,9 +35,13 @@ export function BomHomeContainer() {
     ? getNodeDetailById(selectedNodeId)
     : undefined;
 
+  // BOM検索
+  const bomSearch = useBomTreeSearch(treeNodes, ['directory']);
+
   const handleSelectProduct = (productId: string) => {
     setSelectedProductId(productId);
     setSelectedNodeId(null);
+    bomSearch.handleClear();
   };
 
   const handleSelectNode = (node: TreeNode) => {
@@ -61,14 +67,27 @@ export function BomHomeContainer() {
           <h2 className='text-lg font-semibold'>
             {selectedProduct?.productName ?? 'BOM構成'}
           </h2>
-          {selectedProductId && (
-            <Button size='xl' asChild>
-              <Link href={`/bom/${selectedProductId}/canvas`}>
-                <LayoutGrid className='mr-2 h-4 w-4' />
-                Canvas表示
-              </Link>
-            </Button>
-          )}
+          <div className='flex items-center gap-4'>
+            {selectedProductId && (
+              <>
+                <BomTreeSearchBar
+                  searchQuery={bomSearch.searchQuery}
+                  onSearchChange={bomSearch.setSearchQuery}
+                  currentMatchIndex={bomSearch.currentMatchIndex}
+                  matchCount={bomSearch.matchCount}
+                  onPrev={bomSearch.handlePrev}
+                  onNext={bomSearch.handleNext}
+                  onClear={bomSearch.handleClear}
+                />
+                <Button size='xl' asChild>
+                  <Link href={`/bom/${selectedProductId}/canvas`}>
+                    <LayoutGrid className='mr-2 h-4 w-4' />
+                    Canvas表示
+                  </Link>
+                </Button>
+              </>
+            )}
+          </div>
         </div>
 
         <div className='flex min-h-0 flex-1 gap-4'>
@@ -76,6 +95,10 @@ export function BomHomeContainer() {
             treeNodes={treeNodes}
             selectedNodeId={selectedNodeId}
             onSelectNode={handleSelectNode}
+            searchQuery={bomSearch.searchQuery}
+            highlightedNodeId={bomSearch.currentMatchId}
+            matchedNodeIds={bomSearch.matchedIds}
+            forceExpandIds={bomSearch.expandIds}
           />
 
           {/* 詳細パネル */}
