@@ -1,6 +1,5 @@
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode } from '../ui-block/node/model/types';
-import type { Connector } from '../ui-block/connector/model/types';
+import type { FlattenedNode, Connector, MinimapNode, BomTreeLayout } from '../model/types';
 import {
   NODE_WIDTH,
   NODE_HEIGHT,
@@ -84,9 +83,16 @@ function layoutTree(
 }
 
 // BOMツリーのレイアウトを計算
-export function calculateBomTreeLayout(root: BomTreeNode): {
-  nodes: FlattenedNode[];
-  connectors: Connector[];
-} {
-  return layoutTree(root, 0, INITIAL_Y, null);
+export function calculateBomTreeLayout(root: BomTreeNode): BomTreeLayout {
+  const { nodes, connectors } = layoutTree(root, 0, INITIAL_Y, null);
+
+  const minimapNodes: MinimapNode[] = nodes.map((flatNode) => ({
+    id: flatNode.node.id,
+    x: flatNode.x,
+    y: flatNode.y,
+    width: NODE_WIDTH,
+    height: NODE_HEIGHT,
+  }));
+
+  return { nodes, connectors, minimapNodes };
 }

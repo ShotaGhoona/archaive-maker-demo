@@ -2,16 +2,15 @@
 
 import { useMemo, useState, useCallback } from 'react';
 
-import { CanvasViewportProvider } from '@/widgets/bom/canvas/viewport/ui/CanvasViewportProvider';
+import { useCanvasViewport } from '@/widgets/bom/canvas/viewport/lib/use-canvas-viewport';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
 import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
-import { NodeBlock } from '../ui-block/node/ui/NodeBlock';
-import { NodeConnector } from '../ui-block/connector/ui/NodeConnector';
+import { BomTreeLayer } from '../ui-block/bom-tree/ui/BomTreeLayer';
+import { calculateBomTreeLayout } from '../ui-block/bom-tree/lib/tree-layout';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
 import { useStickyNotes } from '../ui-block/sticky-note/lib/use-sticky-notes';
 import { CommentLayer } from '../ui-block/comment/ui/CommentLayer';
 import { useComments } from '../ui-block/comment/lib/use-comments';
-import { calculateBomTreeLayout } from '../lib/tree-layout';
 
 import bomData from '@/shared/dummy-data/bom/mock6LayerRobotArm.json';
 import type { BomData } from '@/shared/dummy-data/bom/types';
@@ -27,6 +26,9 @@ export function BomCanvasContainer() {
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
   const [pendingCommentPosition, setPendingCommentPosition] = useState<{ x: number; y: number } | null>(null);
 
+  // ビューポート状態管理
+  const canvasViewport = useCanvasViewport();
+
   const { notes: stickyNotes, addNote, updateNote } = useStickyNotes();
   const {
     threads: commentThreads,
@@ -37,10 +39,21 @@ export function BomCanvasContainer() {
     resolveThread,
   } = useComments();
 
-  const { nodes, connectors } = useMemo(() => {
+  // BOMツリーレイアウト計算
+  const bomTreeLayout = useMemo(() => {
     const data = bomData as BomData;
     return calculateBomTreeLayout(data.root);
   }, []);
+
+  // ミニマップ用コネクタ（座標のみ抽出）
+  const minimapConnectors = useMemo(() => {
+    return bomTreeLayout.connectors.map(({ fromX, fromY, toX, toY }) => ({
+      fromX,
+      fromY,
+      toX,
+      toY,
+    }));
+  }, [bomTreeLayout.connectors]);
 
   // キャンバスクリック処理
   const handleCanvasClick = useCallback(
@@ -91,73 +104,49 @@ export function BomCanvasContainer() {
   const toolCursor = selectedTool ? TOOL_CURSOR_MAP[selectedTool] : undefined;
 
   return (
-    <CanvasViewportProvider>
-      <div className="relative h-full w-full">
-        {/* Viewport層 */}
-        <CanvasViewport
-          cursor={toolCursor}
-          onCanvasClick={handleCanvasClick}
-          onCanvasMouseMove={handleCanvasMouseMove}
-          onCanvasMouseLeave={handleCanvasMouseLeave}
-        >
-          {/* コネクタ（SVGレイヤー） */}
-          <svg
-            className="pointer-events-none absolute inset-0"
-            style={{ overflow: 'visible' }}
-          >
-            {connectors.map((connector) => (
-              <NodeConnector
-                key={`${connector.fromId}-${connector.toId}`}
-                fromX={connector.fromX}
-                fromY={connector.fromY}
-                toX={connector.toX}
-                toY={connector.toY}
-              />
-            ))}
-          </svg>
-
-          {/* ノード */}
-          {nodes.map((flatNode) => (
-            <div
-              key={flatNode.node.id}
-              data-node
-              style={{
-                position: 'absolute',
-                left: flatNode.x,
-                top: flatNode.y,
-              }}
-            >
-              <NodeBlock node={flatNode.node} />
-            </div>
-          ))}
-
-          {/* 付箋レイヤー */}
-          <StickyNoteLayer
-            notes={stickyNotes}
-            onUpdate={updateNote}
-            previewPosition={selectedTool === 'sticky' ? mousePosition : null}
-          />
-
-          {/* コメントレイヤー */}
-          <CommentLayer
-            threads={commentThreads}
-            pendingPosition={pendingCommentPosition}
-            onCreateThread={handleCreateThread}
-            onCancelCreate={handleCancelCreate}
-            onMoveThread={moveThread}
-            onAddReply={addReply}
-            onUpdateComment={updateComment}
-            onResolveThread={resolveThread}
-          />
-        </CanvasViewport>
-
-        {/* オーバーレイUI層 */}
-        <CanvasToolbar
-          className="bottom-4 left-1/2 -translate-x-1/2"
-          selectedTool={selectedTool}
-          onToolChange={setSelectedTool}
+    <div className="relative h-full w-full">
+      {/* Viewport層 */}
+      <CanvasViewport
+        {...canvasViewport}
+        cursor={toolCursor}
+        minimapNodes={bomTreeLayout.minimapNodes}
+        minimapConnectors={minimapConnectors}
+        onCanvasClick={handleCanvasClick}
+        onCanvasMouseMove={handleCanvasMouseMove}
+        onCanvasMouseLeave={handleCanvasMouseLeave}
+      >
+        {/* BOMツリー（ノード+コネクタ） */}
+        <BomTreeLayer
+          nodes={bomTreeLayout.nodes}
+          connectors={bomTreeLayout.connectors}
         />
-      </div>
-    </CanvasViewportProvider>
+
+        {/* 付箋レイヤー */}
+        <StickyNoteLayer
+          notes={stickyNotes}
+          onUpdate={updateNote}
+          previewPosition={selectedTool === 'sticky' ? mousePosition : null}
+        />
+
+        {/* コメントレイヤー */}
+        <CommentLayer
+          threads={commentThreads}
+          pendingPosition={pendingCommentPosition}
+          onCreateThread={handleCreateThread}
+          onCancelCreate={handleCancelCreate}
+          onMoveThread={moveThread}
+          onAddReply={addReply}
+          onUpdateComment={updateComment}
+          onResolveThread={resolveThread}
+        />
+      </CanvasViewport>
+
+      {/* オーバーレイUI層 */}
+      <CanvasToolbar
+        className="bottom-4 left-1/2 -translate-x-1/2"
+        selectedTool={selectedTool}
+        onToolChange={setSelectedTool}
+      />
+    </div>
   );
 }
