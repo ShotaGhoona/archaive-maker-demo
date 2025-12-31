@@ -11,19 +11,19 @@ import {
 
 import type { ViewportState, CursorMode, ContentBounds } from '../model/types';
 
-interface UseCanvasInteractionOptions {
+interface UseCanvasViewportOptions {
   minScale?: number;
   maxScale?: number;
   zoomSensitivity?: number;
 }
 
-const DEFAULT_OPTIONS: Required<UseCanvasInteractionOptions> = {
+const DEFAULT_OPTIONS: Required<UseCanvasViewportOptions> = {
   minScale: 0.1,
   maxScale: 5,
   zoomSensitivity: 0.002,
 };
 
-export function useCanvasInteraction(options: UseCanvasInteractionOptions = {}) {
+export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
   const { minScale, maxScale, zoomSensitivity } = { ...DEFAULT_OPTIONS, ...options };
 
   const [viewport, setViewport] = useState<ViewportState>({
@@ -234,6 +234,21 @@ export function useCanvasInteraction(options: UseCanvasInteractionOptions = {}) 
     });
   }, [minScale]);
 
+  // 指定したキャンバス座標を画面中央に移動
+  const panTo = useCallback((canvasX: number, canvasY: number) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    setViewport((prev) => ({
+      ...prev,
+      offsetX: centerX - canvasX * prev.scale,
+      offsetY: centerY - canvasY * prev.scale,
+    }));
+  }, []);
+
   return {
     viewport,
     cursorMode,
@@ -252,6 +267,7 @@ export function useCanvasInteraction(options: UseCanvasInteractionOptions = {}) 
       fitToContent,
       zoomIn,
       zoomOut,
+      panTo,
     },
   };
 }

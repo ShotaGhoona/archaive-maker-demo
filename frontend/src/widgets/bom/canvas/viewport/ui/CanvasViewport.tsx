@@ -8,15 +8,31 @@ import {
   type CanvasCoordinates,
 } from '@/shared/canvas/lib/coordinate';
 
+import type {
+  ViewportState,
+  CursorMode,
+  ViewportHandlers,
+  ViewportActions,
+  MinimapNode,
+} from '../model/types';
+export type { MinimapNode } from '../model/types';
 import { DottedGridBackground } from './components/DottedGridBackground';
 import { CanvasControls } from './components/CanvasControls';
-import { useCanvasViewportContext } from '../lib/canvas-viewport-context';
-import type { CursorMode } from '../model/types';
+import { CanvasMinimap } from './components/CanvasMinimap';
 
 interface CanvasViewportProps {
   children?: ReactNode;
   className?: string;
   cursor?: string;
+  // ビューポート状態
+  viewport: ViewportState;
+  cursorMode: CursorMode;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  handlers: ViewportHandlers;
+  actions: ViewportActions;
+  // ミニマップ用ノード（渡された場合のみミニマップ表示）
+  minimapNodes?: MinimapNode[];
+  // イベント
   onCanvasClick?: (event: CanvasCoordinates) => void;
   onCanvasMouseMove?: (event: CanvasCoordinates) => void;
   onCanvasMouseLeave?: () => void;
@@ -32,12 +48,16 @@ export function CanvasViewport({
   children,
   className,
   cursor,
+  viewport,
+  cursorMode,
+  containerRef,
+  handlers,
+  actions,
+  minimapNodes,
   onCanvasClick,
   onCanvasMouseMove,
   onCanvasMouseLeave,
 }: CanvasViewportProps) {
-  const { viewport, cursorMode, containerRef, handlers } = useCanvasViewportContext();
-
   // キャンバスクリック処理
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // ノードやUI要素上でのクリックは無視
@@ -108,6 +128,16 @@ export function CanvasViewport({
 
       {/* 操作ヘルプ */}
       <CanvasControls className="bottom-4 left-4" />
+
+      {/* ミニマップ */}
+      {minimapNodes && minimapNodes.length > 0 && (
+        <CanvasMinimap
+          viewport={viewport}
+          containerRef={containerRef}
+          nodes={minimapNodes}
+          onPanTo={actions.panTo}
+        />
+      )}
     </div>
   );
 }
