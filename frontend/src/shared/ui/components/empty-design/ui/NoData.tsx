@@ -101,11 +101,11 @@ export function NoData({
         <EmptyMedia className={config.media}>
           <NoDataSvg className={cn('opacity-80', config.svg)} />
         </EmptyMedia>
-        <EmptyTitle className={cn('text-gray-700', config.title)}>
+        <EmptyTitle className={cn('text-slate-700', config.title)}>
           {title}
         </EmptyTitle>
         {description && (
-          <EmptyDescription className={cn('text-gray-500', config.description)}>
+          <EmptyDescription className={cn('text-slate-500', config.description)}>
             {description}
           </EmptyDescription>
         )}

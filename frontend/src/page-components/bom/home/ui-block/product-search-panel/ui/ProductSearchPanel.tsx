@@ -54,11 +54,11 @@ export function ProductSearchPanel({
       />
 
       {/* 製品検索パネル */}
-      <div className='flex w-96 shrink-0 flex-col border-r bg-card'>
-        <div className='border-b p-4'>
+      <div className='flex w-96 shrink-0 flex-col border-r border-slate-200/60 bg-white/40 backdrop-blur-xl'>
+        <div className='border-b border-slate-200/60 p-4'>
           <div className='flex gap-2'>
             <div className='relative min-w-0 flex-1'>
-              <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
+              <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400' />
               <Input
                 placeholder='製品番号、製品名で検索...'
                 value={searchQuery}
@@ -88,14 +88,14 @@ export function ProductSearchPanel({
                     key={product.id}
                     onClick={() => onSelectProduct(product.id)}
                     className={cn(
-                      'w-full rounded-md px-3 py-2 text-left transition-colors',
-                      'hover:bg-accent',
+                      'w-full rounded-xl px-3 py-2 text-left transition-all duration-200',
+                      'hover:bg-white/60',
                       selectedProductId === product.id &&
-                        'bg-accent text-accent-foreground',
+                        'bg-white/70 shadow-sm',
                     )}
                   >
-                    <p className='text-sm font-medium'>{product.productNumber}</p>
-                    <p className='text-xs text-muted-foreground'>
+                    <p className='text-sm font-medium text-slate-900'>{product.productNumber}</p>
+                    <p className='text-xs text-slate-500'>
                       {product.productName}
                     </p>
                   </button>

@@ -44,11 +44,11 @@ export function SidebarSearchFilter({
   };
 
   return (
-    <div className='flex items-center gap-2 border-b p-3'>
+    <div className='flex items-center gap-2 border-b border-slate-200/60 p-3'>
       {isSearchOpen ? (
         // 検索窓展開時
         <div className='relative flex-1'>
-          <Search className='absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400' />
+          <Search className='absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400' />
           <Input
             ref={inputRef}
             type='text'
@@ -59,7 +59,7 @@ export function SidebarSearchFilter({
           />
           <button
             onClick={handleCloseSearch}
-            className='absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600'
+            className='absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600'
           >
             <X className='h-4 w-4' />
           </button>
@@ -69,7 +69,7 @@ export function SidebarSearchFilter({
         <>
           <button
             onClick={() => setIsSearchOpen(true)}
-            className='flex h-9 w-9 items-center justify-center rounded-md border bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+            className='flex h-9 w-9 items-center justify-center rounded-xl border border-white/60 bg-white/40 text-slate-500 backdrop-blur-sm transition-all duration-200 hover:bg-white/60 hover:text-slate-700'
           >
             <Search className='h-4 w-4' />
           </button>

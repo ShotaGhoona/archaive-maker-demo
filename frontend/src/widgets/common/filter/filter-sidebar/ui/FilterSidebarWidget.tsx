@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
+import { Card } from '@/shared/ui/shadcn/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/shadcn/ui/tabs';
 import { SimpleFilterPanel } from './SimpleFilterPanel';
 import { AdvancedFilterPanel } from './AdvancedFilterPanel';
@@ -29,26 +30,38 @@ export function FilterSidebarWidget({
   const [activeTab, setActiveTab] = useState<FilterTab>('simple');
 
   return (
-    <div
+    <Card
       className={cn(
-        'flex h-full flex-col border-r bg-card shadow-md transition-all duration-300 ease-in-out',
-        open ? 'w-80' : 'w-0 overflow-hidden border-r-0',
-        className,
+        'flex h-full flex-col gap-0 py-0 overflow-hidden',
+        'transition-all duration-300 ease-out',
+        open ? 'w-80' : 'w-0 border-0 p-0 shadow-none',
+        className
       )}
     >
-      <div className='flex min-h-0 min-w-80 flex-1 flex-col'>
+      <div
+        className={cn(
+          'flex min-h-0 min-w-80 flex-1 flex-col',
+          !open && 'invisible'
+        )}
+      >
         {/* Tab Header */}
-        <div className='flex items-center gap-2 border-b px-4 py-3'>
+        <div className="flex shrink-0 items-center gap-2 border-b border-slate-200/40 px-4 py-3">
           <Tabs
             value={activeTab}
             onValueChange={(v) => setActiveTab(v as FilterTab)}
-            className='flex-1'
+            className="flex-1"
           >
-            <TabsList className='w-full'>
-              <TabsTrigger value='simple' className='flex-1'>
+            <TabsList className="w-full bg-white/50">
+              <TabsTrigger
+                value="simple"
+                className="flex-1 data-[state=active]:bg-white/70 data-[state=active]:shadow-sm"
+              >
                 シンプル検索
               </TabsTrigger>
-              <TabsTrigger value='advanced' className='flex-1'>
+              <TabsTrigger
+                value="advanced"
+                className="flex-1 data-[state=active]:bg-white/70 data-[state=active]:shadow-sm"
+              >
                 高度な検索
               </TabsTrigger>
             </TabsList>
@@ -74,6 +87,6 @@ export function FilterSidebarWidget({
 
         {footerRenderer?.()}
       </div>
-    </div>
+    </Card>
   );
 }

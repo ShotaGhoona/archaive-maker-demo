@@ -56,13 +56,13 @@ export function TableHeader<T>({
 
     if (sortState?.key === key) {
       if (sortState.direction === 'asc') {
-        return <ChevronUp className='h-4 w-4 text-primary' />;
+        return <ChevronUp className='h-4 w-4 text-slate-900' />;
       }
       if (sortState.direction === 'desc') {
-        return <ChevronDown className='h-4 w-4 text-primary' />;
+        return <ChevronDown className='h-4 w-4 text-slate-900' />;
       }
     }
-    return <ChevronsUpDown className='h-4 w-4 text-muted-foreground' />;
+    return <ChevronsUpDown className='h-4 w-4 text-slate-400' />;
   };
 
   return (
@@ -87,8 +87,8 @@ export function TableHeader<T>({
                 }),
               }}
               className={cn(
-                'relative sticky top-0 z-10 border-b-[3px] border-border bg-card py-4',
-                column.sortable && 'cursor-pointer select-none',
+                'relative sticky top-0 z-10 border-b border-slate-200/60 bg-white/60 py-4 text-slate-700 backdrop-blur-sm',
+                column.sortable && 'cursor-pointer select-none hover:bg-white/80',
                 column.sticky && 'z-20',
               )}
               onClick={() => handleSort(key, column.sortable)}
@@ -113,11 +113,11 @@ export function TableHeader<T>({
                 column.columnType !== 'checkbox' &&
                 column.columnType !== 'actions' && (
                   <div
-                    className='group absolute right-0 top-0 h-full w-2 cursor-col-resize hover:bg-primary'
+                    className='group absolute right-0 top-0 h-full w-2 cursor-col-resize hover:bg-slate-300'
                     onMouseDown={(e) => onResizeStart(key, e)}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className='absolute right-0 top-0 h-full w-[3px] bg-transparent transition-colors group-hover:bg-primary' />
+                    <div className='absolute right-0 top-0 h-full w-[3px] bg-transparent transition-colors group-hover:bg-slate-400' />
                   </div>
                 )}
             </TableHead>

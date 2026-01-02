@@ -11,8 +11,8 @@ export function TableSkeleton() {
       <div className='relative min-h-0 flex-1 overflow-auto'>
         <table className='w-full min-w-max caption-bottom'>
           {/* Header Skeleton - py-4 to match TableHeader */}
-          <thead className='sticky top-0 z-10 bg-muted/50'>
-            <tr className='border-b'>
+          <thead className='sticky top-0 z-10 bg-white/60 backdrop-blur-sm'>
+            <tr className='border-b border-slate-200/60'>
               {/* Checkbox column */}
               <th className='w-12 px-2 py-4'>
                 <Skeleton className='mx-auto h-8 w-8' />
@@ -32,7 +32,7 @@ export function TableSkeleton() {
           {/* Body Skeleton - py-1 to match TableCell */}
           <tbody>
             {Array.from({ length: ROWS }).map((_, rowIndex) => (
-              <tr key={rowIndex} className='border-b'>
+              <tr key={rowIndex} className='border-b border-slate-100'>
                 {/* Checkbox column */}
                 <td className='w-12 px-2 py-1'>
                   <div className='flex h-8 items-center justify-center'>
@@ -66,7 +66,7 @@ export function TableSkeleton() {
       </div>
 
       {/* Pagination Skeleton */}
-      <div className='flex items-center justify-between border-t px-4 py-3'>
+      <div className='flex items-center justify-between py-4'>
         <Skeleton className='h-4 w-32' />
         <div className='flex items-center gap-2'>
           <Skeleton className='h-8 w-8 rounded' />

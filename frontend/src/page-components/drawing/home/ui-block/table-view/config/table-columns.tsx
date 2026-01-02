@@ -126,7 +126,6 @@ export function createTableColumns(
         <Button
           variant='outline'
           size='lg'
-          className='bg-card text-primary hover:bg-primary/10'
           onClick={(e) => {
             e.stopPropagation();
             onOpen(row);
@@ -147,9 +146,8 @@ export function createTableColumns(
       sticky: 'right',
       cellRenderer: (_, row) => (
         <Button
-          variant='outline'
+          variant='destructive'
           size='lg'
-          className='bg-card text-destructive hover:bg-destructive/10 hover:text-destructive'
           onClick={(e) => {
             e.stopPropagation();
             onDelete(row);

@@ -58,7 +58,8 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot='sheet-content'
         className={cn(
-          'fixed z-50 flex flex-col gap-4 bg-background shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out',
+          'fixed z-50 flex flex-col gap-4 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out',
+          'border-white/60 bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
           side === 'right' &&
             'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
           side === 'left' &&
@@ -72,7 +73,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className='rounded-xs focus:outline-hidden absolute right-4 top-4 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'>
+        <SheetPrimitive.Close className='rounded-lg focus:outline-hidden absolute right-4 top-4 p-1 text-slate-400 transition-all hover:bg-white/50 hover:text-slate-600 focus:ring-2 focus:ring-slate-300 disabled:pointer-events-none'>
           <XIcon className='size-4' />
           <span className='sr-only'>Close</span>
         </SheetPrimitive.Close>
@@ -108,7 +109,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot='sheet-title'
-      className={cn('font-semibold text-foreground', className)}
+      className={cn('font-semibold text-slate-900', className)}
       {...props}
     />
   );
@@ -121,7 +122,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot='sheet-description'
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('text-sm text-slate-500', className)}
       {...props}
     />
   );

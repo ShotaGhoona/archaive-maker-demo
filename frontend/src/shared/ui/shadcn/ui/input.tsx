@@ -8,9 +8,14 @@ function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
       type={type}
       data-slot='input'
       className={cn(
-        'shadow-xs h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm',
-        'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-        'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+        'h-10 w-full min-w-0 rounded-xl px-4 py-2 text-sm outline-none transition-all duration-200',
+        'border border-white/60 bg-white/40 backdrop-blur-xl',
+        'text-slate-900 placeholder:text-slate-400',
+        'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
+        'focus:bg-white/60 focus:shadow-[0_4px_20px_rgba(0,0,0,0.1)] focus:ring-2 focus:ring-slate-300',
+        'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+        'file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-slate-700',
+        'selection:bg-slate-200 selection:text-slate-900',
         className,
       )}
       {...props}

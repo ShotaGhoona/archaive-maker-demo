@@ -29,10 +29,10 @@ export function CsvExportColumnItem({
 }: CsvExportColumnItemProps) {
   return (
     <div
-      className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 transition-colors ${
+      className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 transition-all duration-200 ${
         isSelected
-          ? 'border-primary bg-primary/10'
-          : 'bg-background hover:bg-muted/50'
+          ? 'border-slate-300 bg-slate-100/80 shadow-sm'
+          : 'border-slate-200/60 bg-white/50 hover:bg-white/80'
       }`}
       onClick={onSelect}
     >
@@ -41,9 +41,9 @@ export function CsvExportColumnItem({
         onCheckedChange={() => onToggleInclude()}
         onClick={(e) => e.stopPropagation()}
       />
-      <GripVertical className='h-4 w-4 text-muted-foreground' />
+      <GripVertical className='h-4 w-4 text-slate-400' />
       <span
-        className={`flex-1 text-sm ${!isIncluded ? 'text-muted-foreground line-through' : ''}`}
+        className={`flex-1 text-sm ${!isIncluded ? 'text-slate-400 line-through' : 'text-slate-700'}`}
       >
         {label}
       </span>
@@ -52,7 +52,7 @@ export function CsvExportColumnItem({
           type='button'
           variant='ghost'
           size='icon'
-          className='h-7 w-7'
+          className='h-7 w-7 text-slate-400 hover:text-slate-600'
           onClick={(e) => {
             e.stopPropagation();
             onMoveUp();
@@ -65,7 +65,7 @@ export function CsvExportColumnItem({
           type='button'
           variant='ghost'
           size='icon'
-          className='h-7 w-7'
+          className='h-7 w-7 text-slate-400 hover:text-slate-600'
           onClick={(e) => {
             e.stopPropagation();
             onMoveDown();

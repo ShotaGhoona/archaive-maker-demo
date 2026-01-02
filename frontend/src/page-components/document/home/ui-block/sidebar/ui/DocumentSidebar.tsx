@@ -49,7 +49,7 @@ export function DocumentSidebar({
   if (collapsed) {
     return (
       <TooltipProvider delayDuration={0}>
-        <aside className='flex h-full w-14 flex-col border-r bg-card shadow-md'>
+        <aside className='flex h-full w-14 flex-col border-r border-slate-200/60 bg-white/40 backdrop-blur-xl'>
           <nav className='flex-1 overflow-y-auto p-2'>
             {/* 帳票種別管理ボタン */}
             <div className='mb-2'>
@@ -58,7 +58,7 @@ export function DocumentSidebar({
                   <div>
                     <DocumentTypeManageDialog
                       trigger={
-                        <button className='flex h-10 w-10 items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-400 transition-colors hover:border-gray-400 hover:bg-gray-50 hover:text-gray-600'>
+                        <button className='flex h-10 w-10 items-center justify-center rounded-xl border-2 border-dashed border-slate-300/60 text-slate-400 transition-all duration-200 hover:border-slate-400 hover:bg-white/60 hover:text-slate-600'>
                           <Settings className='size-5' />
                         </button>
                       }
@@ -79,10 +79,10 @@ export function DocumentSidebar({
                       <button
                         onClick={() => onSelectType(type.id)}
                         className={cn(
-                          'flex h-10 w-10 items-center justify-center rounded-md transition-colors',
+                          'flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200',
                           selectedTypeId === type.id
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700',
+                            ? 'bg-white/70 text-slate-900 shadow-sm'
+                            : 'text-slate-500 hover:bg-white/60 hover:text-slate-700',
                         )}
                       >
                         <ClipboardList className='size-5' />
@@ -102,9 +102,9 @@ export function DocumentSidebar({
   }
 
   return (
-    <aside className='flex h-full w-64 flex-col border-r bg-card shadow-md'>
+    <aside className='flex h-full w-64 flex-col border-r border-slate-200/60 bg-white/40 backdrop-blur-xl'>
       {/* 帳票種別管理ボタン */}
-      <div className='border-b px-2 py-4'>
+      <div className='border-b border-slate-200/60 px-2 py-4'>
         <DocumentTypeManageDialog />
       </div>
       <SidebarSearchFilter

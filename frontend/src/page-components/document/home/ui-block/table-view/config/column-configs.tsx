@@ -36,7 +36,6 @@ function createOpenAction<T>(onOpen: (row: T) => void): ColumnConfig<T> {
       <Button
         variant='outline'
         size='lg'
-        className='bg-card text-primary hover:bg-primary/10'
         onClick={(e) => {
           e.stopPropagation();
           onOpen(row);
@@ -59,9 +58,8 @@ function createDeleteAction<T>(onDelete: (row: T) => void): ColumnConfig<T> {
     sticky: 'right',
     cellRenderer: (_, row) => (
       <Button
-        variant='outline'
+        variant='destructive'
         size='lg'
-        className='bg-card text-destructive hover:bg-destructive/10 hover:text-destructive'
         onClick={(e) => {
           e.stopPropagation();
           onDelete(row);
@@ -79,41 +77,41 @@ function createDeleteAction<T>(onDelete: (row: T) => void): ColumnConfig<T> {
 
 const statusColors = {
   // ProductSpec, BOM
-  draft: 'bg-gray-100 text-gray-700',
-  review: 'bg-yellow-100 text-yellow-700',
-  approved: 'bg-green-100 text-green-700',
-  obsolete: 'bg-red-100 text-red-700',
+  draft: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
+  review: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
+  approved: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  obsolete: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
   // ManufacturingOrder
-  pending: 'bg-gray-100 text-gray-700',
-  in_progress: 'bg-blue-100 text-blue-700',
-  completed: 'bg-green-100 text-green-700',
-  cancelled: 'bg-red-100 text-red-700',
+  pending: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
+  in_progress: 'bg-sky-50/50 text-sky-700 border-sky-200/60',
+  completed: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  cancelled: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
   // InspectionReport
-  pass: 'bg-green-100 text-green-700',
-  fail: 'bg-red-100 text-red-700',
-  conditional: 'bg-yellow-100 text-yellow-700',
+  pass: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  fail: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
+  conditional: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
   // Quotation
-  sent: 'bg-blue-100 text-blue-700',
-  accepted: 'bg-green-100 text-green-700',
-  rejected: 'bg-red-100 text-red-700',
-  expired: 'bg-gray-100 text-gray-700',
+  sent: 'bg-sky-50/50 text-sky-700 border-sky-200/60',
+  accepted: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  rejected: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
+  expired: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
   // PurchaseOrder
-  ordered: 'bg-blue-100 text-blue-700',
-  partial: 'bg-yellow-100 text-yellow-700',
-  received: 'bg-green-100 text-green-700',
+  ordered: 'bg-sky-50/50 text-sky-700 border-sky-200/60',
+  partial: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
+  received: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
   // DeliveryNote
-  preparing: 'bg-gray-100 text-gray-700',
-  shipped: 'bg-blue-100 text-blue-700',
-  delivered: 'bg-green-100 text-green-700',
+  preparing: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
+  shipped: 'bg-sky-50/50 text-sky-700 border-sky-200/60',
+  delivered: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
   // Invoice
-  paid: 'bg-green-100 text-green-700',
-  overdue: 'bg-red-100 text-red-700',
+  paid: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  overdue: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
   // OrderConfirmation
-  acknowledged: 'bg-green-100 text-green-700',
+  acknowledged: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
   // BasicContract
-  negotiating: 'bg-yellow-100 text-yellow-700',
-  active: 'bg-green-100 text-green-700',
-  terminated: 'bg-gray-100 text-gray-700',
+  negotiating: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
+  active: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+  terminated: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
 } as const;
 
 const statusLabels: Record<string, string> = {
@@ -149,7 +147,7 @@ const statusLabels: Record<string, string> = {
 function renderStatus(value: string) {
   const color =
     statusColors[value as keyof typeof statusColors] ||
-    'bg-gray-100 text-gray-700';
+    'bg-slate-100/50 text-slate-600 border-slate-200/60';
   const label = statusLabels[value] || value;
   return (
     <Badge variant='outline' className={color}>
@@ -317,9 +315,9 @@ export function createManufacturingOrderColumns(
   onDelete: (row: ManufacturingOrder) => void,
 ): ColumnConfig<ManufacturingOrder>[] {
   const priorityColors = {
-    high: 'bg-red-100 text-red-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    low: 'bg-gray-100 text-gray-700',
+    high: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
+    medium: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
+    low: 'bg-slate-100/50 text-slate-600 border-slate-200/60',
   };
   const priorityLabels = { high: '高', medium: '中', low: '低' };
 
@@ -972,9 +970,9 @@ export function createAssemblyManualColumns(
   onDelete: (row: AssemblyManual) => void,
 ): ColumnConfig<AssemblyManual>[] {
   const difficultyColors = {
-    easy: 'bg-green-100 text-green-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    hard: 'bg-red-100 text-red-700',
+    easy: 'bg-emerald-50/50 text-emerald-700 border-emerald-200/60',
+    medium: 'bg-amber-50/50 text-amber-700 border-amber-200/60',
+    hard: 'bg-rose-50/50 text-rose-700 border-rose-200/60',
   };
   const difficultyLabels = { easy: '易', medium: '中', hard: '難' };
 

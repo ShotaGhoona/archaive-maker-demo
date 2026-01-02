@@ -69,11 +69,11 @@ export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
   };
 
   return (
-    <Card className='flex min-h-0 w-[600px] shrink-0 flex-col border-l py-0 gap-0'>
+    <Card className='flex min-h-0 w-[600px] shrink-0 flex-col border-l border-slate-200/60 py-0 gap-0'>
       {/* ヘッダー */}
-      <div className='flex items-center justify-between border-b p-4'>
+      <div className='flex items-center justify-between border-b border-slate-200/60 p-4'>
         <div className='min-w-0 flex-1'>
-          <h3 className='truncate text-base font-semibold'>{detail.name}</h3>
+          <h3 className='truncate text-base font-semibold text-slate-900'>{detail.name}</h3>
         </div>
         <Button variant='ghost' size='icon' onClick={onClose}>
           <X className='h-4 w-4' />
@@ -109,7 +109,7 @@ export function BomDetailPanel({ detail, onClose }: BomDetailPanelProps) {
       </ScrollArea>
 
       {/* フッター */}
-      <div className='flex gap-2 border-t p-4'>
+      <div className='flex gap-2 border-t border-slate-200/60 p-4'>
         <Button className='flex-1' onClick={handleSave}>
           <Save className='mr-2 h-4 w-4' />
           保存

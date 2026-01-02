@@ -18,8 +18,8 @@ const categoryLabels: Record<DocumentCategory, string> = {
 
 // カテゴリカラー
 const categoryColors: Record<DocumentCategory, string> = {
-  product: 'bg-blue-100 text-blue-700 border-blue-200',
-  company: 'bg-green-100 text-green-700 border-green-200',
+  product: 'bg-slate-100/50 text-slate-700 border-slate-200/60',
+  company: 'bg-slate-100/50 text-slate-700 border-slate-200/60',
 };
 
 interface DocumentTypeItemProps {
@@ -38,10 +38,10 @@ export function DocumentTypeItem({
       <button
         onClick={onSelect}
         className={cn(
-          'flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors',
+          'flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm transition-all duration-200',
           isSelected
-            ? 'bg-blue-100 font-medium text-blue-700'
-            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+            ? 'bg-white/70 font-medium text-slate-900 shadow-sm'
+            : 'text-slate-600 hover:bg-white/60 hover:text-slate-900',
         )}
       >
         <ClipboardList className='size-5 shrink-0' />

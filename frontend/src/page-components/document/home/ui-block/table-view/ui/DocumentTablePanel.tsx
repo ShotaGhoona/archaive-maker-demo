@@ -80,7 +80,7 @@ export function DocumentTablePanel({
 
   if (columns.length === 0) {
     return (
-      <div className='flex flex-1 items-center justify-center text-gray-500'>
+      <div className='flex flex-1 items-center justify-center text-slate-500'>
         この帳票種別はまだ実装されていません
       </div>
     );

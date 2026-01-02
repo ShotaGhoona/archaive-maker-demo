@@ -8,10 +8,10 @@ export const GALLERY_CARD_CONFIG: GalleryCardConfig<DrawingPage> = {
   thumbnailKey: 's3Url',
   contentRenderer: (item) => (
     <>
-      <h3 className='truncate font-medium'>
+      <h3 className='truncate font-medium text-slate-800'>
         {item.leafProductName || item.drawingFileName || '(名称なし)'}
       </h3>
-      <p className='truncate text-sm text-muted-foreground'>
+      <p className='truncate text-sm text-slate-500'>
         {item.drawingNumber || '(図番なし)'}
       </p>
     </>

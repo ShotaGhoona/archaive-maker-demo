@@ -106,7 +106,7 @@ export function TableCellRow<T extends object>({
   const getCellHoverClass = (column: ColumnConfig<T>) => {
     if (column.locked || column.columnType === 'actions' || column.sticky)
       return '';
-    return isSelected ? 'hover:bg-primary/20' : 'hover:bg-gray-100';
+    return isSelected ? 'hover:bg-slate-200/50' : 'hover:bg-slate-50/80';
   };
 
   return (
@@ -132,17 +132,17 @@ export function TableCellRow<T extends object>({
               }),
             }}
             className={cn(
-              'group relative py-1 transition-colors',
+              'group relative py-1 text-slate-600 transition-colors',
               column.locked && 'cursor-not-allowed',
               column.sticky
                 ? cn(
-                    'sticky z-10 bg-card',
+                    'sticky z-10 bg-white/60 backdrop-blur-sm',
                     isSelected &&
-                      'after:pointer-events-none after:absolute after:inset-0 after:bg-primary/10',
+                      'after:pointer-events-none after:absolute after:inset-0 after:bg-slate-100/50',
                   )
                 : isSelected
-                  ? 'bg-primary/10'
-                  : 'bg-card',
+                  ? 'bg-slate-100/50'
+                  : 'bg-transparent',
               getCellHoverClass(column),
             )}
           >
@@ -156,7 +156,7 @@ export function TableCellRow<T extends object>({
                   onRowSelect,
                 })}
             {column.locked && (
-              <Lock className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+              <Lock className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
             )}
           </ShadcnTableCell>
         );

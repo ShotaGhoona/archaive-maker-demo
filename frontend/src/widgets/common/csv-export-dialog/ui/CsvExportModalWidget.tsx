@@ -25,7 +25,6 @@ import { formatCellValue } from '../lib/format-cell-value';
 import { exportCsv } from '../lib/export-csv';
 import type {
   CsvExportColumnConfig,
-  CsvExportConfig,
   CsvExportModalWidgetProps,
   CsvEncoding,
 } from '../model/types';
@@ -95,23 +94,23 @@ export function CsvExportModalWidget<T extends object>({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='xl' className='bg-card'>
+        <Button variant='outline' size='xl'>
           <FileDown className='h-4 w-4' />
           CSV出力
         </Button>
       </DialogTrigger>
-      <DialogContent className='flex h-[80vh] flex-col p-0 sm:max-w-7xl'>
-        <DialogHeader className='shrink-0 p-6'>
+      <DialogContent className='flex h-[80vh] flex-col p-0 sm:max-w-7xl' showCloseButton={false}>
+        <DialogHeader className='shrink-0 border-b border-slate-200/40 p-6'>
           <DialogTitle>CSV エクスポート</DialogTitle>
         </DialogHeader>
 
         <div className='grid min-h-0 flex-1 grid-cols-[1fr_320px] gap-6 px-6'>
           {/* 左側: プレビュー */}
-          <div className='flex min-h-0 min-w-0 flex-col rounded-lg border bg-gray-50'>
-            <h3 className='flex shrink-0 items-center gap-2 p-4 pb-2 text-sm font-medium'>
-              <Table2 className='h-4 w-4 text-muted-foreground' />
+          <div className='flex min-h-0 min-w-0 flex-col rounded-xl border border-slate-200/60 bg-white/50'>
+            <h3 className='flex shrink-0 items-center gap-2 p-4 pb-2 text-sm font-medium text-slate-700'>
+              <Table2 className='h-4 w-4 text-slate-400' />
               プレビュー
-              <span className='text-xs text-muted-foreground'>
+              <span className='text-xs text-slate-400'>
                 （{previewData.length} / {data.length} 件のみ表示）
               </span>
             </h3>
@@ -128,7 +127,7 @@ export function CsvExportModalWidget<T extends object>({
                         {previewColumns.map((col) => (
                           <th
                             key={col.key}
-                            className='whitespace-nowrap border px-3 py-2 text-left font-medium'
+                            className='whitespace-nowrap border border-slate-200/60 bg-slate-50/50 px-3 py-2 text-left font-medium text-slate-700'
                           >
                             {col.label}
                           </th>
@@ -142,7 +141,7 @@ export function CsvExportModalWidget<T extends object>({
                         {previewColumns.map((col) => (
                           <td
                             key={col.key}
-                            className='max-w-[200px] truncate whitespace-nowrap border px-3 py-2'
+                            className='max-w-[200px] truncate whitespace-nowrap border border-slate-200/60 px-3 py-2 text-slate-600'
                           >
                             {formatCellValue(
                               (row as Record<string, unknown>)[col.key],
@@ -158,11 +157,11 @@ export function CsvExportModalWidget<T extends object>({
           </div>
 
           {/* 右側: 設定 */}
-          <div className='flex min-h-0 flex-col rounded-lg border bg-gray-50'>
-            <h3 className='flex shrink-0 items-center gap-2 rounded-t-lg p-4 pb-2 text-sm font-medium'>
-              <Columns3 className='h-4 w-4 text-muted-foreground' />
+          <div className='flex min-h-0 flex-col rounded-xl border border-slate-200/60 bg-white/50'>
+            <h3 className='flex shrink-0 items-center gap-2 rounded-t-xl p-4 pb-2 text-sm font-medium text-slate-700'>
+              <Columns3 className='h-4 w-4 text-slate-400' />
               出力カラム
-              <span className='text-muted-foreground'>
+              <span className='text-slate-400'>
                 ({includedColumns.size} / {targetColumns.length})
               </span>
             </h3>
@@ -189,7 +188,7 @@ export function CsvExportModalWidget<T extends object>({
           </div>
         </div>
 
-        <DialogFooter className='shrink-0 flex-row justify-between px-6 pb-6 pt-4 sm:justify-between'>
+        <DialogFooter className='shrink-0 flex-row justify-between border-t border-slate-200/40 bg-white/50 px-6 pb-6 pt-4 sm:justify-between'>
           <div className='flex items-center gap-4'>
             <div className='flex gap-2'>
               <Button type='button' variant='ghost' onClick={reset}>
@@ -203,16 +202,16 @@ export function CsvExportModalWidget<T extends object>({
                 全て解除
               </Button>
             </div>
-            <div className='flex items-center gap-4 border-l pl-4'>
+            <div className='flex items-center gap-4 border-l border-slate-200/60 pl-4'>
               <div className='flex items-center gap-2'>
-                <span className='text-sm text-muted-foreground'>ヘッダー:</span>
+                <span className='text-sm text-slate-500'>ヘッダー:</span>
                 <Select
                   value={includeHeader ? 'include' : 'exclude'}
                   onValueChange={(value) =>
                     setIncludeHeader(value === 'include')
                   }
                 >
-                  <SelectTrigger className='h-8 w-[100px]'>
+                  <SelectTrigger size='sm'>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -222,14 +221,14 @@ export function CsvExportModalWidget<T extends object>({
                 </Select>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-sm text-muted-foreground'>
+                <span className='text-sm text-slate-500'>
                   文字コード:
                 </span>
                 <Select
                   value={encoding}
                   onValueChange={(value) => setEncoding(value as CsvEncoding)}
                 >
-                  <SelectTrigger className='h-8 w-[120px]'>
+                  <SelectTrigger size='sm'>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

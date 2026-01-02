@@ -37,7 +37,7 @@ export function DrawingHomeContainer() {
   const { data } = useDrawingPages({ page: 1, perPage: 100 });
 
   return (
-    <div className='flex min-h-0 flex-1'>
+    <div className="flex min-h-0 flex-1 gap-4">
       {/* サイドバーフィルター */}
       <DrawingFilterSidebar
         open={filterOpen}
@@ -49,8 +49,9 @@ export function DrawingHomeContainer() {
       />
 
       {/* メインコンテンツ */}
-      <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 pt-4'>
-        <div className='mb-4 flex items-center gap-4'>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        {/* ツールバー */}
+        <div className="mb-4 flex items-center gap-3">
           <ViewSwitch
             modes={['table', 'gallery']}
             value={viewMode}
@@ -60,10 +61,10 @@ export function DrawingHomeContainer() {
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            placeholder='図面番号、図面名で検索...'
-            expandedWidth='w-96'
+            placeholder="図面番号、図面名で検索..."
+            expandedWidth="w-96"
           />
-          <div className='ml-auto flex items-center gap-2'>
+          <div className="ml-auto flex items-center gap-3">
             <DrawingColumnSettings />
             <CsvExportModalWidget
               columns={CSV_EXPORT_COLUMNS}
@@ -72,7 +73,8 @@ export function DrawingHomeContainer() {
           </div>
         </div>
 
-        <div className='flex min-h-0 flex-1 flex-col'>
+        {/* コンテンツエリア */}
+        <div className="flex min-h-0 flex-1 flex-col">
           {viewMode === 'table' ? (
             <DrawingTablePanel />
           ) : (

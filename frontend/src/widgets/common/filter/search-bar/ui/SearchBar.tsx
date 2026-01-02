@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import { Button } from '@/shared/ui/shadcn/ui/button';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 interface SearchBarProps {
@@ -43,43 +42,52 @@ export function SearchBar({
   return (
     <div
       className={cn(
-        'relative transition-all duration-200',
-        isExpanded ? expandedWidth : 'w-12',
+        'relative transition-all duration-300 ease-out',
+        isExpanded ? expandedWidth : 'w-12'
       )}
     >
       {isExpanded ? (
-        <>
-          <Search className='absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground' />
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
           <input
             ref={inputRef}
-            type='text'
+            type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onBlur={handleCollapse}
             placeholder={placeholder}
-            className='h-12 w-full rounded-lg border bg-card pl-9 pr-9 text-base outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50'
+            className={cn(
+              'h-12 w-full rounded-xl pl-10 pr-10 text-sm',
+              'border border-white/60 bg-white/40 backdrop-blur-xl',
+              'text-slate-900 placeholder:text-slate-400',
+              'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
+              'outline-none transition-all duration-200',
+              'focus:bg-white/60 focus:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+            )}
           />
           {value && (
-            <Button
-              variant='ghost'
-              size='icon'
-              className='absolute right-1.5 top-1/2 size-7 -translate-y-1/2'
+            <button
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
               onMouseDown={(e) => e.preventDefault()}
               onClick={handleClear}
             >
-              <X className='size-4' />
-            </Button>
+              <X className="size-4" />
+            </button>
           )}
-        </>
+        </div>
       ) : (
-        <Button
-          variant='outline'
-          size='icon-xl'
-          className='bg-card'
+        <button
           onClick={handleExpand}
+          className={cn(
+            'flex h-12 w-12 items-center justify-center rounded-xl',
+            'border border-white/60 bg-white/40 backdrop-blur-xl',
+            'text-slate-600 shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
+            'transition-all duration-200',
+            'hover:bg-white/60 hover:text-slate-900 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+          )}
         >
-          <Search className='size-5' />
-        </Button>
+          <Search className="size-5" />
+        </button>
       )}
     </div>
   );

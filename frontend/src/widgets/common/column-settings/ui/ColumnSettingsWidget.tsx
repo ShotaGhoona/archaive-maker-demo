@@ -134,36 +134,36 @@ export function ColumnSettingsWidget({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='xl' className='bg-card'>
+        <Button variant='outline' size='xl'>
           <Settings2 className='size-5' />
           テーブル設定
         </Button>
       </DialogTrigger>
-      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl'>
+      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl' showCloseButton={false}>
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as SettingsTab)}
           className='flex min-h-0 flex-1 flex-col gap-0'
         >
-          <div className='shrink-0 border-b'>
-            <TabsList className='h-auto w-full justify-start gap-0 rounded-none bg-transparent p-0'>
+          <div className='shrink-0 border-b border-slate-200/40'>
+            <TabsList className='h-auto w-full justify-start gap-0 rounded-none border-0 bg-transparent p-0'>
               <TabsTrigger
                 value='visibility'
-                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-base data-[state=active]:border-b-slate-900 data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
                 <Columns3 className='size-5' />
                 テーブル表示設定
               </TabsTrigger>
               <TabsTrigger
                 value='management'
-                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-base data-[state=active]:border-b-slate-900 data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
                 <SlidersHorizontal className='size-5' />
                 テーブル設定
               </TabsTrigger>
               <TabsTrigger
                 value='filter'
-                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-lg font-medium data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none'
+                className='flex-1 gap-2 rounded-none border-b-2 border-transparent py-4 text-base data-[state=active]:border-b-slate-900 data-[state=active]:bg-transparent data-[state=active]:shadow-none'
               >
                 <Filter className='size-5' />
                 フィルター表示設定
@@ -211,7 +211,7 @@ export function ColumnSettingsWidget({
           </div>
         </Tabs>
 
-        <DialogFooter className='shrink-0 border-t bg-background px-6 py-4'>
+        <DialogFooter className='shrink-0 border-t border-slate-200/40 bg-white/50 px-6 py-4'>
           {/* アクションボタン（テーブル表示設定・フィルター表示設定で共通利用） */}
           {activeTab !== 'management' && (
             <div className='mr-auto flex gap-2'>

@@ -37,8 +37,8 @@ const categoryLabels: Record<DocumentCategory, string> = {
 
 // カテゴリカラー
 const categoryColors: Record<DocumentCategory, string> = {
-  product: 'bg-blue-100 text-blue-700 border-blue-200',
-  company: 'bg-green-100 text-green-700 border-green-200',
+  product: 'bg-slate-100/50 text-slate-700 border-slate-200/60',
+  company: 'bg-slate-100/50 text-slate-700 border-slate-200/60',
 };
 
 interface DocumentTypeManageDialogProps {
@@ -103,7 +103,7 @@ export function DocumentTypeManageDialog({
   const isEditing = isAdding || editingId !== null;
 
   const defaultTrigger = (
-    <button className='flex w-full items-center justify-center gap-2 rounded-md border-2 border-dashed border-gray-300 px-3 py-2 text-sm text-gray-500 transition-colors hover:border-gray-400 hover:bg-gray-50 hover:text-gray-600'>
+    <button className='flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300/60 px-3 py-2 text-sm text-slate-500 transition-all duration-200 hover:border-slate-400 hover:bg-white/60 hover:text-slate-600'>
       <Settings className='size-4' />
       帳票種別を管理
     </button>
@@ -125,9 +125,9 @@ export function DocumentTypeManageDialog({
 
         <div className='grid min-h-0 flex-1 grid-cols-5 gap-6'>
           {/* 帳票種別一覧 */}
-          <div className='col-span-3 flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+          <div className='col-span-3 flex min-h-0 flex-col rounded-xl border border-slate-200/60 bg-white/50 py-4'>
             <div className='mb-3 flex shrink-0 items-center justify-between px-4'>
-              <h3 className='text-base font-medium'>
+              <h3 className='text-base font-medium text-slate-900'>
                 帳票種別一覧（{documentTypes.length}件）
               </h3>
               <Button
@@ -145,15 +145,15 @@ export function DocumentTypeManageDialog({
                 <div
                   key={type.id}
                   className={cn(
-                    'flex items-center gap-3 rounded-lg border px-4 py-3 transition-colors',
+                    'flex items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-200',
                     editingId === type.id
-                      ? 'border-primary bg-primary/10'
-                      : 'bg-background hover:bg-muted/50',
+                      ? 'border-slate-400 bg-white/70 shadow-sm'
+                      : 'border-slate-200/60 bg-white/40 hover:bg-white/60',
                   )}
                 >
-                  <ClipboardList className='size-5 shrink-0 text-gray-500' />
+                  <ClipboardList className='size-5 shrink-0 text-slate-500' />
                   <div className='min-w-0 flex-1'>
-                    <span className='block truncate text-sm font-medium'>
+                    <span className='block truncate text-sm font-medium text-slate-700'>
                       {type.name}
                     </span>
                   </div>
@@ -192,8 +192,8 @@ export function DocumentTypeManageDialog({
           </div>
 
           {/* 編集フォーム */}
-          <div className='col-span-2 flex flex-col rounded-lg border bg-card p-4'>
-            <h3 className='mb-4 shrink-0 text-base font-medium'>
+          <div className='col-span-2 flex flex-col rounded-xl border border-slate-200/60 bg-white/50 p-4'>
+            <h3 className='mb-4 shrink-0 text-base font-medium text-slate-900'>
               {isAdding
                 ? '帳票種別を追加'
                 : editingId
@@ -263,7 +263,7 @@ export function DocumentTypeManageDialog({
                 </div>
               </div>
             ) : (
-              <div className='flex flex-1 items-center justify-center text-sm text-muted-foreground'>
+              <div className='flex flex-1 items-center justify-center text-sm text-slate-500'>
                 帳票種別を選択するか、新規追加してください
               </div>
             )}
