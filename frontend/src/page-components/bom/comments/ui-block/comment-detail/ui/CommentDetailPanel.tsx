@@ -12,7 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avata
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
-import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
+import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { CommentThread } from '../../../dummy-data/comments';
 
 interface CommentDetailPanelProps {
@@ -37,120 +38,117 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
   const bomId = params.id as string;
 
   const handleGoToCanvas = () => {
-    // TODO: API呼び出し - キャンバスの該当位置にジャンプ
-    alert(`キャンバスの位置 (${thread.canvasPosition?.x}, ${thread.canvasPosition?.y}) に移動（未実装）`);
     router.push(`/bom/${bomId}/canvas`);
   };
 
   const handleResolve = () => {
-    // TODO: API呼び出し
     alert(`スレッド ${thread.id} を${thread.resolved ? '未解決に戻す' : '解決済みにする'}（未実装）`);
   };
 
   const handleReply = () => {
-    // TODO: API呼び出し
     alert('返信を送信（未実装）');
   };
 
   return (
-    <div className='flex h-full flex-col p-4'>
-      <Card className='flex h-full flex-col'>
-        {/* Header */}
-        <CardHeader className='shrink-0 flex items-center justify-between space-y-0 pb-4'>
-          <div className='flex items-center gap-2'>
-            <Badge variant={thread.resolved ? 'outline' : 'default'}>
-              {thread.resolved ? (
-                <>
-                  <CheckCircle2 className='mr-1 size-3' />
-                  解決済み
-                </>
-              ) : (
-                <>
-                  <Circle className='mr-1 size-3' />
-                  未解決
-                </>
-              )}
-            </Badge>
-            <span className='text-sm text-muted-foreground'>
-              {thread.comments.length}件のコメント
-            </span>
-          </div>
-          <div className='flex items-center gap-2'>
-            <Button variant='outline' size='sm' onClick={handleGoToCanvas}>
-              <ExternalLink className='mr-1 size-3' />
-              キャンバスで確認
-            </Button>
-            <Button
-              variant={thread.resolved ? 'outline' : 'secondary'}
-              size='sm'
-              onClick={handleResolve}
-            >
-              {thread.resolved ? (
-                <>
-                  <Circle className='mr-1 size-3' />
-                  未解決に戻す
-                </>
-              ) : (
-                <>
-                  <CheckCircle2 className='mr-1 size-3' />
-                  解決済みにする
-                </>
-              )}
-            </Button>
-            <Button variant='ghost' size='icon' className='size-8' onClick={onClose}>
-              <X className='size-4' />
-            </Button>
-          </div>
-        </CardHeader>
+    <div
+      className={cn(
+        'flex h-full flex-col rounded-2xl overflow-hidden',
+        'border border-white/60 bg-white/40 backdrop-blur-xl',
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+      )}
+    >
+      {/* ヘッダー */}
+      <div className='flex shrink-0 items-center justify-between border-b border-slate-200/40 px-4 py-3'>
+        <div className='flex items-center gap-3'>
+          <Badge
+            variant={thread.resolved ? 'outline' : 'default'}
+            className='text-xs'
+          >
+            {thread.resolved ? (
+              <>
+                <CheckCircle2 className='mr-1 size-3' />
+                解決済み
+              </>
+            ) : (
+              <>
+                <Circle className='mr-1 size-3' />
+                未解決
+              </>
+            )}
+          </Badge>
+          <span className='text-sm text-slate-500'>
+            {thread.comments.length}件
+          </span>
+        </div>
+        <div className='flex items-center gap-1'>
+          <Button variant='ghost' size='sm' onClick={handleGoToCanvas} className='h-7 text-xs'>
+            <ExternalLink className='mr-1 size-3' />
+            キャンバス
+          </Button>
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={handleResolve}
+            className='h-7 text-xs'
+          >
+            {thread.resolved ? '未解決に戻す' : '解決済みにする'}
+          </Button>
+          <Button variant='ghost' size='icon' className='size-7' onClick={onClose}>
+            <X className='size-4' />
+          </Button>
+        </div>
+      </div>
 
-        {/* Comments */}
-        <CardContent className='min-h-0 flex-1 overflow-auto'>
-          <div className='space-y-4'>
-            {thread.comments.map((comment) => (
-              <div
-                key={comment.id}
-                className='rounded-lg border bg-muted/30 p-4'
-              >
-                <div className='flex items-start gap-3'>
-                  <Avatar className='size-9 shrink-0'>
-                    <AvatarImage src={comment.author.avatarUrl} />
-                    <AvatarFallback>{comment.author.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className='min-w-0 flex-1'>
-                    <div className='flex items-baseline gap-2'>
-                      <span className='font-medium'>{comment.author.name}</span>
-                      {comment.author.role && (
-                        <Badge variant='secondary' className='text-xs'>
-                          {comment.author.role}
-                        </Badge>
-                      )}
-                    </div>
-                    <span className='text-xs text-muted-foreground'>
-                      {formatDateTime(comment.createdAt)}
-                    </span>
-                    <p className='mt-2 text-sm leading-relaxed'>
-                      {comment.content}
-                    </p>
+      {/* コメント一覧 */}
+      <ScrollArea className='min-h-0 flex-1'>
+        <div className='space-y-3 p-4'>
+          {thread.comments.map((comment) => (
+            <div
+              key={comment.id}
+              className={cn(
+                'rounded-xl p-3',
+                'bg-white/50 border border-white/60'
+              )}
+            >
+              <div className='flex items-start gap-3'>
+                <Avatar className='size-8 shrink-0'>
+                  <AvatarImage src={comment.author.avatarUrl} />
+                  <AvatarFallback className='text-xs'>{comment.author.name[0]}</AvatarFallback>
+                </Avatar>
+                <div className='min-w-0 flex-1'>
+                  <div className='flex items-baseline gap-2'>
+                    <span className='text-sm font-medium text-slate-900'>{comment.author.name}</span>
+                    {comment.author.role && (
+                      <Badge variant='secondary' className='text-[10px] px-1.5 py-0'>
+                        {comment.author.role}
+                      </Badge>
+                    )}
                   </div>
+                  <span className='text-xs text-slate-400'>
+                    {formatDateTime(comment.createdAt)}
+                  </span>
+                  <p className='mt-2 text-sm text-slate-700 leading-relaxed'>
+                    {comment.content}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-
-        {/* Reply Input */}
-        <div className='shrink-0 border-t p-4'>
-          <div className='flex gap-2'>
-            <Textarea
-              placeholder='返信を入力...'
-              className='min-h-[60px] resize-none'
-            />
-            <Button size='icon' className='shrink-0' onClick={handleReply}>
-              <Send className='size-4' />
-            </Button>
-          </div>
+            </div>
+          ))}
         </div>
-      </Card>
+      </ScrollArea>
+
+      {/* 返信入力 */}
+      <div className='shrink-0 border-t border-slate-200/40 p-3'>
+        <div className='flex gap-2'>
+          <Textarea
+            placeholder='返信を入力...'
+            className='min-h-[48px] resize-none text-sm'
+          />
+          <Button size='icon' className='shrink-0 size-10' onClick={handleReply}>
+            <Send className='size-4' />
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

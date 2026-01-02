@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from '@/shared/ui/shadcn/lib/utils';
+import { Card } from '@/shared/ui/shadcn/ui/card';
 import { GalleryViewWidget } from '@/widgets/view/gallery-view/ui/GalleryViewWidget';
 import type { PaginationConfig } from '@/widgets/view/gallery-view/model/types';
 import {
@@ -20,8 +22,13 @@ export function SimilarGalleryPanel() {
   };
 
   return (
-    <div className='flex h-full flex-col bg-card px-4 pt-4'>
-      <h2 className='mb-4 text-lg font-semibold'>類似図面</h2>
+    <Card
+      className={cn(
+        'flex h-full flex-col px-4 pt-4 gap-0 py-0',
+        'hover:bg-white/40'
+      )}
+    >
+      <h2 className='mb-4 text-base font-semibold text-slate-900'>類似図面</h2>
       <GalleryViewWidget<SimilarDrawing>
         data={dummySimilarDrawings}
         columns='responsive'
@@ -29,6 +36,6 @@ export function SimilarGalleryPanel() {
         onCardClick={handleCardClick}
         pagination={pagination}
       />
-    </div>
+    </Card>
   );
 }

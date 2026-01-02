@@ -56,24 +56,27 @@ export function BomCommentsContainer() {
   };
 
   return (
-    <div className='flex h-full flex-col'>
-      {/* Header */}
-      <div className='flex shrink-0 items-center justify-between border-b px-6 py-3'>
-        <div className='flex items-center gap-3'>
-          <div className='flex items-center gap-2'>
-            <Badge variant='secondary' className='gap-1'>
-              <Circle className='size-3 text-orange-500' />
-              未解決 {openCount}
-            </Badge>
-            <Badge variant='outline' className='gap-1'>
-              <CheckCircle2 className='size-3 text-green-500' />
-              解決済み {resolvedCount}
-            </Badge>
-          </div>
+    <div className='flex h-full flex-col gap-3'>
+      {/* ツールバー - シンプルなガラスバー */}
+      <div
+        className={cn(
+          'flex shrink-0 items-center justify-between rounded-xl px-4 py-2',
+          'border border-white/60 bg-white/40 backdrop-blur-xl'
+        )}
+      >
+        <div className='flex items-center gap-2'>
+          <Badge variant='secondary' className='gap-1 text-xs'>
+            <Circle className='size-3 text-orange-500' />
+            {openCount}
+          </Badge>
+          <Badge variant='outline' className='gap-1 text-xs'>
+            <CheckCircle2 className='size-3 text-green-500' />
+            {resolvedCount}
+          </Badge>
         </div>
 
-        {/* Filter Tabs */}
-        <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
+        {/* フィルタータブ */}
+        <div className='flex items-center gap-0.5'>
           {filterOptions.map((option) => (
             <Button
               key={option.value}
@@ -81,8 +84,10 @@ export function BomCommentsContainer() {
               size='sm'
               onClick={() => setFilterStatus(option.value)}
               className={cn(
-                'gap-1.5 px-3',
-                filterStatus === option.value && 'bg-background shadow-sm'
+                'gap-1.5 px-3 h-7 text-xs rounded-lg',
+                filterStatus === option.value
+                  ? 'bg-white/70 text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
               )}
             >
               {option.icon}
@@ -92,23 +97,30 @@ export function BomCommentsContainer() {
         </div>
       </div>
 
-      {/* Content */}
+      {/* コンテンツエリア */}
       <div className='min-h-0 flex-1'>
         {filteredThreads.length > 0 ? (
-          <ResizablePanelGroup direction='horizontal' className='h-full'>
-            {/* Thread List */}
+          <ResizablePanelGroup direction='horizontal' className='h-full gap-3'>
+            {/* スレッドリスト - 背景として透ける */}
             <ResizablePanel defaultSize={selectedThread ? 40 : 100} minSize={30}>
-              <CommentListPanel
-                threads={filteredThreads}
-                selectedThreadId={selectedThreadId}
-                onSelectThread={handleSelectThread}
-              />
+              <div
+                className={cn(
+                  'h-full rounded-2xl overflow-hidden',
+                  'border border-white/60 bg-white/30 backdrop-blur-xl'
+                )}
+              >
+                <CommentListPanel
+                  threads={filteredThreads}
+                  selectedThreadId={selectedThreadId}
+                  onSelectThread={handleSelectThread}
+                />
+              </div>
             </ResizablePanel>
 
-            {/* Detail Panel */}
+            {/* 詳細パネル - 重要コンテンツとしてカード化 */}
             {selectedThread && (
               <>
-                <ResizableHandle withHandle />
+                <ResizableHandle className='w-px bg-slate-200/40' />
                 <ResizablePanel defaultSize={60} minSize={40}>
                   <CommentDetailPanel
                     thread={selectedThread}
@@ -119,16 +131,24 @@ export function BomCommentsContainer() {
             )}
           </ResizablePanelGroup>
         ) : (
-          <div className='flex h-full flex-col items-center justify-center text-muted-foreground'>
-            <MessageSquare className='mb-4 size-12 opacity-50' />
-            <p className='text-lg font-medium'>
+          /* 空状態 - シンプルに */
+          <div className='flex h-full flex-col items-center justify-center'>
+            <div
+              className={cn(
+                'flex size-16 items-center justify-center rounded-2xl mb-4',
+                'bg-gradient-to-br from-slate-100 to-slate-200'
+              )}
+            >
+              <MessageSquare className='size-8 text-slate-400' />
+            </div>
+            <p className='text-lg font-medium text-slate-700'>
               {filterStatus === 'all'
                 ? 'コメントはありません'
                 : filterStatus === 'open'
                   ? '未解決のコメントはありません'
                   : '解決済みのコメントはありません'}
             </p>
-            <p className='mt-1 text-sm'>
+            <p className='mt-1 text-sm text-slate-500'>
               キャンバスモードでコメントを追加できます
             </p>
           </div>

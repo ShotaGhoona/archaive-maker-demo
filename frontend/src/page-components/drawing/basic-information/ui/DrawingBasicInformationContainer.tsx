@@ -19,13 +19,16 @@ export function DrawingBasicInformationContainer() {
     dummyProducts.find((p) => p.id === productId) ?? dummyProducts[0];
 
   return (
-    <ResizablePanelGroup direction='horizontal' className='h-full'>
+    <ResizablePanelGroup direction='horizontal' className='h-full gap-2'>
       {/* プレビューパネル（左側 + 中央） */}
       <ResizablePanel defaultSize={70} minSize={40}>
         <DrawingPreviewPanel drawings={product.drawings} />
       </ResizablePanel>
 
-      <ResizableHandle withHandle />
+      <ResizableHandle
+        withHandle
+        className='mx-1 rounded-full bg-slate-200/50 transition-colors hover:bg-slate-300/50'
+      />
 
       {/* 情報パネル（右側） */}
       <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>

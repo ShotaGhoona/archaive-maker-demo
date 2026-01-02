@@ -15,8 +15,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
-import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
-import { Separator } from '@/shared/ui/shadcn/ui/separator';
+import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
 
@@ -106,141 +105,148 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
   };
 
   return (
-    <div className='flex h-full flex-col p-4'>
-      <Card className='flex h-full flex-col'>
-        {/* Header */}
-        <CardHeader className='shrink-0 flex items-center justify-between space-y-0 pb-4'>
-          <div className='flex items-center gap-2'>
-            <Badge variant={statusConfig.variant} className='gap-1'>
-              {statusConfig.icon}
-              {statusConfig.label}
-            </Badge>
-            <Badge
-              variant='outline'
-              className={cn('gap-1', priorityConfig.className)}
-            >
-              <AlertTriangle className='size-3' />
-              優先度: {priorityConfig.label}
-            </Badge>
-          </div>
-          <div className='flex items-center gap-2'>
-            <Button variant='outline' size='sm' onClick={handleGoToCanvas}>
-              <ExternalLink className='mr-1 size-3' />
-              キャンバスで確認
+    <div
+      className={cn(
+        'flex h-full flex-col rounded-2xl overflow-hidden',
+        'border border-white/60 bg-white/40 backdrop-blur-xl',
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+      )}
+    >
+      {/* ヘッダー */}
+      <div className='flex shrink-0 items-center justify-between border-b border-slate-200/40 px-4 py-3'>
+        <div className='flex items-center gap-2'>
+          <Badge variant={statusConfig.variant} className='gap-1 text-xs'>
+            {statusConfig.icon}
+            {statusConfig.label}
+          </Badge>
+          <Badge
+            variant='outline'
+            className={cn('gap-1 text-xs', priorityConfig.className)}
+          >
+            <AlertTriangle className='size-3' />
+            {priorityConfig.label}
+          </Badge>
+        </div>
+        <div className='flex items-center gap-1'>
+          <Button variant='ghost' size='sm' onClick={handleGoToCanvas} className='h-7 text-xs'>
+            <ExternalLink className='mr-1 size-3' />
+            キャンバス
+          </Button>
+          {task.status === 'todo' && (
+            <Button size='sm' onClick={handleStartTask} className='h-7 text-xs'>
+              <Play className='mr-1 size-3' />
+              開始
             </Button>
-            {task.status === 'todo' && (
-              <Button size='sm' onClick={handleStartTask}>
-                <Play className='mr-1 size-3' />
-                開始
-              </Button>
-            )}
-            {task.status === 'in_progress' && (
-              <Button size='sm' onClick={handleCompleteTask}>
-                <CheckCircle2 className='mr-1 size-3' />
-                完了
-              </Button>
-            )}
-            <Button variant='ghost' size='icon' className='size-8' onClick={onClose}>
-              <X className='size-4' />
+          )}
+          {task.status === 'in_progress' && (
+            <Button size='sm' onClick={handleCompleteTask} className='h-7 text-xs'>
+              <CheckCircle2 className='mr-1 size-3' />
+              完了
             </Button>
+          )}
+          <Button variant='ghost' size='icon' className='size-7' onClick={onClose}>
+            <X className='size-4' />
+          </Button>
+        </div>
+      </div>
+
+      {/* コンテンツ */}
+      <ScrollArea className='min-h-0 flex-1'>
+        <div className='space-y-4 p-4'>
+          {/* タイトル */}
+          <div>
+            <h2 className='text-lg font-semibold text-slate-900'>{task.title}</h2>
+            {task.description && (
+              <p className='mt-2 text-sm text-slate-600 leading-relaxed'>{task.description}</p>
+            )}
           </div>
-        </CardHeader>
 
-        {/* Content */}
-        <CardContent className='min-h-0 flex-1 overflow-auto'>
-          <div className='space-y-6'>
-            {/* タイトル */}
-            <div>
-              <h2 className='text-xl font-semibold'>{task.title}</h2>
-              {task.description && (
-                <p className='mt-2 text-muted-foreground'>{task.description}</p>
-              )}
-            </div>
-
-            <Separator />
-
-            {/* 詳細情報 */}
-            <div className='grid gap-4'>
-              {/* 担当者 */}
-              <div className='flex items-center gap-3'>
-                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                  <User className='size-4' />
-                  担当者
-                </div>
-                {task.assignee ? (
-                  <div className='flex items-center gap-2'>
-                    <Avatar className='size-7'>
-                      <AvatarImage src={task.assignee.avatarUrl} />
-                      <AvatarFallback className='text-xs'>
-                        {task.assignee.name[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className='text-sm font-medium'>{task.assignee.name}</p>
-                      {task.assignee.role && (
-                        <p className='text-xs text-muted-foreground'>
-                          {task.assignee.role}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <span className='text-sm text-muted-foreground'>未割当</span>
-                )}
+          {/* 詳細情報カード */}
+          <div
+            className={cn(
+              'rounded-xl p-4 space-y-3',
+              'bg-white/50 border border-white/60'
+            )}
+          >
+            {/* 担当者 */}
+            <div className='flex items-center gap-3'>
+              <div className='flex w-20 items-center gap-2 text-xs text-slate-500'>
+                <User className='size-3.5' />
+                担当者
               </div>
-
-              {/* 期限 */}
-              <div className='flex items-center gap-3'>
-                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                  <Calendar className='size-4' />
-                  期限
-                </div>
-                {task.dueDate ? (
-                  <div className='flex items-center gap-2'>
-                    <span
-                      className={cn(
-                        'text-sm',
-                        overdue ? 'font-medium text-red-500' : ''
-                      )}
-                    >
-                      {formatDate(task.dueDate)}
-                    </span>
-                    {overdue && (
-                      <Badge variant='destructive' className='text-xs'>
-                        期限切れ
-                      </Badge>
+              {task.assignee ? (
+                <div className='flex items-center gap-2'>
+                  <Avatar className='size-6'>
+                    <AvatarImage src={task.assignee.avatarUrl} />
+                    <AvatarFallback className='text-[10px]'>
+                      {task.assignee.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className='text-sm font-medium text-slate-900'>{task.assignee.name}</p>
+                    {task.assignee.role && (
+                      <p className='text-xs text-slate-500'>
+                        {task.assignee.role}
+                      </p>
                     )}
                   </div>
-                ) : (
-                  <span className='text-sm text-muted-foreground'>未設定</span>
-                )}
-              </div>
-
-              {/* 作成日 */}
-              <div className='flex items-center gap-3'>
-                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                  <Clock className='size-4' />
-                  作成日
                 </div>
-                <span className='text-sm'>{formatDateTime(task.createdAt)}</span>
-              </div>
-
-              {/* 更新日 */}
-              {task.updatedAt && (
-                <div className='flex items-center gap-3'>
-                  <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                    <Clock className='size-4' />
-                    更新日
-                  </div>
-                  <span className='text-sm'>
-                    {formatDateTime(task.updatedAt)}
-                  </span>
-                </div>
+              ) : (
+                <span className='text-sm text-slate-400'>未割当</span>
               )}
             </div>
+
+            {/* 期限 */}
+            <div className='flex items-center gap-3'>
+              <div className='flex w-20 items-center gap-2 text-xs text-slate-500'>
+                <Calendar className='size-3.5' />
+                期限
+              </div>
+              {task.dueDate ? (
+                <div className='flex items-center gap-2'>
+                  <span
+                    className={cn(
+                      'text-sm',
+                      overdue ? 'font-medium text-red-500' : 'text-slate-700'
+                    )}
+                  >
+                    {formatDate(task.dueDate)}
+                  </span>
+                  {overdue && (
+                    <Badge variant='destructive' className='text-[10px] px-1.5'>
+                      期限切れ
+                    </Badge>
+                  )}
+                </div>
+              ) : (
+                <span className='text-sm text-slate-400'>未設定</span>
+              )}
+            </div>
+
+            {/* 作成日 */}
+            <div className='flex items-center gap-3'>
+              <div className='flex w-20 items-center gap-2 text-xs text-slate-500'>
+                <Clock className='size-3.5' />
+                作成日
+              </div>
+              <span className='text-sm text-slate-700'>{formatDateTime(task.createdAt)}</span>
+            </div>
+
+            {/* 更新日 */}
+            {task.updatedAt && (
+              <div className='flex items-center gap-3'>
+                <div className='flex w-20 items-center gap-2 text-xs text-slate-500'>
+                  <Clock className='size-3.5' />
+                  更新日
+                </div>
+                <span className='text-sm text-slate-700'>
+                  {formatDateTime(task.updatedAt)}
+                </span>
+              </div>
+            )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </ScrollArea>
     </div>
   );
 }

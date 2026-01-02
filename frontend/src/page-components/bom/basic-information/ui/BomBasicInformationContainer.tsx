@@ -39,7 +39,7 @@ export function BomBasicInformationContainer() {
   }
 
   return (
-    <ResizablePanelGroup direction='horizontal' className='h-full'>
+    <ResizablePanelGroup direction='horizontal' className='h-full gap-2'>
       <ResizablePanel defaultSize={70} minSize={40}>
         <div className='flex h-full flex-col'>
           <div className='flex shrink-0 items-center justify-start px-4 py-2'>
@@ -60,7 +60,10 @@ export function BomBasicInformationContainer() {
         </div>
       </ResizablePanel>
 
-      <ResizableHandle withHandle />
+      <ResizableHandle
+        withHandle
+        className='mx-1 rounded-full bg-slate-200/50 transition-colors hover:bg-slate-300/50'
+      />
 
       <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
         <BomInfoPanel bomDetail={bomDetail} />

@@ -7,6 +7,7 @@ import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { Card } from '@/shared/ui/shadcn/ui/card';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { GalleryItem } from '@/shared/dummy-data/bom/products';
 
 interface BomGalleryPanelProps {
@@ -55,15 +56,26 @@ export function BomGalleryPanel({ items }: BomGalleryPanelProps) {
 
   if (items.length === 0) {
     return (
-      <div className='flex h-full items-center justify-center bg-card'>
+      <Card
+        className={cn(
+          'flex h-full items-center justify-center py-0 gap-0',
+          'hover:bg-white/40'
+        )}
+      >
         <NoData title='表示するアイテムがありません' size='default' />
-      </div>
+      </Card>
     );
   }
 
   return (
-    <ScrollArea className='h-full'>
-      <div className='grid grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+    <Card
+      className={cn(
+        'h-full overflow-hidden py-0 gap-0',
+        'hover:bg-white/40'
+      )}
+    >
+      <ScrollArea className='h-full'>
+        <div className='grid grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
         {items.map((item) => (
           <Card
             key={item.id}
@@ -98,6 +110,7 @@ export function BomGalleryPanel({ items }: BomGalleryPanelProps) {
           </Card>
         ))}
         </div>
-    </ScrollArea>
+      </ScrollArea>
+    </Card>
   );
 }

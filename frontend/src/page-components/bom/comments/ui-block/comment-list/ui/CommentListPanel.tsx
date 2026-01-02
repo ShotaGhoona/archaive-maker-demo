@@ -40,31 +40,30 @@ function CommentThreadCard({
     <button
       onClick={onSelect}
       className={cn(
-        'w-full rounded-lg border bg-card p-4 text-left transition-all',
-        'hover:shadow-md',
-        isSelected
-          ? 'ring-2 ring-primary border-primary shadow-md'
-          : 'border-border',
+        'w-full rounded-xl p-3 text-left transition-all',
+        'bg-white/50 border border-white/60',
+        'hover:bg-white/70',
+        isSelected && 'bg-white/70 shadow-[0_4px_16px_rgba(0,0,0,0.08)]',
         thread.resolved && 'opacity-70'
       )}
     >
       {/* Header */}
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
-          <Avatar className='size-7'>
+          <Avatar className='size-6'>
             <AvatarImage src={firstComment.author.avatarUrl} />
-            <AvatarFallback className='text-xs'>
+            <AvatarFallback className='text-[10px]'>
               {firstComment.author.name[0]}
             </AvatarFallback>
           </Avatar>
-          <span className='text-sm font-medium'>{firstComment.author.name}</span>
-          <span className='text-xs text-muted-foreground'>
+          <span className='text-sm font-medium text-slate-900'>{firstComment.author.name}</span>
+          <span className='text-xs text-slate-400'>
             {formatDate(firstComment.createdAt)}
           </span>
         </div>
         <Badge
           variant={thread.resolved ? 'outline' : 'default'}
-          className='shrink-0'
+          className='shrink-0 text-[10px]'
         >
           {thread.resolved ? (
             <>
@@ -81,13 +80,13 @@ function CommentThreadCard({
       </div>
 
       {/* Content */}
-      <p className='mt-2 line-clamp-2 text-sm text-muted-foreground'>
+      <p className='mt-2 line-clamp-2 text-sm text-slate-600'>
         {firstComment.content}
       </p>
 
       {/* Footer */}
       {replyCount > 0 && (
-        <div className='mt-3 flex items-center gap-1 text-xs text-muted-foreground'>
+        <div className='mt-2 flex items-center gap-1 text-xs text-slate-400'>
           <MessageSquare className='size-3' />
           <span>{replyCount}件の返信</span>
         </div>
@@ -102,8 +101,8 @@ export function CommentListPanel({
   onSelectThread,
 }: CommentListPanelProps) {
   return (
-    <div className='h-full overflow-auto p-4'>
-      <div className='space-y-3'>
+    <div className='h-full overflow-auto p-3'>
+      <div className='space-y-2'>
         {threads.map((thread) => (
           <CommentThreadCard
             key={thread.id}

@@ -1,28 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
-import { Button } from '@/shared/ui/shadcn/ui/button';
+import { Card } from '@/shared/ui/shadcn/ui/card';
+import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { DrawingItem } from '@/shared/types/dummy-data/drawing';
 import { DrawingCard } from './components/DrawingCard';
-import { CARD_HEIGHT } from '../lib/constants';
-import {
-  getCardLeft,
-  getCardTop,
-  getCloseButtonLeft,
-  getDrawingTop,
-  getStackHeight,
-  isCardVisible,
-} from '../lib/calculations';
 
 interface DrawingPreviewPanelProps {
   drawings: DrawingItem[];
 }
 
 export function DrawingPreviewPanel({ drawings }: DrawingPreviewPanelProps) {
-  const [expandedDrawingId, setExpandedDrawingId] = useState<string | null>(
-    null,
-  );
   const [selectedThumbnailId, setSelectedThumbnailId] = useState<string | null>(
     () => {
       if (drawings.length > 0 && drawings[0].thumbnails.length > 0) {
@@ -39,79 +28,57 @@ export function DrawingPreviewPanel({ drawings }: DrawingPreviewPanelProps) {
     .flatMap((d) => d.thumbnails)
     .find((t) => t.id === selectedThumbnailId);
 
+  // 全てのサムネイルをフラットに展開
+  const allThumbnails = drawings.flatMap((drawing) =>
+    drawing.thumbnails.map((thumbnail) => ({
+      ...thumbnail,
+      drawingName: drawing.name,
+      drawingNumber: drawing.drawingNumber,
+    }))
+  );
+
   return (
-    <div className='relative flex h-full'>
-      {/* 左：サイドバー */}
-      <aside className='relative w-48 shrink-0 border-r bg-card'>
-        {/* カード群（展開時にプレビューエリアへはみ出すためabsolute） */}
-        {drawings.map((drawing, drawingIndex) => {
-          const isExpanded = expandedDrawingId === drawing.id;
-          const count = drawing.thumbnails.length;
-          const hasMultiple = count > 1;
-          const stackHeight = getStackHeight(count);
-          const top = getDrawingTop(drawings, drawingIndex);
+    <div className='flex h-full gap-2'>
+      {/* 左：サムネイルカード */}
+      <Card
+        className={cn(
+          'shrink-0 overflow-hidden py-0 gap-0',
+          'hover:bg-white/40'
+        )}
+      >
+        <ScrollArea className='h-full'>
+          <div className='flex flex-col gap-3 p-2'>
+            {allThumbnails.map((thumbnail) => (
+              <DrawingCard
+                key={thumbnail.id}
+                thumbnail={thumbnail}
+                drawingName={thumbnail.drawingName}
+                drawingNumber={thumbnail.drawingNumber}
+                isSelected={selectedThumbnailId === thumbnail.id}
+                onClick={() => setSelectedThumbnailId(thumbnail.id)}
+              />
+            ))}
+          </div>
+        </ScrollArea>
+      </Card>
 
-          return (
-            <div
-              key={drawing.id}
-              className='absolute left-3 z-10'
-              style={{ top, height: CARD_HEIGHT + stackHeight }}
-            >
-              {drawing.thumbnails.map((thumbnail, index) => (
-                <div
-                  key={thumbnail.id}
-                  className='absolute transition-all duration-300'
-                  style={{
-                    left: getCardLeft(index, isExpanded),
-                    top: getCardTop(index, isExpanded),
-                    zIndex: count - index,
-                    opacity: isCardVisible(index, isExpanded) ? 1 : 0,
-                  }}
-                >
-                  <DrawingCard
-                    thumbnail={thumbnail}
-                    drawingName={drawing.name}
-                    drawingNumber={drawing.drawingNumber}
-                    isSelected={selectedThumbnailId === thumbnail.id}
-                    onClick={() => {
-                      if (!isExpanded && index > 0 && hasMultiple) {
-                        setExpandedDrawingId(drawing.id);
-                      } else {
-                        setSelectedThumbnailId(thumbnail.id);
-                      }
-                    }}
-                  />
-                </div>
-              ))}
-
-              {/* 閉じるボタン */}
-              {isExpanded && hasMultiple && (
-                <Button
-                  size='icon'
-                  className='absolute top-0 h-full w-8'
-                  style={{ left: getCloseButtonLeft(count) }}
-                  onClick={() => setExpandedDrawingId(null)}
-                >
-                  <ChevronLeft className='size-4' />
-                </Button>
-              )}
-            </div>
-          );
-        })}
-      </aside>
-
-      {/* 右：プレビューエリア */}
-      <div className='flex flex-1 items-center justify-center bg-muted/20 p-4'>
+      {/* 右：プレビューカード */}
+      <Card
+        className={cn(
+          'flex flex-1 items-center justify-center p-4 py-0 gap-0',
+          'bg-white/40 hover:bg-white/40'
+        )}
+      >
         {selectedThumbnail ? (
           <img
             src={selectedThumbnail.thumbnailUrl}
             alt={selectedThumbnail.name}
-            className='max-h-full max-w-full object-contain'
+            className='max-h-full max-w-full object-contain rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
           />
         ) : (
-          <p className='text-muted-foreground'>図面を選択してください</p>
+          <p className='text-slate-500'>図面を選択してください</p>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

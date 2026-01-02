@@ -19,13 +19,16 @@ export function DrawingSimilarContainer() {
     dummyProducts.find((p) => p.id === productId) ?? dummyProducts[0];
 
   return (
-    <ResizablePanelGroup direction='horizontal' className='h-full'>
+    <ResizablePanelGroup direction='horizontal' className='h-full gap-2'>
       {/* 左：プレビューパネル */}
       <ResizablePanel defaultSize={70} minSize={40}>
         <DrawingPreviewPanel drawings={product.drawings} />
       </ResizablePanel>
 
-      <ResizableHandle withHandle />
+      <ResizableHandle
+        withHandle
+        className='mx-1 rounded-full bg-slate-200/50 transition-colors hover:bg-slate-300/50'
+      />
 
       {/* 右：類似図面ギャラリー */}
       <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>

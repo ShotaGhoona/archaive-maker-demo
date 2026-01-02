@@ -78,37 +78,36 @@ function TaskCard({
     <button
       onClick={onSelect}
       className={cn(
-        'w-full rounded-lg border bg-card p-4 text-left transition-all',
-        'hover:shadow-md',
-        isSelected
-          ? 'ring-2 ring-primary border-primary shadow-md'
-          : 'border-border',
+        'w-full rounded-xl p-3 text-left transition-all',
+        'bg-white/50 border border-white/60',
+        'hover:bg-white/70',
+        isSelected && 'bg-white/70 shadow-[0_4px_16px_rgba(0,0,0,0.08)]',
         task.status === 'done' && 'opacity-70'
       )}
     >
       {/* Header */}
       <div className='flex items-start justify-between gap-2'>
         <div className='min-w-0 flex-1'>
-          <h3 className='font-medium leading-tight'>{task.title}</h3>
+          <h3 className='text-sm font-medium leading-tight text-slate-900'>{task.title}</h3>
           {task.description && (
-            <p className='mt-1 line-clamp-2 text-sm text-muted-foreground'>
+            <p className='mt-1 line-clamp-2 text-xs text-slate-500'>
               {task.description}
             </p>
           )}
         </div>
-        <Badge variant={statusConfig.variant} className='shrink-0 gap-1'>
+        <Badge variant={statusConfig.variant} className='shrink-0 gap-1 text-[10px]'>
           {statusConfig.icon}
           {statusConfig.label}
         </Badge>
       </div>
 
       {/* Footer */}
-      <div className='mt-3 flex items-center justify-between'>
-        <div className='flex items-center gap-3'>
+      <div className='mt-2 flex items-center justify-between'>
+        <div className='flex items-center gap-2'>
           {/* 優先度 */}
           <div className='flex items-center gap-1'>
             <AlertTriangle className={cn('size-3', priorityConfig.className)} />
-            <span className={cn('text-xs', priorityConfig.className)}>
+            <span className={cn('text-[10px]', priorityConfig.className)}>
               {priorityConfig.label}
             </span>
           </div>
@@ -117,8 +116,8 @@ function TaskCard({
           {task.dueDate && (
             <div
               className={cn(
-                'flex items-center gap-1 text-xs',
-                overdue ? 'text-red-500' : 'text-muted-foreground'
+                'flex items-center gap-1 text-[10px]',
+                overdue ? 'text-red-500' : 'text-slate-400'
               )}
             >
               <Calendar className='size-3' />
@@ -130,14 +129,14 @@ function TaskCard({
 
         {/* 担当者 */}
         {task.assignee && (
-          <div className='flex items-center gap-1.5'>
-            <Avatar className='size-5'>
+          <div className='flex items-center gap-1'>
+            <Avatar className='size-4'>
               <AvatarImage src={task.assignee.avatarUrl} />
-              <AvatarFallback className='text-[10px]'>
+              <AvatarFallback className='text-[8px]'>
                 {task.assignee.name[0]}
               </AvatarFallback>
             </Avatar>
-            <span className='text-xs text-muted-foreground'>
+            <span className='text-[10px] text-slate-500'>
               {task.assignee.name}
             </span>
           </div>
@@ -153,8 +152,8 @@ export function TaskListPanel({
   onSelectTask,
 }: TaskListPanelProps) {
   return (
-    <div className='h-full overflow-auto p-4'>
-      <div className='space-y-3'>
+    <div className='h-full overflow-auto p-3'>
+      <div className='space-y-2'>
         {tasks.map((task) => (
           <TaskCard
             key={task.id}
