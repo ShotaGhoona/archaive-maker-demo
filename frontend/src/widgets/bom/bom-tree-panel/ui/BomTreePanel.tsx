@@ -2,6 +2,7 @@
 
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { Card } from '@/shared/ui/shadcn/ui/card';
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 import type {
   TreeNode,
@@ -42,15 +43,26 @@ export function BomTreePanel({
 
   if (!hasContent) {
     return (
-      <div className='flex min-h-0 flex-1 items-center justify-center'>
+      <Card
+        className={cn(
+          'flex h-full items-center justify-center',
+          'border-white/60 bg-white/40 backdrop-blur-xl'
+        )}
+      >
         <NoData title={emptyMessage} size='default' />
-      </div>
+      </Card>
     );
   }
 
   return (
-    <Card className='min-h-0 flex-1 overflow-auto p-4'>
-      <div className='space-y-1'>
+    <Card
+      className={cn(
+        'h-full overflow-auto p-4',
+        'border-white/60 bg-white/40 backdrop-blur-xl',
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+      )}
+    >
+      <div className='space-y-0.5'>
         {treeNodes.map((node) => (
           <TreeNodeItem
             key={node.id}

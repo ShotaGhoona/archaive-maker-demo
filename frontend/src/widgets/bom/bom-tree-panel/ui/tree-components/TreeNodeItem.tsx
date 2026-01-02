@@ -14,7 +14,6 @@ import {
   CollapsibleTrigger,
 } from '@/shared/ui/shadcn/ui/collapsible';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import { Badge } from '@/shared/ui/shadcn/ui/badge';
 
 import type {
   TreeNode,
@@ -73,8 +72,8 @@ function HighlightedText({
         className={cn(
           'rounded px-0.5',
           isCurrentMatch
-            ? 'bg-primary text-primary-foreground'
-            : 'bg-yellow-200 dark:bg-yellow-600',
+            ? 'bg-slate-900 text-white'
+            : 'bg-amber-200',
         )}
       >
         {match}
@@ -121,18 +120,18 @@ export function TreeNodeItem({
     switch (node.type) {
       case 'directory':
         return isOpen ? (
-          <FolderOpen className='h-5 w-5 text-primary' />
+          <FolderOpen className='size-4 text-slate-600' />
         ) : (
-          <Folder className='h-5 w-5 text-primary' />
+          <Folder className='size-4 text-slate-600' />
         );
       case 'document':
-        return <FileText className='h-5 w-5 text-blue-500' />;
+        return <FileText className='size-4 text-blue-500' />;
       case 'drawing':
-        return <ImageIcon className='h-5 w-5 text-green-500' />;
+        return <ImageIcon className='size-4 text-emerald-500' />;
     }
   };
 
-  const getBadgeLabel = () => {
+  const getTypeLabel = () => {
     switch (node.type) {
       case 'directory':
         return node.nodeType ?? 'ディレクトリ';
@@ -147,33 +146,35 @@ export function TreeNodeItem({
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <div
         className={cn(
-          'flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 hover:bg-accent',
-          isSelected && 'bg-accent',
+          'flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5',
+          'transition-all',
+          'hover:bg-white/60',
+          isSelected && 'bg-white/70 shadow-[0_2px_8px_rgba(0,0,0,0.06)]',
         )}
-        style={{ paddingLeft: `${level * 24 + 12}px` }}
+        style={{ paddingLeft: `${level * 20 + 8}px` }}
         onClick={() => onSelectNode?.(node)}
       >
         {isDirectory && hasChildren ? (
           <CollapsibleTrigger asChild>
             <button
-              className='flex h-6 w-6 items-center justify-center rounded hover:bg-muted'
+              className='flex size-5 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-white/50 hover:text-slate-600'
               onClick={(e) => e.stopPropagation()}
             >
               <ChevronRight
                 className={cn(
-                  'h-5 w-5 transition-transform',
+                  'size-4 transition-transform',
                   isOpen && 'rotate-90',
                 )}
               />
             </button>
           </CollapsibleTrigger>
         ) : (
-          <span className='h-6 w-6' />
+          <span className='size-5' />
         )}
 
         {getIcon()}
 
-        <span className='flex-1 truncate text-base'>
+        <span className='flex-1 truncate text-sm text-slate-700'>
           <HighlightedText
             text={node.name}
             query={searchQuery}
@@ -181,9 +182,8 @@ export function TreeNodeItem({
           />
         </span>
 
-        <span className='flex shrink-0 items-center gap-2'>
-          <span className='text-sm text-muted-foreground'>{getBadgeLabel()}</span>
-          <Badge variant='secondary'>Lv{level + 1}</Badge>
+        <span className='shrink-0 text-xs text-slate-400'>
+          {getTypeLabel()}
         </span>
       </div>
 

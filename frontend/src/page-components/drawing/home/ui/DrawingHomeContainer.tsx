@@ -34,24 +34,27 @@ export function DrawingHomeContainer() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4">
-      {/* ツールバー */}
+      {/* ヘッダー */}
       <div className="flex items-center gap-3">
+        {/* 左: タイトル */}
         <div className="flex items-center gap-2">
           <FileText className="h-5 w-5 text-slate-700" />
           <h1 className="text-lg font-semibold text-slate-900">図面管理</h1>
         </div>
-        <ViewSwitch
-          modes={['table', 'gallery']}
-          value={viewMode}
-          onChange={setViewMode}
-        />
-        <SearchBar
-          value={searchQuery}
-          onChange={setSearchQuery}
-          placeholder="図面番号、図面名で検索..."
-          expandedWidth="w-80"
-        />
+
+        {/* 右: ツール群 */}
         <div className="ml-auto flex items-center gap-3">
+          <ViewSwitch
+            modes={['table', 'gallery']}
+            value={viewMode}
+            onChange={setViewMode}
+          />
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="図面番号、図面名で検索..."
+            expandedWidth="w-80"
+          />
           <DrawingColumnSettings />
           <CsvExportModalWidget
             columns={CSV_EXPORT_COLUMNS}
