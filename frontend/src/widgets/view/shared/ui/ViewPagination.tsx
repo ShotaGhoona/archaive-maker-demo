@@ -82,7 +82,7 @@ export function ViewPagination({
   const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <div className="flex shrink-0 items-center justify-between pt-4">
+    <div className="flex shrink-0 items-center justify-between pt-2">
       <span className="min-w-[100px] text-sm text-slate-500">
         {startItem}-{endItem}/{totalItems}
       </span>
