@@ -198,7 +198,7 @@ export function CanvasMinimap({
   return (
     <div
       ref={minimapRef}
-      className="absolute top-4 left-4 rounded-lg border bg-white/95 shadow-lg backdrop-blur-sm cursor-crosshair overflow-hidden"
+      className="absolute top-4 left-4 rounded-xl border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] cursor-crosshair overflow-hidden"
       style={{ width: minimapSize.width, height: minimapSize.height }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
@@ -206,7 +206,7 @@ export function CanvasMinimap({
       onMouseLeave={handleMouseLeave}
     >
       {/* 背景 */}
-      <div className="absolute inset-0 bg-gray-100" />
+      <div className="absolute inset-0 bg-slate-100/50" />
 
       {/* コネクタのプレビュー */}
       {connectors && connectors.length > 0 && (

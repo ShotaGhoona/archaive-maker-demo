@@ -154,7 +154,7 @@ function ReplyInput({ onSubmit }: { onSubmit: (content: string) => void }) {
   );
 
   return (
-    <div className="flex items-center gap-2 border-t border-gray-200 p-2">
+    <div className="flex items-center gap-2 border-t border-slate-200/40 p-2">
       <img
         src={DUMMY_USER.avatarUrl}
         alt=""
@@ -192,11 +192,11 @@ export function CommentExpanded({
 }: CommentExpandedProps) {
   return (
     <div
-      className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+      className="overflow-hidden rounded-xl border border-white/60 bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
       style={{ width: COMMENT_EXPANDED_WIDTH }}
     >
       {/* ヘッダー */}
-      <div className="flex items-center justify-between border-b border-gray-200 px-3 py-2">
+      <div className="flex items-center justify-between border-b border-slate-200/40 px-3 py-2">
         <span className="text-sm font-medium text-gray-900">コメント</span>
         <div className="flex items-center gap-1">
           <DropdownMenu>

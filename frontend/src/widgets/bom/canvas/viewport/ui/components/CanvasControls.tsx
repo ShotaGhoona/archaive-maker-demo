@@ -24,7 +24,7 @@ export function CanvasControls({ className }: CanvasControlsProps) {
   return (
     <div className={cn('absolute', className)}>
       {isOpen ? (
-        <div className="rounded-lg border bg-white/95 p-3 shadow-lg backdrop-blur-sm">
+        <div className="rounded-xl border border-white/60 bg-white/80 backdrop-blur-xl p-3 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
           <div className="mb-2 flex items-center justify-between">
             <span className="text-xs font-medium text-gray-700">操作ガイド</span>
             <button
@@ -53,11 +53,11 @@ export function CanvasControls({ className }: CanvasControlsProps) {
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8 bg-white/90 shadow-sm backdrop-blur-sm hover:bg-gray-100"
+          className="h-8 w-8 rounded-xl border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] hover:bg-white/60"
           onClick={() => setIsOpen(true)}
           title="操作ヘルプ"
         >
-          <HelpCircle className="h-4 w-4 text-gray-600" />
+          <HelpCircle className="h-4 w-4 text-slate-600" />
         </Button>
       )}
     </div>

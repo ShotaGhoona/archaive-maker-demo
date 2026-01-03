@@ -56,7 +56,7 @@ export function CommentBubble({ thread, isDragging = false }: CommentBubbleProps
       {/* プレビュー（ホバー時にフェードイン） */}
       {firstComment && (
         <div
-          className={`absolute left-0 top-0 flex cursor-pointer gap-2 rounded-lg border border-gray-200 bg-white p-2 shadow-lg transition-all duration-200 ${
+          className={`absolute left-0 top-0 flex cursor-pointer gap-2 rounded-xl border border-white/60 bg-white/80 backdrop-blur-xl p-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-200 ${
             showPreview ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
           }`}
           style={{ width: COMMENT_PREVIEW_WIDTH }}

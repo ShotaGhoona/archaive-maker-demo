@@ -39,7 +39,7 @@ export function CanvasToolbar({
 
   return (
     <div className={cn('absolute', className)}>
-      <ButtonGroup className="rounded-lg border bg-white/95 shadow-lg backdrop-blur-sm">
+      <ButtonGroup className="rounded-xl border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
         {TOOLS.map((tool, index) => (
           <div key={tool.type} className="flex items-stretch">
             {index > 0 && <ButtonGroupSeparator />}

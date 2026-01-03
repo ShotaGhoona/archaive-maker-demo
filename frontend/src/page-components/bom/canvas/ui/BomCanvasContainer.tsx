@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useCallback } from 'react';
 
+import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { useCanvasViewport } from '@/widgets/bom/canvas/viewport/lib/use-canvas-viewport';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
 import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
@@ -104,7 +105,13 @@ export function BomCanvasContainer() {
   const toolCursor = selectedTool ? TOOL_CURSOR_MAP[selectedTool] : undefined;
 
   return (
-    <div className="relative h-full w-full">
+    <div
+      className={cn(
+        'relative h-full w-full rounded-2xl overflow-hidden',
+        'border border-white/60 bg-white/30 backdrop-blur-xl',
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+      )}
+    >
       {/* Viewport層 */}
       <CanvasViewport
         {...canvasViewport}

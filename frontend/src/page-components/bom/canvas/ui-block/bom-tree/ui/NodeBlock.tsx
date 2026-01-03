@@ -34,7 +34,7 @@ export function NodeBlock({ node }: NodeBlockProps) {
 
   return (
     <div
-      className="relative flex flex-col rounded-lg border bg-white shadow-sm"
+      className="relative flex flex-col rounded-xl border border-white/60 bg-white/70 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
       style={{ width: NODE_WIDTH, height: NODE_HEIGHT }}
     >
       {/* 左上: タイプバッジ */}
