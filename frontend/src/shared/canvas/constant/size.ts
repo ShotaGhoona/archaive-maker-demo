@@ -20,7 +20,10 @@ export interface StickyNoteFontConfig {
   label: string;
 }
 
-export const STICKY_NOTE_FONT_SIZES: Record<StickyNoteFontSize, StickyNoteFontConfig> = {
+export const STICKY_NOTE_FONT_SIZES: Record<
+  StickyNoteFontSize,
+  StickyNoteFontConfig
+> = {
   small: { size: 12, label: '小' },
   medium: { size: 14, label: '中' },
   large: { size: 18, label: '大' },
@@ -39,7 +42,10 @@ export interface ConnectorStrokeConfig {
   label: string;
 }
 
-export const CONNECTOR_STROKE_WIDTHS: Record<ConnectorStrokeWidth, ConnectorStrokeConfig> = {
+export const CONNECTOR_STROKE_WIDTHS: Record<
+  ConnectorStrokeWidth,
+  ConnectorStrokeConfig
+> = {
   thin: { width: 1, label: '細い' },
   medium: { width: 2, label: '普通' },
   thick: { width: 3, label: '太い' },

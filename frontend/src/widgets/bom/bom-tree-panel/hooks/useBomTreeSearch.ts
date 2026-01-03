@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
-import type { TreeNode, GalleryItemType } from '@/shared/dummy-data/bom/products';
+import type {
+  TreeNode,
+  GalleryItemType,
+} from '@/shared/dummy-data/bom/products';
 
 // ツリーを再帰的に検索してマッチしたノードIDと親のパスを返す
 function findMatchingNodes(

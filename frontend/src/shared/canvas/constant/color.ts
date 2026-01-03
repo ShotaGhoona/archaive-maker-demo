@@ -1,5 +1,11 @@
 // キャンバス共通カラー
-export type CanvasColor = 'yellow' | 'pink' | 'blue' | 'green' | 'purple' | 'gray';
+export type CanvasColor =
+  | 'yellow'
+  | 'pink'
+  | 'blue'
+  | 'green'
+  | 'purple'
+  | 'gray';
 
 export interface CanvasColorConfig {
   code: string;

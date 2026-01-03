@@ -40,7 +40,7 @@ export function useDrag({
       elementStartPos.current = { x: initialX, y: initialY };
       onDragStart?.();
     },
-    [disabled, initialX, initialY, onDragStart]
+    [disabled, initialX, initialY, onDragStart],
   );
 
   // ドラッグ中

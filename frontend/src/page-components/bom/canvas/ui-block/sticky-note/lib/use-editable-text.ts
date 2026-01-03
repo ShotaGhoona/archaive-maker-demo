@@ -54,7 +54,7 @@ export function useEditableText({
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange?.(e.target.value);
     },
-    [onChange]
+    [onChange],
   );
 
   // blur で編集終了

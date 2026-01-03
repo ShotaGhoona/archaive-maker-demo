@@ -1,5 +1,10 @@
 import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode, Connector, MinimapNode, BomTreeLayout } from '../model/types';
+import type {
+  FlattenedNode,
+  Connector,
+  MinimapNode,
+  BomTreeLayout,
+} from '../model/types';
 import {
   NODE_WIDTH,
   NODE_HEIGHT,
@@ -37,7 +42,7 @@ function layoutTree(
   node: BomTreeNode,
   depth: number,
   startY: number,
-  parentId: string | null
+  parentId: string | null,
 ): { nodes: FlattenedNode[]; connectors: Connector[] } {
   const nodes: FlattenedNode[] = [];
   const connectors: Connector[] = [];

@@ -99,7 +99,8 @@ export const dummyTasks: Task[] = [
   {
     id: 'task-2',
     title: 'Oリング代替品選定',
-    description: 'P-20 Oリングの代替品を3社以上から見積り取得し、比較表を作成する',
+    description:
+      'P-20 Oリングの代替品を3社以上から見積り取得し、比較表を作成する',
     status: 'todo',
     priority: 'high',
     assignee: users[2],
@@ -121,7 +122,8 @@ export const dummyTasks: Task[] = [
   {
     id: 'task-4',
     title: '防振ゴム硬度変更の影響調査',
-    description: 'ショアA60からショアA70への変更による振動特性への影響をシミュレーション',
+    description:
+      'ショアA60からショアA70への変更による振動特性への影響をシミュレーション',
     status: 'todo',
     priority: 'low',
     assignee: users[4],

@@ -9,7 +9,10 @@ import type {
 } from '@/widgets/view/table-view/model/types';
 
 import { createProjectColumns } from '../config/column-config';
-import { dummyProjects, type ProjectItem } from '@/shared/dummy-data/project/projects';
+import {
+  dummyProjects,
+  type ProjectItem,
+} from '@/shared/dummy-data/project/projects';
 
 export function ProjectTablePanel() {
   const [sortState, setSortState] = useState<SortState>({

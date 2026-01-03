@@ -83,13 +83,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-1-1',
-        content: 'ベアリングハウジングの公差が厳しすぎます。現在の設備では±0.005mmは難しいので、±0.01mmに緩和できないか検討をお願いします。',
+        content:
+          'ベアリングハウジングの公差が厳しすぎます。現在の設備では±0.005mmは難しいので、±0.01mmに緩和できないか検討をお願いします。',
         author: users[3],
         createdAt: '2025-01-15T09:30:00Z',
       },
       {
         id: 'comment-1-2',
-        content: '客先の要求仕様を確認しました。±0.008mmまでは許容範囲とのことです。図面を修正しますか？',
+        content:
+          '客先の要求仕様を確認しました。±0.008mmまでは許容範囲とのことです。図面を修正しますか？',
         author: users[0],
         createdAt: '2025-01-15T10:15:00Z',
       },
@@ -109,7 +111,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-2-1',
-        content: 'サブアセンブリの総重量が設計上限の2.5kgを超えています（現状2.8kg）。軽量化の検討が必要です。',
+        content:
+          'サブアセンブリの総重量が設計上限の2.5kgを超えています（現状2.8kg）。軽量化の検討が必要です。',
         author: users[1],
         createdAt: '2025-01-16T11:00:00Z',
       },
@@ -123,13 +126,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-3-1',
-        content: 'モーターブラケットに使用しているSUS304が入手困難になっています。SUS303への変更は可能でしょうか？',
+        content:
+          'モーターブラケットに使用しているSUS304が入手困難になっています。SUS303への変更は可能でしょうか？',
         author: users[2],
         createdAt: '2025-01-16T13:45:00Z',
       },
       {
         id: 'comment-3-2',
-        content: '強度計算を確認します。SUS303は被削性は良いですが、耐食性がやや劣ります。使用環境を教えてください。',
+        content:
+          '強度計算を確認します。SUS303は被削性は良いですが、耐食性がやや劣ります。使用環境を教えてください。',
         author: users[0],
         createdAt: '2025-01-16T14:30:00Z',
       },
@@ -149,13 +154,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-4-1',
-        content: 'シャフトの表面処理について、無電解ニッケルめっきの膜厚を10μmから15μmに変更したいとの客先要望があります。',
+        content:
+          'シャフトの表面処理について、無電解ニッケルめっきの膜厚を10μmから15μmに変更したいとの客先要望があります。',
         author: users[5],
         createdAt: '2025-01-17T08:00:00Z',
       },
       {
         id: 'comment-4-2',
-        content: '寸法公差に影響します。めっき後の仕上げ寸法で図面を再確認してください。',
+        content:
+          '寸法公差に影響します。めっき後の仕上げ寸法で図面を再確認してください。',
         author: users[0],
         createdAt: '2025-01-17T09:00:00Z',
       },
@@ -169,7 +176,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-5-1',
-        content: 'ギアボックスのOリング（P-20）がEOL予定です。代替品の選定をお願いします。納期は来月末まで。',
+        content:
+          'ギアボックスのOリング（P-20）がEOL予定です。代替品の選定をお願いします。納期は来月末まで。',
         author: users[2],
         createdAt: '2025-01-17T10:30:00Z',
       },
@@ -183,7 +191,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-6-1',
-        content: '熱処理後の硬度がHRC58-62の指定ですが、今回のロットはHRC56でした。再熱処理が必要です。',
+        content:
+          '熱処理後の硬度がHRC58-62の指定ですが、今回のロットはHRC56でした。再熱処理が必要です。',
         author: users[1],
         createdAt: '2025-01-17T14:00:00Z',
       },
@@ -209,7 +218,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-7-1',
-        content: 'カバープレートの板金展開図に修正が必要です。曲げ代の計算が間違っています。',
+        content:
+          'カバープレートの板金展開図に修正が必要です。曲げ代の計算が間違っています。',
         author: users[4],
         createdAt: '2025-01-18T09:00:00Z',
       },
@@ -223,13 +233,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-8-1',
-        content: 'ねじ穴の位置が干渉しています。M6ボルト頭とリブが接触する可能性があります。',
+        content:
+          'ねじ穴の位置が干渉しています。M6ボルト頭とリブが接触する可能性があります。',
         author: users[3],
         createdAt: '2025-01-18T11:30:00Z',
       },
       {
         id: 'comment-8-2',
-        content: '3Dモデルで確認しました。確かに1.5mmほど干渉しています。ねじ穴を5mm外側に移動させます。',
+        content:
+          '3Dモデルで確認しました。確かに1.5mmほど干渉しています。ねじ穴を5mm外側に移動させます。',
         author: users[0],
         createdAt: '2025-01-18T13:00:00Z',
       },
@@ -243,7 +255,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-9-1',
-        content: 'スプリングピンの径がφ3からφ4に変更になった影響で、穴加工の工程が増えます。コストへの影響を確認中。',
+        content:
+          'スプリングピンの径がφ3からφ4に変更になった影響で、穴加工の工程が増えます。コストへの影響を確認中。',
         author: users[4],
         createdAt: '2025-01-19T08:30:00Z',
       },
@@ -257,13 +270,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-10-1',
-        content: '客先から追加の耐久試験データの提出を求められています。10万サイクルの試験結果が必要です。',
+        content:
+          '客先から追加の耐久試験データの提出を求められています。10万サイクルの試験結果が必要です。',
         author: users[5],
         createdAt: '2025-01-19T10:00:00Z',
       },
       {
         id: 'comment-10-2',
-        content: '現在5万サイクルまでの試験データがあります。追加試験には約2週間かかります。',
+        content:
+          '現在5万サイクルまでの試験データがあります。追加試験には約2週間かかります。',
         author: users[1],
         createdAt: '2025-01-19T11:00:00Z',
       },
@@ -277,7 +292,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-11-1',
-        content: 'アルミダイカスト部品の巣穴が多発しています。金型のメンテナンスが必要かもしれません。',
+        content:
+          'アルミダイカスト部品の巣穴が多発しています。金型のメンテナンスが必要かもしれません。',
         author: users[1],
         createdAt: '2025-01-20T09:00:00Z',
       },
@@ -291,13 +307,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-12-1',
-        content: 'ワイヤーハーネスの長さが図面と実物で50mm違います。どちらが正しいですか？',
+        content:
+          'ワイヤーハーネスの長さが図面と実物で50mm違います。どちらが正しいですか？',
         author: users[3],
         createdAt: '2025-01-20T14:00:00Z',
       },
       {
         id: 'comment-12-2',
-        content: '図面が最新です。実物は旧版で作られた可能性があります。製造ロットを確認してください。',
+        content:
+          '図面が最新です。実物は旧版で作られた可能性があります。製造ロットを確認してください。',
         author: users[0],
         createdAt: '2025-01-20T14:30:00Z',
       },
@@ -311,7 +329,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-13-1',
-        content: '防振ゴムの硬度指定がショアA60ですが、ショアA70の方が振動吸収特性が良いとのメーカー推奨があります。',
+        content:
+          '防振ゴムの硬度指定がショアA60ですが、ショアA70の方が振動吸収特性が良いとのメーカー推奨があります。',
         author: users[2],
         createdAt: '2025-01-21T08:00:00Z',
       },
@@ -325,19 +344,22 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-14-1',
-        content: '六角穴付きボルトをトルクスボルトに変更したいと思います。組立性が向上し、カムアウト防止になります。',
+        content:
+          '六角穴付きボルトをトルクスボルトに変更したいと思います。組立性が向上し、カムアウト防止になります。',
         author: users[4],
         createdAt: '2025-01-21T11:00:00Z',
       },
       {
         id: 'comment-14-2',
-        content: '良い提案です。ただし、トルクスドライバーの追加購入が必要になります。コスト確認をお願いします。',
+        content:
+          '良い提案です。ただし、トルクスドライバーの追加購入が必要になります。コスト確認をお願いします。',
         author: users[0],
         createdAt: '2025-01-21T11:30:00Z',
       },
       {
         id: 'comment-14-3',
-        content: 'T25サイズのドライバーセットで約8,000円です。年間の組立工数削減効果の方が大きいと思います。',
+        content:
+          'T25サイズのドライバーセットで約8,000円です。年間の組立工数削減効果の方が大きいと思います。',
         author: users[4],
         createdAt: '2025-01-21T13:00:00Z',
       },
@@ -351,7 +373,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-15-1',
-        content: 'プーリーの溝形状がJIS規格と異なっています。M形からA形への変更が必要です。',
+        content:
+          'プーリーの溝形状がJIS規格と異なっています。M形からA形への変更が必要です。',
         author: users[1],
         createdAt: '2025-01-22T09:30:00Z',
       },
@@ -367,7 +390,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-16-1',
-        content: 'コネクタの型番が古いバージョン（JST-XH-4）になっています。最新版（JST-XH-4A）に更新をお願いします。',
+        content:
+          'コネクタの型番が古いバージョン（JST-XH-4）になっています。最新版（JST-XH-4A）に更新をお願いします。',
         author: users[2],
         createdAt: '2025-01-10T10:00:00Z',
       },
@@ -387,7 +411,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-17-1',
-        content: 'CAD図面と製作図面の寸法が一致していません。確認をお願いします。',
+        content:
+          'CAD図面と製作図面の寸法が一致していません。確認をお願いします。',
         author: users[1],
         createdAt: '2025-01-08T14:00:00Z',
       },
@@ -407,7 +432,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-18-1',
-        content: 'ボルトの締め付けトルク値が記載されていません。追記をお願いします。',
+        content:
+          'ボルトの締め付けトルク値が記載されていません。追記をお願いします。',
         author: users[3],
         createdAt: '2025-01-05T09:00:00Z',
       },
@@ -433,7 +459,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-19-1',
-        content: '表面粗さの指示がRa6.3になっていますが、この部位はRa1.6が必要では？',
+        content:
+          '表面粗さの指示がRa6.3になっていますが、この部位はRa1.6が必要では？',
         author: users[4],
         createdAt: '2025-01-03T11:00:00Z',
       },
@@ -453,7 +480,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-20-1',
-        content: '塗装色の指定がありません。マンセル値または日塗工番号を指定してください。',
+        content:
+          '塗装色の指定がありません。マンセル値または日塗工番号を指定してください。',
         author: users[2],
         createdAt: '2024-12-28T10:00:00Z',
       },
@@ -473,7 +501,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-21-1',
-        content: 'リニアガイドの型番が廃番になっています。後継品への変更をお願いします。',
+        content:
+          'リニアガイドの型番が廃番になっています。後継品への変更をお願いします。',
         author: users[2],
         createdAt: '2024-12-25T14:00:00Z',
       },
@@ -493,7 +522,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-22-1',
-        content: 'このアセンブリの組立手順書を作成してください。新人教育に使用します。',
+        content:
+          'このアセンブリの組立手順書を作成してください。新人教育に使用します。',
         author: users[3],
         createdAt: '2024-12-20T09:00:00Z',
       },
@@ -513,7 +543,8 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-23-1',
-        content: '溶接記号の表記が古いJIS規格になっています。最新のISO規格に合わせてください。',
+        content:
+          '溶接記号の表記が古いJIS規格になっています。最新のISO規格に合わせてください。',
         author: users[1],
         createdAt: '2024-12-18T11:00:00Z',
       },
@@ -533,13 +564,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-24-1',
-        content: 'サーボモーターの取付穴がJIS規格と微妙にずれています。確認をお願いします。',
+        content:
+          'サーボモーターの取付穴がJIS規格と微妙にずれています。確認をお願いします。',
         author: users[4],
         createdAt: '2024-12-15T10:00:00Z',
       },
       {
         id: 'comment-24-2',
-        content: 'メーカーカタログを確認しました。モーター側がメーカー独自寸法でした。図面を修正しました。',
+        content:
+          'メーカーカタログを確認しました。モーター側がメーカー独自寸法でした。図面を修正しました。',
         author: users[0],
         createdAt: '2024-12-15T13:00:00Z',
       },
@@ -553,13 +586,15 @@ export const dummyCommentThreads: CommentThread[] = [
     comments: [
       {
         id: 'comment-25-1',
-        content: '部品番号の採番ルールが変わりました。旧番号から新番号への変換をお願いします。',
+        content:
+          '部品番号の採番ルールが変わりました。旧番号から新番号への変換をお願いします。',
         author: users[5],
         createdAt: '2024-12-10T09:00:00Z',
       },
       {
         id: 'comment-25-2',
-        content: '全30点の部品番号を新ルールに変換しました。対照表も作成しています。',
+        content:
+          '全30点の部品番号を新ルールに変換しました。対照表も作成しています。',
         author: users[0],
         createdAt: '2024-12-12T17:00:00Z',
       },

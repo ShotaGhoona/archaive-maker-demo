@@ -41,7 +41,7 @@ export function useResize({
       startPos.current = { x: e.clientX, y: e.clientY };
       startSize.current = { width: initialWidth, height: initialHeight };
     },
-    [initialWidth, initialHeight]
+    [initialWidth, initialHeight],
   );
 
   // リサイズ中

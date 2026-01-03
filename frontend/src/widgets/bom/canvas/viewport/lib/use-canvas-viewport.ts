@@ -24,7 +24,10 @@ const DEFAULT_OPTIONS: Required<UseCanvasViewportOptions> = {
 };
 
 export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
-  const { minScale, maxScale, zoomSensitivity } = { ...DEFAULT_OPTIONS, ...options };
+  const { minScale, maxScale, zoomSensitivity } = {
+    ...DEFAULT_OPTIONS,
+    ...options,
+  };
 
   const [viewport, setViewport] = useState<ViewportState>({
     offsetX: 0,
@@ -76,7 +79,8 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
       const mouseY = e.clientY - rect.top;
 
       // トラックパッドの2本指スクロール検出
-      const isTrackpadScroll = !e.ctrlKey && !e.metaKey && Math.abs(e.deltaX) > 0;
+      const isTrackpadScroll =
+        !e.ctrlKey && !e.metaKey && Math.abs(e.deltaX) > 0;
 
       if (isTrackpadScroll) {
         // トラックパッド2本指スクロール → パン
@@ -91,7 +95,10 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
       // マウスホイール or ピンチズーム → ズーム
       const delta = -e.deltaY * zoomSensitivity;
       setViewport((prev) => {
-        const newScale = Math.min(maxScale, Math.max(minScale, prev.scale * (1 + delta)));
+        const newScale = Math.min(
+          maxScale,
+          Math.max(minScale, prev.scale * (1 + delta)),
+        );
         const scaleRatio = newScale / prev.scale;
 
         return {
@@ -101,13 +108,15 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
         };
       });
     },
-    [minScale, maxScale, zoomSensitivity]
+    [minScale, maxScale, zoomSensitivity],
   );
 
   // マウスダウン
   const handleMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
     const shouldPan =
-      e.button === 1 || e.button === 2 || (e.button === 0 && isSpacePressed.current);
+      e.button === 1 ||
+      e.button === 2 ||
+      (e.button === 0 && isSpacePressed.current);
 
     if (shouldPan) {
       e.preventDefault();
@@ -180,7 +189,10 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
 
       const scaleX = (containerRect.width - padding * 2) / contentWidth;
       const scaleY = (containerRect.height - padding * 2) / contentHeight;
-      const newScale = Math.min(Math.max(Math.min(scaleX, scaleY), minScale), maxScale);
+      const newScale = Math.min(
+        Math.max(Math.min(scaleX, scaleY), minScale),
+        maxScale,
+      );
 
       const contentCenterX = bounds.minX + contentWidth / 2;
       const contentCenterY = bounds.minY + contentHeight / 2;
@@ -193,7 +205,7 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
         scale: newScale,
       });
     },
-    [minScale, maxScale, resetViewport]
+    [minScale, maxScale, resetViewport],
   );
 
   // ズームイン

@@ -22,6 +22,8 @@ export interface FilterChipValue {
 export interface FilterChipsBarProps {
   fields: import('../../filter-sidebar/model/types').FilterFieldConfig[];
   values: import('../../filter-sidebar/model/types').FilterValues;
-  onValuesChange: (values: import('../../filter-sidebar/model/types').FilterValues) => void;
+  onValuesChange: (
+    values: import('../../filter-sidebar/model/types').FilterValues,
+  ) => void;
   onClearAll?: () => void;
 }

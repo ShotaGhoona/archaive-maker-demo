@@ -19,27 +19,30 @@ export function useComments(): UseCommentsReturn {
   const [threads, setThreads] = useState<CommentThread[]>([]);
 
   // 新しいスレッドを作成
-  const addThread = useCallback((x: number, y: number, content: string): CommentThread => {
-    const now = new Date().toISOString();
-    const newComment: Comment = {
-      id: `comment-${Date.now()}`,
-      content,
-      author: DUMMY_USER,
-      createdAt: now,
-    };
+  const addThread = useCallback(
+    (x: number, y: number, content: string): CommentThread => {
+      const now = new Date().toISOString();
+      const newComment: Comment = {
+        id: `comment-${Date.now()}`,
+        content,
+        author: DUMMY_USER,
+        createdAt: now,
+      };
 
-    const newThread: CommentThread = {
-      id: `thread-${Date.now()}`,
-      x,
-      y,
-      resolved: false,
-      comments: [newComment],
-      createdAt: now,
-    };
+      const newThread: CommentThread = {
+        id: `thread-${Date.now()}`,
+        x,
+        y,
+        resolved: false,
+        comments: [newComment],
+        createdAt: now,
+      };
 
-    setThreads((prev) => [...prev, newThread]);
-    return newThread;
-  }, []);
+      setThreads((prev) => [...prev, newThread]);
+      return newThread;
+    },
+    [],
+  );
 
   // スレッドに返信を追加
   const addReply = useCallback((threadId: string, content: string) => {
@@ -55,8 +58,8 @@ export function useComments(): UseCommentsReturn {
       prev.map((thread) =>
         thread.id === threadId
           ? { ...thread, comments: [...thread.comments, newComment] }
-          : thread
-      )
+          : thread,
+      ),
     );
   }, []);
 
@@ -73,14 +76,14 @@ export function useComments(): UseCommentsReturn {
                 comments: thread.comments.map((comment) =>
                   comment.id === commentId
                     ? { ...comment, content, updatedAt: now }
-                    : comment
+                    : comment,
                 ),
               }
-            : thread
-        )
+            : thread,
+        ),
       );
     },
-    []
+    [],
   );
 
   // コメントを削除（スレッドの最初のコメントを削除するとスレッドごと削除）
@@ -98,7 +101,7 @@ export function useComments(): UseCommentsReturn {
       return prev.map((t) =>
         t.id === threadId
           ? { ...t, comments: t.comments.filter((c) => c.id !== commentId) }
-          : t
+          : t,
       );
     });
   }, []);
@@ -112,8 +115,8 @@ export function useComments(): UseCommentsReturn {
   const moveThread = useCallback((threadId: string, x: number, y: number) => {
     setThreads((prev) =>
       prev.map((thread) =>
-        thread.id === threadId ? { ...thread, x, y } : thread
-      )
+        thread.id === threadId ? { ...thread, x, y } : thread,
+      ),
     );
   }, []);
 

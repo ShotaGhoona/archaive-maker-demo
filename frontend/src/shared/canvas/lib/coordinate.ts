@@ -43,7 +43,7 @@ export interface ViewportState {
 export function screenToCanvas(
   screenX: number,
   screenY: number,
-  viewport: ViewportState
+  viewport: ViewportState,
 ): { canvasX: number; canvasY: number } {
   const canvasX = (screenX - viewport.offsetX) / viewport.scale;
   const canvasY = (screenY - viewport.offsetY) / viewport.scale;
@@ -56,7 +56,7 @@ export function screenToCanvas(
 export function canvasToScreen(
   canvasX: number,
   canvasY: number,
-  viewport: ViewportState
+  viewport: ViewportState,
 ): { screenX: number; screenY: number } {
   const screenX = canvasX * viewport.scale + viewport.offsetX;
   const screenY = canvasY * viewport.scale + viewport.offsetY;
@@ -69,7 +69,7 @@ export function canvasToScreen(
 export function getCanvasCoordinatesFromEvent(
   event: { clientX: number; clientY: number },
   container: HTMLElement,
-  viewport: ViewportState
+  viewport: ViewportState,
 ): CanvasCoordinates {
   const rect = container.getBoundingClientRect();
   const screenX = event.clientX - rect.left;

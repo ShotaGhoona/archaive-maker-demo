@@ -32,7 +32,7 @@ export function useStickyNotes() {
 
   const updateNote = useCallback((id: string, updates: Partial<StickyNote>) => {
     setNotes((prev) =>
-      prev.map((note) => (note.id === id ? { ...note, ...updates } : note))
+      prev.map((note) => (note.id === id ? { ...note, ...updates } : note)),
     );
   }, []);
 

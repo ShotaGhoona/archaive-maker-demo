@@ -16,7 +16,6 @@ const AUTH_PATHS = ['/login'];
  * Middleware: サーバーサイドで認証状態をチェック
  */
 export async function middleware(request: NextRequest) {
-
   // デモモード: 認証をスキップ（Vercelデプロイ用） 後で消す　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   if (process.env.SKIP_AUTH === 'true') {
     // ルートパスの場合はdashboardへリダイレクト
