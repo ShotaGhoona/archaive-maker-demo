@@ -46,7 +46,7 @@ export function BomTreePanel({
       <Card
         className={cn(
           'flex h-full items-center justify-center',
-          'border-white/60 bg-white/40 backdrop-blur-xl'
+          'border-white/60 bg-white/40 backdrop-blur-xl',
         )}
       >
         <NoData title={emptyMessage} size='default' />
@@ -59,7 +59,7 @@ export function BomTreePanel({
       className={cn(
         'h-full overflow-auto p-4',
         'border-white/60 bg-white/40 backdrop-blur-xl',
-        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
       )}
     >
       <div className='space-y-0.5'>

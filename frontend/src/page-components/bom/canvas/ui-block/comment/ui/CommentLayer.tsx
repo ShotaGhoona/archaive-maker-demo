@@ -12,7 +12,11 @@ interface CommentLayerProps {
   onCancelCreate: () => void;
   onMoveThread: (threadId: string, x: number, y: number) => void;
   onAddReply: (threadId: string, content: string) => void;
-  onUpdateComment: (threadId: string, commentId: string, content: string) => void;
+  onUpdateComment: (
+    threadId: string,
+    commentId: string,
+    content: string,
+  ) => void;
   onResolveThread: (threadId: string) => void;
 }
 
@@ -39,7 +43,7 @@ export function CommentLayer({
         onCreateThread(pendingPosition.x, pendingPosition.y, content);
       }
     },
-    [pendingPosition, onCreateThread]
+    [pendingPosition, onCreateThread],
   );
 
   return (

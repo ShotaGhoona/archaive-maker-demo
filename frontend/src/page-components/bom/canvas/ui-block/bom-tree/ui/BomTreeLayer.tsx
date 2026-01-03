@@ -14,7 +14,7 @@ export function BomTreeLayer({ nodes, connectors }: BomTreeLayerProps) {
     <>
       {/* コネクタ（SVGレイヤー） */}
       <svg
-        className="pointer-events-none absolute inset-0"
+        className='pointer-events-none absolute inset-0'
         style={{ overflow: 'visible' }}
       >
         {connectors.map((connector) => (

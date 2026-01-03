@@ -36,11 +36,11 @@ export function FilterInputPopover({
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent
-        align="start"
+        align='start'
         className={cn(
           'w-72 p-3',
           'border-white/60 bg-white/90 backdrop-blur-xl',
-          'shadow-[0_8px_32px_rgba(0,0,0,0.12)]'
+          'shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
         )}
       >
         <FilterInputContent
@@ -84,28 +84,28 @@ function FilterInputContent({
         handleApply();
       }
     },
-    [handleApply]
+    [handleApply],
   );
 
   switch (field.type) {
     case 'text':
       return (
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-slate-700">{field.label}</p>
+        <div className='space-y-3'>
+          <p className='text-sm font-medium text-slate-700'>{field.label}</p>
           <Input
-            type="text"
+            type='text'
             placeholder={field.placeholder || `${field.label}を入力`}
             value={(localValue as string) || ''}
             onChange={(e) => setLocalValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="bg-white/50"
+            className='bg-white/50'
             autoFocus
           />
-          <div className="flex justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={onClose}>
+          <div className='flex justify-end gap-2'>
+            <Button variant='ghost' size='sm' onClick={onClose}>
               キャンセル
             </Button>
-            <Button size="sm" onClick={handleApply}>
+            <Button size='sm' onClick={handleApply}>
               適用
             </Button>
           </div>
@@ -125,19 +125,19 @@ function FilterInputContent({
 
     case 'date':
       return (
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-slate-700">{field.label}</p>
+        <div className='space-y-3'>
+          <p className='text-sm font-medium text-slate-700'>{field.label}</p>
           <Input
-            type="date"
+            type='date'
             value={(localValue as string) || ''}
             onChange={(e) => setLocalValue(e.target.value)}
-            className="bg-white/50"
+            className='bg-white/50'
           />
-          <div className="flex justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={onClose}>
+          <div className='flex justify-end gap-2'>
+            <Button variant='ghost' size='sm' onClick={onClose}>
               キャンセル
             </Button>
-            <Button size="sm" onClick={handleApply}>
+            <Button size='sm' onClick={handleApply}>
               適用
             </Button>
           </div>
@@ -146,22 +146,22 @@ function FilterInputContent({
 
     case 'number':
       return (
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-slate-700">{field.label}</p>
+        <div className='space-y-3'>
+          <p className='text-sm font-medium text-slate-700'>{field.label}</p>
           <Input
-            type="number"
+            type='number'
             placeholder={field.placeholder || `${field.label}を入力`}
             value={(localValue as number) || ''}
             onChange={(e) => setLocalValue(e.target.valueAsNumber || undefined)}
             onKeyDown={handleKeyDown}
-            className="bg-white/50"
+            className='bg-white/50'
             autoFocus
           />
-          <div className="flex justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={onClose}>
+          <div className='flex justify-end gap-2'>
+            <Button variant='ghost' size='sm' onClick={onClose}>
               キャンセル
             </Button>
-            <Button size="sm" onClick={handleApply}>
+            <Button size='sm' onClick={handleApply}>
               適用
             </Button>
           </div>
@@ -181,29 +181,29 @@ function FilterInputContent({
 
     case 'boolean':
       return (
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-slate-700">{field.label}</p>
-          <div className="flex gap-2">
+        <div className='space-y-3'>
+          <p className='text-sm font-medium text-slate-700'>{field.label}</p>
+          <div className='flex gap-2'>
             <Button
               variant={localValue === true ? 'default' : 'outline'}
-              size="sm"
+              size='sm'
               onClick={() => setLocalValue(true)}
             >
               はい
             </Button>
             <Button
               variant={localValue === false ? 'default' : 'outline'}
-              size="sm"
+              size='sm'
               onClick={() => setLocalValue(false)}
             >
               いいえ
             </Button>
           </div>
-          <div className="flex justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={onClose}>
+          <div className='flex justify-end gap-2'>
+            <Button variant='ghost' size='sm' onClick={onClose}>
               キャンセル
             </Button>
-            <Button size="sm" onClick={handleApply}>
+            <Button size='sm' onClick={handleApply}>
               適用
             </Button>
           </div>
@@ -236,7 +236,7 @@ function MultiSelectInput({
   const options = field.options || [];
 
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+    option.label.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const toggleOption = (optionValue: string) => {
@@ -248,16 +248,16 @@ function MultiSelectInput({
   };
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm font-medium text-slate-700">{field.label}</p>
+    <div className='space-y-3'>
+      <p className='text-sm font-medium text-slate-700'>{field.label}</p>
       <Input
-        type="text"
-        placeholder="検索..."
+        type='text'
+        placeholder='検索...'
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="h-8 bg-white/50"
+        className='h-8 bg-white/50'
       />
-      <div className="max-h-48 overflow-y-auto space-y-1">
+      <div className='max-h-48 space-y-1 overflow-y-auto'>
         {filteredOptions.map((option) => (
           <OptionItem
             key={option.value}
@@ -267,11 +267,11 @@ function MultiSelectInput({
           />
         ))}
       </div>
-      <div className="flex justify-end gap-2 pt-2 border-t border-slate-200/40">
-        <Button variant="ghost" size="sm" onClick={onClose}>
+      <div className='flex justify-end gap-2 border-t border-slate-200/40 pt-2'>
+        <Button variant='ghost' size='sm' onClick={onClose}>
           キャンセル
         </Button>
-        <Button size="sm" onClick={onApply}>
+        <Button size='sm' onClick={onApply}>
           適用
         </Button>
       </div>
@@ -300,7 +300,7 @@ function UserSelectInput({
   const users = field.userOptions || [];
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const toggleUser = (userId: string) => {
@@ -312,25 +312,25 @@ function UserSelectInput({
   };
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm font-medium text-slate-700">{field.label}</p>
+    <div className='space-y-3'>
+      <p className='text-sm font-medium text-slate-700'>{field.label}</p>
       <Input
-        type="text"
-        placeholder="ユーザーを検索..."
+        type='text'
+        placeholder='ユーザーを検索...'
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="h-8 bg-white/50"
+        className='h-8 bg-white/50'
       />
-      <div className="max-h-48 overflow-y-auto space-y-1">
+      <div className='max-h-48 space-y-1 overflow-y-auto'>
         {filteredUsers.map((user) => (
           <button
             key={user.id}
-            type="button"
+            type='button'
             onClick={() => toggleUser(user.id)}
             className={cn(
               'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm',
               'transition-colors hover:bg-white/70',
-              selectedValues.includes(user.id) && 'bg-white/50'
+              selectedValues.includes(user.id) && 'bg-white/50',
             )}
           >
             <div
@@ -338,33 +338,33 @@ function UserSelectInput({
                 'flex size-4 items-center justify-center rounded border',
                 selectedValues.includes(user.id)
                   ? 'border-slate-900 bg-slate-900'
-                  : 'border-slate-300'
+                  : 'border-slate-300',
               )}
             >
               {selectedValues.includes(user.id) && (
-                <Check className="size-3 text-white" />
+                <Check className='size-3 text-white' />
               )}
             </div>
             {user.avatarUrl ? (
               <img
                 src={user.avatarUrl}
                 alt={user.name}
-                className="size-6 rounded-full"
+                className='size-6 rounded-full'
               />
             ) : (
-              <div className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-xs text-slate-600">
+              <div className='flex size-6 items-center justify-center rounded-full bg-slate-200 text-xs text-slate-600'>
                 {user.name.charAt(0)}
               </div>
             )}
-            <span className="text-slate-700">{user.name}</span>
+            <span className='text-slate-700'>{user.name}</span>
           </button>
         ))}
       </div>
-      <div className="flex justify-end gap-2 pt-2 border-t border-slate-200/40">
-        <Button variant="ghost" size="sm" onClick={onClose}>
+      <div className='flex justify-end gap-2 border-t border-slate-200/40 pt-2'>
+        <Button variant='ghost' size='sm' onClick={onClose}>
           キャンセル
         </Button>
-        <Button size="sm" onClick={onApply}>
+        <Button size='sm' onClick={onApply}>
           適用
         </Button>
       </div>
@@ -382,22 +382,22 @@ interface OptionItemProps {
 function OptionItem({ option, selected, onToggle }: OptionItemProps) {
   return (
     <button
-      type="button"
+      type='button'
       onClick={onToggle}
       className={cn(
         'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm',
         'transition-colors hover:bg-white/70',
-        selected && 'bg-white/50'
+        selected && 'bg-white/50',
       )}
     >
-      <Checkbox checked={selected} className="pointer-events-none" />
+      <Checkbox checked={selected} className='pointer-events-none' />
       {option.color && (
         <span
-          className="size-3 rounded-full"
+          className='size-3 rounded-full'
           style={{ backgroundColor: option.color }}
         />
       )}
-      <span className="text-slate-700">{option.label}</span>
+      <span className='text-slate-700'>{option.label}</span>
     </button>
   );
 }

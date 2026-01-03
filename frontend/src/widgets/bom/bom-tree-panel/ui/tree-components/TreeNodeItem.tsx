@@ -71,9 +71,7 @@ function HighlightedText({
       <mark
         className={cn(
           'rounded px-0.5',
-          isCurrentMatch
-            ? 'bg-slate-900 text-white'
-            : 'bg-amber-200',
+          isCurrentMatch ? 'bg-slate-900 text-white' : 'bg-amber-200',
         )}
       >
         {match}

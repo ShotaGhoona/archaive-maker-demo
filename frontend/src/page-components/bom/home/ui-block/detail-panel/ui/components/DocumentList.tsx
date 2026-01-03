@@ -26,7 +26,9 @@ export function DocumentList({ documents }: DocumentListProps) {
           >
             <FileText className='h-5 w-5 shrink-0 text-slate-400' />
             <div className='min-w-0 flex-1'>
-              <p className='truncate text-slate-700'>{doc.name || doc.typeName}</p>
+              <p className='truncate text-slate-700'>
+                {doc.name || doc.typeName}
+              </p>
               <p className='truncate text-sm text-slate-500'>{doc.typeName}</p>
             </div>
           </div>

@@ -43,15 +43,15 @@ export function SearchBar({
     <div
       className={cn(
         'relative transition-all duration-300 ease-out',
-        isExpanded ? expandedWidth : 'w-12'
+        isExpanded ? expandedWidth : 'w-12',
       )}
     >
       {isExpanded ? (
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+        <div className='relative'>
+          <Search className='absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400' />
           <input
             ref={inputRef}
-            type="text"
+            type='text'
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onBlur={handleCollapse}
@@ -62,16 +62,16 @@ export function SearchBar({
               'text-slate-900 placeholder:text-slate-400',
               'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
               'outline-none transition-all duration-200',
-              'focus:bg-white/60 focus:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+              'focus:bg-white/60 focus:shadow-[0_4px_20px_rgba(0,0,0,0.1)]',
             )}
           />
           {value && (
             <button
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+              className='absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600'
               onMouseDown={(e) => e.preventDefault()}
               onClick={handleClear}
             >
-              <X className="size-4" />
+              <X className='size-4' />
             </button>
           )}
         </div>
@@ -83,10 +83,10 @@ export function SearchBar({
             'border border-white/60 bg-white/40 backdrop-blur-xl',
             'text-slate-600 shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
             'transition-all duration-200',
-            'hover:bg-white/60 hover:text-slate-900 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+            'hover:bg-white/60 hover:text-slate-900 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]',
           )}
         >
-          <Search className="size-5" />
+          <Search className='size-5' />
         </button>
       )}
     </div>

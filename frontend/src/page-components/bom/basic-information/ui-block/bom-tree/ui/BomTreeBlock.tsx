@@ -26,7 +26,7 @@ export function BomTreeBlock({ treeNodes }: BomTreeBlockProps) {
   };
 
   return (
-    <div className='min-h-0 flex-1 overflow-auto px-4 flex flex-col'>
+    <div className='flex min-h-0 flex-1 flex-col overflow-auto px-4'>
       <BomTreePanel
         treeNodes={treeNodes}
         selectedNodeId={null}

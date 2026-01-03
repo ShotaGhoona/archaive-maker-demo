@@ -92,7 +92,7 @@ export function StickyNoteItem({ note, onUpdate }: StickyNoteItemProps) {
       data-sticky-id={note.id}
       className={cn(
         'absolute shadow-md',
-        isSelected && 'outline outline-2 outline-offset-1 outline-primary'
+        isSelected && 'outline outline-2 outline-offset-1 outline-primary',
       )}
       style={{
         left: note.x,
@@ -123,18 +123,18 @@ export function StickyNoteItem({ note, onUpdate }: StickyNoteItemProps) {
           onChange={handleTextChange}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className="h-full w-full resize-none border-none bg-transparent p-3 outline-none"
+          className='h-full w-full resize-none border-none bg-transparent p-3 outline-none'
           style={{ fontSize: fontSizeValue }}
-          placeholder="テキストを入力..."
+          placeholder='テキストを入力...'
         />
       ) : (
-        <div className="h-full w-full overflow-hidden p-3">
+        <div className='h-full w-full overflow-hidden p-3'>
           <p
-            className="whitespace-pre-wrap leading-relaxed"
+            className='whitespace-pre-wrap leading-relaxed'
             style={{ fontSize: fontSizeValue }}
           >
             {note.content || (
-              <span className="text-gray-400">ダブルクリックで編集</span>
+              <span className='text-gray-400'>ダブルクリックで編集</span>
             )}
           </p>
         </div>
@@ -142,17 +142,17 @@ export function StickyNoteItem({ note, onUpdate }: StickyNoteItemProps) {
 
       {/* リサイズハンドル */}
       <div
-        className="absolute bottom-0 right-0 h-4 w-4 cursor-se-resize"
+        className='absolute bottom-0 right-0 h-4 w-4 cursor-se-resize'
         onMouseDown={handleResizeMouseDown}
       >
         <svg
-          className="absolute bottom-1 right-1 h-2 w-2 text-gray-400"
-          viewBox="0 0 6 6"
-          fill="currentColor"
+          className='absolute bottom-1 right-1 h-2 w-2 text-gray-400'
+          viewBox='0 0 6 6'
+          fill='currentColor'
         >
-          <circle cx="5" cy="1" r="0.8" />
-          <circle cx="5" cy="5" r="0.8" />
-          <circle cx="1" cy="5" r="0.8" />
+          <circle cx='5' cy='1' r='0.8' />
+          <circle cx='5' cy='5' r='0.8' />
+          <circle cx='1' cy='5' r='0.8' />
         </svg>
       </div>
     </div>

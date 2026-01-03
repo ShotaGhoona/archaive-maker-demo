@@ -2,7 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Send } from 'lucide-react';
-import { COMMENT_EXPANDED_WIDTH, COMMENT_AVATAR_SIZE } from '@/shared/canvas/constant/size';
+import {
+  COMMENT_EXPANDED_WIDTH,
+  COMMENT_AVATAR_SIZE,
+} from '@/shared/canvas/constant/size';
 
 interface CommentCreatorProps {
   x: number;
@@ -11,7 +14,12 @@ interface CommentCreatorProps {
   onCancel: () => void;
 }
 
-export function CommentCreator({ x, y, onSubmit, onCancel }: CommentCreatorProps) {
+export function CommentCreator({
+  x,
+  y,
+  onSubmit,
+  onCancel,
+}: CommentCreatorProps) {
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +47,7 @@ export function CommentCreator({ x, y, onSubmit, onCancel }: CommentCreatorProps
         onCancel();
       }
     },
-    [handleSubmit, onCancel]
+    [handleSubmit, onCancel],
   );
 
   // 外部クリックでキャンセル
@@ -64,7 +72,7 @@ export function CommentCreator({ x, y, onSubmit, onCancel }: CommentCreatorProps
   return (
     <div
       data-comment-creator
-      className="absolute overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+      className='absolute overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg'
       style={{
         left: x,
         top: y,
@@ -73,25 +81,25 @@ export function CommentCreator({ x, y, onSubmit, onCancel }: CommentCreatorProps
       onClick={(e) => e.stopPropagation()}
     >
       {/* 入力エリア */}
-      <div className="flex items-center gap-2 p-3">
+      <div className='flex items-center gap-2 p-3'>
         {/* 入力欄 */}
         <input
           ref={inputRef}
-          type="text"
+          type='text'
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="コメントを入力..."
-          className="min-w-0 flex-1 rounded border border-gray-200 px-2 py-1.5 text-sm outline-none focus:border-primary"
+          placeholder='コメントを入力...'
+          className='min-w-0 flex-1 rounded border border-gray-200 px-2 py-1.5 text-sm outline-none focus:border-primary'
         />
 
         {/* 送信ボタン */}
         <button
           onClick={handleSubmit}
           disabled={!value.trim()}
-          className="flex shrink-0 items-center justify-center rounded bg-primary p-1.5 text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+          className='flex shrink-0 items-center justify-center rounded bg-primary p-1.5 text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50'
         >
-          <Send className="h-4 w-4" />
+          <Send className='h-4 w-4' />
         </button>
       </div>
     </div>

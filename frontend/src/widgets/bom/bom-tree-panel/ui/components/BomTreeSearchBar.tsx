@@ -48,7 +48,7 @@ export function BomTreeSearchBar({
     <div
       className={cn(
         'relative transition-all duration-300 ease-out',
-        isExpanded ? 'w-72' : 'w-12'
+        isExpanded ? 'w-72' : 'w-12',
       )}
     >
       {isExpanded ? (
@@ -58,7 +58,7 @@ export function BomTreeSearchBar({
             'border border-white/60 bg-white/40 backdrop-blur-xl',
             'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
             'focus-within:bg-white/60 focus-within:shadow-[0_4px_20px_rgba(0,0,0,0.1)]',
-            'transition-all'
+            'transition-all',
           )}
         >
           <Search className='size-4 shrink-0 text-slate-400' />
@@ -69,7 +69,7 @@ export function BomTreeSearchBar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onBlur={handleCollapse}
-            className='h-full flex-1 min-w-0 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400'
+            className='h-full min-w-0 flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400'
           />
 
           {searchQuery && (
@@ -83,7 +83,9 @@ export function BomTreeSearchBar({
                 <ChevronLeft className='size-4' />
               </button>
               <span className='min-w-[36px] text-center text-xs text-slate-500'>
-                {matchCount > 0 ? `${currentMatchIndex + 1}/${matchCount}` : '0/0'}
+                {matchCount > 0
+                  ? `${currentMatchIndex + 1}/${matchCount}`
+                  : '0/0'}
               </span>
               <button
                 onClick={onNext}
@@ -110,7 +112,7 @@ export function BomTreeSearchBar({
             'border border-white/60 bg-white/40 backdrop-blur-xl',
             'text-slate-600 shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
             'transition-all duration-200',
-            'hover:bg-white/60 hover:text-slate-900 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+            'hover:bg-white/60 hover:text-slate-900 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]',
           )}
         >
           <Search className='size-5' />

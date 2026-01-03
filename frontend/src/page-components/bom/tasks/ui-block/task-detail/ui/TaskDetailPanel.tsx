@@ -12,7 +12,11 @@ import {
   User,
   Play,
 } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/ui/shadcn/ui/avatar';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
@@ -26,7 +30,11 @@ interface TaskDetailPanelProps {
 
 const STATUS_CONFIG: Record<
   TaskStatus,
-  { label: string; icon: React.ReactNode; variant: 'default' | 'secondary' | 'outline' }
+  {
+    label: string;
+    icon: React.ReactNode;
+    variant: 'default' | 'secondary' | 'outline';
+  }
 > = {
   todo: {
     label: '未着手',
@@ -90,7 +98,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
 
   const handleGoToCanvas = () => {
     // TODO: API呼び出し - キャンバスの該当位置にジャンプ
-    alert(`キャンバスの位置 (${task.canvasPosition?.x}, ${task.canvasPosition?.y}) に移動（未実装）`);
+    alert(
+      `キャンバスの位置 (${task.canvasPosition?.x}, ${task.canvasPosition?.y}) に移動（未実装）`,
+    );
     router.push(`/bom/${bomId}/canvas`);
   };
 
@@ -107,9 +117,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
   return (
     <div
       className={cn(
-        'flex h-full flex-col rounded-2xl overflow-hidden',
+        'flex h-full flex-col overflow-hidden rounded-2xl',
         'border border-white/60 bg-white/40 backdrop-blur-xl',
-        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
       )}
     >
       {/* ヘッダー */}
@@ -128,7 +138,12 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
           </Badge>
         </div>
         <div className='flex items-center gap-1'>
-          <Button variant='ghost' size='sm' onClick={handleGoToCanvas} className='h-7 text-xs'>
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={handleGoToCanvas}
+            className='h-7 text-xs'
+          >
             <ExternalLink className='mr-1 size-3' />
             キャンバス
           </Button>
@@ -139,12 +154,21 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
             </Button>
           )}
           {task.status === 'in_progress' && (
-            <Button size='sm' onClick={handleCompleteTask} className='h-7 text-xs'>
+            <Button
+              size='sm'
+              onClick={handleCompleteTask}
+              className='h-7 text-xs'
+            >
               <CheckCircle2 className='mr-1 size-3' />
               完了
             </Button>
           )}
-          <Button variant='ghost' size='icon' className='size-7' onClick={onClose}>
+          <Button
+            variant='ghost'
+            size='icon'
+            className='size-7'
+            onClick={onClose}
+          >
             <X className='size-4' />
           </Button>
         </div>
@@ -155,17 +179,21 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
         <div className='space-y-4 p-4'>
           {/* タイトル */}
           <div>
-            <h2 className='text-lg font-semibold text-slate-900'>{task.title}</h2>
+            <h2 className='text-lg font-semibold text-slate-900'>
+              {task.title}
+            </h2>
             {task.description && (
-              <p className='mt-2 text-sm text-slate-600 leading-relaxed'>{task.description}</p>
+              <p className='mt-2 text-sm leading-relaxed text-slate-600'>
+                {task.description}
+              </p>
             )}
           </div>
 
           {/* 詳細情報カード */}
           <div
             className={cn(
-              'rounded-xl p-4 space-y-3',
-              'bg-white/50 border border-white/60'
+              'space-y-3 rounded-xl p-4',
+              'border border-white/60 bg-white/50',
             )}
           >
             {/* 担当者 */}
@@ -183,7 +211,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className='text-sm font-medium text-slate-900'>{task.assignee.name}</p>
+                    <p className='text-sm font-medium text-slate-900'>
+                      {task.assignee.name}
+                    </p>
                     {task.assignee.role && (
                       <p className='text-xs text-slate-500'>
                         {task.assignee.role}
@@ -207,13 +237,13 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                   <span
                     className={cn(
                       'text-sm',
-                      overdue ? 'font-medium text-red-500' : 'text-slate-700'
+                      overdue ? 'font-medium text-red-500' : 'text-slate-700',
                     )}
                   >
                     {formatDate(task.dueDate)}
                   </span>
                   {overdue && (
-                    <Badge variant='destructive' className='text-[10px] px-1.5'>
+                    <Badge variant='destructive' className='px-1.5 text-[10px]'>
                       期限切れ
                     </Badge>
                   )}
@@ -229,7 +259,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                 <Clock className='size-3.5' />
                 作成日
               </div>
-              <span className='text-sm text-slate-700'>{formatDateTime(task.createdAt)}</span>
+              <span className='text-sm text-slate-700'>
+                {formatDateTime(task.createdAt)}
+              </span>
             </div>
 
             {/* 更新日 */}

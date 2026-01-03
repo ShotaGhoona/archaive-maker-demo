@@ -99,7 +99,10 @@ export function CsvExportModalWidget<T extends object>({
           CSV出力
         </Button>
       </DialogTrigger>
-      <DialogContent className='flex h-[80vh] flex-col p-0 sm:max-w-7xl' showCloseButton={false}>
+      <DialogContent
+        className='flex h-[80vh] flex-col p-0 sm:max-w-7xl'
+        showCloseButton={false}
+      >
         <DialogHeader className='shrink-0 border-b border-slate-200/40 p-6'>
           <DialogTitle>CSV エクスポート</DialogTitle>
         </DialogHeader>
@@ -221,9 +224,7 @@ export function CsvExportModalWidget<T extends object>({
                 </Select>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-sm text-slate-500'>
-                  文字コード:
-                </span>
+                <span className='text-sm text-slate-500'>文字コード:</span>
                 <Select
                   value={encoding}
                   onValueChange={(value) => setEncoding(value as CsvEncoding)}

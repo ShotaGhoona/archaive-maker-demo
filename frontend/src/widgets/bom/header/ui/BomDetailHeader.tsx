@@ -43,7 +43,7 @@ export function BomDetailHeader() {
         className={cn(
           'flex h-12 items-center gap-2 rounded-2xl px-4',
           'border border-white/60 bg-white/40 backdrop-blur-xl',
-          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]'
+          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
         )}
       >
         <Package className='size-5 text-slate-500' />
@@ -57,7 +57,7 @@ export function BomDetailHeader() {
         className={cn(
           'flex h-12 flex-1 items-center gap-1 rounded-2xl px-1.5',
           'border border-white/60 bg-white/40 backdrop-blur-xl',
-          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]'
+          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
         )}
       >
         {tabs.map((tab) => {
@@ -72,7 +72,7 @@ export function BomDetailHeader() {
                 'transition-all duration-200',
                 isActive
                   ? 'bg-white/70 text-slate-900 shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
-                  : 'text-slate-500 hover:bg-white/50 hover:text-slate-700'
+                  : 'text-slate-500 hover:bg-white/50 hover:text-slate-700',
               )}
             >
               <Icon className='size-5' />
@@ -83,11 +83,7 @@ export function BomDetailHeader() {
       </nav>
 
       {/* 案件へボタン */}
-      <Button
-        variant='outline'
-        className='h-12 rounded-2xl gap-2 px-4'
-        asChild
-      >
+      <Button variant='outline' className='h-12 gap-2 rounded-2xl px-4' asChild>
         <Link href='/project'>
           <ExternalLink className='size-4' />
           案件へ

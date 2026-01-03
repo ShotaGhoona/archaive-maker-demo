@@ -48,7 +48,7 @@ export function CommentThread({
         setIsExpanded(true);
       }
     },
-    [isExpanded, isDragging, hasDragged]
+    [isExpanded, isDragging, hasDragged],
   );
 
   // 閉じる
@@ -80,7 +80,7 @@ export function CommentThread({
   return (
     <div
       data-thread-id={thread.id}
-      className="absolute"
+      className='absolute'
       style={{
         left: thread.x,
         top: thread.y,

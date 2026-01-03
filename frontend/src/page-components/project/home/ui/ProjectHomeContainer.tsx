@@ -22,28 +22,28 @@ export function ProjectHomeContainer() {
   } = useProjectFilter();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className='flex min-h-0 flex-1 flex-col gap-4'>
       {/* ヘッダー */}
-      <div className="flex items-center gap-3">
+      <div className='flex items-center gap-3'>
         {/* 左: タイトル */}
-        <div className="flex items-center gap-2">
-          <Briefcase className="h-5 w-5 text-slate-700" />
-          <h1 className="text-lg font-semibold text-slate-900">案件管理</h1>
+        <div className='flex items-center gap-2'>
+          <Briefcase className='h-5 w-5 text-slate-700' />
+          <h1 className='text-lg font-semibold text-slate-900'>案件管理</h1>
         </div>
 
         {/* 右: ツール群 */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className='ml-auto flex items-center gap-3'>
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            placeholder="案件コード、案件名で検索..."
-            expandedWidth="w-80"
+            placeholder='案件コード、案件名で検索...'
+            expandedWidth='w-80'
           />
           <ProjectColumnSettings />
           <ProjectCsvExport />
-          <Button asChild size="xl">
-            <Link href="/project/new">
-              <Plus className="size-5" />
+          <Button asChild size='xl'>
+            <Link href='/project/new'>
+              <Plus className='size-5' />
               新規作成
             </Link>
           </Button>
@@ -58,7 +58,7 @@ export function ProjectHomeContainer() {
       />
 
       {/* コンテンツエリア */}
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className='flex min-h-0 flex-1 flex-col'>
         <ProjectTablePanel />
       </div>
     </div>

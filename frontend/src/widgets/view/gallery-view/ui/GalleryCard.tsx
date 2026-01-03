@@ -52,7 +52,9 @@ export function GalleryCard<T extends object>({
           </div>
         )}
       </div>
-      <CardContent className='p-0 pt-2 text-slate-600'>{contentRenderer(item, index)}</CardContent>
+      <CardContent className='p-0 pt-2 text-slate-600'>
+        {contentRenderer(item, index)}
+      </CardContent>
       {/* ホバーオーバーレイ（カード全体） */}
       {hasOverlay && (
         <div className='absolute inset-0 flex items-center justify-center rounded-2xl bg-slate-900/60 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100'>

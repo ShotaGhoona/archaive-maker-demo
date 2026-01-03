@@ -26,7 +26,7 @@ export function BomInfoPanel({ bomDetail }: BomInfoPanelProps) {
 
   const updateField = <K extends keyof typeof formData>(
     key: K,
-    value: (typeof formData)[K]
+    value: (typeof formData)[K],
   ) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
@@ -37,10 +37,7 @@ export function BomInfoPanel({ bomDetail }: BomInfoPanelProps) {
 
   return (
     <Card
-      className={cn(
-        'flex h-full flex-col py-0 gap-0',
-        'hover:bg-white/40'
-      )}
+      className={cn('flex h-full flex-col gap-0 py-0', 'hover:bg-white/40')}
     >
       {/* ヘッダー */}
       <div className='flex shrink-0 items-center justify-between border-b border-slate-200/40 px-4 py-3'>

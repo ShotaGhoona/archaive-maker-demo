@@ -16,10 +16,18 @@ import { dummyCommentThreads } from '../dummy-data/comments';
 
 type FilterStatus = 'all' | 'open' | 'resolved';
 
-const filterOptions: { value: FilterStatus; label: string; icon: React.ReactNode }[] = [
+const filterOptions: {
+  value: FilterStatus;
+  label: string;
+  icon: React.ReactNode;
+}[] = [
   { value: 'all', label: 'すべて', icon: <Filter className='size-3' /> },
   { value: 'open', label: '未解決', icon: <Circle className='size-3' /> },
-  { value: 'resolved', label: '解決済み', icon: <CheckCircle2 className='size-3' /> },
+  {
+    value: 'resolved',
+    label: '解決済み',
+    icon: <CheckCircle2 className='size-3' />,
+  },
 ];
 
 export function BomCommentsContainer() {
@@ -61,7 +69,7 @@ export function BomCommentsContainer() {
       <div
         className={cn(
           'flex shrink-0 items-center justify-between rounded-xl px-4 py-2',
-          'border border-white/60 bg-white/40 backdrop-blur-xl'
+          'border border-white/60 bg-white/40 backdrop-blur-xl',
         )}
       >
         <div className='flex items-center gap-2'>
@@ -84,10 +92,10 @@ export function BomCommentsContainer() {
               size='sm'
               onClick={() => setFilterStatus(option.value)}
               className={cn(
-                'gap-1.5 px-3 h-7 text-xs rounded-lg',
+                'h-7 gap-1.5 rounded-lg px-3 text-xs',
                 filterStatus === option.value
                   ? 'bg-white/70 text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
+                  : 'text-slate-500 hover:text-slate-700',
               )}
             >
               {option.icon}
@@ -102,11 +110,14 @@ export function BomCommentsContainer() {
         {filteredThreads.length > 0 ? (
           <ResizablePanelGroup direction='horizontal' className='h-full gap-3'>
             {/* スレッドリスト - 背景として透ける */}
-            <ResizablePanel defaultSize={selectedThread ? 40 : 100} minSize={30}>
+            <ResizablePanel
+              defaultSize={selectedThread ? 40 : 100}
+              minSize={30}
+            >
               <div
                 className={cn(
-                  'h-full rounded-2xl overflow-hidden',
-                  'border border-white/60 bg-white/30 backdrop-blur-xl'
+                  'h-full overflow-hidden rounded-2xl',
+                  'border border-white/60 bg-white/30 backdrop-blur-xl',
                 )}
               >
                 <CommentListPanel
@@ -135,8 +146,8 @@ export function BomCommentsContainer() {
           <div className='flex h-full flex-col items-center justify-center'>
             <div
               className={cn(
-                'flex size-16 items-center justify-center rounded-2xl mb-4',
-                'bg-gradient-to-br from-slate-100 to-slate-200'
+                'mb-4 flex size-16 items-center justify-center rounded-2xl',
+                'bg-gradient-to-br from-slate-100 to-slate-200',
               )}
             >
               <MessageSquare className='size-8 text-slate-400' />

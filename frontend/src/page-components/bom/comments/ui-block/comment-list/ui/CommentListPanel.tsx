@@ -1,11 +1,11 @@
 'use client';
 
+import { MessageSquare, CheckCircle2, Circle } from 'lucide-react';
 import {
-  MessageSquare,
-  CheckCircle2,
-  Circle,
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { CommentThread } from '../../../dummy-data/comments';
@@ -41,10 +41,10 @@ function CommentThreadCard({
       onClick={onSelect}
       className={cn(
         'w-full rounded-xl p-3 text-left transition-all',
-        'bg-white/50 border border-white/60',
+        'border border-white/60 bg-white/50',
         'hover:bg-white/70',
         isSelected && 'bg-white/70 shadow-[0_4px_16px_rgba(0,0,0,0.08)]',
-        thread.resolved && 'opacity-70'
+        thread.resolved && 'opacity-70',
       )}
     >
       {/* Header */}
@@ -56,7 +56,9 @@ function CommentThreadCard({
               {firstComment.author.name[0]}
             </AvatarFallback>
           </Avatar>
-          <span className='text-sm font-medium text-slate-900'>{firstComment.author.name}</span>
+          <span className='text-sm font-medium text-slate-900'>
+            {firstComment.author.name}
+          </span>
           <span className='text-xs text-slate-400'>
             {formatDate(firstComment.createdAt)}
           </span>

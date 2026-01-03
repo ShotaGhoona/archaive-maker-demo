@@ -23,7 +23,10 @@ export function GallerySkeleton({
   return (
     <div className={`grid ${gridColsClass} gap-4`}>
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className='flex flex-col gap-2 rounded-2xl border border-white/60 bg-white/40 p-3 backdrop-blur-xl'>
+        <div
+          key={index}
+          className='flex flex-col gap-2 rounded-2xl border border-white/60 bg-white/40 p-3 backdrop-blur-xl'
+        >
           <Skeleton className='aspect-[4/3] w-full rounded-xl' />
           <Skeleton className='h-5 w-3/4' />
           <Skeleton className='h-4 w-1/2' />

@@ -33,17 +33,17 @@ export function DrawingHomeContainer() {
   const { data } = useDrawingPages({ page: 1, perPage: 100 });
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className='flex min-h-0 flex-1 flex-col gap-4'>
       {/* ヘッダー */}
-      <div className="flex items-center gap-3">
+      <div className='flex items-center gap-3'>
         {/* 左: タイトル */}
-        <div className="flex items-center gap-2">
-          <FileText className="h-5 w-5 text-slate-700" />
-          <h1 className="text-lg font-semibold text-slate-900">図面管理</h1>
+        <div className='flex items-center gap-2'>
+          <FileText className='h-5 w-5 text-slate-700' />
+          <h1 className='text-lg font-semibold text-slate-900'>図面管理</h1>
         </div>
 
         {/* 右: ツール群 */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className='ml-auto flex items-center gap-3'>
           <ViewSwitch
             modes={['table', 'gallery']}
             value={viewMode}
@@ -52,8 +52,8 @@ export function DrawingHomeContainer() {
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            placeholder="図面番号、図面名で検索..."
-            expandedWidth="w-80"
+            placeholder='図面番号、図面名で検索...'
+            expandedWidth='w-80'
           />
           <DrawingColumnSettings />
           <CsvExportModalWidget
@@ -71,12 +71,8 @@ export function DrawingHomeContainer() {
       />
 
       {/* コンテンツエリア */}
-      <div className="flex min-h-0 flex-1 flex-col">
-        {viewMode === 'table' ? (
-          <DrawingTablePanel />
-        ) : (
-          <DrawingGalleryPanel />
-        )}
+      <div className='flex min-h-0 flex-1 flex-col'>
+        {viewMode === 'table' ? <DrawingTablePanel /> : <DrawingGalleryPanel />}
       </div>
     </div>
   );

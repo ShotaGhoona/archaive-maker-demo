@@ -25,7 +25,9 @@ export function DrawingList({ drawings }: DrawingListProps) {
             className='flex min-w-0 items-center gap-2 rounded-xl border border-white/60 bg-white/40 p-2 text-base backdrop-blur-sm'
           >
             <Image className='h-5 w-5 shrink-0 text-slate-400' />
-            <span className='min-w-0 flex-1 truncate text-slate-700'>{drw.name}</span>
+            <span className='min-w-0 flex-1 truncate text-slate-700'>
+              {drw.name}
+            </span>
           </div>
         ))}
       </div>

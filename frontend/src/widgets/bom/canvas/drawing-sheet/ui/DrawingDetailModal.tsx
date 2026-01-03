@@ -52,7 +52,7 @@ export function DrawingDetailModal({
   onOpenChange,
 }: DrawingDetailModalProps) {
   const [metadata, setMetadata] = useState<Record<string, unknown>>(() =>
-    buildMetadata(drawing)
+    buildMetadata(drawing),
   );
 
   const updateItem = useCallback((key: string, value: unknown) => {
@@ -61,24 +61,26 @@ export function DrawingDetailModal({
 
   const handleSave = useCallback(() => {
     // TODO: API呼び出し
-    alert(`図面情報を保存しました（未実装）\n${JSON.stringify(metadata, null, 2)}`);
+    alert(
+      `図面情報を保存しました（未実装）\n${JSON.stringify(metadata, null, 2)}`,
+    );
   }, [metadata]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-7xl">
+      <DialogContent className='sm:max-w-7xl'>
         <DialogHeader>
           <DialogTitle>{drawing.name}</DialogTitle>
         </DialogHeader>
-        <ResizablePanelGroup direction="horizontal" className="min-h-[400px]">
+        <ResizablePanelGroup direction='horizontal' className='min-h-[400px]'>
           {/* 左側: プレビュー */}
           <ResizablePanel defaultSize={60} minSize={30}>
-            <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted">
+            <div className='relative h-full w-full overflow-hidden rounded-lg bg-muted'>
               <Image
                 src={drawing.previewImageUrl}
                 alt={drawing.name}
                 fill
-                className="object-contain"
+                className='object-contain'
               />
             </div>
           </ResizablePanel>
@@ -87,14 +89,14 @@ export function DrawingDetailModal({
 
           {/* 右側: メタデータ */}
           <ResizablePanel defaultSize={40} minSize={20}>
-            <div className="flex h-full flex-col pl-4">
-              <div className="flex-1 space-y-3 overflow-auto">
+            <div className='flex h-full flex-col pl-4'>
+              <div className='flex-1 space-y-3 overflow-auto'>
                 {renderDynamicFields(metadata, updateItem)}
               </div>
 
               {/* 保存ボタン */}
-              <div className="border-t pt-4">
-                <Button onClick={handleSave} className="w-full">
+              <div className='border-t pt-4'>
+                <Button onClick={handleSave} className='w-full'>
                   保存
                 </Button>
               </div>

@@ -27,22 +27,22 @@ export function DocumentHomeContainer() {
   const filter = useDocumentFilter(selectedTypeId);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className='flex min-h-0 flex-1 flex-col gap-4'>
       {/* ヘッダー */}
-      <div className="flex items-center gap-3">
+      <div className='flex items-center gap-3'>
         {/* 左: タイトル + パンくず */}
-        <div className="flex items-center gap-2">
-          <ClipboardList className="h-5 w-5 text-slate-700" />
-          <h1 className="text-lg font-semibold text-slate-900">帳票管理</h1>
+        <div className='flex items-center gap-2'>
+          <ClipboardList className='h-5 w-5 text-slate-700' />
+          <h1 className='text-lg font-semibold text-slate-900'>帳票管理</h1>
         </div>
-        <ChevronRight className="size-4 text-slate-300" />
+        <ChevronRight className='size-4 text-slate-300' />
         <DocumentTypeBreadcrumb
           selectedTypeId={selectedTypeId}
           onSelectType={setSelectedTypeId}
         />
 
         {/* 右: ツール群 */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className='ml-auto flex items-center gap-3'>
           <ViewSwitch
             modes={['table', 'gallery']}
             value={viewMode}
@@ -52,7 +52,7 @@ export function DocumentHomeContainer() {
             value={filter.searchQuery}
             onChange={filter.setSearchQuery}
             placeholder={filter.searchPlaceholder}
-            expandedWidth="w-80"
+            expandedWidth='w-80'
           />
           <DocumentColumnSettings selectedTypeId={selectedTypeId} />
         </div>
@@ -66,7 +66,7 @@ export function DocumentHomeContainer() {
       />
 
       {/* テーブル/ギャラリー */}
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className='flex min-h-0 flex-1 flex-col'>
         {viewMode === 'table' ? (
           <DocumentTablePanel selectedTypeId={selectedTypeId} />
         ) : (

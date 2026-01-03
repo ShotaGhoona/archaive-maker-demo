@@ -139,7 +139,10 @@ export function ColumnSettingsWidget({
           テーブル設定
         </Button>
       </DialogTrigger>
-      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl' showCloseButton={false}>
+      <DialogContent
+        className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl'
+        showCloseButton={false}
+      >
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as SettingsTab)}

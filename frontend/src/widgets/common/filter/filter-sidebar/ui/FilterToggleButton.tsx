@@ -22,17 +22,17 @@ export function FilterToggleButton({
         'transition-all duration-200',
         open
           ? 'bg-slate-900 text-white hover:bg-slate-800'
-          : 'bg-white/40 text-slate-600 hover:bg-white/60 hover:text-slate-900'
+          : 'bg-white/40 text-slate-600 hover:bg-white/60 hover:text-slate-900',
       )}
     >
       {open ? (
         <>
-          <X className="h-4 w-4" />
+          <X className='h-4 w-4' />
           閉じる
         </>
       ) : (
         <>
-          <Filter className="h-4 w-4" />
+          <Filter className='h-4 w-4' />
           フィルター
         </>
       )}

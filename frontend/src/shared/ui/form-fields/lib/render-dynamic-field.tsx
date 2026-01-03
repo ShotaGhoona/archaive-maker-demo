@@ -52,9 +52,9 @@ export function renderDynamicField({
 // Record<string, unknown>を一括レンダリングするヘルパー
 export function renderDynamicFields(
   items: Record<string, unknown>,
-  onChange: (key: string, value: unknown) => void
+  onChange: (key: string, value: unknown) => void,
 ) {
   return Object.entries(items).map(([key, value]) =>
-    renderDynamicField({ fieldKey: key, value, onChange })
+    renderDynamicField({ fieldKey: key, value, onChange }),
   );
 }

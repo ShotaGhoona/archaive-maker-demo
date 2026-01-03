@@ -52,66 +52,70 @@ export function ComplexPatternDemo() {
   };
 
   return (
-    <div className="space-y-3">
+    <div className='space-y-3'>
       <div>
-        <h3 className="font-semibold">Complex Pattern Demo</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className='font-semibold'>Complex Pattern Demo</h3>
+        <p className='text-sm text-muted-foreground'>
           Multiple branching paths with stack and replace combinations
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 rounded-lg bg-muted/50 p-4 text-xs">
+      <div className='flex flex-wrap gap-2 rounded-lg bg-muted/50 p-4 text-xs'>
         <div>
           <strong>Pattern Tree:</strong>
         </div>
-        <div className="w-full font-mono text-muted-foreground">
+        <div className='w-full font-mono text-muted-foreground'>
           Modal1 → Modal2(stack) → Modal4(replace) or Modal5(stack)
           <br />
           Modal1 → Modal3(stack) → Modal6(replace)
         </div>
       </div>
 
-      <FloatingModalRoot side="right" align="end">
+      <FloatingModalRoot side='right' align='end'>
         {/* ========== Modal 1: Base ========== */}
-        <FloatingModal open={modal1Open} onOpenChange={setModal1Open} width="md">
+        <FloatingModal
+          open={modal1Open}
+          onOpenChange={setModal1Open}
+          width='md'
+        >
           <FloatingModalTrigger asChild>
             <Button>Open Modal 1</Button>
           </FloatingModalTrigger>
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 1</FloatingModalTitle>
-                <Badge variant="outline">Base</Badge>
+                <Badge variant='outline'>Base</Badge>
               </div>
               <FloatingModalDescription>
                 This is the base modal. Open Modal 2 or Modal 3.
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="rounded-lg border p-4">
-                  <p className="mb-2 font-medium">Open child modals:</p>
-                  <div className="flex flex-col gap-2">
+              <div className='space-y-4'>
+                <div className='rounded-lg border p-4'>
+                  <p className='mb-2 font-medium'>Open child modals:</p>
+                  <div className='flex flex-col gap-2'>
                     <Button
-                      variant="outline"
+                      variant='outline'
                       onClick={() => setModal2Open(true)}
-                      className="justify-start"
+                      className='justify-start'
                     >
                       → Modal 2 (stack)
                     </Button>
                     <Button
-                      variant="outline"
+                      variant='outline'
                       onClick={() => setModal3Open(true)}
-                      className="justify-start"
+                      className='justify-start'
                     >
                       → Modal 3 (stack)
                     </Button>
                   </div>
                 </div>
 
-                <div className="rounded-lg bg-muted p-4 text-sm">
-                  <p className="font-medium">Current State:</p>
-                  <ul className="mt-2 space-y-1 text-muted-foreground">
+                <div className='rounded-lg bg-muted p-4 text-sm'>
+                  <p className='font-medium'>Current State:</p>
+                  <ul className='mt-2 space-y-1 text-muted-foreground'>
                     <li>Modal 2: {modal2Open ? '✓ Open' : '✗ Closed'}</li>
                     <li>Modal 3: {modal3Open ? '✓ Open' : '✗ Closed'}</li>
                     <li>Modal 4: {modal4Open ? '✓ Open' : '✗ Closed'}</li>
@@ -122,7 +126,11 @@ export function ComplexPatternDemo() {
               </div>
             </FloatingModalBody>
             <FloatingModalFooter>
-              <Button variant="destructive" onClick={closeAll} className="w-full">
+              <Button
+                variant='destructive'
+                onClick={closeAll}
+                className='w-full'
+              >
                 Close All
               </Button>
             </FloatingModalFooter>
@@ -133,12 +141,12 @@ export function ComplexPatternDemo() {
         <FloatingModal
           open={modal2Open}
           onOpenChange={setModal2Open}
-          mode="stack"
-          width="md"
+          mode='stack'
+          width='md'
         >
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 2</FloatingModalTitle>
                 <Badge>stack</Badge>
               </div>
@@ -147,40 +155,41 @@ export function ComplexPatternDemo() {
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="rounded-lg border p-4">
-                  <p className="mb-2 font-medium">Open from here:</p>
-                  <div className="flex flex-col gap-2">
+              <div className='space-y-4'>
+                <div className='rounded-lg border p-4'>
+                  <p className='mb-2 font-medium'>Open from here:</p>
+                  <div className='flex flex-col gap-2'>
                     <Button
-                      variant="outline"
+                      variant='outline'
                       onClick={() => setModal4Open(true)}
-                      className="justify-start"
+                      className='justify-start'
                     >
                       → Modal 4 (replace) - will push this modal
                     </Button>
                     <Button
-                      variant="outline"
+                      variant='outline'
                       onClick={() => setModal5Open(true)}
-                      className="justify-start"
+                      className='justify-start'
                     >
                       → Modal 5 (stack) - will stack next to this
                     </Button>
                   </div>
                 </div>
 
-                <div className="h-40 rounded-lg bg-blue-100 p-4">
-                  <p className="text-blue-800">Modal 2 Content Area</p>
-                  <p className="text-sm text-blue-600">
-                    This should be partially visible when Modal 4 (replace) opens
+                <div className='h-40 rounded-lg bg-blue-100 p-4'>
+                  <p className='text-blue-800'>Modal 2 Content Area</p>
+                  <p className='text-sm text-blue-600'>
+                    This should be partially visible when Modal 4 (replace)
+                    opens
                   </p>
                 </div>
               </div>
             </FloatingModalBody>
             <FloatingModalFooter>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setModal2Open(false)}
-                className="w-full"
+                className='w-full'
               >
                 Close Modal 2
               </Button>
@@ -192,12 +201,12 @@ export function ComplexPatternDemo() {
         <FloatingModal
           open={modal3Open}
           onOpenChange={setModal3Open}
-          mode="stack"
-          width="md"
+          mode='stack'
+          width='md'
         >
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 3</FloatingModalTitle>
                 <Badge>stack</Badge>
               </div>
@@ -206,31 +215,32 @@ export function ComplexPatternDemo() {
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="rounded-lg border p-4">
-                  <p className="mb-2 font-medium">Open from here:</p>
+              <div className='space-y-4'>
+                <div className='rounded-lg border p-4'>
+                  <p className='mb-2 font-medium'>Open from here:</p>
                   <Button
-                    variant="outline"
+                    variant='outline'
                     onClick={() => setModal6Open(true)}
-                    className="w-full justify-start"
+                    className='w-full justify-start'
                   >
                     → Modal 6 (replace) - will push this modal
                   </Button>
                 </div>
 
-                <div className="h-40 rounded-lg bg-green-100 p-4">
-                  <p className="text-green-800">Modal 3 Content Area</p>
-                  <p className="text-sm text-green-600">
-                    This should be partially visible when Modal 6 (replace) opens
+                <div className='h-40 rounded-lg bg-green-100 p-4'>
+                  <p className='text-green-800'>Modal 3 Content Area</p>
+                  <p className='text-sm text-green-600'>
+                    This should be partially visible when Modal 6 (replace)
+                    opens
                   </p>
                 </div>
               </div>
             </FloatingModalBody>
             <FloatingModalFooter>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setModal3Open(false)}
-                className="w-full"
+                className='w-full'
               >
                 Close Modal 3
               </Button>
@@ -242,31 +252,33 @@ export function ComplexPatternDemo() {
         <FloatingModal
           open={modal4Open}
           onOpenChange={setModal4Open}
-          mode="replace"
-          width="md"
+          mode='replace'
+          width='md'
         >
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 4</FloatingModalTitle>
-                <Badge variant="destructive">replace</Badge>
+                <Badge variant='destructive'>replace</Badge>
               </div>
               <FloatingModalDescription>
                 Replaced Modal 2. Modal 2 should show only 80px.
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="h-40 rounded-lg bg-red-100 p-4">
-                  <p className="text-red-800">Modal 4 Content Area</p>
-                  <p className="text-sm text-red-600">
+              <div className='space-y-4'>
+                <div className='h-40 rounded-lg bg-red-100 p-4'>
+                  <p className='text-red-800'>Modal 4 Content Area</p>
+                  <p className='text-sm text-red-600'>
                     This modal replaced Modal 2
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-muted p-4 text-sm">
-                  <p className="font-medium">Expected Layout (right to left):</p>
-                  <p className="mt-1 font-mono text-muted-foreground">
+                <div className='rounded-lg bg-muted p-4 text-sm'>
+                  <p className='font-medium'>
+                    Expected Layout (right to left):
+                  </p>
+                  <p className='mt-1 font-mono text-muted-foreground'>
                     Modal1 | Modal2(80px) | Modal4
                   </p>
                 </div>
@@ -274,9 +286,9 @@ export function ComplexPatternDemo() {
             </FloatingModalBody>
             <FloatingModalFooter>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setModal4Open(false)}
-                className="w-full"
+                className='w-full'
               >
                 Close Modal 4
               </Button>
@@ -288,12 +300,12 @@ export function ComplexPatternDemo() {
         <FloatingModal
           open={modal5Open}
           onOpenChange={setModal5Open}
-          mode="stack"
-          width="sm"
+          mode='stack'
+          width='sm'
         >
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 5</FloatingModalTitle>
                 <Badge>stack</Badge>
               </div>
@@ -302,15 +314,15 @@ export function ComplexPatternDemo() {
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="h-40 rounded-lg bg-purple-100 p-4">
-                  <p className="text-purple-800">Modal 5 Content</p>
-                  <p className="text-sm text-purple-600">Width: sm (320px)</p>
+              <div className='space-y-4'>
+                <div className='h-40 rounded-lg bg-purple-100 p-4'>
+                  <p className='text-purple-800'>Modal 5 Content</p>
+                  <p className='text-sm text-purple-600'>Width: sm (320px)</p>
                 </div>
 
-                <div className="rounded-lg bg-muted p-4 text-sm">
-                  <p className="font-medium">Expected Layout:</p>
-                  <p className="mt-1 font-mono text-muted-foreground">
+                <div className='rounded-lg bg-muted p-4 text-sm'>
+                  <p className='font-medium'>Expected Layout:</p>
+                  <p className='mt-1 font-mono text-muted-foreground'>
                     Modal1 | Modal2 | Modal5
                   </p>
                 </div>
@@ -318,9 +330,9 @@ export function ComplexPatternDemo() {
             </FloatingModalBody>
             <FloatingModalFooter>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setModal5Open(false)}
-                className="w-full"
+                className='w-full'
               >
                 Close Modal 5
               </Button>
@@ -332,31 +344,31 @@ export function ComplexPatternDemo() {
         <FloatingModal
           open={modal6Open}
           onOpenChange={setModal6Open}
-          mode="replace"
-          width="md"
+          mode='replace'
+          width='md'
         >
-          <FloatingModalContent height="full">
+          <FloatingModalContent height='full'>
             <FloatingModalHeader>
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <FloatingModalTitle>Modal 6</FloatingModalTitle>
-                <Badge variant="destructive">replace</Badge>
+                <Badge variant='destructive'>replace</Badge>
               </div>
               <FloatingModalDescription>
                 Replaced Modal 3. Modal 3 should show only 80px.
               </FloatingModalDescription>
             </FloatingModalHeader>
             <FloatingModalBody>
-              <div className="space-y-4">
-                <div className="h-40 rounded-lg bg-orange-100 p-4">
-                  <p className="text-orange-800">Modal 6 Content Area</p>
-                  <p className="text-sm text-orange-600">
+              <div className='space-y-4'>
+                <div className='h-40 rounded-lg bg-orange-100 p-4'>
+                  <p className='text-orange-800'>Modal 6 Content Area</p>
+                  <p className='text-sm text-orange-600'>
                     This modal replaced Modal 3
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-muted p-4 text-sm">
-                  <p className="font-medium">Expected Layout:</p>
-                  <p className="mt-1 font-mono text-muted-foreground">
+                <div className='rounded-lg bg-muted p-4 text-sm'>
+                  <p className='font-medium'>Expected Layout:</p>
+                  <p className='mt-1 font-mono text-muted-foreground'>
                     Modal1 | Modal3(80px) | Modal6
                   </p>
                 </div>
@@ -364,9 +376,9 @@ export function ComplexPatternDemo() {
             </FloatingModalBody>
             <FloatingModalFooter>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={() => setModal6Open(false)}
-                className="w-full"
+                className='w-full'
               >
                 Close Modal 6
               </Button>
@@ -376,9 +388,9 @@ export function ComplexPatternDemo() {
       </FloatingModalRoot>
 
       {/* Test Cases */}
-      <div className="rounded-lg border p-4">
-        <p className="mb-2 font-medium">Test Cases:</p>
-        <ol className="list-inside list-decimal space-y-1 text-sm text-muted-foreground">
+      <div className='rounded-lg border p-4'>
+        <p className='mb-2 font-medium'>Test Cases:</p>
+        <ol className='list-inside list-decimal space-y-1 text-sm text-muted-foreground'>
           <li>1 → 2(stack): Two modals stacked</li>
           <li>1 → 2(stack) → 4(replace): Modal2 pushed (80px visible)</li>
           <li>1 → 2(stack) → 5(stack): Three modals all visible</li>

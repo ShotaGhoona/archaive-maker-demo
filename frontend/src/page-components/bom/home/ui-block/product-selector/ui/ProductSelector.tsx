@@ -48,7 +48,7 @@ export function ProductSelector({
     return products.filter(
       (p) =>
         p.productName.toLowerCase().includes(query) ||
-        p.productNumber.toLowerCase().includes(query)
+        p.productNumber.toLowerCase().includes(query),
     );
   }, [products, searchQuery]);
 
@@ -73,99 +73,97 @@ export function ProductSelector({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-2 px-3 max-w-xs"
-        >
+        <Button variant='outline' size='sm' className='max-w-xs gap-2 px-3'>
           {selectedProduct ? (
             <>
-              <span className="truncate">{selectedProduct.productName}</span>
-              <Badge variant="secondary" className="ml-1 shrink-0">
+              <span className='truncate'>{selectedProduct.productName}</span>
+              <Badge variant='secondary' className='ml-1 shrink-0'>
                 {selectedProduct.category}
               </Badge>
             </>
           ) : (
-            <span className="text-slate-500">製品を選択...</span>
+            <span className='text-slate-500'>製品を選択...</span>
           )}
-          <ChevronRight className="size-4 rotate-90 text-slate-400 shrink-0" />
+          <ChevronRight className='size-4 shrink-0 rotate-90 text-slate-400' />
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        align="start"
+        align='start'
         className={cn(
           'w-80 p-0',
           'border-white/60 bg-white/95 backdrop-blur-xl',
-          'shadow-[0_8px_32px_rgba(0,0,0,0.12)]'
+          'shadow-[0_8px_32px_rgba(0,0,0,0.12)]',
         )}
       >
         {/* 検索 */}
-        <div className="p-2 border-b border-slate-200/40">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+        <div className='border-b border-slate-200/40 p-2'>
+          <div className='relative'>
+            <Search className='absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-slate-400' />
             <Input
-              type="text"
-              placeholder="製品を検索..."
+              type='text'
+              placeholder='製品を検索...'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-9 pl-8 bg-white/50"
+              className='h-9 bg-white/50 pl-8'
             />
           </div>
         </div>
 
         {/* 製品リスト */}
-        <div className="max-h-80 overflow-y-auto p-1">
+        <div className='max-h-80 overflow-y-auto p-1'>
           {Object.keys(filteredByCategory).length === 0 ? (
-            <p className="py-8 text-center text-sm text-slate-500">
+            <p className='py-8 text-center text-sm text-slate-500'>
               該当する製品がありません
             </p>
           ) : (
-            Object.entries(filteredByCategory).map(([category, categoryProducts]) => (
-              <div key={category} className="mb-2 last:mb-0">
-                <div className="px-2 py-1.5 text-xs font-medium text-slate-500 uppercase tracking-wider">
-                  {category}
-                </div>
-                {categoryProducts.map((product) => (
-                  <button
-                    key={product.id}
-                    type="button"
-                    onClick={() => handleSelect(product.id)}
-                    className={cn(
-                      'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left',
-                      'transition-colors hover:bg-white/70',
-                      selectedProductId === product.id && 'bg-white/50'
-                    )}
-                  >
-                    <div
+            Object.entries(filteredByCategory).map(
+              ([category, categoryProducts]) => (
+                <div key={category} className='mb-2 last:mb-0'>
+                  <div className='px-2 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-500'>
+                    {category}
+                  </div>
+                  {categoryProducts.map((product) => (
+                    <button
+                      key={product.id}
+                      type='button'
+                      onClick={() => handleSelect(product.id)}
                       className={cn(
-                        'flex size-8 items-center justify-center rounded-lg',
-                        'bg-gradient-to-br from-slate-100 to-slate-200'
+                        'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left',
+                        'transition-colors hover:bg-white/70',
+                        selectedProductId === product.id && 'bg-white/50',
                       )}
                     >
-                      <Package className="size-4 text-slate-600" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p
+                      <div
                         className={cn(
-                          'text-sm truncate',
-                          selectedProductId === product.id
-                            ? 'font-medium text-slate-900'
-                            : 'text-slate-700'
+                          'flex size-8 items-center justify-center rounded-lg',
+                          'bg-gradient-to-br from-slate-100 to-slate-200',
                         )}
                       >
-                        {product.productName}
-                      </p>
-                      <p className="text-xs text-slate-400 truncate">
-                        {product.productNumber}
-                      </p>
-                    </div>
-                    {selectedProductId === product.id && (
-                      <Check className="size-4 shrink-0 text-slate-600" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            ))
+                        <Package className='size-4 text-slate-600' />
+                      </div>
+                      <div className='min-w-0 flex-1'>
+                        <p
+                          className={cn(
+                            'truncate text-sm',
+                            selectedProductId === product.id
+                              ? 'font-medium text-slate-900'
+                              : 'text-slate-700',
+                          )}
+                        >
+                          {product.productName}
+                        </p>
+                        <p className='truncate text-xs text-slate-400'>
+                          {product.productNumber}
+                        </p>
+                      </div>
+                      {selectedProductId === product.id && (
+                        <Check className='size-4 shrink-0 text-slate-600' />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              ),
+            )
           )}
         </div>
       </PopoverContent>

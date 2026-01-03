@@ -25,12 +25,14 @@ export function DottedGridBackground({
   const scaledDotSize = Math.max(0.5, DOT_SIZE * Math.min(scale, 1));
 
   // オフセットをグリッドサイズで正規化（パターンのシームレスな繰り返しのため）
-  const patternOffsetX = ((offsetX % scaledGridSize) + scaledGridSize) % scaledGridSize;
-  const patternOffsetY = ((offsetY % scaledGridSize) + scaledGridSize) % scaledGridSize;
+  const patternOffsetX =
+    ((offsetX % scaledGridSize) + scaledGridSize) % scaledGridSize;
+  const patternOffsetY =
+    ((offsetY % scaledGridSize) + scaledGridSize) % scaledGridSize;
 
   return (
     <svg
-      className="absolute inset-0 h-full w-full"
+      className='absolute inset-0 h-full w-full'
       style={{ backgroundColor: BACKGROUND_COLOR }}
     >
       <defs>
@@ -40,7 +42,7 @@ export function DottedGridBackground({
           y={patternOffsetY}
           width={scaledGridSize}
           height={scaledGridSize}
-          patternUnits="userSpaceOnUse"
+          patternUnits='userSpaceOnUse'
         >
           <circle
             cx={scaledGridSize / 2}
@@ -50,7 +52,7 @@ export function DottedGridBackground({
           />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+      <rect width='100%' height='100%' fill={`url(#${patternId})`} />
     </svg>
   );
 }

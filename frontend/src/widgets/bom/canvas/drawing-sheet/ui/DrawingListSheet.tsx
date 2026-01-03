@@ -50,12 +50,12 @@ export function DrawingListSheet({ drawings }: DrawingListSheetProps) {
           <TooltipTrigger asChild>
             <SheetTrigger asChild>
               <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6"
+                variant='ghost'
+                size='icon'
+                className='h-6 w-6'
                 onClick={(e) => e.stopPropagation()}
               >
-                <PenTool className="h-4 w-4" />
+                <PenTool className='h-4 w-4' />
               </Button>
             </SheetTrigger>
           </TooltipTrigger>
@@ -64,40 +64,40 @@ export function DrawingListSheet({ drawings }: DrawingListSheetProps) {
           </TooltipContent>
         </Tooltip>
         <SheetContent
-          className="flex flex-col overflow-hidden"
+          className='flex flex-col overflow-hidden'
           onWheel={(e) => e.stopPropagation()}
         >
           <SheetHeader>
-            <SheetTitle className="text-left">図面一覧</SheetTitle>
+            <SheetTitle className='text-left'>図面一覧</SheetTitle>
           </SheetHeader>
-          <div className="mt-4 min-h-0 flex-1 overflow-y-auto px-1 pb-4">
+          <div className='mt-4 min-h-0 flex-1 overflow-y-auto px-1 pb-4'>
             {drawings.length === 0 ? (
-              <div className="flex h-full items-center justify-center">
-                <NoData title="図面がありません" size="sm" />
+              <div className='flex h-full items-center justify-center'>
+                <NoData title='図面がありません' size='sm' />
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className='space-y-3'>
                 {drawings.map((drawing) => (
                   <button
                     key={drawing.id}
-                    className="w-full rounded-lg border p-3 text-left transition-colors bg-card"
+                    className='w-full rounded-lg border bg-card p-3 text-left transition-colors'
                     onClick={() => handleDrawingClick(drawing)}
                   >
                     {/* サムネイル */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-muted">
+                    <div className='relative aspect-[4/3] w-full overflow-hidden rounded bg-muted'>
                       <Image
                         src={drawing.previewImageUrl}
                         alt={drawing.name}
                         fill
-                        className="object-cover"
+                        className='object-cover'
                       />
                     </div>
                     {/* 情報 */}
-                    <div className="mt-2">
-                      <p className="text-xs text-muted-foreground">
+                    <div className='mt-2'>
+                      <p className='text-xs text-muted-foreground'>
                         {drawing.fileExtension.toUpperCase()}
                       </p>
-                      <p className="truncate text-sm font-medium">
+                      <p className='truncate text-sm font-medium'>
                         {drawing.name}
                       </p>
                     </div>

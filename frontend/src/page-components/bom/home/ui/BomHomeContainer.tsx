@@ -28,16 +28,12 @@ import {
 
 export function BomHomeContainer() {
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
-    null
+    null,
   );
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
-  const selectedProduct = dummyProducts.find(
-    (p) => p.id === selectedProductId
-  );
-  const bomTree = selectedProductId
-    ? getBomByProductId(selectedProductId)
-    : [];
+  const selectedProduct = dummyProducts.find((p) => p.id === selectedProductId);
+  const bomTree = selectedProductId ? getBomByProductId(selectedProductId) : [];
   const treeNodes = bomNodesToTreeNodes(bomTree);
   const selectedNodeDetail = selectedNodeId
     ? getNodeDetailById(selectedNodeId)
@@ -61,15 +57,15 @@ export function BomHomeContainer() {
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className='flex min-h-0 flex-1 flex-col gap-4'>
       {/* ヘッダー */}
-      <div className="flex items-center gap-3">
+      <div className='flex items-center gap-3'>
         {/* 左: タイトル + 製品セレクター */}
-        <div className="flex items-center gap-2">
-          <Package className="h-5 w-5 text-slate-700" />
-          <h1 className="text-lg font-semibold text-slate-900">BOM管理</h1>
+        <div className='flex items-center gap-2'>
+          <Package className='h-5 w-5 text-slate-700' />
+          <h1 className='text-lg font-semibold text-slate-900'>BOM管理</h1>
         </div>
-        <ChevronRight className="size-4 text-slate-300" />
+        <ChevronRight className='size-4 text-slate-300' />
         <ProductSelector
           products={dummyProducts}
           selectedProductId={selectedProductId}
@@ -77,7 +73,7 @@ export function BomHomeContainer() {
         />
 
         {/* 右: ツール群 */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className='ml-auto flex items-center gap-3'>
           {selectedProductId && (
             <>
               <BomTreeSearchBar
@@ -89,9 +85,9 @@ export function BomHomeContainer() {
                 onNext={bomSearch.handleNext}
                 onClear={bomSearch.handleClear}
               />
-              <Button variant="outline" size="xl" asChild>
+              <Button variant='outline' size='xl' asChild>
                 <Link href={`/bom/${selectedProductId}/canvas`}>
-                  <LayoutGrid className="mr-2 h-4 w-4" />
+                  <LayoutGrid className='mr-2 h-4 w-4' />
                   Canvas
                 </Link>
               </Button>
@@ -106,22 +102,22 @@ export function BomHomeContainer() {
         <Card
           className={cn(
             'flex flex-1 flex-col items-center justify-center gap-4',
-            'border-white/60 bg-white/40 backdrop-blur-xl'
+            'border-white/60 bg-white/40 backdrop-blur-xl',
           )}
         >
           <div
             className={cn(
               'flex size-16 items-center justify-center rounded-2xl',
-              'bg-gradient-to-br from-slate-100 to-slate-200'
+              'bg-gradient-to-br from-slate-100 to-slate-200',
             )}
           >
-            <Package className="size-8 text-slate-400" />
+            <Package className='size-8 text-slate-400' />
           </div>
-          <div className="text-center">
-            <p className="text-lg font-medium text-slate-700">
+          <div className='text-center'>
+            <p className='text-lg font-medium text-slate-700'>
               製品を選択してください
             </p>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className='mt-1 text-sm text-slate-500'>
               上部のセレクターから製品を選択すると、BOM構成が表示されます
             </p>
           </div>
@@ -129,8 +125,8 @@ export function BomHomeContainer() {
       ) : (
         // 製品選択時: ツリー + 詳細パネル（リサイズ可能）
         <ResizablePanelGroup
-          direction="horizontal"
-          className="min-h-0 flex-1 gap-2"
+          direction='horizontal'
+          className='min-h-0 flex-1 gap-2'
         >
           {/* BOMツリーパネル */}
           <ResizablePanel
@@ -153,7 +149,7 @@ export function BomHomeContainer() {
             <>
               <ResizableHandle
                 withHandle
-                className="mx-1 rounded-full bg-slate-200/50 transition-colors hover:bg-slate-300/50"
+                className='mx-1 rounded-full bg-slate-200/50 transition-colors hover:bg-slate-300/50'
               />
               <ResizablePanel defaultSize={40} minSize={25} maxSize={60}>
                 <BomDetailPanel

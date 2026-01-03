@@ -10,7 +10,11 @@ interface StickyNoteLayerProps {
   previewPosition: { x: number; y: number } | null;
 }
 
-export function StickyNoteLayer({ notes, onUpdate, previewPosition }: StickyNoteLayerProps) {
+export function StickyNoteLayer({
+  notes,
+  onUpdate,
+  previewPosition,
+}: StickyNoteLayerProps) {
   return (
     <>
       {/* 配置済みの付箋 */}

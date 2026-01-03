@@ -64,13 +64,19 @@ export function CanvasViewport({
   // キャンバスクリック処理
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // ノードやUI要素上でのクリックは無視
-    if ((e.target as HTMLElement).closest('[data-node], [data-sticky], button')) {
+    if (
+      (e.target as HTMLElement).closest('[data-node], [data-sticky], button')
+    ) {
       return;
     }
 
     if (!onCanvasClick || !containerRef.current) return;
 
-    const coords = getCanvasCoordinatesFromEvent(e, containerRef.current, viewport);
+    const coords = getCanvasCoordinatesFromEvent(
+      e,
+      containerRef.current,
+      viewport,
+    );
     onCanvasClick(coords);
   };
 
@@ -81,7 +87,11 @@ export function CanvasViewport({
 
     if (!onCanvasMouseMove || !containerRef.current) return;
 
-    const coords = getCanvasCoordinatesFromEvent(e, containerRef.current, viewport);
+    const coords = getCanvasCoordinatesFromEvent(
+      e,
+      containerRef.current,
+      viewport,
+    );
     onCanvasMouseMove(coords);
   };
 
@@ -104,7 +114,10 @@ export function CanvasViewport({
   return (
     <div
       ref={containerRef}
-      className={cn('relative h-full w-full overflow-hidden select-none', className)}
+      className={cn(
+        'relative h-full w-full select-none overflow-hidden',
+        className,
+      )}
       {...handlers}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -120,7 +133,7 @@ export function CanvasViewport({
 
       {/* コンテンツレイヤー */}
       <div
-        className="absolute inset-0"
+        className='absolute inset-0'
         style={{
           transform: `translate(${viewport.offsetX}px, ${viewport.offsetY}px) scale(${viewport.scale})`,
           transformOrigin: '0 0',
@@ -130,7 +143,7 @@ export function CanvasViewport({
       </div>
 
       {/* 操作ヘルプ */}
-      <CanvasControls className="bottom-4 left-4" />
+      <CanvasControls className='bottom-4 left-4' />
 
       {/* ミニマップ */}
       {minimapNodes && minimapNodes.length > 0 && (

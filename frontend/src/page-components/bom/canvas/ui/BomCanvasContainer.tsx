@@ -5,7 +5,10 @@ import { useMemo, useState, useCallback } from 'react';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { useCanvasViewport } from '@/widgets/bom/canvas/viewport/lib/use-canvas-viewport';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
-import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
+import {
+  CanvasToolbar,
+  type CanvasToolType,
+} from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
 import { BomTreeLayer } from '../ui-block/bom-tree/ui/BomTreeLayer';
 import { calculateBomTreeLayout } from '../ui-block/bom-tree/lib/tree-layout';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
@@ -24,8 +27,14 @@ const TOOL_CURSOR_MAP: Record<Exclude<CanvasToolType, null>, string> = {
 
 export function BomCanvasContainer() {
   const [selectedTool, setSelectedTool] = useState<CanvasToolType>(null);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
-  const [pendingCommentPosition, setPendingCommentPosition] = useState<{ x: number; y: number } | null>(null);
+  const [mousePosition, setMousePosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const [pendingCommentPosition, setPendingCommentPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   // ビューポート状態管理
   const canvasViewport = useCanvasViewport();
@@ -69,7 +78,7 @@ export function BomCanvasContainer() {
       }
       // TODO: node ツールの処理
     },
-    [selectedTool, addNote]
+    [selectedTool, addNote],
   );
 
   // コメント作成完了
@@ -78,7 +87,7 @@ export function BomCanvasContainer() {
       addThread(x, y, content);
       setPendingCommentPosition(null);
     },
-    [addThread]
+    [addThread],
   );
 
   // コメント作成キャンセル
@@ -93,7 +102,7 @@ export function BomCanvasContainer() {
         setMousePosition({ x: event.canvasX, y: event.canvasY });
       }
     },
-    [selectedTool]
+    [selectedTool],
   );
 
   // マウス離脱処理
@@ -107,9 +116,9 @@ export function BomCanvasContainer() {
   return (
     <div
       className={cn(
-        'relative h-full w-full rounded-2xl overflow-hidden',
+        'relative h-full w-full overflow-hidden rounded-2xl',
         'border border-white/60 bg-white/30 backdrop-blur-xl',
-        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
       )}
     >
       {/* Viewport層 */}
@@ -150,7 +159,7 @@ export function BomCanvasContainer() {
 
       {/* オーバーレイUI層 */}
       <CanvasToolbar
-        className="bottom-4 left-1/2 -translate-x-1/2"
+        className='bottom-4 left-1/2 -translate-x-1/2'
         selectedTool={selectedTool}
         onToolChange={setSelectedTool}
       />

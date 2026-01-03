@@ -88,7 +88,8 @@ export function TableHeader<T>({
               }}
               className={cn(
                 'relative sticky top-0 z-10 border-b border-slate-200/60 bg-white/60 py-4 text-slate-700 backdrop-blur-sm',
-                column.sortable && 'cursor-pointer select-none hover:bg-white/80',
+                column.sortable &&
+                  'cursor-pointer select-none hover:bg-white/80',
                 column.sticky && 'z-20',
               )}
               onClick={() => handleSort(key, column.sortable)}

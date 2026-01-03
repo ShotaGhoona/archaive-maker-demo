@@ -34,7 +34,7 @@ export function DrawingPreviewPanel({ drawings }: DrawingPreviewPanelProps) {
       ...thumbnail,
       drawingName: drawing.name,
       drawingNumber: drawing.drawingNumber,
-    }))
+    })),
   );
 
   return (
@@ -42,8 +42,8 @@ export function DrawingPreviewPanel({ drawings }: DrawingPreviewPanelProps) {
       {/* 左：サムネイルカード */}
       <Card
         className={cn(
-          'shrink-0 overflow-hidden py-0 gap-0',
-          'hover:bg-white/40'
+          'shrink-0 gap-0 overflow-hidden py-0',
+          'hover:bg-white/40',
         )}
       >
         <ScrollArea className='h-full'>
@@ -65,15 +65,15 @@ export function DrawingPreviewPanel({ drawings }: DrawingPreviewPanelProps) {
       {/* 右：プレビューカード */}
       <Card
         className={cn(
-          'flex flex-1 items-center justify-center p-4 py-0 gap-0',
-          'bg-white/40 hover:bg-white/40'
+          'flex flex-1 items-center justify-center gap-0 p-4 py-0',
+          'bg-white/40 hover:bg-white/40',
         )}
       >
         {selectedThumbnail ? (
           <img
             src={selectedThumbnail.thumbnailUrl}
             alt={selectedThumbnail.name}
-            className='max-h-full max-w-full object-contain rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+            className='max-h-full max-w-full rounded-lg object-contain shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
           />
         ) : (
           <p className='text-slate-500'>図面を選択してください</p>

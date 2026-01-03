@@ -4,7 +4,10 @@ import { StickyNote, MessageSquare, Plus } from 'lucide-react';
 
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { Button } from '@/shared/ui/shadcn/ui/button';
-import { ButtonGroup, ButtonGroupSeparator } from '@/shared/ui/shadcn/ui/button-group';
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '@/shared/ui/shadcn/ui/button-group';
 
 export type CanvasToolType = 'sticky' | 'comment' | 'node' | null;
 
@@ -15,9 +18,13 @@ interface ToolConfig {
 }
 
 const TOOLS: ToolConfig[] = [
-  { type: 'sticky', label: '付箋', icon: <StickyNote className="h-4 w-4" /> },
-  { type: 'comment', label: 'コメント', icon: <MessageSquare className="h-4 w-4" /> },
-  { type: 'node', label: '新規Node', icon: <Plus className="h-4 w-4" /> },
+  { type: 'sticky', label: '付箋', icon: <StickyNote className='h-4 w-4' /> },
+  {
+    type: 'comment',
+    label: 'コメント',
+    icon: <MessageSquare className='h-4 w-4' />,
+  },
+  { type: 'node', label: '新規Node', icon: <Plus className='h-4 w-4' /> },
 ];
 
 interface CanvasToolbarProps {
@@ -39,17 +46,17 @@ export function CanvasToolbar({
 
   return (
     <div className={cn('absolute', className)}>
-      <ButtonGroup className="rounded-xl border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
+      <ButtonGroup className='rounded-xl border border-white/60 bg-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl'>
         {TOOLS.map((tool, index) => (
-          <div key={tool.type} className="flex items-stretch">
+          <div key={tool.type} className='flex items-stretch'>
             {index > 0 && <ButtonGroupSeparator />}
             <Button
               variant={selectedTool === tool.type ? 'default' : 'ghost'}
-              className="h-10 gap-2 px-4"
+              className='h-10 gap-2 px-4'
               onClick={() => handleToolSelect(tool.type)}
             >
               {tool.icon}
-              <span className="text-sm">{tool.label}</span>
+              <span className='text-sm'>{tool.label}</span>
             </Button>
           </div>
         ))}

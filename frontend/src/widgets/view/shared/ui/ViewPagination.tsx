@@ -24,7 +24,7 @@ interface ViewPaginationProps {
 
 function getPageNumbers(
   currentPage: number,
-  totalPages: number
+  totalPages: number,
 ): (number | 'ellipsis')[] {
   const pages: (number | 'ellipsis')[] = [];
 
@@ -82,8 +82,8 @@ export function ViewPagination({
   const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <div className="flex shrink-0 items-center justify-between pt-2">
-      <span className="min-w-[100px] text-sm text-slate-500">
+    <div className='flex shrink-0 items-center justify-between pt-2'>
+      <span className='min-w-[100px] text-sm text-slate-500'>
         {startItem}-{endItem}/{totalItems}
       </span>
 
@@ -91,7 +91,7 @@ export function ViewPagination({
         className={cn(
           'flex items-center gap-1 rounded-xl p-1',
           'border border-white/60 bg-white/40 backdrop-blur-xl',
-          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]'
+          'shadow-[0_4px_16px_rgba(0,0,0,0.06)]',
         )}
       >
         <button
@@ -100,15 +100,15 @@ export function ViewPagination({
           className={cn(
             'flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200',
             'text-slate-500 hover:bg-white/50 hover:text-slate-700',
-            'disabled:opacity-50 disabled:cursor-not-allowed'
+            'disabled:cursor-not-allowed disabled:opacity-50',
           )}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className='h-4 w-4' />
         </button>
 
         {pageNumbers.map((page, index) =>
           page === 'ellipsis' ? (
-            <span key={`ellipsis-${index}`} className="px-2 text-slate-400">
+            <span key={`ellipsis-${index}`} className='px-2 text-slate-400'>
               ...
             </span>
           ) : (
@@ -119,12 +119,12 @@ export function ViewPagination({
                 'flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-all duration-200',
                 page === currentPage
                   ? 'bg-slate-900 text-white shadow-sm'
-                  : 'text-slate-600 hover:bg-white/50 hover:text-slate-900'
+                  : 'text-slate-600 hover:bg-white/50 hover:text-slate-900',
               )}
             >
               {page}
             </button>
-          )
+          ),
         )}
 
         <button
@@ -133,15 +133,15 @@ export function ViewPagination({
           className={cn(
             'flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200',
             'text-slate-500 hover:bg-white/50 hover:text-slate-700',
-            'disabled:opacity-50 disabled:cursor-not-allowed'
+            'disabled:cursor-not-allowed disabled:opacity-50',
           )}
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className='h-4 w-4' />
         </button>
       </div>
 
-      <div className="flex min-w-[100px] items-center justify-end gap-4 text-sm text-slate-500">
-        <div className="flex items-center gap-2">
+      <div className='flex min-w-[100px] items-center justify-end gap-4 text-sm text-slate-500'>
+        <div className='flex items-center gap-2'>
           <span>ページサイズ</span>
           <Select
             value={String(pageSize)}
@@ -151,7 +151,7 @@ export function ViewPagination({
               className={cn(
                 'h-8 w-[70px] rounded-lg',
                 'border-white/60 bg-white/40 backdrop-blur-xl',
-                'shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
+                'shadow-[0_2px_8px_rgba(0,0,0,0.04)]',
               )}
             >
               <SelectValue />
@@ -167,8 +167,8 @@ export function ViewPagination({
         </div>
 
         {showGridColumns && onGridColumnsChange && (
-          <div className="flex items-center gap-2">
-            <Grid3x3 className="h-4 w-4" />
+          <div className='flex items-center gap-2'>
+            <Grid3x3 className='h-4 w-4' />
             <Select
               value={String(gridColumns)}
               onValueChange={(value) =>
@@ -179,7 +179,7 @@ export function ViewPagination({
                 className={cn(
                   'h-8 w-[70px] rounded-lg',
                   'border-white/60 bg-white/40 backdrop-blur-xl',
-                  'shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
+                  'shadow-[0_2px_8px_rgba(0,0,0,0.04)]',
                 )}
               >
                 <SelectValue />

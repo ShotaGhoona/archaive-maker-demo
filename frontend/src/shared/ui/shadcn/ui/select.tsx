@@ -45,7 +45,7 @@ function SelectTrigger({
         'disabled:cursor-not-allowed disabled:opacity-50',
         'data-[size=default]:h-9 data-[size=sm]:h-8',
         'data-[placeholder]:text-slate-400',
-        "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
+        '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2',
         "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
@@ -124,7 +124,7 @@ function SelectItem({
         'outline-hidden relative flex w-full cursor-default select-none items-center gap-2 rounded-lg py-1.5 pl-2 pr-8 text-sm transition-colors',
         'text-slate-600 focus:bg-white/60 focus:text-slate-900',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-        "*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        '*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
         "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
@@ -147,7 +147,10 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot='select-separator'
-      className={cn('pointer-events-none -mx-1 my-1 h-px bg-slate-200/60', className)}
+      className={cn(
+        'pointer-events-none -mx-1 my-1 h-px bg-slate-200/60',
+        className,
+      )}
       {...props}
     />
   );

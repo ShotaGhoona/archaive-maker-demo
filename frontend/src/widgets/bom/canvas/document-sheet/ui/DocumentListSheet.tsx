@@ -28,7 +28,9 @@ interface DocumentListSheetProps {
 
 export function DocumentListSheet({ documents }: DocumentListSheetProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
+    null,
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleDocumentClick = (doc: Document) => {
@@ -50,12 +52,12 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
           <TooltipTrigger asChild>
             <SheetTrigger asChild>
               <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6"
+                variant='ghost'
+                size='icon'
+                className='h-6 w-6'
                 onClick={(e) => e.stopPropagation()}
               >
-                <FileText className="h-4 w-4" />
+                <FileText className='h-4 w-4' />
               </Button>
             </SheetTrigger>
           </TooltipTrigger>
@@ -64,47 +66,47 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
           </TooltipContent>
         </Tooltip>
         <SheetContent
-          className="flex flex-col overflow-hidden"
+          className='flex flex-col overflow-hidden'
           onWheel={(e) => e.stopPropagation()}
         >
           <SheetHeader>
-            <SheetTitle className="text-left">帳票一覧</SheetTitle>
+            <SheetTitle className='text-left'>帳票一覧</SheetTitle>
           </SheetHeader>
-          <div className="mt-4 min-h-0 flex-1 overflow-y-auto px-1 pb-4">
+          <div className='mt-4 min-h-0 flex-1 overflow-y-auto px-1 pb-4'>
             {documents.length === 0 ? (
-              <div className="flex h-full items-center justify-center">
-                <NoData title="帳票がありません" size="sm" />
+              <div className='flex h-full items-center justify-center'>
+                <NoData title='帳票がありません' size='sm' />
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className='space-y-3'>
                 {documents.map((doc) => {
-                const latestVersion = doc.versions[doc.versions.length - 1];
-                return (
-                  <button
-                    key={doc.id}
-                    className="w-full rounded-lg border p-3 text-left transition-colors bg-card"
-                    onClick={() => handleDocumentClick(doc)}
-                  >
-                    {/* サムネイル */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-muted">
-                      <Image
-                        src={latestVersion.previewImageUrl}
-                        alt={latestVersion.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    {/* 情報 */}
-                    <div className="mt-2">
-                      <p className="text-xs text-muted-foreground">
-                        {doc.typeName}
-                      </p>
-                      <p className="truncate text-sm font-medium">
-                        {latestVersion.name}
-                      </p>
-                    </div>
-                  </button>
-                );
+                  const latestVersion = doc.versions[doc.versions.length - 1];
+                  return (
+                    <button
+                      key={doc.id}
+                      className='w-full rounded-lg border bg-card p-3 text-left transition-colors'
+                      onClick={() => handleDocumentClick(doc)}
+                    >
+                      {/* サムネイル */}
+                      <div className='relative aspect-[4/3] w-full overflow-hidden rounded bg-muted'>
+                        <Image
+                          src={latestVersion.previewImageUrl}
+                          alt={latestVersion.name}
+                          fill
+                          className='object-cover'
+                        />
+                      </div>
+                      {/* 情報 */}
+                      <div className='mt-2'>
+                        <p className='text-xs text-muted-foreground'>
+                          {doc.typeName}
+                        </p>
+                        <p className='truncate text-sm font-medium'>
+                          {latestVersion.name}
+                        </p>
+                      </div>
+                    </button>
+                  );
                 })}
               </div>
             )}

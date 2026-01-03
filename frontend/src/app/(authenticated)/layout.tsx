@@ -13,7 +13,7 @@ export default function AuthenticatedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative h-screen overflow-hidden bg-background p-4">
+    <div className='relative h-screen overflow-hidden bg-background p-4'>
       {/* 背景グラデーション */}
       {/* <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" /> */}
 
@@ -23,12 +23,12 @@ export default function AuthenticatedLayout({
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-pink-100/40 blur-[100px]" /> */}
 
       {/* コンテンツエリア */}
-      <div className="relative flex h-full gap-4">
+      <div className='relative flex h-full gap-4'>
         {/* サイドバーカード */}
         <AppSidebar />
 
         {/* メインコンテンツ */}
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col overflow-auto">
+        <main className='flex min-h-0 min-w-0 flex-1 flex-col overflow-auto'>
           {children}
         </main>
       </div>

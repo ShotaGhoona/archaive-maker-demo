@@ -2,7 +2,11 @@
 
 import { useCallback, useRef, useMemo, useState, useEffect } from 'react';
 
-import type { ViewportState, MinimapNode, MinimapConnector } from '../../model/types';
+import type {
+  ViewportState,
+  MinimapNode,
+  MinimapConnector,
+} from '../../model/types';
 
 interface CanvasMinimapProps {
   viewport: ViewportState;
@@ -13,7 +17,9 @@ interface CanvasMinimapProps {
 }
 
 // コンテナサイズを取得するフック
-function useContainerSize(containerRef: React.RefObject<HTMLDivElement | null>) {
+function useContainerSize(
+  containerRef: React.RefObject<HTMLDivElement | null>,
+) {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
@@ -72,7 +78,8 @@ export function CanvasMinimap({
   const minimapRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
-  const { width: containerWidth, height: containerHeight } = useContainerSize(containerRef);
+  const { width: containerWidth, height: containerHeight } =
+    useContainerSize(containerRef);
 
   // コンテンツ領域の範囲
   const worldBounds = useContentBounds(nodes);
@@ -132,7 +139,7 @@ export function CanvasMinimap({
       const canvasY = minimapY / minimapScale + worldBounds.minY;
       return { canvasX, canvasY };
     },
-    [minimapScale, worldBounds]
+    [minimapScale, worldBounds],
   );
 
   // クリック/ドラッグ処理
@@ -147,7 +154,7 @@ export function CanvasMinimap({
       const { canvasX, canvasY } = minimapToCanvas(minimapX, minimapY);
       onPanTo(canvasX, canvasY);
     },
-    [minimapToCanvas, onPanTo]
+    [minimapToCanvas, onPanTo],
   );
 
   const handleMouseDown = useCallback(
@@ -156,7 +163,7 @@ export function CanvasMinimap({
       isDragging.current = true;
       handleInteraction(e);
     },
-    [handleInteraction]
+    [handleInteraction],
   );
 
   const handleMouseMove = useCallback(
@@ -164,7 +171,7 @@ export function CanvasMinimap({
       if (!isDragging.current) return;
       handleInteraction(e);
     },
-    [handleInteraction]
+    [handleInteraction],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -181,7 +188,7 @@ export function CanvasMinimap({
       x: (x - worldBounds.minX) * minimapScale,
       y: (y - worldBounds.minY) * minimapScale,
     }),
-    [worldBounds, minimapScale]
+    [worldBounds, minimapScale],
   );
 
   // ビューポート矩形のミニマップ座標
@@ -198,7 +205,7 @@ export function CanvasMinimap({
   return (
     <div
       ref={minimapRef}
-      className="absolute top-4 left-4 rounded-xl border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] cursor-crosshair overflow-hidden"
+      className='absolute left-4 top-4 cursor-crosshair overflow-hidden rounded-xl border border-white/60 bg-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl'
       style={{ width: minimapSize.width, height: minimapSize.height }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
@@ -206,12 +213,12 @@ export function CanvasMinimap({
       onMouseLeave={handleMouseLeave}
     >
       {/* 背景 */}
-      <div className="absolute inset-0 bg-slate-100/50" />
+      <div className='absolute inset-0 bg-slate-100/50' />
 
       {/* コネクタのプレビュー */}
       {connectors && connectors.length > 0 && (
         <svg
-          className="absolute inset-0"
+          className='absolute inset-0'
           style={{ width: minimapSize.width, height: minimapSize.height }}
         >
           {connectors.map((connector, index) => {
@@ -223,9 +230,9 @@ export function CanvasMinimap({
               <path
                 key={index}
                 d={path}
-                stroke="#94a3b8"
+                stroke='#94a3b8'
                 strokeWidth={1}
-                fill="none"
+                fill='none'
               />
             );
           })}
@@ -238,7 +245,7 @@ export function CanvasMinimap({
         return (
           <div
             key={node.id}
-            className="absolute bg-slate-400 rounded-[1px]"
+            className='absolute rounded-[1px] bg-slate-400'
             style={{
               left: pos.x,
               top: pos.y,
@@ -251,7 +258,7 @@ export function CanvasMinimap({
 
       {/* 現在のビューポート位置 */}
       <div
-        className="absolute border-2 border-blue-500 bg-blue-500/10"
+        className='absolute border-2 border-blue-500 bg-blue-500/10'
         style={{
           left: viewportInMinimap.x,
           top: viewportInMinimap.y,

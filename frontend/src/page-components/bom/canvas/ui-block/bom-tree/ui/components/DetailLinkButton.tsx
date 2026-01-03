@@ -19,14 +19,14 @@ export function DetailLinkButton({ nodeId }: DetailLinkButtonProps) {
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
-          variant="ghost"
-          size="icon"
-          className="h-6 w-6"
+          variant='ghost'
+          size='icon'
+          className='h-6 w-6'
           asChild
           onClick={(e) => e.stopPropagation()}
         >
           <Link href={`/bom/${nodeId}/basic-information`}>
-            <ExternalLink className="h-4 w-4" />
+            <ExternalLink className='h-4 w-4' />
           </Link>
         </Button>
       </TooltipTrigger>

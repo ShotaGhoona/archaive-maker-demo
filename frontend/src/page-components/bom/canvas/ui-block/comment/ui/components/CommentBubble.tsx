@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import type { CommentThread } from '../../model/types';
-import { COMMENT_AVATAR_SIZE, COMMENT_PREVIEW_WIDTH } from '@/shared/canvas/constant/size';
+import {
+  COMMENT_AVATAR_SIZE,
+  COMMENT_PREVIEW_WIDTH,
+} from '@/shared/canvas/constant/size';
 
 interface CommentBubbleProps {
   thread: CommentThread;
@@ -28,7 +31,10 @@ function getRelativeTime(dateString: string): string {
   return date.toLocaleDateString('ja-JP');
 }
 
-export function CommentBubble({ thread, isDragging = false }: CommentBubbleProps) {
+export function CommentBubble({
+  thread,
+  isDragging = false,
+}: CommentBubbleProps) {
   const [isHovering, setIsHovering] = useState(false);
 
   const firstComment = thread.comments[0];
@@ -39,14 +45,14 @@ export function CommentBubble({ thread, isDragging = false }: CommentBubbleProps
 
   return (
     <div
-      className="relative"
+      className='relative'
       onMouseEnter={() => !isDragging && setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* アバター（常に表示） */}
       <img
         src={avatarUrl}
-        alt=""
+        alt=''
         className={`cursor-pointer rounded-full bg-gray-100 shadow-md transition-all duration-200 ${
           showPreview ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         }`}
@@ -56,31 +62,33 @@ export function CommentBubble({ thread, isDragging = false }: CommentBubbleProps
       {/* プレビュー（ホバー時にフェードイン） */}
       {firstComment && (
         <div
-          className={`absolute left-0 top-0 flex cursor-pointer gap-2 rounded-xl border border-white/60 bg-white/80 backdrop-blur-xl p-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-200 ${
-            showPreview ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
+          className={`absolute left-0 top-0 flex cursor-pointer gap-2 rounded-xl border border-white/60 bg-white/80 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-200 ${
+            showPreview
+              ? 'scale-100 opacity-100'
+              : 'pointer-events-none scale-95 opacity-0'
           }`}
           style={{ width: COMMENT_PREVIEW_WIDTH }}
         >
           <img
             src={avatarUrl}
-            alt=""
-            className="shrink-0 rounded-full bg-gray-100"
+            alt=''
+            className='shrink-0 rounded-full bg-gray-100'
             style={{ width: COMMENT_AVATAR_SIZE, height: COMMENT_AVATAR_SIZE }}
           />
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <span className="truncate text-sm font-medium text-gray-900">
+          <div className='min-w-0 flex-1'>
+            <div className='flex items-center gap-2'>
+              <span className='truncate text-sm font-medium text-gray-900'>
                 {firstComment.author.name}
               </span>
-              <span className="shrink-0 text-xs text-gray-400">
+              <span className='shrink-0 text-xs text-gray-400'>
                 {getRelativeTime(firstComment.createdAt)}
               </span>
             </div>
-            <p className="mt-0.5 line-clamp-2 text-sm text-gray-600">
+            <p className='mt-0.5 line-clamp-2 text-sm text-gray-600'>
               {firstComment.content}
             </p>
             {replyCount > 0 && (
-              <p className="mt-1 text-xs text-primary">{replyCount}件の返信</p>
+              <p className='mt-1 text-xs text-primary'>{replyCount}件の返信</p>
             )}
           </div>
         </div>

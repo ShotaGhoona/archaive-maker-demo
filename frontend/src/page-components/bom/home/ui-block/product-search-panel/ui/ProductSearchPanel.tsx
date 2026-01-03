@@ -94,7 +94,9 @@ export function ProductSearchPanel({
                         'bg-white/70 shadow-sm',
                     )}
                   >
-                    <p className='text-sm font-medium text-slate-900'>{product.productNumber}</p>
+                    <p className='text-sm font-medium text-slate-900'>
+                      {product.productNumber}
+                    </p>
                     <p className='text-xs text-slate-500'>
                       {product.productName}
                     </p>

@@ -4,7 +4,10 @@ import { useState, useRef, useCallback } from 'react';
 import { Check, X, MoreHorizontal, Pencil, Send } from 'lucide-react';
 import type { CommentThread, Comment } from '../../model/types';
 import { DUMMY_USER } from '../../model/types';
-import { COMMENT_EXPANDED_WIDTH, COMMENT_AVATAR_SIZE } from '@/shared/canvas/constant/size';
+import {
+  COMMENT_EXPANDED_WIDTH,
+  COMMENT_AVATAR_SIZE,
+} from '@/shared/canvas/constant/size';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -74,36 +77,36 @@ function CommentItem({
         setEditValue(comment.content);
       }
     },
-    [handleSaveEdit, comment.content]
+    [handleSaveEdit, comment.content],
   );
 
   return (
-    <div className="group flex gap-2 px-3 py-2">
+    <div className='group flex gap-2 px-3 py-2'>
       <img
         src={comment.author.avatarUrl}
-        alt=""
-        className="shrink-0 rounded-full bg-gray-100"
+        alt=''
+        className='shrink-0 rounded-full bg-gray-100'
         style={{ width: COMMENT_AVATAR_SIZE, height: COMMENT_AVATAR_SIZE }}
       />
 
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-900">
+      <div className='min-w-0 flex-1'>
+        <div className='flex items-center gap-2'>
+          <span className='text-sm font-medium text-gray-900'>
             {comment.author.name}
           </span>
-          <span className="text-xs text-gray-400">
+          <span className='text-xs text-gray-400'>
             {getRelativeTime(comment.createdAt)}
           </span>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="ml-auto rounded p-0.5 opacity-0 hover:bg-gray-100 group-hover:opacity-100">
-                <MoreHorizontal className="h-4 w-4 text-gray-400" />
+              <button className='ml-auto rounded p-0.5 opacity-0 hover:bg-gray-100 group-hover:opacity-100'>
+                <MoreHorizontal className='h-4 w-4 text-gray-400' />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align='end'>
               <DropdownMenuItem onClick={handleStartEdit}>
-                <Pencil className="mr-2 h-4 w-4" />
+                <Pencil className='mr-2 h-4 w-4' />
                 編集
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -112,16 +115,16 @@ function CommentItem({
 
         {isEditing ? (
           <input
-            type="text"
+            type='text'
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleSaveEdit}
             autoFocus
-            className="mt-1 w-full rounded border border-primary px-2 py-1 text-sm outline-none"
+            className='mt-1 w-full rounded border border-primary px-2 py-1 text-sm outline-none'
           />
         ) : (
-          <p className="mt-0.5 whitespace-pre-wrap text-sm text-gray-700">
+          <p className='mt-0.5 whitespace-pre-wrap text-sm text-gray-700'>
             {comment.content}
           </p>
         )}
@@ -150,34 +153,37 @@ function ReplyInput({ onSubmit }: { onSubmit: (content: string) => void }) {
         handleSubmit();
       }
     },
-    [handleSubmit]
+    [handleSubmit],
   );
 
   return (
-    <div className="flex items-center gap-2 border-t border-slate-200/40 p-2">
+    <div className='flex items-center gap-2 border-t border-slate-200/40 p-2'>
       <img
         src={DUMMY_USER.avatarUrl}
-        alt=""
-        className="shrink-0 rounded-full bg-gray-100"
-        style={{ width: COMMENT_AVATAR_SIZE - 8, height: COMMENT_AVATAR_SIZE - 8 }}
+        alt=''
+        className='shrink-0 rounded-full bg-gray-100'
+        style={{
+          width: COMMENT_AVATAR_SIZE - 8,
+          height: COMMENT_AVATAR_SIZE - 8,
+        }}
       />
 
       <input
         ref={inputRef}
-        type="text"
+        type='text'
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="返信..."
-        className="min-w-0 flex-1 rounded border border-gray-200 px-2 py-1 text-sm outline-none focus:border-primary"
+        placeholder='返信...'
+        className='min-w-0 flex-1 rounded border border-gray-200 px-2 py-1 text-sm outline-none focus:border-primary'
       />
 
       <button
         onClick={handleSubmit}
         disabled={!value.trim()}
-        className="flex shrink-0 items-center justify-center rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+        className='flex shrink-0 items-center justify-center rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-primary disabled:cursor-not-allowed disabled:opacity-50'
       >
-        <Send className="h-4 w-4" />
+        <Send className='h-4 w-4' />
       </button>
     </div>
   );
@@ -192,22 +198,22 @@ export function CommentExpanded({
 }: CommentExpandedProps) {
   return (
     <div
-      className="overflow-hidden rounded-xl border border-white/60 bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+      className='overflow-hidden rounded-xl border border-white/60 bg-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl'
       style={{ width: COMMENT_EXPANDED_WIDTH }}
     >
       {/* ヘッダー */}
-      <div className="flex items-center justify-between border-b border-slate-200/40 px-3 py-2">
-        <span className="text-sm font-medium text-gray-900">コメント</span>
-        <div className="flex items-center gap-1">
+      <div className='flex items-center justify-between border-b border-slate-200/40 px-3 py-2'>
+        <span className='text-sm font-medium text-gray-900'>コメント</span>
+        <div className='flex items-center gap-1'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="rounded p-1 hover:bg-gray-100">
-                <MoreHorizontal className="h-4 w-4 text-gray-400" />
+              <button className='rounded p-1 hover:bg-gray-100'>
+                <MoreHorizontal className='h-4 w-4 text-gray-400' />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align='end'>
               <DropdownMenuItem onClick={onResolve}>
-                <Check className="mr-2 h-4 w-4" />
+                <Check className='mr-2 h-4 w-4' />
                 解決済みにする
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -215,24 +221,24 @@ export function CommentExpanded({
 
           <button
             onClick={onResolve}
-            className="rounded p-1 text-gray-400 hover:bg-green-50 hover:text-green-600"
-            title="解決済みにする"
+            className='rounded p-1 text-gray-400 hover:bg-green-50 hover:text-green-600'
+            title='解決済みにする'
           >
-            <Check className="h-4 w-4" />
+            <Check className='h-4 w-4' />
           </button>
 
           <button
             onClick={onClose}
-            className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-            title="閉じる"
+            className='rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600'
+            title='閉じる'
           >
-            <X className="h-4 w-4" />
+            <X className='h-4 w-4' />
           </button>
         </div>
       </div>
 
       {/* コメント一覧 */}
-      <div className="max-h-64 overflow-y-auto">
+      <div className='max-h-64 overflow-y-auto'>
         {thread.comments.map((comment) => (
           <CommentItem
             key={comment.id}

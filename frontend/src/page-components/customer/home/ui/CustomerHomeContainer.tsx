@@ -21,22 +21,22 @@ export function CustomerHomeContainer() {
   } = useCustomerFilter();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className='flex min-h-0 flex-1 flex-col gap-4'>
       {/* ヘッダー */}
-      <div className="flex items-center gap-3">
+      <div className='flex items-center gap-3'>
         {/* 左: タイトル */}
-        <div className="flex items-center gap-2">
-          <Users className="h-5 w-5 text-slate-700" />
-          <h1 className="text-lg font-semibold text-slate-900">顧客管理</h1>
+        <div className='flex items-center gap-2'>
+          <Users className='h-5 w-5 text-slate-700' />
+          <h1 className='text-lg font-semibold text-slate-900'>顧客管理</h1>
         </div>
 
         {/* 右: ツール群 */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className='ml-auto flex items-center gap-3'>
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            placeholder="顧客コード、会社名で検索..."
-            expandedWidth="w-80"
+            placeholder='顧客コード、会社名で検索...'
+            expandedWidth='w-80'
           />
           <CustomerColumnSettings />
           <CustomerCsvExport />
@@ -52,7 +52,7 @@ export function CustomerHomeContainer() {
       />
 
       {/* コンテンツエリア */}
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className='flex min-h-0 flex-1 flex-col'>
         <CustomerTablePanel />
       </div>
     </div>

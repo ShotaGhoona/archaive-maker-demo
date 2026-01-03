@@ -7,7 +7,11 @@ import {
   AlertTriangle,
   Calendar,
 } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
@@ -20,7 +24,11 @@ interface TaskListPanelProps {
 
 const STATUS_CONFIG: Record<
   TaskStatus,
-  { label: string; icon: React.ReactNode; variant: 'default' | 'secondary' | 'outline' }
+  {
+    label: string;
+    icon: React.ReactNode;
+    variant: 'default' | 'secondary' | 'outline';
+  }
 > = {
   todo: {
     label: '未着手',
@@ -79,23 +87,28 @@ function TaskCard({
       onClick={onSelect}
       className={cn(
         'w-full rounded-xl p-3 text-left transition-all',
-        'bg-white/50 border border-white/60',
+        'border border-white/60 bg-white/50',
         'hover:bg-white/70',
         isSelected && 'bg-white/70 shadow-[0_4px_16px_rgba(0,0,0,0.08)]',
-        task.status === 'done' && 'opacity-70'
+        task.status === 'done' && 'opacity-70',
       )}
     >
       {/* Header */}
       <div className='flex items-start justify-between gap-2'>
         <div className='min-w-0 flex-1'>
-          <h3 className='text-sm font-medium leading-tight text-slate-900'>{task.title}</h3>
+          <h3 className='text-sm font-medium leading-tight text-slate-900'>
+            {task.title}
+          </h3>
           {task.description && (
             <p className='mt-1 line-clamp-2 text-xs text-slate-500'>
               {task.description}
             </p>
           )}
         </div>
-        <Badge variant={statusConfig.variant} className='shrink-0 gap-1 text-[10px]'>
+        <Badge
+          variant={statusConfig.variant}
+          className='shrink-0 gap-1 text-[10px]'
+        >
           {statusConfig.icon}
           {statusConfig.label}
         </Badge>
@@ -117,7 +130,7 @@ function TaskCard({
             <div
               className={cn(
                 'flex items-center gap-1 text-[10px]',
-                overdue ? 'text-red-500' : 'text-slate-400'
+                overdue ? 'text-red-500' : 'text-slate-400',
               )}
             >
               <Calendar className='size-3' />

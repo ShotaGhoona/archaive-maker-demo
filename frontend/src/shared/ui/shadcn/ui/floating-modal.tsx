@@ -98,21 +98,22 @@ function FloatingModalProvider({
 }: FloatingModalProviderProps) {
   const [modals, setModals] = React.useState<ModalEntry[]>([]);
 
-  const register = React.useCallback((id: string, mode: ModalMode, width: number) => {
-    setModals((prev) => {
-      if (prev.some((m) => m.id === id)) return prev;
-      return [...prev, { id, mode, width }];
-    });
-  }, []);
+  const register = React.useCallback(
+    (id: string, mode: ModalMode, width: number) => {
+      setModals((prev) => {
+        if (prev.some((m) => m.id === id)) return prev;
+        return [...prev, { id, mode, width }];
+      });
+    },
+    [],
+  );
 
   const unregister = React.useCallback((id: string) => {
     setModals((prev) => prev.filter((m) => m.id !== id));
   }, []);
 
   const updateWidth = React.useCallback((id: string, width: number) => {
-    setModals((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, width } : m))
-    );
+    setModals((prev) => prev.map((m) => (m.id === id ? { ...m, width } : m)));
   }, []);
 
   /**
@@ -142,7 +143,8 @@ function FloatingModalProvider({
 
         if (thisModal.mode === 'replace') {
           // Replace mode: position next to the visible portion (80px) of previous modal
-          baseOffsets[i] = baseOffsets[i - 1] + REPLACE_VISIBLE_WIDTH + CARD_GAP;
+          baseOffsets[i] =
+            baseOffsets[i - 1] + REPLACE_VISIBLE_WIDTH + CARD_GAP;
         } else {
           // Stack mode (or default): position next to the full width of previous modal
           baseOffsets[i] = baseOffsets[i - 1] + prevModal.width + CARD_GAP;
@@ -187,14 +189,29 @@ function FloatingModalProvider({
 
   const getPosition = React.useCallback(
     (id: string): ModalPosition => {
-      return positions.get(id) ?? { offset: EDGE_GAP, translateX: 0, isHidden: false, isPartial: false };
+      return (
+        positions.get(id) ?? {
+          offset: EDGE_GAP,
+          translateX: 0,
+          isHidden: false,
+          isPartial: false,
+        }
+      );
     },
-    [positions]
+    [positions],
   );
 
   const contextValue = React.useMemo(
-    () => ({ modals, side, align, register, unregister, updateWidth, getPosition }),
-    [modals, side, align, register, unregister, updateWidth, getPosition]
+    () => ({
+      modals,
+      side,
+      align,
+      register,
+      unregister,
+      updateWidth,
+      getPosition,
+    }),
+    [modals, side, align, register, unregister, updateWidth, getPosition],
   );
 
   return (
@@ -216,7 +233,8 @@ type FloatingModalContextValue = {
   onBack?: () => void;
 };
 
-const FloatingModalContext = React.createContext<FloatingModalContextValue | null>(null);
+const FloatingModalContext =
+  React.createContext<FloatingModalContextValue | null>(null);
 
 function useFloatingModal() {
   const context = React.useContext(FloatingModalContext);
@@ -248,7 +266,8 @@ function FloatingModal({
   const id = React.useId();
   const provider = useFloatingModalProvider();
 
-  const width = typeof widthProp === 'number' ? widthProp : WIDTH_PRESETS[widthProp];
+  const width =
+    typeof widthProp === 'number' ? widthProp : WIDTH_PRESETS[widthProp];
 
   // Refs for stable callbacks
   const registerRef = React.useRef(provider?.register);
@@ -270,17 +289,22 @@ function FloatingModal({
     };
   }, [open, id, mode, width]);
 
-  const position = provider?.getPosition(id) ?? { offset: EDGE_GAP, translateX: 0, isHidden: false, isPartial: false };
+  const position = provider?.getPosition(id) ?? {
+    offset: EDGE_GAP,
+    translateX: 0,
+    isHidden: false,
+    isPartial: false,
+  };
 
   const contextValue = React.useMemo(
     () => ({ id, mode, position, width, onBack }),
-    [id, mode, position, width, onBack]
+    [id, mode, position, width, onBack],
   );
 
   return (
     <FloatingModalContext.Provider value={contextValue}>
       <DialogPrimitive.Root
-        data-slot="floating-modal"
+        data-slot='floating-modal'
         open={open}
         onOpenChange={onOpenChange}
         {...props}
@@ -299,7 +323,7 @@ function FloatingModalTrigger({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
   return (
-    <DialogPrimitive.Trigger data-slot="floating-modal-trigger" {...props} />
+    <DialogPrimitive.Trigger data-slot='floating-modal-trigger' {...props} />
   );
 }
 
@@ -311,7 +335,7 @@ function FloatingModalPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
   return (
-    <DialogPrimitive.Portal data-slot="floating-modal-portal" {...props} />
+    <DialogPrimitive.Portal data-slot='floating-modal-portal' {...props} />
   );
 }
 
@@ -322,9 +346,7 @@ function FloatingModalPortal({
 function FloatingModalClose({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Close>) {
-  return (
-    <DialogPrimitive.Close data-slot="floating-modal-close" {...props} />
-  );
+  return <DialogPrimitive.Close data-slot='floating-modal-close' {...props} />;
 }
 
 /* =============================================================================
@@ -347,13 +369,13 @@ function FloatingModalOverlay({
 
   return (
     <DialogPrimitive.Overlay
-      data-slot="floating-modal-overlay"
+      data-slot='floating-modal-overlay'
       className={cn(
         'fixed inset-0 z-50 bg-black/40',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'duration-200',
-        className
+        className,
       )}
       {...props}
     />
@@ -364,7 +386,9 @@ function FloatingModalOverlay({
  * FloatingModalContent
  * ========================================================================== */
 
-type FloatingModalContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
+type FloatingModalContentProps = React.ComponentProps<
+  typeof DialogPrimitive.Content
+> & {
   showCloseButton?: boolean;
   showBackButton?: boolean;
   height?: 'auto' | 'full' | number;
@@ -422,7 +446,8 @@ function FloatingModalContent({
   // center is handled by CSS class
 
   // Animation: slide in from right, slide out to right
-  const slideInClass = 'data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-right-4';
+  const slideInClass =
+    'data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-right-4';
 
   // Build transform string
   const transforms: string[] = [];
@@ -432,7 +457,8 @@ function FloatingModalContent({
   if (position.translateX !== 0) {
     transforms.push(`translateX(${position.translateX}px)`);
   }
-  const transformStyle = transforms.length > 0 ? transforms.join(' ') : undefined;
+  const transformStyle =
+    transforms.length > 0 ? transforms.join(' ') : undefined;
 
   // Back button icon based on side
   const BackIcon = side === 'right' ? ChevronLeftIcon : ChevronRightIcon;
@@ -441,7 +467,7 @@ function FloatingModalContent({
     <FloatingModalPortal>
       <FloatingModalOverlay />
       <DialogPrimitive.Content
-        data-slot="floating-modal-content"
+        data-slot='floating-modal-content'
         data-mode={mode}
         data-side={side}
         data-align={align}
@@ -451,7 +477,7 @@ function FloatingModalContent({
           // Base styles
           'fixed',
           'flex flex-col',
-          'bg-background rounded-xl border shadow-2xl',
+          'rounded-xl border bg-background shadow-2xl',
           'outline-none',
           'max-h-[calc(100vh-48px)]',
           // Vertical alignment (top-1/2 only, translateY handled in style)
@@ -463,8 +489,8 @@ function FloatingModalContent({
           'duration-300 ease-out',
           // Partial/hidden state styling
           position.isPartial && 'pointer-events-none',
-          position.isHidden && 'opacity-0 pointer-events-none',
-          className
+          position.isHidden && 'pointer-events-none opacity-0',
+          className,
         )}
         style={{
           ...positionStyles,
@@ -478,38 +504,38 @@ function FloatingModalContent({
         {/* Close button */}
         {showCloseButton && !position.isPartial && (
           <DialogPrimitive.Close
-            data-slot="floating-modal-close"
+            data-slot='floating-modal-close'
             className={cn(
               'absolute top-3 rounded-full p-1.5',
               'text-muted-foreground hover:text-foreground',
-              'hover:bg-muted transition-colors',
+              'transition-colors hover:bg-muted',
               'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
               // Position based on side (close button on outer edge)
-              side === 'right' ? 'right-3' : 'left-3'
+              side === 'right' ? 'right-3' : 'left-3',
             )}
           >
-            <XIcon className="size-4" />
-            <span className="sr-only">閉じる</span>
+            <XIcon className='size-4' />
+            <span className='sr-only'>閉じる</span>
           </DialogPrimitive.Close>
         )}
 
         {/* Back button */}
         {shouldShowBack && !position.isPartial && (
           <button
-            type="button"
-            data-slot="floating-modal-back"
+            type='button'
+            data-slot='floating-modal-back'
             onClick={onBack}
             className={cn(
               'absolute top-3 rounded-full p-1.5',
               'text-muted-foreground hover:text-foreground',
-              'hover:bg-muted transition-colors',
+              'transition-colors hover:bg-muted',
               'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
               // Position based on side (back button on inner edge)
-              side === 'right' ? 'left-3' : 'right-3'
+              side === 'right' ? 'left-3' : 'right-3',
             )}
           >
-            <BackIcon className="size-4" />
-            <span className="sr-only">戻る</span>
+            <BackIcon className='size-4' />
+            <span className='sr-only'>戻る</span>
           </button>
         )}
       </DialogPrimitive.Content>
@@ -527,8 +553,8 @@ function FloatingModalHeader({
 }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="floating-modal-header"
-      className={cn('px-6 pt-6 pb-4 shrink-0', className)}
+      data-slot='floating-modal-header'
+      className={cn('shrink-0 px-6 pb-4 pt-6', className)}
       {...props}
     />
   );
@@ -544,7 +570,7 @@ function FloatingModalBody({
 }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="floating-modal-body"
+      data-slot='floating-modal-body'
       className={cn('flex-1 overflow-y-auto px-6 py-2', className)}
       {...props}
     />
@@ -561,8 +587,8 @@ function FloatingModalFooter({
 }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="floating-modal-footer"
-      className={cn('px-6 pt-4 pb-6 shrink-0', className)}
+      data-slot='floating-modal-footer'
+      className={cn('shrink-0 px-6 pb-6 pt-4', className)}
       {...props}
     />
   );
@@ -578,7 +604,7 @@ function FloatingModalTitle({
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
-      data-slot="floating-modal-title"
+      data-slot='floating-modal-title'
       className={cn('text-lg font-semibold text-foreground', className)}
       {...props}
     />
@@ -595,8 +621,8 @@ function FloatingModalDescription({
 }: React.ComponentProps<typeof DialogPrimitive.Description>) {
   return (
     <DialogPrimitive.Description
-      data-slot="floating-modal-description"
-      className={cn('text-sm text-muted-foreground mt-1', className)}
+      data-slot='floating-modal-description'
+      className={cn('mt-1 text-sm text-muted-foreground', className)}
       {...props}
     />
   );

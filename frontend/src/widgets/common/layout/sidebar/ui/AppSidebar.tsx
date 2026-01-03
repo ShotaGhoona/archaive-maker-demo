@@ -98,20 +98,20 @@ export function AppSidebar() {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
       className={cn(
-        'h-full gap-0 py-0 overflow-hidden',
+        'h-full gap-0 overflow-hidden py-0',
         'transition-all duration-300 ease-out',
-        isExpanded ? 'w-56' : 'w-16'
+        isExpanded ? 'w-56' : 'w-16',
       )}
     >
       {/* ロゴ */}
-      <div className="flex h-14 shrink-0 items-center gap-3 border-b border-slate-200/40 px-4">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 shadow-lg shadow-violet-500/20">
-          <Box className="h-4 w-4 text-white" />
+      <div className='flex h-14 shrink-0 items-center gap-3 border-b border-slate-200/40 px-4'>
+        <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 shadow-lg shadow-violet-500/20'>
+          <Box className='h-4 w-4 text-white' />
         </div>
         <span
           className={cn(
             'whitespace-nowrap text-base font-bold text-slate-900 transition-opacity duration-200',
-            isExpanded ? 'opacity-100' : 'opacity-0'
+            isExpanded ? 'opacity-100' : 'opacity-0',
           )}
         >
           Archaive
@@ -119,7 +119,7 @@ export function AppSidebar() {
       </div>
 
       {/* メインナビゲーション */}
-      <nav className="flex-1 space-y-1 overflow-y-auto p-2">
+      <nav className='flex-1 space-y-1 overflow-y-auto p-2'>
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
@@ -132,20 +132,20 @@ export function AppSidebar() {
                 'group/item relative flex items-center gap-3 rounded-xl px-3 py-2 transition-all duration-200',
                 active
                   ? 'bg-white/70 text-slate-900 shadow-sm'
-                  : 'text-slate-600 hover:bg-white/50 hover:text-slate-900'
+                  : 'text-slate-600 hover:bg-white/50 hover:text-slate-900',
               )}
             >
-              <Icon className="h-5 w-5 shrink-0" />
+              <Icon className='h-5 w-5 shrink-0' />
               <span
                 className={cn(
                   'whitespace-nowrap text-sm font-medium transition-opacity duration-200',
-                  isExpanded ? 'opacity-100' : 'opacity-0'
+                  isExpanded ? 'opacity-100' : 'opacity-0',
                 )}
               >
                 {item.label}
               </span>
               {active && isExpanded && (
-                <ChevronRight className="ml-auto h-4 w-4 text-slate-400" />
+                <ChevronRight className='ml-auto h-4 w-4 text-slate-400' />
               )}
             </Link>
           );
@@ -153,8 +153,8 @@ export function AppSidebar() {
       </nav>
 
       {/* 下部ナビゲーション */}
-      <div className="shrink-0 border-t border-slate-200/40 p-2">
-        <div className="space-y-1">
+      <div className='shrink-0 border-t border-slate-200/40 p-2'>
+        <div className='space-y-1'>
           {bottomItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
@@ -167,14 +167,14 @@ export function AppSidebar() {
                   'flex items-center gap-3 rounded-xl px-3 py-2 transition-all duration-200',
                   active
                     ? 'bg-white/70 text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:bg-white/50 hover:text-slate-700'
+                    : 'text-slate-500 hover:bg-white/50 hover:text-slate-700',
                 )}
               >
-                <Icon className="h-5 w-5 shrink-0" />
+                <Icon className='h-5 w-5 shrink-0' />
                 <span
                   className={cn(
                     'whitespace-nowrap text-sm font-medium transition-opacity duration-200',
-                    isExpanded ? 'opacity-100' : 'opacity-0'
+                    isExpanded ? 'opacity-100' : 'opacity-0',
                   )}
                 >
                   {item.label}
@@ -185,20 +185,20 @@ export function AppSidebar() {
         </div>
 
         {/* ユーザー */}
-        <div className="mt-2 rounded-xl border border-slate-200/40 bg-white/50 p-2">
-          <div className="flex items-center gap-2">
-            <Avatar className="h-7 w-7 shrink-0 border border-slate-200/60">
-              <AvatarFallback className="bg-gradient-to-br from-violet-100 to-cyan-100 text-[10px] font-medium text-slate-700">
+        <div className='mt-2 rounded-xl border border-slate-200/40 bg-white/50 p-2'>
+          <div className='flex items-center gap-2'>
+            <Avatar className='h-7 w-7 shrink-0 border border-slate-200/60'>
+              <AvatarFallback className='bg-gradient-to-br from-violet-100 to-cyan-100 text-[10px] font-medium text-slate-700'>
                 {avatarInitial}
               </AvatarFallback>
             </Avatar>
             <div
               className={cn(
                 'min-w-0 flex-1 transition-opacity duration-200',
-                isExpanded ? 'opacity-100' : 'opacity-0'
+                isExpanded ? 'opacity-100' : 'opacity-0',
               )}
             >
-              <p className="truncate text-xs font-medium text-slate-900">
+              <p className='truncate text-xs font-medium text-slate-900'>
                 {displayName}
               </p>
             </div>
@@ -207,11 +207,11 @@ export function AppSidebar() {
               disabled={logoutMutation.isPending}
               className={cn(
                 'shrink-0 rounded-lg p-1 text-slate-400 transition-all hover:bg-rose-50 hover:text-rose-600',
-                isExpanded ? 'opacity-100' : 'opacity-0'
+                isExpanded ? 'opacity-100' : 'opacity-0',
               )}
-              title="ログアウト"
+              title='ログアウト'
             >
-              <LogOut className="h-3.5 w-3.5" />
+              <LogOut className='h-3.5 w-3.5' />
             </button>
           </div>
         </div>

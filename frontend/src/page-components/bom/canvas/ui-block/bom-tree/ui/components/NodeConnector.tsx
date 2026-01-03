@@ -1,7 +1,13 @@
 'use client';
 
-import { CANVAS_COLORS, type CanvasColor } from '@/shared/canvas/constant/color';
-import { CONNECTOR_STROKE_WIDTHS, type ConnectorStrokeWidth } from '@/shared/canvas/constant/size';
+import {
+  CANVAS_COLORS,
+  type CanvasColor,
+} from '@/shared/canvas/constant/color';
+import {
+  CONNECTOR_STROKE_WIDTHS,
+  type ConnectorStrokeWidth,
+} from '@/shared/canvas/constant/size';
 
 const DEFAULT_COLOR: CanvasColor = 'gray';
 const DEFAULT_STROKE: ConnectorStrokeWidth = 'medium';
@@ -29,10 +35,10 @@ export function NodeConnector({ fromX, fromY, toX, toY }: NodeConnectorProps) {
   return (
     <path
       d={path}
-      fill="none"
+      fill='none'
       stroke={strokeColor}
       strokeWidth={strokeWidth}
-      className="pointer-events-none"
+      className='pointer-events-none'
     />
   );
 }

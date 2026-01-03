@@ -24,11 +24,11 @@ export function FilterChipsBar({
 }: FilterChipsBarProps) {
   // 編集中のフィールド
   const [editingField, setEditingField] = useState<FilterFieldConfig | null>(
-    null
+    null,
   );
   // 新規追加で選択されたフィールド
   const [addingField, setAddingField] = useState<FilterFieldConfig | null>(
-    null
+    null,
   );
 
   // アクティブなフィルターのキー一覧
@@ -45,7 +45,7 @@ export function FilterChipsBar({
   // フィールドキーからフィールド設定を取得
   const getFieldByKey = useCallback(
     (key: string) => fields.find((f) => f.key === key),
-    [fields]
+    [fields],
   );
 
   // フィルター値の表示文字列を取得
@@ -96,7 +96,7 @@ export function FilterChipsBar({
           return String(value);
       }
     },
-    []
+    [],
   );
 
   // フィルター値を更新
@@ -115,7 +115,7 @@ export function FilterChipsBar({
       }
       onValuesChange(newValues);
     },
-    [values, onValuesChange]
+    [values, onValuesChange],
   );
 
   // フィルターを削除
@@ -125,7 +125,7 @@ export function FilterChipsBar({
       delete newValues[fieldKey];
       onValuesChange(newValues);
     },
-    [values, onValuesChange]
+    [values, onValuesChange],
   );
 
   // すべてクリア
@@ -146,7 +146,7 @@ export function FilterChipsBar({
         setAddingField(null);
       }
     },
-    [addingField, handleValueChange]
+    [addingField, handleValueChange],
   );
 
   // 編集中フィールドの値変更
@@ -157,7 +157,7 @@ export function FilterChipsBar({
         setEditingField(null);
       }
     },
-    [editingField, handleValueChange]
+    [editingField, handleValueChange],
   );
 
   // アクティブなフィルターがない場合
@@ -212,11 +212,11 @@ export function FilterChipsBar({
           }}
         >
           <Button
-            variant="ghost"
-            size="sm"
+            variant='ghost'
+            size='sm'
             className={cn(
               'gap-1.5 rounded-full px-3 text-slate-600',
-              'border border-slate-300 bg-white/50'
+              'border border-slate-300 bg-white/50',
             )}
           >
             {addingField.label}
@@ -233,12 +233,12 @@ export function FilterChipsBar({
       {/* すべてクリアボタン */}
       {hasActiveFilters && (
         <Button
-          variant="ghost"
-          size="sm"
+          variant='ghost'
+          size='sm'
           onClick={handleClearAll}
-          className="gap-1 text-slate-500 hover:text-slate-700"
+          className='gap-1 text-slate-500 hover:text-slate-700'
         >
-          <X className="size-3" />
+          <X className='size-3' />
           クリア
         </Button>
       )}

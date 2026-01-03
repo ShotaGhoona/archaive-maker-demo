@@ -1,14 +1,12 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { CheckCircle2, Circle, ExternalLink, X, Send } from 'lucide-react';
 import {
-  CheckCircle2,
-  Circle,
-  ExternalLink,
-  X,
-  Send,
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/ui/shadcn/ui/avatar';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
@@ -32,7 +30,10 @@ function formatDateTime(dateString: string): string {
   });
 }
 
-export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps) {
+export function CommentDetailPanel({
+  thread,
+  onClose,
+}: CommentDetailPanelProps) {
   const router = useRouter();
   const params = useParams();
   const bomId = params.id as string;
@@ -42,7 +43,9 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
   };
 
   const handleResolve = () => {
-    alert(`スレッド ${thread.id} を${thread.resolved ? '未解決に戻す' : '解決済みにする'}（未実装）`);
+    alert(
+      `スレッド ${thread.id} を${thread.resolved ? '未解決に戻す' : '解決済みにする'}（未実装）`,
+    );
   };
 
   const handleReply = () => {
@@ -52,9 +55,9 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
   return (
     <div
       className={cn(
-        'flex h-full flex-col rounded-2xl overflow-hidden',
+        'flex h-full flex-col overflow-hidden rounded-2xl',
         'border border-white/60 bg-white/40 backdrop-blur-xl',
-        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]'
+        'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
       )}
     >
       {/* ヘッダー */}
@@ -81,7 +84,12 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
           </span>
         </div>
         <div className='flex items-center gap-1'>
-          <Button variant='ghost' size='sm' onClick={handleGoToCanvas} className='h-7 text-xs'>
+          <Button
+            variant='ghost'
+            size='sm'
+            onClick={handleGoToCanvas}
+            className='h-7 text-xs'
+          >
             <ExternalLink className='mr-1 size-3' />
             キャンバス
           </Button>
@@ -93,7 +101,12 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
           >
             {thread.resolved ? '未解決に戻す' : '解決済みにする'}
           </Button>
-          <Button variant='ghost' size='icon' className='size-7' onClick={onClose}>
+          <Button
+            variant='ghost'
+            size='icon'
+            className='size-7'
+            onClick={onClose}
+          >
             <X className='size-4' />
           </Button>
         </div>
@@ -107,19 +120,26 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
               key={comment.id}
               className={cn(
                 'rounded-xl p-3',
-                'bg-white/50 border border-white/60'
+                'border border-white/60 bg-white/50',
               )}
             >
               <div className='flex items-start gap-3'>
                 <Avatar className='size-8 shrink-0'>
                   <AvatarImage src={comment.author.avatarUrl} />
-                  <AvatarFallback className='text-xs'>{comment.author.name[0]}</AvatarFallback>
+                  <AvatarFallback className='text-xs'>
+                    {comment.author.name[0]}
+                  </AvatarFallback>
                 </Avatar>
                 <div className='min-w-0 flex-1'>
                   <div className='flex items-baseline gap-2'>
-                    <span className='text-sm font-medium text-slate-900'>{comment.author.name}</span>
+                    <span className='text-sm font-medium text-slate-900'>
+                      {comment.author.name}
+                    </span>
                     {comment.author.role && (
-                      <Badge variant='secondary' className='text-[10px] px-1.5 py-0'>
+                      <Badge
+                        variant='secondary'
+                        className='px-1.5 py-0 text-[10px]'
+                      >
                         {comment.author.role}
                       </Badge>
                     )}
@@ -127,7 +147,7 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
                   <span className='text-xs text-slate-400'>
                     {formatDateTime(comment.createdAt)}
                   </span>
-                  <p className='mt-2 text-sm text-slate-700 leading-relaxed'>
+                  <p className='mt-2 text-sm leading-relaxed text-slate-700'>
                     {comment.content}
                   </p>
                 </div>
@@ -144,7 +164,11 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
             placeholder='返信を入力...'
             className='min-h-[48px] resize-none text-sm'
           />
-          <Button size='icon' className='shrink-0 size-10' onClick={handleReply}>
+          <Button
+            size='icon'
+            className='size-10 shrink-0'
+            onClick={handleReply}
+          >
             <Send className='size-4' />
           </Button>
         </div>

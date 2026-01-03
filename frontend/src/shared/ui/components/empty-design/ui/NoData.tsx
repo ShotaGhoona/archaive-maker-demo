@@ -105,7 +105,9 @@ export function NoData({
           {title}
         </EmptyTitle>
         {description && (
-          <EmptyDescription className={cn('text-slate-500', config.description)}>
+          <EmptyDescription
+            className={cn('text-slate-500', config.description)}
+          >
             {description}
           </EmptyDescription>
         )}

@@ -24,8 +24,8 @@ export function SimilarGalleryPanel() {
   return (
     <Card
       className={cn(
-        'flex h-full flex-col px-4 pt-4 gap-0 py-0',
-        'hover:bg-white/40'
+        'flex h-full flex-col gap-0 px-4 py-0 pt-4',
+        'hover:bg-white/40',
       )}
     >
       <h2 className='mb-4 text-base font-semibold text-slate-900'>類似図面</h2>

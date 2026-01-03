@@ -58,8 +58,8 @@ export function BomGalleryPanel({ items }: BomGalleryPanelProps) {
     return (
       <Card
         className={cn(
-          'flex h-full items-center justify-center py-0 gap-0',
-          'hover:bg-white/40'
+          'flex h-full items-center justify-center gap-0 py-0',
+          'hover:bg-white/40',
         )}
       >
         <NoData title='表示するアイテムがありません' size='default' />
@@ -69,46 +69,43 @@ export function BomGalleryPanel({ items }: BomGalleryPanelProps) {
 
   return (
     <Card
-      className={cn(
-        'h-full overflow-hidden py-0 gap-0',
-        'hover:bg-white/40'
-      )}
+      className={cn('h-full gap-0 overflow-hidden py-0', 'hover:bg-white/40')}
     >
       <ScrollArea className='h-full'>
         <div className='grid grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-        {items.map((item) => (
-          <Card
-            key={item.id}
-            className='group cursor-pointer overflow-hidden transition-shadow hover:shadow-md py-0 gap-0'
-            onClick={() => handleClick(item)}
-          >
-            {/* サムネイル */}
-            <div className='relative aspect-[4/3] overflow-hidden bg-muted'>
-              <Image
-                src={item.previewImageUrl}
-                alt={item.name}
-                fill
-                className='object-cover transition-transform group-hover:scale-105'
-                unoptimized
-              />
-              {/* タイプバッジ */}
-              <div className='absolute left-2 top-2'>
-                <Badge
-                  variant='secondary'
-                  className='gap-1 bg-background/80 backdrop-blur-sm'
-                >
-                  {getTypeIcon(item.type)}
-                  {item.nodeType ?? getTypeLabel(item.type)}
-                </Badge>
+          {items.map((item) => (
+            <Card
+              key={item.id}
+              className='group cursor-pointer gap-0 overflow-hidden py-0 transition-shadow hover:shadow-md'
+              onClick={() => handleClick(item)}
+            >
+              {/* サムネイル */}
+              <div className='relative aspect-[4/3] overflow-hidden bg-muted'>
+                <Image
+                  src={item.previewImageUrl}
+                  alt={item.name}
+                  fill
+                  className='object-cover transition-transform group-hover:scale-105'
+                  unoptimized
+                />
+                {/* タイプバッジ */}
+                <div className='absolute left-2 top-2'>
+                  <Badge
+                    variant='secondary'
+                    className='gap-1 bg-background/80 backdrop-blur-sm'
+                  >
+                    {getTypeIcon(item.type)}
+                    {item.nodeType ?? getTypeLabel(item.type)}
+                  </Badge>
+                </div>
               </div>
-            </div>
 
-            {/* 情報 */}
-            <div className='p-3'>
-              <p className='truncate text-sm font-medium'>{item.name}</p>
-            </div>
-          </Card>
-        ))}
+              {/* 情報 */}
+              <div className='p-3'>
+                <p className='truncate text-sm font-medium'>{item.name}</p>
+              </div>
+            </Card>
+          ))}
         </div>
       </ScrollArea>
     </Card>
