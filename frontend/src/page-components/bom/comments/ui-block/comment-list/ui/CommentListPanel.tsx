@@ -8,7 +8,7 @@ import {
 } from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { CommentThread } from '../../../dummy-data/comments';
+import type { CommentThread } from '@/shared/dummy-data/bom/comments';
 
 interface CommentListPanelProps {
   threads: CommentThread[];

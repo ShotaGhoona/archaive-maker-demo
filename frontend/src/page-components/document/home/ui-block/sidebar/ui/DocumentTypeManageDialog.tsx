@@ -27,7 +27,7 @@ import {
   documentTypes,
   type DocumentType,
   type DocumentCategory,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 
 // カテゴリラベル
 const categoryLabels: Record<DocumentCategory, string> = {

@@ -1,7 +1,7 @@
 import { ExternalLink, Trash2 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import type { ColumnConfig } from '@/widgets/view/table-view/model/types';
-import type { CustomerItem } from '../../../dummy-data/customers';
+import type { CustomerItem } from '@/shared/dummy-data/customer/customers';
 
 export const createCustomerColumns = (
   onOpen: (row: CustomerItem) => void,

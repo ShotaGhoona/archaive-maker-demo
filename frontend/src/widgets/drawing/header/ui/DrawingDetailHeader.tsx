@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import { dummyProducts } from '@/page-components/drawing/basic-information/dummy-data/drawing-detail';
+import { dummyProducts } from '@/shared/dummy-data/drawing/drawing-detail';
 
 const tabs: { label: string; path: string; icon: LucideIcon }[] = [
   { label: '基本情報', path: 'basic-information', icon: Info },

@@ -7,7 +7,7 @@ import type { PaginationConfig } from '@/widgets/view/gallery-view/model/types';
 import {
   dummySimilarDrawings,
   type SimilarDrawing,
-} from '../../../dummy-data/similar-drawings';
+} from '@/shared/dummy-data/drawing/similar-drawings';
 import { similarDrawingCardConfig } from '../config/card-config';
 
 export function SimilarGalleryPanel() {

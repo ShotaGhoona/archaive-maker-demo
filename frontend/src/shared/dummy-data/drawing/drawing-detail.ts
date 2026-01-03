@@ -3,7 +3,7 @@ import type {
   DrawingThumbnail,
   DrawingItem,
   ProductDetail,
-} from '@/shared/types/dummy-data/drawing';
+} from './types';
 
 export type { TagItem, DrawingThumbnail, DrawingItem, ProductDetail };
 

@@ -18,7 +18,7 @@ import type {
   Invoice,
   AcceptanceNote,
   BasicContract,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 
 // ============================================
 // 共通アクションカラム

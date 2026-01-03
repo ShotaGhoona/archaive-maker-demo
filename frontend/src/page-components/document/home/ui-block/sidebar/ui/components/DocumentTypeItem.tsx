@@ -8,7 +8,7 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 import type {
   DocumentType,
   DocumentCategory,
-} from '../../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 
 // カテゴリラベル
 const categoryLabels: Record<DocumentCategory, string> = {

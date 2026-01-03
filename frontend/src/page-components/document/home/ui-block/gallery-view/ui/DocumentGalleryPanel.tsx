@@ -9,7 +9,7 @@ import type { GalleryCardConfig } from '@/widgets/view/gallery-view/model/types'
 import {
   getDocumentTypeById,
   getDocumentDataByTypeId,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 
 interface DocumentGalleryPanelProps {
   selectedTypeId: string;

@@ -13,7 +13,7 @@ import { getColumnsByTypeId } from '../config/column-configs';
 import {
   getDocumentTypeById,
   getDocumentDataByTypeId,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 
 interface DocumentTablePanelProps {
   selectedTypeId: string;

@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from '@/shared/ui/shadcn/ui/select';
 
-import type { DocumentCategory } from '../../../../dummy-data/documents';
+import type { DocumentCategory } from '@/shared/dummy-data/document/documents';
 
 interface SidebarSearchFilterProps {
   searchQuery: string;

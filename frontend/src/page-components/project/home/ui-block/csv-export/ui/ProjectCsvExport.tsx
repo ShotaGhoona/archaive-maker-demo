@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { CsvExportModalWidget } from '@/widgets/common/csv-export-dialog/ui/CsvExportModalWidget';
 
 import { createProjectColumns } from '../../table-view/config/column-config';
-import { dummyProjects } from '../../../dummy-data/projects';
+import { dummyProjects } from '@/shared/dummy-data/project/projects';
 
 export function ProjectCsvExport() {
   const columns = useMemo(

@@ -14,7 +14,7 @@ import {
 } from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
+import type { Task, TaskStatus, TaskPriority } from '@/shared/dummy-data/bom/tasks';
 
 interface TaskListPanelProps {
   tasks: Task[];

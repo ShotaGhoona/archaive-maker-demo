@@ -12,7 +12,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { CommentThread } from '../../../dummy-data/comments';
+import type { CommentThread } from '@/shared/dummy-data/bom/comments';
 
 interface CommentDetailPanelProps {
   thread: CommentThread;

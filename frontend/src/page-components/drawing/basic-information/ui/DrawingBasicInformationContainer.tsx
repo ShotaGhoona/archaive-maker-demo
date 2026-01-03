@@ -8,7 +8,7 @@ import {
 } from '@/shared/ui/shadcn/ui/resizable';
 import { DrawingInfoPanel } from '../ui-block/info-panel/ui/DrawingInfoPanel';
 import { DrawingPreviewPanel } from '@/widgets/drawing/drawing-preview-panel/ui/DrawingPreviewPanel';
-import { dummyProducts } from '../dummy-data/drawing-detail';
+import { dummyProducts } from '@/shared/dummy-data/drawing/drawing-detail';
 
 export function DrawingBasicInformationContainer() {
   const params = useParams();

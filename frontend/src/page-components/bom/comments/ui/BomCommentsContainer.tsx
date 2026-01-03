@@ -12,7 +12,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { CommentListPanel } from '../ui-block/comment-list/ui/CommentListPanel';
 import { CommentDetailPanel } from '../ui-block/comment-detail/ui/CommentDetailPanel';
-import { dummyCommentThreads } from '../dummy-data/comments';
+import { dummyCommentThreads } from '@/shared/dummy-data/bom/comments';
 
 type FilterStatus = 'all' | 'open' | 'resolved';
 

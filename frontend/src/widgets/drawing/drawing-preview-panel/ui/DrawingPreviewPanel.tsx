@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card } from '@/shared/ui/shadcn/ui/card';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { DrawingItem } from '@/shared/types/dummy-data/drawing';
+import type { DrawingItem } from '@/shared/dummy-data/drawing/types';
 import { DrawingCard } from './components/DrawingCard';
 
 interface DrawingPreviewPanelProps {

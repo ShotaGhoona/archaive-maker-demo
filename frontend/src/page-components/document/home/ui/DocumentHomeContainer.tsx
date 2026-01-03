@@ -15,7 +15,7 @@ import { DocumentGalleryPanel } from '../ui-block/gallery-view/ui/DocumentGaller
 import { DocumentColumnSettings } from '../ui-block/column-settings/ui/DocumentColumnSettings';
 import { DocumentTypeBreadcrumb } from '../ui-block/breadcrumb/ui/DocumentTypeBreadcrumb';
 import { useDocumentFilter } from '../ui-block/filter/lib/use-document-filter';
-import { documentTypes } from '../dummy-data/documents';
+import { documentTypes } from '@/shared/dummy-data/document/documents';
 
 // デフォルトで最初の帳票種別を選択
 const DEFAULT_TYPE_ID = documentTypes[0].id;

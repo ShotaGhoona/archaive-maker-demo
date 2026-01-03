@@ -12,7 +12,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { TaskListPanel } from '../ui-block/task-list/ui/TaskListPanel';
 import { TaskDetailPanel } from '../ui-block/task-detail/ui/TaskDetailPanel';
-import { dummyTasks, type TaskStatus } from '../dummy-data/tasks';
+import { dummyTasks, type TaskStatus } from '@/shared/dummy-data/bom/tasks';
 
 type FilterStatus = 'all' | TaskStatus;
 

@@ -1,7 +1,7 @@
 import { GitCompare, Eye } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import type { GalleryCardConfig } from '@/widgets/view/gallery-view/model/types';
-import type { SimilarDrawing } from '../../../dummy-data/similar-drawings';
+import type { SimilarDrawing } from '@/shared/dummy-data/drawing/similar-drawings';
 
 export const similarDrawingCardConfig: GalleryCardConfig<SimilarDrawing> = {
   thumbnailKey: 'thumbnailUrl',

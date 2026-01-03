@@ -12,7 +12,7 @@ import { createCustomerColumns } from '../config/column-config';
 import {
   dummyCustomers,
   type CustomerItem,
-} from '../../../dummy-data/customers';
+} from '@/shared/dummy-data/customer/customers';
 
 export function CustomerTablePanel() {
   const [sortState, setSortState] = useState<SortState>({

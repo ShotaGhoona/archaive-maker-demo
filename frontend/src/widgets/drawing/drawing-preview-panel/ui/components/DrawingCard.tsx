@@ -2,7 +2,7 @@
 
 import type { MouseEvent } from 'react';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { DrawingThumbnail } from '@/shared/types/dummy-data/drawing';
+import type { DrawingThumbnail } from '@/shared/dummy-data/drawing/types';
 
 interface DrawingCardProps {
   thumbnail: DrawingThumbnail;

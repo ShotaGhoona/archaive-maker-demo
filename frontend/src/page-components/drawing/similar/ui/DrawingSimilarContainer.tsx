@@ -7,7 +7,7 @@ import {
   ResizableHandle,
 } from '@/shared/ui/shadcn/ui/resizable';
 import { DrawingPreviewPanel } from '@/widgets/drawing/drawing-preview-panel/ui/DrawingPreviewPanel';
-import { dummyProducts } from '@/page-components/drawing/basic-information/dummy-data/drawing-detail';
+import { dummyProducts } from '@/shared/dummy-data/drawing/drawing-detail';
 import { SimilarGalleryPanel } from '../ui-block/similar-gallery/ui/SimilarGalleryPanel';
 
 export function DrawingSimilarContainer() {

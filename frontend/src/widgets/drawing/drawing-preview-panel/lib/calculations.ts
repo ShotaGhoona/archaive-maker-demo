@@ -1,4 +1,4 @@
-import type { DrawingItem } from '@/shared/types/dummy-data/drawing';
+import type { DrawingItem } from '@/shared/dummy-data/drawing/types';
 import {
   CARD_HEIGHT,
   CARD_SPACING,

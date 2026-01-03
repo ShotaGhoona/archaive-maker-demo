@@ -1,7 +1,7 @@
 import { ExternalLink, Trash2 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import type { ColumnConfig } from '@/widgets/view/table-view/model/types';
-import type { ProjectItem } from '../../../dummy-data/projects';
+import type { ProjectItem } from '@/shared/dummy-data/project/projects';
 
 const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('ja-JP', {

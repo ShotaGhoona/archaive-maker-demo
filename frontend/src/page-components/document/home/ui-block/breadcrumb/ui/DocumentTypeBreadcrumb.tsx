@@ -14,7 +14,7 @@ import {
   documentTypes,
   getDocumentTypeById,
   type DocumentCategory,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 import { DocumentTypeManageDialog } from '../../sidebar/ui/DocumentTypeManageDialog';
 
 interface DocumentTypeBreadcrumbProps {

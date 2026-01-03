@@ -21,7 +21,7 @@ import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { ScrollArea } from '@/shared/ui/shadcn/ui/scroll-area';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
+import type { Task, TaskStatus, TaskPriority } from '@/shared/dummy-data/bom/tasks';
 
 interface TaskDetailPanelProps {
   task: Task;

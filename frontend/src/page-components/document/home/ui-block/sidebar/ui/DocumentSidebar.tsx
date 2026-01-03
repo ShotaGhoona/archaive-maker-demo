@@ -14,7 +14,7 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 import {
   documentTypes,
   type DocumentCategory,
-} from '../../../dummy-data/documents';
+} from '@/shared/dummy-data/document/documents';
 import { DocumentTypeManageDialog } from './DocumentTypeManageDialog';
 import { SidebarSearchFilter } from './components/SidebarSearchFilter';
 import { DocumentTypeItem } from './components/DocumentTypeItem';

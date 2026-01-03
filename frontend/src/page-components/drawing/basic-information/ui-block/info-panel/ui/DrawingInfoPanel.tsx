@@ -11,7 +11,7 @@ import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Card } from '@/shared/ui/shadcn/ui/card';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { FieldSettingsModal } from './FieldSettingsModal';
-import type { ProductDetail } from '@/page-components/drawing/basic-information/dummy-data/drawing-detail';
+import type { ProductDetail } from '@/shared/dummy-data/drawing/drawing-detail';
 
 interface DrawingInfoPanelProps {
   product: ProductDetail;
