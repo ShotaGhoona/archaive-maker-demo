@@ -9,6 +9,24 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 /** タスクの優先度 */
 export type TaskPriority = 'high' | 'medium' | 'low';
 
+/** ノードタイプ（BOMノードの種類） */
+export type TargetNodeType = '製品' | 'Assy' | 'SubAssy' | 'SubSubAssy' | 'Module' | 'Part';
+
+/** タスクの対象オブジェクト（BOMノード） */
+export interface TaskTargetObject {
+  id: string;
+  name: string;
+  nodeType: TargetNodeType;
+}
+
+/** タスクの元コメント（コメントから生成された場合） */
+export interface TaskSourceComment {
+  threadId: string;
+  commentId: string;
+  content: string;
+  authorName: string;
+}
+
 /** 担当者情報 */
 export interface TaskAssignee {
   id: string;
@@ -28,6 +46,10 @@ export interface Task {
   dueDate?: string;
   createdAt: string;
   updatedAt?: string;
+  /** 対象オブジェクト（BOMノード） - 必須 */
+  targetObject: TaskTargetObject;
+  /** 元コメント（コメントから生成された場合） */
+  sourceComment?: TaskSourceComment;
   /** キャンバス上の座標（キャンバスへのジャンプ用） */
   canvasPosition?: {
     x: number;
@@ -83,6 +105,34 @@ const users: TaskAssignee[] = [
   },
 ];
 
+/** ダミー対象オブジェクト（BOMノード） */
+const targetObjects: TaskTargetObject[] = [
+  { id: 'node-1', name: 'ベアリングハウジング', nodeType: 'Part' },
+  { id: 'node-2', name: 'ギアボックスAssy', nodeType: 'Assy' },
+  { id: 'node-3', name: '駆動系サブアセンブリ', nodeType: 'SubAssy' },
+  { id: 'node-4', name: '防振ゴムマウント', nodeType: 'Part' },
+  { id: 'node-5', name: 'フレームAssy', nodeType: 'Assy' },
+  { id: 'node-6', name: 'プーリー', nodeType: 'Part' },
+  { id: 'node-7', name: 'モーターブラケット', nodeType: 'Part' },
+  { id: 'node-8', name: 'メインシャフト', nodeType: 'Part' },
+  { id: 'node-9', name: '焼入れギア', nodeType: 'Part' },
+  { id: 'node-10', name: 'ベースプレート', nodeType: 'Part' },
+  { id: 'node-11', name: '制御モジュール', nodeType: 'Module' },
+  { id: 'node-12', name: 'スプリングピン', nodeType: 'Part' },
+  { id: 'node-13', name: 'ダイカストケース', nodeType: 'Part' },
+  { id: 'node-14', name: 'コネクタハーネス', nodeType: 'Part' },
+  { id: 'node-15', name: 'メインフレーム', nodeType: 'Assy' },
+  { id: 'node-16', name: 'ボルト締結部', nodeType: 'SubSubAssy' },
+  { id: 'node-17', name: '摺動シャフト', nodeType: 'Part' },
+  { id: 'node-18', name: 'カバープレート', nodeType: 'Part' },
+  { id: 'node-19', name: 'リニアガイドユニット', nodeType: 'SubAssy' },
+  { id: 'node-20', name: 'アームAssy', nodeType: 'Assy' },
+  { id: 'node-21', name: '溶接フレーム', nodeType: 'Part' },
+  { id: 'node-22', name: 'サーボモーターユニット', nodeType: 'Module' },
+  { id: 'node-23', name: 'ロボットアーム製品', nodeType: '製品' },
+  { id: 'node-24', name: 'ワイヤーハーネス', nodeType: 'Part' },
+];
+
 export const dummyTasks: Task[] = [
   // === 未着手タスク ===
   {
@@ -94,6 +144,13 @@ export const dummyTasks: Task[] = [
     assignee: users[0],
     dueDate: '2025-01-25',
     createdAt: '2025-01-15T10:30:00Z',
+    targetObject: targetObjects[0],
+    sourceComment: {
+      threadId: 'thread-1',
+      commentId: 'comment-1-1',
+      content: 'ベアリングハウジングの公差が厳しすぎます。現在の設備では±0.005mmは難しいので、±0.01mmに緩和できないか検討をお願いします。',
+      authorName: '鈴木健二',
+    },
     canvasPosition: { x: 150, y: 200 },
   },
   {
@@ -105,6 +162,13 @@ export const dummyTasks: Task[] = [
     assignee: users[2],
     dueDate: '2025-01-31',
     createdAt: '2025-01-17T10:30:00Z',
+    targetObject: targetObjects[1],
+    sourceComment: {
+      threadId: 'thread-5',
+      commentId: 'comment-5-1',
+      content: 'ギアボックスのOリング（P-20）がEOL予定です。代替品の選定をお願いします。納期は来月末まで。',
+      authorName: '田中一郎',
+    },
     canvasPosition: { x: 700, y: 450 },
   },
   {
@@ -116,6 +180,7 @@ export const dummyTasks: Task[] = [
     assignee: users[0],
     dueDate: '2025-02-05',
     createdAt: '2025-01-16T11:00:00Z',
+    targetObject: targetObjects[2],
     canvasPosition: { x: 600, y: 150 },
   },
   {
@@ -127,6 +192,7 @@ export const dummyTasks: Task[] = [
     assignee: users[4],
     dueDate: '2025-02-10',
     createdAt: '2025-01-21T08:00:00Z',
+    targetObject: targetObjects[3],
     canvasPosition: { x: 350, y: 150 },
   },
   {
@@ -138,6 +204,7 @@ export const dummyTasks: Task[] = [
     assignee: users[4],
     dueDate: '2025-02-15',
     createdAt: '2025-01-21T13:00:00Z',
+    targetObject: targetObjects[4],
     canvasPosition: { x: 720, y: 280 },
   },
   {
@@ -149,6 +216,7 @@ export const dummyTasks: Task[] = [
     assignee: users[0],
     dueDate: '2025-01-28',
     createdAt: '2025-01-22T09:30:00Z',
+    targetObject: targetObjects[5],
     canvasPosition: { x: 280, y: 480 },
   },
 
@@ -163,6 +231,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-24',
     createdAt: '2025-01-16T14:45:00Z',
     updatedAt: '2025-01-20T09:00:00Z',
+    targetObject: targetObjects[6],
     canvasPosition: { x: 250, y: 500 },
   },
   {
@@ -175,6 +244,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-26',
     createdAt: '2025-01-17T09:00:00Z',
     updatedAt: '2025-01-22T14:00:00Z',
+    targetObject: targetObjects[7],
     canvasPosition: { x: 400, y: 300 },
   },
   {
@@ -187,6 +257,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-23',
     createdAt: '2025-01-17T16:00:00Z',
     updatedAt: '2025-01-19T10:00:00Z',
+    targetObject: targetObjects[8],
     canvasPosition: { x: 180, y: 350 },
   },
   {
@@ -199,6 +270,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-25',
     createdAt: '2025-01-18T13:00:00Z',
     updatedAt: '2025-01-21T11:00:00Z',
+    targetObject: targetObjects[9],
     canvasPosition: { x: 320, y: 420 },
   },
   {
@@ -211,6 +283,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-02-03',
     createdAt: '2025-01-19T11:00:00Z',
     updatedAt: '2025-01-20T08:00:00Z',
+    targetObject: targetObjects[10],
     canvasPosition: { x: 220, y: 180 },
   },
   {
@@ -223,6 +296,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-27',
     createdAt: '2025-01-19T08:30:00Z',
     updatedAt: '2025-01-21T15:00:00Z',
+    targetObject: targetObjects[11],
     canvasPosition: { x: 650, y: 300 },
   },
   {
@@ -235,6 +309,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-29',
     createdAt: '2025-01-20T09:00:00Z',
     updatedAt: '2025-01-22T10:00:00Z',
+    targetObject: targetObjects[12],
     canvasPosition: { x: 480, y: 380 },
   },
 
@@ -249,6 +324,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-10',
     createdAt: '2025-01-10T10:00:00Z',
     updatedAt: '2025-01-10T11:30:00Z',
+    targetObject: targetObjects[13],
     canvasPosition: { x: 400, y: 350 },
   },
   {
@@ -261,6 +337,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-08',
     createdAt: '2025-01-08T14:00:00Z',
     updatedAt: '2025-01-08T15:00:00Z',
+    targetObject: targetObjects[14],
     canvasPosition: { x: 800, y: 300 },
   },
   {
@@ -273,6 +350,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-05',
     createdAt: '2025-01-05T09:00:00Z',
     updatedAt: '2025-01-05T10:30:00Z',
+    targetObject: targetObjects[15],
     canvasPosition: { x: 550, y: 400 },
   },
   {
@@ -285,6 +363,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-03',
     createdAt: '2025-01-03T11:00:00Z',
     updatedAt: '2025-01-03T13:00:00Z',
+    targetObject: targetObjects[16],
     canvasPosition: { x: 200, y: 250 },
   },
   {
@@ -297,6 +376,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-28',
     createdAt: '2024-12-28T10:00:00Z',
     updatedAt: '2024-12-28T11:00:00Z',
+    targetObject: targetObjects[17],
     canvasPosition: { x: 650, y: 180 },
   },
   {
@@ -309,6 +389,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-25',
     createdAt: '2024-12-25T14:00:00Z',
     updatedAt: '2024-12-25T16:00:00Z',
+    targetObject: targetObjects[18],
     canvasPosition: { x: 420, y: 520 },
   },
   {
@@ -321,6 +402,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-22',
     createdAt: '2024-12-20T09:00:00Z',
     updatedAt: '2024-12-22T15:00:00Z',
+    targetObject: targetObjects[19],
     canvasPosition: { x: 300, y: 350 },
   },
   {
@@ -333,6 +415,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-18',
     createdAt: '2024-12-18T11:00:00Z',
     updatedAt: '2024-12-18T14:00:00Z',
+    targetObject: targetObjects[20],
     canvasPosition: { x: 750, y: 420 },
   },
   {
@@ -345,6 +428,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-15',
     createdAt: '2024-12-15T10:00:00Z',
     updatedAt: '2024-12-15T13:00:00Z',
+    targetObject: targetObjects[21],
     canvasPosition: { x: 180, y: 450 },
   },
   {
@@ -357,6 +441,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2024-12-12',
     createdAt: '2024-12-10T09:00:00Z',
     updatedAt: '2024-12-12T17:00:00Z',
+    targetObject: targetObjects[22],
     canvasPosition: { x: 520, y: 280 },
   },
   {
@@ -369,6 +454,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-20',
     createdAt: '2025-01-18T09:00:00Z',
     updatedAt: '2025-01-19T17:00:00Z',
+    targetObject: targetObjects[17],
     canvasPosition: { x: 500, y: 200 },
   },
   {
@@ -381,6 +467,7 @@ export const dummyTasks: Task[] = [
     dueDate: '2025-01-21',
     createdAt: '2025-01-20T14:30:00Z',
     updatedAt: '2025-01-21T10:00:00Z',
+    targetObject: targetObjects[23],
     canvasPosition: { x: 580, y: 520 },
   },
 ];

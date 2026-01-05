@@ -197,29 +197,41 @@ export function CommentExpanded({
     >
       {/* ヘッダー */}
       <div className="flex items-center justify-between border-b border-gray-200 px-3 py-2">
-        <span className="text-sm font-medium text-gray-900">コメント</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-gray-900">コメント</span>
+          {thread.resolved && (
+            <span className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+              <Check className="h-3 w-3" />
+              解決済み
+            </span>
+          )}
+        </div>
         <div className="flex items-center gap-1">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="rounded p-1 hover:bg-gray-100">
-                <MoreHorizontal className="h-4 w-4 text-gray-400" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={onResolve}>
-                <Check className="mr-2 h-4 w-4" />
-                解決済みにする
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {!thread.resolved && (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="rounded p-1 hover:bg-gray-100">
+                    <MoreHorizontal className="h-4 w-4 text-gray-400" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={onResolve}>
+                    <Check className="mr-2 h-4 w-4" />
+                    解決済みにする
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-          <button
-            onClick={onResolve}
-            className="rounded p-1 text-gray-400 hover:bg-green-50 hover:text-green-600"
-            title="解決済みにする"
-          >
-            <Check className="h-4 w-4" />
-          </button>
+              <button
+                onClick={onResolve}
+                className="rounded p-1 text-gray-400 hover:bg-green-50 hover:text-green-600"
+                title="解決済みにする"
+              >
+                <Check className="h-4 w-4" />
+              </button>
+            </>
+          )}
 
           <button
             onClick={onClose}

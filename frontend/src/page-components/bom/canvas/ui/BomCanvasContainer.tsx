@@ -5,6 +5,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { useCanvasViewport } from '@/widgets/bom/canvas/viewport/lib/use-canvas-viewport';
 import { CanvasViewport } from '@/widgets/bom/canvas/viewport/ui/CanvasViewport';
 import { CanvasToolbar, type CanvasToolType } from '@/widgets/bom/canvas/toolbar/ui/CanvasToolbar';
+import { CanvasSearch } from '@/widgets/bom/canvas/search/ui/CanvasSearch';
 import { BomTreeLayer } from '../ui-block/bom-tree/ui/BomTreeLayer';
 import { calculateBomTreeLayout } from '../ui-block/bom-tree/lib/tree-layout';
 import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
@@ -142,6 +143,8 @@ export function BomCanvasContainer() {
       </CanvasViewport>
 
       {/* オーバーレイUI層 */}
+      <CanvasSearch className="top-4 right-4" />
+
       <CanvasToolbar
         className="bottom-4 left-1/2 -translate-x-1/2"
         selectedTool={selectedTool}

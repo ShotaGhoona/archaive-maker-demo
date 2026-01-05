@@ -6,11 +6,12 @@ import {
   CheckCircle2,
   AlertTriangle,
   Calendar,
+  Box,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
+import type { Task, TaskStatus, TaskPriority, TargetNodeType } from '../../../dummy-data/tasks';
 
 interface TaskListPanelProps {
   tasks: Task[];
@@ -46,6 +47,15 @@ const PRIORITY_CONFIG: Record<
   high: { label: '高', className: 'text-red-500' },
   medium: { label: '中', className: 'text-yellow-500' },
   low: { label: '低', className: 'text-gray-400' },
+};
+
+const NODE_TYPE_CONFIG: Record<TargetNodeType, { label: string; className: string }> = {
+  '製品': { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  'Assy': { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  'SubAssy': { label: 'SubAssy', className: 'bg-cyan-100 text-cyan-700' },
+  'SubSubAssy': { label: 'SubSubAssy', className: 'bg-teal-100 text-teal-700' },
+  'Module': { label: 'Module', className: 'bg-green-100 text-green-700' },
+  'Part': { label: 'Part', className: 'bg-gray-100 text-gray-700' },
 };
 
 function formatDate(dateString: string): string {
@@ -100,6 +110,20 @@ function TaskCard({
           {statusConfig.icon}
           {statusConfig.label}
         </Badge>
+      </div>
+
+      {/* 対象オブジェクト */}
+      <div className='mt-2 flex items-center gap-1.5'>
+        <Box className='size-3 text-muted-foreground' />
+        <Badge
+          variant='outline'
+          className={cn('text-[10px] px-1.5 py-0', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+        >
+          {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+        </Badge>
+        <span className='text-xs text-muted-foreground truncate'>
+          {task.targetObject.name}
+        </span>
       </div>
 
       {/* Footer */}
