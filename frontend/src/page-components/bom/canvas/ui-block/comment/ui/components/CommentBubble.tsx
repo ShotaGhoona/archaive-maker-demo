@@ -39,7 +39,9 @@ export function CommentBubble({ thread, isDragging = false }: CommentBubbleProps
 
   return (
     <div
-      className="relative"
+      className={`relative transition-opacity duration-200 ${
+        thread.resolved ? 'opacity-40' : 'opacity-100'
+      }`}
       onMouseEnter={() => !isDragging && setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >

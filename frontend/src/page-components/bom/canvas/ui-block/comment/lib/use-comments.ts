@@ -117,9 +117,13 @@ export function useComments(): UseCommentsReturn {
     );
   }, []);
 
-  // スレッドを解決（削除と同等）
+  // スレッドを解決済みにする
   const resolveThread = useCallback((threadId: string) => {
-    setThreads((prev) => prev.filter((thread) => thread.id !== threadId));
+    setThreads((prev) =>
+      prev.map((thread) =>
+        thread.id === threadId ? { ...thread, resolved: true } : thread
+      )
+    );
   }, []);
 
   return {
