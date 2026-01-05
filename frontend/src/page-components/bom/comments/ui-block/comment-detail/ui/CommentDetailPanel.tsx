@@ -14,6 +14,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
 import type { CommentThread } from '../../../dummy-data/comments';
+import { CreateTaskFromCommentModal } from '../../create-task-modal/ui/CreateTaskFromCommentModal';
 
 interface CommentDetailPanelProps {
   thread: CommentThread;
@@ -117,13 +118,20 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
                     <AvatarFallback>{comment.author.name[0]}</AvatarFallback>
                   </Avatar>
                   <div className='min-w-0 flex-1'>
-                    <div className='flex items-baseline gap-2'>
-                      <span className='font-medium'>{comment.author.name}</span>
-                      {comment.author.role && (
-                        <Badge variant='secondary' className='text-xs'>
-                          {comment.author.role}
-                        </Badge>
-                      )}
+                    <div className='flex items-center justify-between'>
+                      <div className='flex items-baseline gap-2'>
+                        <span className='font-medium'>{comment.author.name}</span>
+                        {comment.author.role && (
+                          <Badge variant='secondary' className='text-xs'>
+                            {comment.author.role}
+                          </Badge>
+                        )}
+                      </div>
+                      {/* タスク登録ボタン */}
+                      <CreateTaskFromCommentModal
+                        comment={comment}
+                        threadId={thread.id}
+                      />
                     </div>
                     <span className='text-xs text-muted-foreground'>
                       {formatDateTime(comment.createdAt)}

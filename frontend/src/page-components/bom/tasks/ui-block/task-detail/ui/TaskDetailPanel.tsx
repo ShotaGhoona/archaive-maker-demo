@@ -11,6 +11,8 @@ import {
   X,
   User,
   Play,
+  Box,
+  MessageSquare,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -18,7 +20,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
 import { Separator } from '@/shared/ui/shadcn/ui/separator';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority } from '../../../dummy-data/tasks';
+import type { Task, TaskStatus, TaskPriority, TargetNodeType } from '../../../dummy-data/tasks';
 
 interface TaskDetailPanelProps {
   task: Task;
@@ -53,6 +55,15 @@ const PRIORITY_CONFIG: Record<
   high: { label: '高', className: 'text-red-500 bg-red-50' },
   medium: { label: '中', className: 'text-yellow-600 bg-yellow-50' },
   low: { label: '低', className: 'text-gray-500 bg-gray-100' },
+};
+
+const NODE_TYPE_CONFIG: Record<TargetNodeType, { label: string; className: string }> = {
+  '製品': { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  'Assy': { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  'SubAssy': { label: 'SubAssy', className: 'bg-cyan-100 text-cyan-700' },
+  'SubSubAssy': { label: 'SubSubAssy', className: 'bg-teal-100 text-teal-700' },
+  'Module': { label: 'Module', className: 'bg-green-100 text-green-700' },
+  'Part': { label: 'Part', className: 'bg-gray-100 text-gray-700' },
 };
 
 function formatDateTime(dateString: string): string {
@@ -161,6 +172,23 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
 
             {/* 詳細情報 */}
             <div className='grid gap-4'>
+              {/* 対象オブジェクト */}
+              <div className='flex items-center gap-3'>
+                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
+                  <Box className='size-4' />
+                  対象
+                </div>
+                <div className='flex items-center gap-2'>
+                  <Badge
+                    variant='outline'
+                    className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+                  >
+                    {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+                  </Badge>
+                  <span className='text-sm font-medium'>{task.targetObject.name}</span>
+                </div>
+              </div>
+
               {/* 担当者 */}
               <div className='flex items-center gap-3'>
                 <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
@@ -238,6 +266,40 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                 </div>
               )}
             </div>
+
+            {/* 元コメント（コメントから生成された場合） */}
+            {task.sourceComment && (
+              <>
+                <Separator />
+                <div className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                      <MessageSquare className='size-4' />
+                      <span>このタスクの元コメント</span>
+                    </div>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      onClick={() => {
+                        // TODO: コメントページへ遷移し、該当スレッドを開く
+                        router.push(`/bom/${bomId}/comments?thread=${task.sourceComment?.threadId}`);
+                      }}
+                    >
+                      <ExternalLink className='mr-1 size-3' />
+                      コメントを見る
+                    </Button>
+                  </div>
+                  <div className='rounded-lg border bg-muted/30 p-3'>
+                    <p className='text-sm leading-relaxed line-clamp-3'>
+                      {task.sourceComment.content}
+                    </p>
+                    <p className='mt-2 text-xs text-muted-foreground'>
+                      — {task.sourceComment.authorName}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </CardContent>
       </Card>
