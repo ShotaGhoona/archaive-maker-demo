@@ -95,9 +95,9 @@ export function CsvExportModalWidget<T extends object>({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='xl' className='bg-card'>
-          <FileDown className='h-4 w-4' />
-          CSV出力
+        <Button variant='outline' size='sm' className='h-9 gap-1.5 bg-white px-3'>
+          <FileDown className='size-4' />
+          CSV
         </Button>
       </DialogTrigger>
       <DialogContent className='flex h-[80vh] flex-col p-0 sm:max-w-7xl'>
@@ -107,7 +107,7 @@ export function CsvExportModalWidget<T extends object>({
 
         <div className='grid min-h-0 flex-1 grid-cols-[1fr_320px] gap-6 px-6'>
           {/* 左側: プレビュー */}
-          <div className='flex min-h-0 min-w-0 flex-col rounded-lg border bg-gray-50'>
+          <div className='flex min-h-0 min-w-0 flex-col rounded border-2 border-border bg-accent'>
             <h3 className='flex shrink-0 items-center gap-2 p-4 pb-2 text-sm font-medium'>
               <Table2 className='h-4 w-4 text-muted-foreground' />
               プレビュー
@@ -158,7 +158,7 @@ export function CsvExportModalWidget<T extends object>({
           </div>
 
           {/* 右側: 設定 */}
-          <div className='flex min-h-0 flex-col rounded-lg border bg-gray-50'>
+          <div className='flex min-h-0 flex-col rounded border-2 border-border bg-accent'>
             <h3 className='flex shrink-0 items-center gap-2 rounded-t-lg p-4 pb-2 text-sm font-medium'>
               <Columns3 className='h-4 w-4 text-muted-foreground' />
               出力カラム

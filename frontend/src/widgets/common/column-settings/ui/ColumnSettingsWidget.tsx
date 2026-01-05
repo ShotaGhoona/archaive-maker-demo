@@ -134,9 +134,9 @@ export function ColumnSettingsWidget({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='xl' className='bg-card'>
-          <Settings2 className='size-5' />
-          テーブル設定
+        <Button variant='outline' size='sm' className='h-9 gap-1.5 bg-white px-3'>
+          <Settings2 className='size-4' />
+          設定
         </Button>
       </DialogTrigger>
       <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl'>

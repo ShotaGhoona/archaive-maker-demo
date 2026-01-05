@@ -82,7 +82,7 @@ export function ViewPagination({
   const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <div className='flex shrink-0 items-center justify-between border-t px-4 py-3'>
+    <div className='flex shrink-0 items-center justify-between border-t-2 border-border bg-white px-4 py-3'>
       <span className='min-w-[100px] text-sm text-muted-foreground'>
         {startItem}-{endItem}/{totalItems}
       </span>
@@ -137,7 +137,7 @@ export function ViewPagination({
             value={String(pageSize)}
             onValueChange={(value) => onPageSizeChange?.(Number(value))}
           >
-            <SelectTrigger className='h-8 w-[70px] bg-card'>
+            <SelectTrigger className='h-8 w-[70px] border-2 border-border bg-white'>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -159,7 +159,7 @@ export function ViewPagination({
                 onGridColumnsChange(Number(value) as GridColumns)
               }
             >
-              <SelectTrigger className='h-8 w-[70px] bg-card'>
+              <SelectTrigger className='h-8 w-[70px] border-2 border-border bg-white'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

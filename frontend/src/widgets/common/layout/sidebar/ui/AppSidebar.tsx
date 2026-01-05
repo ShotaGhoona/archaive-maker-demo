@@ -67,7 +67,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-export function AppHeader() {
+export function AppSidebar() {
   const pathname = usePathname();
   const { user } = useAppSelector((state) => state.auth);
   const logoutMutation = useLogout();
@@ -78,75 +78,74 @@ export function AppHeader() {
     logoutMutation.mutate();
   };
 
-  // ユーザー名の表示（名前があれば名前、なければメールアドレス）
   const displayName = user?.name || user?.email || 'ユーザー';
-  // アバターのイニシャル（名前の最初の2文字、またはメールの最初の2文字）
   const avatarInitial =
     user?.name?.slice(0, 2) || user?.email?.slice(0, 2) || 'U';
 
   return (
-    <header className='z-10 flex h-14 shrink-0 items-center bg-primary px-2 shadow-md border-b-2 border-primary-foreground/20'>
-      {/* Left: Logo */}
-      <div className='flex h-full items-center px-3'>
+    <aside className='flex h-full w-56 shrink-0 flex-col border-r-2 border-border bg-primary'>
+      {/* Logo */}
+      <div className='flex h-16 shrink-0 items-center justify-center border-b-2 border-primary-foreground/20 px-4'>
         <Image
           src='/SVG/header-logo.svg'
           alt='ARCHAIVE'
-          width={130}
-          height={28}
+          width={140}
+          height={30}
           priority
         />
       </div>
 
-      {/* Navigation Tabs */}
-      <nav className='flex h-full items-center border-l-2 border-primary-foreground/20'>
-        {navItems.map((item, index) => (
+      {/* Main Navigation */}
+      <nav className='flex flex-1 flex-col gap-1 p-3'>
+        {navItems.map((item) => (
           <Link
             key={item.id}
             href={item.href}
             className={cn(
-              'relative flex h-full items-center gap-2 px-5 text-base font-semibold uppercase tracking-wide transition-colors',
-              'text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10',
-              isActive(item.href) && 'text-primary-foreground bg-primary-foreground/10',
-              index !== 0 && 'border-l-2 border-primary-foreground/20',
+              'flex items-center gap-3 rounded px-4 py-3 text-sm font-semibold transition-colors',
+              'text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground',
+              isActive(item.href) &&
+                'bg-primary-foreground/20 text-primary-foreground',
             )}
           >
             {item.icon}
             {item.label}
-            {isActive(item.href) && (
-              <span className='absolute bottom-0 left-0 right-0 h-1 bg-primary-foreground' />
-            )}
           </Link>
         ))}
       </nav>
 
-      {/* Spacer */}
-      <div className='flex-1' />
+      {/* Bottom Section */}
+      <div className='shrink-0 border-t-2 border-primary-foreground/20 p-3'>
+        {/* Settings & Help */}
+        <div className='mb-2 flex flex-col gap-1'>
+          <button className='flex items-center gap-3 rounded px-4 py-2 text-sm font-medium text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground'>
+            <Settings className='size-4' />
+            設定
+          </button>
+          <button className='flex items-center gap-3 rounded px-4 py-2 text-sm font-medium text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground'>
+            <HelpCircle className='size-4' />
+            ヘルプ
+          </button>
+        </div>
 
-      {/* Right: Settings, Help, User */}
-      <div className='flex h-full items-center border-l-2 border-primary-foreground/20'>
-        <button className='relative flex h-full items-center gap-2 border-r-2 border-primary-foreground/20 px-5 text-base font-semibold text-primary-foreground/90 transition-colors hover:text-primary-foreground hover:bg-primary-foreground/10'>
-          <Settings className='size-5' />
-          設定
-        </button>
-        <button className='relative flex h-full items-center gap-2 border-r-2 border-primary-foreground/20 px-5 text-base font-semibold text-primary-foreground/90 transition-colors hover:text-primary-foreground hover:bg-primary-foreground/10'>
-          <HelpCircle className='size-5' />
-          ヘルプ
-        </button>
-
-        {/* User Popover */}
+        {/* User */}
         <Popover>
           <PopoverTrigger asChild>
-            <button className='relative flex h-full items-center gap-2 px-5 text-base font-semibold text-primary-foreground/90 transition-colors hover:text-primary-foreground hover:bg-primary-foreground/10'>
-              <Avatar className='size-7 border-2 border-primary-foreground/30'>
+            <button className='flex w-full items-center gap-3 rounded border-2 border-primary-foreground/20 bg-primary-foreground/10 px-3 py-2 text-left transition-colors hover:bg-primary-foreground/20'>
+              <Avatar className='size-8 border-2 border-primary-foreground/30'>
                 <AvatarFallback className='bg-primary-foreground/20 text-xs font-bold text-primary-foreground'>
                   {avatarInitial}
                 </AvatarFallback>
               </Avatar>
-              <span className='max-w-[100px] truncate'>{displayName}</span>
-              <ChevronDown className='size-4' />
+              <div className='min-w-0 flex-1'>
+                <p className='truncate text-sm font-semibold text-primary-foreground'>
+                  {displayName}
+                </p>
+              </div>
+              <ChevronDown className='size-4 shrink-0 text-primary-foreground/60' />
             </button>
           </PopoverTrigger>
-          <PopoverContent align='end' className='w-56 p-2'>
+          <PopoverContent align='start' side='top' className='w-56 p-2'>
             <div className='mb-2 px-2 py-1.5'>
               {user?.name && <p className='text-sm font-medium'>{user.name}</p>}
               {user?.email && (
@@ -170,6 +169,6 @@ export function AppHeader() {
           </PopoverContent>
         </Popover>
       </div>
-    </header>
+    </aside>
   );
 }

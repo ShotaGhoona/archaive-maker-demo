@@ -87,7 +87,7 @@ export function TableHeader<T>({
                 }),
               }}
               className={cn(
-                'relative sticky top-0 z-10 border-b-[3px] border-border bg-card py-4',
+                'relative sticky top-0 z-10 border-b-2 border-border bg-white py-4',
                 column.sortable && 'cursor-pointer select-none',
                 column.sticky && 'z-20',
               )}

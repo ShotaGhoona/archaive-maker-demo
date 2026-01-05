@@ -152,7 +152,7 @@ export function ColumnManagementTab({
   return (
     <div className='grid h-full grid-cols-3 gap-6'>
       {/* カラム一覧 */}
-      <div className='col-span-1 flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+      <div className='col-span-1 flex min-h-0 flex-col rounded border-2 border-border bg-white py-4'>
         <div className='mb-3 flex shrink-0 items-center justify-between px-4'>
           <h3 className='text-base font-medium'>カラム一覧</h3>
           <Button
@@ -229,7 +229,7 @@ export function ColumnManagementTab({
       </div>
 
       {/* 編集フォーム */}
-      <div className='col-span-2 flex flex-col rounded-lg border bg-card p-6'>
+      <div className='col-span-2 flex flex-col rounded border-2 border-border bg-white p-6'>
         <h3 className='mb-6 shrink-0 text-lg font-medium'>
           {isAdding
             ? 'カラムを追加'

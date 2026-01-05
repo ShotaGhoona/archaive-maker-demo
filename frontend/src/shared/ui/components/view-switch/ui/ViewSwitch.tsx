@@ -33,7 +33,7 @@ export function ViewSwitch<T extends ViewMode>({
   onChange,
 }: ViewSwitchProps<T>) {
   return (
-    <div className='flex rounded-lg border bg-card p-1'>
+    <div className='flex rounded border-2 border-border bg-white p-0.5'>
       {modes.map((mode) => {
         const config = VIEW_MODE_CONFIG[mode];
         const Icon = config.icon;
@@ -43,7 +43,7 @@ export function ViewSwitch<T extends ViewMode>({
               <Button
                 variant={value === mode ? 'default' : 'ghost'}
                 size='icon'
-                className='h-10 w-10'
+                className='size-8'
                 onClick={() => onChange(mode)}
               >
                 <Icon className='size-4' />

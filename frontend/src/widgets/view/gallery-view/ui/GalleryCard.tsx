@@ -32,12 +32,12 @@ export function GalleryCard<T extends object>({
   return (
     <Card
       className={cn(
-        'group relative gap-3 overflow-hidden p-3 transition-shadow hover:shadow-[0_0_16px_rgba(0,0,0,0.15)]',
+        'group relative gap-3 overflow-hidden p-3 transition-shadow hover:shadow-[0_2px_8px_rgba(0,0,0,0.15)]',
         onClick && 'cursor-pointer space-y-0',
       )}
       onClick={() => onClick?.(item, index)}
     >
-      <div className='relative aspect-[4/3] w-full overflow-hidden bg-card'>
+      <div className='relative aspect-[4/3] w-full overflow-hidden rounded border-2 border-border bg-accent'>
         {thumbnail ? (
           <Image
             src={thumbnail}

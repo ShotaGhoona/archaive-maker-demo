@@ -32,7 +32,7 @@ export function FilterVisibilityTab({
       {/* リスト */}
       <div className='grid min-h-0 flex-1 grid-cols-2 gap-6'>
         {/* 非表示フィルター */}
-        <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+        <div className='flex min-h-0 flex-col rounded border-2 border-border bg-white py-4'>
           <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
             <X className='size-5 text-muted-foreground' />
             非表示のフィルター
@@ -68,7 +68,7 @@ export function FilterVisibilityTab({
         </div>
 
         {/* 表示フィルター */}
-        <div className='flex min-h-0 flex-col rounded-lg border bg-card py-4'>
+        <div className='flex min-h-0 flex-col rounded border-2 border-border bg-white py-4'>
           <h3 className='mb-3 flex shrink-0 items-center gap-2 px-4 text-base font-medium'>
             <Check className='size-5 text-muted-foreground' />
             表示するフィルター

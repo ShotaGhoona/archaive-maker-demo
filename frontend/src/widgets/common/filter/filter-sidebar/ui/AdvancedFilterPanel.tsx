@@ -108,7 +108,7 @@ export function AdvancedFilterPanel({
                     </span>
                   </div>
                 )}
-                <div className='group relative flex flex-col gap-2 rounded-lg border bg-card p-3'>
+                <div className='group relative flex flex-col gap-2 rounded border-2 border-border bg-white p-3'>
                   {/* 削除ボタン（ホバー時のみ表示） */}
                   <button
                     type='button'
@@ -129,7 +129,7 @@ export function AdvancedFilterPanel({
                         handleConditionChange(condition.id, 'field', v)
                       }
                     >
-                      <SelectTrigger className='w-full bg-card'>
+                      <SelectTrigger className='w-full border-2 border-border bg-white'>
                         <SelectValue placeholder='対象を選択' />
                       </SelectTrigger>
                       <SelectContent>
@@ -157,7 +157,7 @@ export function AdvancedFilterPanel({
                         )
                       }
                     >
-                      <SelectTrigger className='w-full bg-card'>
+                      <SelectTrigger className='w-full border-2 border-border bg-white'>
                         <SelectValue placeholder='条件を選択' />
                       </SelectTrigger>
                       <SelectContent>
@@ -186,7 +186,7 @@ export function AdvancedFilterPanel({
                             e.target.value,
                           )
                         }
-                        className='bg-card'
+                        className='bg-white'
                       />
                     </div>
                   )}

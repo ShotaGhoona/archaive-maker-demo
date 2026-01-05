@@ -3,7 +3,7 @@
  * 認証チェックはMiddlewareで実施済みのため、ここではレイアウトのみを提供
  */
 import { generateAuthenticatedMetadata } from '@/shared/lib/global-metadata';
-import { AppHeader } from '@/widgets/common/layout/header/ui/AppHeader';
+import { AppSidebar } from '@/widgets/common/layout/sidebar/ui/AppSidebar';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = generateAuthenticatedMetadata();
@@ -14,9 +14,11 @@ export default function AuthenticatedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='flex h-screen flex-col bg-background'>
-      <AppHeader />
-      <main className='flex min-h-0 flex-1 flex-col'>{children}</main>
+    <div className='flex h-screen bg-background'>
+      <AppSidebar />
+      <main className='flex min-h-0 min-w-0 flex-1 flex-col bg-background'>
+        {children}
+      </main>
     </div>
   );
 }

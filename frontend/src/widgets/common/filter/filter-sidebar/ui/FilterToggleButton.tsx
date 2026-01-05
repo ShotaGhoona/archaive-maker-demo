@@ -13,15 +13,20 @@ export function FilterToggleButton({
   onToggle,
 }: FilterToggleButtonProps) {
   return (
-    <Button size='xl' variant='outline' className='bg-card' onClick={onToggle}>
+    <Button
+      size='sm'
+      variant='outline'
+      className='h-9 gap-1.5 bg-white px-3'
+      onClick={onToggle}
+    >
       {open ? (
         <>
-          <X className='h-5 w-5' />
+          <X className='size-4' />
           閉じる
         </>
       ) : (
         <>
-          <Filter className='h-5 w-5' />
+          <Filter className='size-4' />
           フィルター
         </>
       )}

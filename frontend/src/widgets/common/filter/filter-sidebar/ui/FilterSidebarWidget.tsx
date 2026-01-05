@@ -31,7 +31,7 @@ export function FilterSidebarWidget({
   return (
     <div
       className={cn(
-        'flex h-full flex-col border-r bg-card shadow-md transition-all duration-300 ease-in-out',
+        'flex h-full flex-col border-r-2 border-border bg-white shadow-md transition-all duration-300 ease-in-out',
         open ? 'w-80' : 'w-0 overflow-hidden border-r-0',
         className,
       )}
