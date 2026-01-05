@@ -338,10 +338,11 @@ function FloatingModalOverlay({
   const provider = useFloatingModalProvider();
   const { id } = useFloatingModal();
 
-  // Only show overlay for the first modal
+  // Show overlay only for standalone modal or first modal in stack
+  const isStandalone = !provider;
   const isFirst = provider?.modals[0]?.id === id;
 
-  if (!isFirst) {
+  if (!isStandalone && !isFirst) {
     return null;
   }
 
@@ -421,18 +422,18 @@ function FloatingModalContent({
   }
   // center is handled by CSS class
 
-  // Animation: slide in from right, slide out to right
-  const slideInClass = 'data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-right-4';
-
-  // Build transform string
-  const transforms: string[] = [];
+  // Build transform and CSS variables for animation
+  // When align is center, we need to maintain translateY(-50%) during animation
+  const animationVars: React.CSSProperties = {};
   if (align === 'center') {
-    transforms.push('translateY(-50%)');
+    // Override Tailwind animate CSS variables to maintain Y position
+    (animationVars as Record<string, string>)['--tw-enter-translate-y'] = '-50%';
+    (animationVars as Record<string, string>)['--tw-exit-translate-y'] = '-50%';
   }
-  if (position.translateX !== 0) {
-    transforms.push(`translateX(${position.translateX}px)`);
-  }
-  const transformStyle = transforms.length > 0 ? transforms.join(' ') : undefined;
+
+  const transformStyle = position.translateX !== 0
+    ? `translateX(${position.translateX}px)${align === 'center' ? ' translateY(-50%)' : ''}`
+    : align === 'center' ? 'translateY(-50%)' : undefined;
 
   // Back button icon based on side
   const BackIcon = side === 'right' ? ChevronLeftIcon : ChevronRightIcon;
@@ -454,12 +455,12 @@ function FloatingModalContent({
           'bg-background rounded-xl border shadow-2xl',
           'outline-none',
           'max-h-[calc(100vh-48px)]',
-          // Vertical alignment (top-1/2 only, translateY handled in style)
+          // Vertical alignment
           align === 'center' && 'top-1/2',
-          // Animation
+          // Animation - horizontal slide only
           'data-[state=open]:animate-in data-[state=closed]:animate-out',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-          slideInClass,
+          'data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-right-4',
           'duration-300 ease-out',
           // Partial/hidden state styling
           position.isPartial && 'pointer-events-none',
@@ -468,6 +469,7 @@ function FloatingModalContent({
         )}
         style={{
           ...positionStyles,
+          ...animationVars,
           transform: transformStyle,
           transition: 'transform 300ms ease-out, opacity 300ms ease-out',
         }}

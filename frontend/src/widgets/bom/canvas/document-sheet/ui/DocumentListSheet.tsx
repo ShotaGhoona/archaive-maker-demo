@@ -6,12 +6,13 @@ import Image from 'next/image';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/shared/ui/shadcn/ui/sheet';
+  FloatingModal,
+  FloatingModalTrigger,
+  FloatingModalContent,
+  FloatingModalHeader,
+  FloatingModalBody,
+  FloatingModalTitle,
+} from '@/shared/ui/shadcn/ui/floating-modal';
 import {
   Tooltip,
   TooltipContent,
@@ -45,10 +46,10 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
 
   return (
     <>
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+      <FloatingModal open={sheetOpen} onOpenChange={setSheetOpen}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <SheetTrigger asChild>
+            <FloatingModalTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
@@ -57,20 +58,17 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
               >
                 <FileText className="h-4 w-4" />
               </Button>
-            </SheetTrigger>
+            </FloatingModalTrigger>
           </TooltipTrigger>
           <TooltipContent>
             <p>帳票一覧 ({documents.length})</p>
           </TooltipContent>
         </Tooltip>
-        <SheetContent
-          className="flex flex-col overflow-hidden"
-          onWheel={(e) => e.stopPropagation()}
-        >
-          <SheetHeader>
-            <SheetTitle className="text-left">帳票一覧</SheetTitle>
-          </SheetHeader>
-          <div className="mt-4 min-h-0 flex-1 overflow-y-auto px-1 pb-4">
+        <FloatingModalContent height="full" onWheel={(e) => e.stopPropagation()}>
+          <FloatingModalHeader>
+            <FloatingModalTitle>帳票一覧</FloatingModalTitle>
+          </FloatingModalHeader>
+          <FloatingModalBody className="overflow-y-auto">
             {documents.length === 0 ? (
               <div className="flex h-full items-center justify-center">
                 <NoData title="帳票がありません" size="sm" />
@@ -108,9 +106,9 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
                 })}
               </div>
             )}
-          </div>
-        </SheetContent>
-      </Sheet>
+          </FloatingModalBody>
+        </FloatingModalContent>
+      </FloatingModal>
 
       {/* 詳細モーダル */}
       {selectedDocument && (
