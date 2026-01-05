@@ -1,6 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+
+export interface FilterItem {
+  key: string;
+  visible: boolean;
+}
 
 interface FilterField {
   key: string;
@@ -15,85 +20,47 @@ interface UseFilterVisibilityProps {
 /**
  * フィルター表示設定のロジック
  * - フィルターの表示/非表示
- * - フィルターの順序変更
+ * - フィルターの順序変更（ドラッグ&ドロップ対応）
  * - リセット/全て非表示/全て表示
  */
 export function useFilterVisibility({
   filterFields,
 }: UseFilterVisibilityProps) {
-  const [visibleKeys, setVisibleKeys] = useState<string[]>([]);
-  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const [items, setItems] = useState<FilterItem[]>([]);
 
   // 初期化
   const initialize = useCallback(() => {
-    setVisibleKeys(filterFields.map((f) => f.key));
-    setHiddenKeys([]);
-    setSelectedKey(null);
+    setItems(filterFields.map((f) => ({ key: f.key, visible: true })));
   }, [filterFields]);
 
-  // 非表示に移動
-  const moveToHidden = useCallback((key: string) => {
-    setVisibleKeys((prev) => prev.filter((k) => k !== key));
-    setHiddenKeys((prev) => [...prev, key]);
-    setSelectedKey(key);
+  // 表示/非表示の切り替え
+  const toggleVisibility = useCallback((key: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.key === key ? { ...item, visible: !item.visible } : item,
+      ),
+    );
   }, []);
 
-  // 表示に移動
-  const moveToVisible = useCallback((key: string) => {
-    setHiddenKeys((prev) => prev.filter((k) => k !== key));
-    setVisibleKeys((prev) => [...prev, key]);
-    setSelectedKey(key);
+  // 順序変更（ドラッグ&ドロップ後のコールバック）
+  const reorder = useCallback((newItems: FilterItem[]) => {
+    setItems(newItems);
   }, []);
-
-  // 上に移動
-  const moveUp = useCallback(
-    (keys: string[], isVisible: boolean, key: string) => {
-      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-      const index = keys.indexOf(key);
-      if (index <= 0) return;
-      setKeys((prev) => {
-        const next = [...prev];
-        [next[index - 1], next[index]] = [next[index], next[index - 1]];
-        return next;
-      });
-    },
-    [],
-  );
-
-  // 下に移動
-  const moveDown = useCallback(
-    (keys: string[], isVisible: boolean, key: string) => {
-      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-      const index = keys.indexOf(key);
-      if (index < 0 || index >= keys.length - 1) return;
-      setKeys((prev) => {
-        const next = [...prev];
-        [next[index], next[index + 1]] = [next[index + 1], next[index]];
-        return next;
-      });
-    },
-    [],
-  );
 
   // リセット
   const reset = useCallback(() => {
-    setVisibleKeys(filterFields.map((f) => f.key));
-    setHiddenKeys([]);
-    setSelectedKey(null);
+    setItems(filterFields.map((f) => ({ key: f.key, visible: true })));
   }, [filterFields]);
 
   // 全て非表示
   const hideAll = useCallback(() => {
-    setHiddenKeys((prev) => [...visibleKeys, ...prev]);
-    setVisibleKeys([]);
-  }, [visibleKeys]);
+    setItems((prev) => prev.map((item) => ({ ...item, visible: false })));
+  }, []);
 
   // 全て表示
   const showAll = useCallback(() => {
-    setVisibleKeys((prev) => [...hiddenKeys, ...prev]);
-    setHiddenKeys([]);
-  }, [hiddenKeys]);
+    setItems((prev) => prev.map((item) => ({ ...item, visible: true })));
+  }, []);
 
   // ラベル取得
   const getLabel = useCallback(
@@ -101,16 +68,24 @@ export function useFilterVisibility({
     [filterFields],
   );
 
+  // 互換性のため、visibleKeysとhiddenKeysを計算
+  const visibleKeys = useMemo(
+    () => items.filter((item) => item.visible).map((item) => item.key),
+    [items],
+  );
+
+  const hiddenKeys = useMemo(
+    () => items.filter((item) => !item.visible).map((item) => item.key),
+    [items],
+  );
+
   return {
+    items,
     visibleKeys,
     hiddenKeys,
-    selectedKey,
-    setSelectedKey,
     initialize,
-    moveToHidden,
-    moveToVisible,
-    moveUp,
-    moveDown,
+    toggleVisibility,
+    reorder,
     reset,
     hideAll,
     showAll,

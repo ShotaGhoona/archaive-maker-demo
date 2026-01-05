@@ -1,6 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+
+export interface ColumnItem {
+  key: string;
+  visible: boolean;
+}
 
 interface UseColumnVisibilityProps {
   initialVisibleKeys: string[];
@@ -9,107 +14,76 @@ interface UseColumnVisibilityProps {
 /**
  * テーブル表示設定のロジック
  * - 列の表示/非表示
- * - 列の順序変更
+ * - 列の順序変更（ドラッグ&ドロップ対応）
  * - リセット/全て非表示/全て表示
  */
 export function useColumnVisibility({
   initialVisibleKeys,
 }: UseColumnVisibilityProps) {
-  const [visibleKeys, setVisibleKeys] = useState<string[]>([]);
-  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const [items, setItems] = useState<ColumnItem[]>([]);
 
   // 初期化
   const initialize = useCallback(() => {
-    setVisibleKeys(initialVisibleKeys);
-    setHiddenKeys([]);
-    setSelectedKey(null);
+    setItems(initialVisibleKeys.map((key) => ({ key, visible: true })));
   }, [initialVisibleKeys]);
 
-  // 非表示に移動
-  const moveToHidden = useCallback((key: string) => {
-    setVisibleKeys((prev) => prev.filter((k) => k !== key));
-    setHiddenKeys((prev) => [...prev, key]);
-    setSelectedKey(key);
+  // 表示/非表示の切り替え
+  const toggleVisibility = useCallback((key: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.key === key ? { ...item, visible: !item.visible } : item,
+      ),
+    );
   }, []);
 
-  // 表示に移動
-  const moveToVisible = useCallback((key: string) => {
-    setHiddenKeys((prev) => prev.filter((k) => k !== key));
-    setVisibleKeys((prev) => [...prev, key]);
-    setSelectedKey(key);
+  // 順序変更（ドラッグ&ドロップ後のコールバック）
+  const reorder = useCallback((newItems: ColumnItem[]) => {
+    setItems(newItems);
   }, []);
-
-  // 上に移動
-  const moveUp = useCallback(
-    (keys: string[], isVisible: boolean, key: string) => {
-      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-      const index = keys.indexOf(key);
-      if (index <= 0) return;
-      setKeys((prev) => {
-        const next = [...prev];
-        [next[index - 1], next[index]] = [next[index], next[index - 1]];
-        return next;
-      });
-    },
-    [],
-  );
-
-  // 下に移動
-  const moveDown = useCallback(
-    (keys: string[], isVisible: boolean, key: string) => {
-      const setKeys = isVisible ? setVisibleKeys : setHiddenKeys;
-      const index = keys.indexOf(key);
-      if (index < 0 || index >= keys.length - 1) return;
-      setKeys((prev) => {
-        const next = [...prev];
-        [next[index], next[index + 1]] = [next[index + 1], next[index]];
-        return next;
-      });
-    },
-    [],
-  );
 
   // リセット
   const reset = useCallback(() => {
-    setVisibleKeys(initialVisibleKeys);
-    setHiddenKeys([]);
-    setSelectedKey(null);
+    setItems(initialVisibleKeys.map((key) => ({ key, visible: true })));
   }, [initialVisibleKeys]);
 
   // 全て非表示
   const hideAll = useCallback(() => {
-    setHiddenKeys((prev) => [...visibleKeys, ...prev]);
-    setVisibleKeys([]);
-  }, [visibleKeys]);
+    setItems((prev) => prev.map((item) => ({ ...item, visible: false })));
+  }, []);
 
   // 全て表示
   const showAll = useCallback(() => {
-    setVisibleKeys((prev) => [...hiddenKeys, ...prev]);
-    setHiddenKeys([]);
-  }, [hiddenKeys]);
+    setItems((prev) => prev.map((item) => ({ ...item, visible: true })));
+  }, []);
 
   // 表示キーに追加（カラム追加時に使用）
   const addToVisible = useCallback((key: string) => {
-    setVisibleKeys((prev) => [...prev, key]);
+    setItems((prev) => [...prev, { key, visible: true }]);
   }, []);
 
   // キーを削除（カラム削除時に使用）
   const removeKey = useCallback((key: string) => {
-    setVisibleKeys((prev) => prev.filter((k) => k !== key));
-    setHiddenKeys((prev) => prev.filter((k) => k !== key));
+    setItems((prev) => prev.filter((item) => item.key !== key));
   }, []);
 
+  // 互換性のため、visibleKeysとhiddenKeysを計算
+  const visibleKeys = useMemo(
+    () => items.filter((item) => item.visible).map((item) => item.key),
+    [items],
+  );
+
+  const hiddenKeys = useMemo(
+    () => items.filter((item) => !item.visible).map((item) => item.key),
+    [items],
+  );
+
   return {
+    items,
     visibleKeys,
     hiddenKeys,
-    selectedKey,
-    setSelectedKey,
     initialize,
-    moveToHidden,
-    moveToVisible,
-    moveUp,
-    moveDown,
+    toggleVisibility,
+    reorder,
     reset,
     hideAll,
     showAll,

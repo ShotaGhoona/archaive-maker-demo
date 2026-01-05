@@ -121,9 +121,11 @@ export function ColumnSettingsWidget({
   const handleSave = () => {
     // TODO: API呼び出し
     console.log('[ColumnSettings] 適用:', {
+      columnItems: columnVisibility.items,
       columnVisibleKeys: columnVisibility.visibleKeys,
       columnHiddenKeys: columnVisibility.hiddenKeys,
       columnDefinitions: columnManagement.definitions,
+      filterItems: filterVisibility.items,
       filterVisibleKeys: filterVisibility.visibleKeys,
       filterHiddenKeys: filterVisibility.hiddenKeys,
     });
@@ -139,7 +141,7 @@ export function ColumnSettingsWidget({
           テーブル設定
         </Button>
       </DialogTrigger>
-      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-6xl'>
+      <DialogContent className='flex h-[85vh] max-h-[900px] flex-col gap-0 p-0 sm:max-w-4xl'>
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as SettingsTab)}
@@ -174,15 +176,10 @@ export function ColumnSettingsWidget({
           <div className='min-h-0 flex-1 overflow-hidden p-6'>
             <TabsContent value='visibility' className='mt-0 h-full'>
               <ColumnVisibilityTab
-                visibleKeys={columnVisibility.visibleKeys}
-                hiddenKeys={columnVisibility.hiddenKeys}
-                selectedKey={columnVisibility.selectedKey}
+                items={columnVisibility.items}
                 getLabel={columnManagement.getLabel}
-                onSelect={columnVisibility.setSelectedKey}
-                onMoveUp={columnVisibility.moveUp}
-                onMoveDown={columnVisibility.moveDown}
-                onMoveToHidden={columnVisibility.moveToHidden}
-                onMoveToVisible={columnVisibility.moveToVisible}
+                onReorder={columnVisibility.reorder}
+                onToggleVisibility={columnVisibility.toggleVisibility}
               />
             </TabsContent>
 
@@ -197,15 +194,10 @@ export function ColumnSettingsWidget({
 
             <TabsContent value='filter' className='mt-0 h-full'>
               <FilterVisibilityTab
-                visibleKeys={filterVisibility.visibleKeys}
-                hiddenKeys={filterVisibility.hiddenKeys}
-                selectedKey={filterVisibility.selectedKey}
+                items={filterVisibility.items}
                 getLabel={filterVisibility.getLabel}
-                onSelect={filterVisibility.setSelectedKey}
-                onMoveUp={filterVisibility.moveUp}
-                onMoveDown={filterVisibility.moveDown}
-                onMoveToHidden={filterVisibility.moveToHidden}
-                onMoveToVisible={filterVisibility.moveToVisible}
+                onReorder={filterVisibility.reorder}
+                onToggleVisibility={filterVisibility.toggleVisibility}
               />
             </TabsContent>
           </div>
