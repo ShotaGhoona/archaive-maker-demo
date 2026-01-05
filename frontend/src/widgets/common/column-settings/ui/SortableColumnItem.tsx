@@ -2,8 +2,8 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical } from 'lucide-react';
-import { Checkbox } from '@/shared/ui/shadcn/ui/checkbox';
+import { GripVertical, Eye, EyeOff } from 'lucide-react';
+import { Button } from '@/shared/ui/shadcn/ui/button';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 interface SortableColumnItemProps {
@@ -52,22 +52,28 @@ export function SortableColumnItem({
         <GripVertical className='size-5' />
       </button>
 
-      <Checkbox
-        id={`column-${id}`}
-        checked={visible}
-        onCheckedChange={onToggleVisibility}
-        className='size-5'
-      />
+      <Button
+        type='button'
+        variant='ghost'
+        size='icon'
+        className='size-8'
+        onClick={onToggleVisibility}
+      >
+        {visible ? (
+          <Eye className='size-5 text-foreground' />
+        ) : (
+          <EyeOff className='size-5 text-muted-foreground' />
+        )}
+      </Button>
 
-      <label
-        htmlFor={`column-${id}`}
+      <span
         className={cn(
-          'flex-1 cursor-pointer select-none text-base',
+          'flex-1 select-none text-base',
           !visible && 'text-muted-foreground',
         )}
       >
         {label}
-      </label>
+      </span>
     </div>
   );
 }
