@@ -156,8 +156,8 @@ export function TaskDetailModal({ task, open, onOpenChange, onBack }: TaskDetail
                   </Avatar>
                   <div className='flex gap-2 items-end'>
                     <p className="text-sm">{task.assignee.name}</p>
-                    {task.assignee.role && (
-                      <p className="text-xs text-muted-foreground">{task.assignee.role}</p>
+                    {task.assignee.department && (
+                      <p className="text-xs text-muted-foreground">{task.assignee.department}</p>
                     )}
                   </div>
                 </div>

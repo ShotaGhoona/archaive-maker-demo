@@ -5,37 +5,48 @@
 
 import type { Task, TaskAssignee, TaskTargetObject } from './types';
 
+/** ダミー部署一覧 */
+export const dummyDepartments = [
+  '設計部',
+  '品質管理部',
+  '購買部',
+  '製造部',
+  '生産技術部',
+] as const;
+
+export type Department = (typeof dummyDepartments)[number];
+
 /** ダミーユーザー（中小製造業の従業員） */
 export const dummyUsers: TaskAssignee[] = [
   {
     id: 'user-1',
     name: '山田太郎',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=yamada',
-    role: '設計課長',
+    department: '設計部',
   },
   {
     id: 'user-2',
     name: '佐藤花子',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sato',
-    role: '品質管理',
+    department: '品質管理部',
   },
   {
     id: 'user-3',
     name: '田中一郎',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tanaka',
-    role: '購買担当',
+    department: '購買部',
   },
   {
     id: 'user-4',
     name: '鈴木健二',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=suzuki',
-    role: '製造部主任',
+    department: '製造部',
   },
   {
     id: 'user-5',
     name: '高橋美咲',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=takahashi',
-    role: '生産技術',
+    department: '生産技術部',
   },
 ];
 

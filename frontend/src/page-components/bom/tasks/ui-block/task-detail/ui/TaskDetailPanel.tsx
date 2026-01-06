@@ -202,9 +202,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                     </Avatar>
                     <div>
                       <p className='text-sm font-medium'>{task.assignee.name}</p>
-                      {task.assignee.role && (
+                      {task.assignee.department && (
                         <p className='text-xs text-muted-foreground'>
-                          {task.assignee.role}
+                          {task.assignee.department}
                         </p>
                       )}
                     </div>
