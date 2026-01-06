@@ -75,31 +75,38 @@ export function useCanvasViewport(options: UseCanvasViewportOptions = {}) {
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
 
-      // トラックパッドの2本指スクロール検出
-      const isTrackpadScroll = !e.ctrlKey && !e.metaKey && Math.abs(e.deltaX) > 0;
+      // Cmd/Ctrl + スクロール → 拡大縮小
+      if (e.ctrlKey || e.metaKey) {
+        const delta = -e.deltaY * zoomSensitivity;
+        setViewport((prev) => {
+          const newScale = Math.min(maxScale, Math.max(minScale, prev.scale * (1 + delta)));
+          const scaleRatio = newScale / prev.scale;
 
-      if (isTrackpadScroll) {
-        // トラックパッド2本指スクロール → パン
+          return {
+            offsetX: mouseX - (mouseX - prev.offsetX) * scaleRatio,
+            offsetY: mouseY - (mouseY - prev.offsetY) * scaleRatio,
+            scale: newScale,
+          };
+        });
+        return;
+      }
+
+      // Shift + スクロール → 横スクロール
+      // ブラウザによってはShift時にdeltaXとdeltaYが入れ替わるため両方を考慮
+      if (e.shiftKey) {
+        const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
         setViewport((prev) => ({
           ...prev,
-          offsetX: prev.offsetX - e.deltaX,
-          offsetY: prev.offsetY - e.deltaY,
+          offsetX: prev.offsetX - delta,
         }));
         return;
       }
 
-      // マウスホイール or ピンチズーム → ズーム
-      const delta = -e.deltaY * zoomSensitivity;
-      setViewport((prev) => {
-        const newScale = Math.min(maxScale, Math.max(minScale, prev.scale * (1 + delta)));
-        const scaleRatio = newScale / prev.scale;
-
-        return {
-          offsetX: mouseX - (mouseX - prev.offsetX) * scaleRatio,
-          offsetY: mouseY - (mouseY - prev.offsetY) * scaleRatio,
-          scale: newScale,
-        };
-      });
+      // 通常スクロール → 縦スクロール
+      setViewport((prev) => ({
+        ...prev,
+        offsetY: prev.offsetY - e.deltaY,
+      }));
     },
     [minScale, maxScale, zoomSensitivity]
   );
