@@ -16,7 +16,7 @@ import type { TaskStatus } from '@/shared/dummy-data/tasks/types';
 
 type FilterStatus = 'all' | TaskStatus;
 
-export function BomTasksContainer() {
+export function TasksHomeContainer() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
@@ -61,7 +61,9 @@ export function BomTasksContainer() {
   return (
     <div className='flex h-full flex-col'>
       {/* Header */}
-      <div className='flex shrink-0 items-center justify-end border-b px-6 py-3'>
+      <div className='flex shrink-0 items-center justify-between border-b px-6 py-3'>
+        <h1 className='text-lg font-semibold'>タスク管理</h1>
+
         {/* Filter Tabs */}
         <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
           {filterOptions.map((option) => (
@@ -122,9 +124,6 @@ export function BomTasksContainer() {
                   : filterStatus === 'in_progress'
                     ? '進行中のタスクはありません'
                     : '完了したタスクはありません'}
-            </p>
-            <p className='mt-1 text-sm'>
-              キャンバスモードでタスクを追加できます
             </p>
           </div>
         )}
