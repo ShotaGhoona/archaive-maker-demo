@@ -11,6 +11,7 @@ import { Button } from '@/shared/ui/shadcn/ui/button';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { TaskListPanel } from '@/widgets/bom/tasks/ui/TaskListPanel';
 import { TaskDetailPanel } from '@/widgets/bom/tasks/ui/TaskDetailPanel';
+import { CreateTaskDialog } from '@/widgets/bom/tasks/ui/CreateTaskDialog';
 import { dummyTasks } from '@/shared/dummy-data/tasks/tasks';
 import type { TaskStatus } from '@/shared/dummy-data/tasks/types';
 
@@ -64,26 +65,29 @@ export function TasksHomeContainer() {
       <div className='flex shrink-0 items-center justify-between border-b px-6 py-3'>
         <h1 className='text-lg font-semibold'>タスク管理</h1>
 
-        {/* Filter Tabs */}
-        <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
-          {filterOptions.map((option) => (
-            <Button
-              key={option.value}
-              variant='ghost'
-              size='sm'
-              onClick={() => setFilterStatus(option.value)}
-              className={cn(
-                'gap-1.5 px-3',
-                filterStatus === option.value && 'bg-background shadow-sm'
-              )}
-            >
-              {option.icon}
-              {option.label}
-              <span className='text-muted-foreground'>
-                {counts[option.value]}
-              </span>
-            </Button>
-          ))}
+        <div className='flex items-center gap-4'>
+          {/* Filter Tabs */}
+          <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
+            {filterOptions.map((option) => (
+              <Button
+                key={option.value}
+                variant='ghost'
+                size='sm'
+                onClick={() => setFilterStatus(option.value)}
+                className={cn(
+                  'gap-1.5 px-3',
+                  filterStatus === option.value && 'bg-background shadow-sm'
+                )}
+              >
+                {option.icon}
+                {option.label}
+                <span className='text-muted-foreground'>
+                  {counts[option.value]}
+                </span>
+              </Button>
+            ))}
+          </div>
+          <CreateTaskDialog />
         </div>
       </div>
 
