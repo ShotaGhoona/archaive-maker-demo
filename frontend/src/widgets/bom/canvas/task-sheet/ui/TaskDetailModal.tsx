@@ -94,7 +94,7 @@ export function TaskDetailModal({ task, open, onOpenChange, onBack }: TaskDetail
 
   const statusConfig = STATUS_CONFIG[task.status];
   const priorityConfig = PRIORITY_CONFIG[task.priority];
-  const nodeTypeConfig = NODE_TYPE_CONFIG[task.targetObject.nodeType];
+  const nodeTypeConfig = task.targetObject ? NODE_TYPE_CONFIG[task.targetObject.nodeType] : null;
   const overdue = task.dueDate && isOverdue(task.dueDate, task.status);
 
   const handleStartTask = () => {
@@ -135,15 +135,17 @@ export function TaskDetailModal({ task, open, onOpenChange, onBack }: TaskDetail
           {/* 詳細情報 */}
           <div className="space-y-3">
             {/* 対象オブジェクト */}
-            <div className="flex items-center gap-3">
-              <span className="w-16 text-xs text-muted-foreground">対象</span>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className={cn('text-xs', nodeTypeConfig.className)}>
-                  {nodeTypeConfig.label}
-                </Badge>
-                <span className="text-sm">{task.targetObject.nodeName}</span>
+            {task.targetObject && nodeTypeConfig && (
+              <div className="flex items-center gap-3">
+                <span className="w-16 text-xs text-muted-foreground">対象</span>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className={cn('text-xs', nodeTypeConfig.className)}>
+                    {nodeTypeConfig.label}
+                  </Badge>
+                  <span className="text-sm">{task.targetObject.nodeName}</span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* 担当者 */}
             <div className="flex items-center gap-3">

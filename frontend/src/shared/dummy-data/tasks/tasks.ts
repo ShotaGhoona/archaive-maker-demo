@@ -262,7 +262,7 @@ export const dummyTasks: Task[] = [
  * 特定のBOMノードに紐づくタスクを取得
  */
 export function getTasksByNodeId(nodeId: string): Task[] {
-  return dummyTasks.filter((task) => task.targetObject.nodeId === nodeId);
+  return dummyTasks.filter((task) => task.targetObject?.nodeId === nodeId);
 }
 
 /**
@@ -270,6 +270,6 @@ export function getTasksByNodeId(nodeId: string): Task[] {
  */
 export function getIncompleteTaskCountByNodeId(nodeId: string): number {
   return dummyTasks.filter(
-    (task) => task.targetObject.nodeId === nodeId && task.status !== 'done'
+    (task) => task.targetObject?.nodeId === nodeId && task.status !== 'done'
   ).length;
 }

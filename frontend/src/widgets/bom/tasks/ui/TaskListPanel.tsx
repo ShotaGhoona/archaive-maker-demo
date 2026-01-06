@@ -110,18 +110,20 @@ function TaskCard({
       </div>
 
       {/* 対象オブジェクト */}
-      <div className='mt-2 flex items-center gap-1.5'>
-        <Box className='size-3 text-muted-foreground' />
-        <Badge
-          variant='outline'
-          className={cn('text-[10px] px-1.5 py-0', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
-        >
-          {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
-        </Badge>
-        <span className='text-xs text-muted-foreground truncate'>
-          {task.targetObject.nodeName}
-        </span>
-      </div>
+      {task.targetObject && (
+        <div className='mt-2 flex items-center gap-1.5'>
+          <Box className='size-3 text-muted-foreground' />
+          <Badge
+            variant='outline'
+            className={cn('text-[10px] px-1.5 py-0', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+          >
+            {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+          </Badge>
+          <span className='text-xs text-muted-foreground truncate'>
+            {task.targetObject.nodeName}
+          </span>
+        </div>
+      )}
 
       {/* Footer */}
       <div className='mt-3 flex items-center justify-between'>

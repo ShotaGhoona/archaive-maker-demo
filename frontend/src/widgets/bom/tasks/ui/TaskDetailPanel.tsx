@@ -170,21 +170,23 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
             {/* 詳細情報 */}
             <div className='grid gap-4'>
               {/* 対象オブジェクト */}
-              <div className='flex items-center gap-3'>
-                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                  <Box className='size-4' />
-                  対象
+              {task.targetObject && (
+                <div className='flex items-center gap-3'>
+                  <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
+                    <Box className='size-4' />
+                    対象
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <Badge
+                      variant='outline'
+                      className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+                    >
+                      {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+                    </Badge>
+                    <span className='text-sm font-medium'>{task.targetObject.nodeName}</span>
+                  </div>
                 </div>
-                <div className='flex items-center gap-2'>
-                  <Badge
-                    variant='outline'
-                    className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
-                  >
-                    {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
-                  </Badge>
-                  <span className='text-sm font-medium'>{task.targetObject.nodeName}</span>
-                </div>
-              </div>
+              )}
 
               {/* 担当者 */}
               <div className='flex items-center gap-3'>

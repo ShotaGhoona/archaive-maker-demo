@@ -78,16 +78,11 @@ export function CreateTaskFromCommentModal({
   const selectedNode = dummyBomNodes.find((n) => n.id === targetNodeId);
 
   const handleSubmit = () => {
-    if (!targetNodeId) {
-      alert('対象オブジェクトを選択してください');
-      return;
-    }
-
     // TODO: API呼び出し - タスクを作成
     const taskData = {
       title,
       description,
-      targetObject: selectedNode,
+      targetObject: selectedNode || undefined,
       priority,
       dueDate: dueDate?.toISOString(),
       sourceComment: {
@@ -166,7 +161,7 @@ export function CreateTaskFromCommentModal({
           <div className="grid grid-cols-3 gap-4">
             {/* 対象オブジェクト */}
             <div className="space-y-2">
-              <Label>対象オブジェクト *</Label>
+              <Label>対象オブジェクト</Label>
               <Select value={targetNodeId} onValueChange={setTargetNodeId}>
                 <SelectTrigger>
                   <SelectValue placeholder="BOMノードを選択">
@@ -252,7 +247,7 @@ export function CreateTaskFromCommentModal({
           <Button variant="outline" onClick={() => setOpen(false)}>
             キャンセル
           </Button>
-          <Button onClick={handleSubmit} disabled={!title.trim() || !targetNodeId}>
+          <Button onClick={handleSubmit} disabled={!title.trim()}>
             <CheckSquare className="mr-2 size-4" />
             タスクを作成
           </Button>

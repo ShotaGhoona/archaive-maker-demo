@@ -51,8 +51,8 @@ export interface Task {
   dueDate?: string;
   createdAt: string;
   updatedAt?: string;
-  /** 対象オブジェクト（BOMノード） - 必須 */
-  targetObject: TaskTargetObject;
+  /** 対象オブジェクト（BOMノード） - 任意 */
+  targetObject?: TaskTargetObject;
   /** 元コメント（コメントから生成された場合） */
   sourceComment?: TaskSourceComment;
   /** キャンバス上の座標（キャンバスへのジャンプ用） */
