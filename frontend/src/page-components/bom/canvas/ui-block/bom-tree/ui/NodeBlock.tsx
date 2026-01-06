@@ -4,6 +4,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSheet';
 import { DocumentListSheet } from '@/widgets/bom/canvas/document-sheet/ui/DocumentListSheet';
 import { DrawingListSheet } from '@/widgets/bom/canvas/drawing-sheet/ui/DrawingListSheet';
+import { TaskSheet } from '@/widgets/bom/canvas/task-sheet/ui/TaskSheet';
 import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
 import { DetailLinkButton } from './components/DetailLinkButton';
 
@@ -59,11 +60,18 @@ export function NodeBlock({ node }: NodeBlockProps) {
         </p>
       </div>
 
-      {/* 右下: 帳票・図面・メタデータアイコン */}
-      <div className="flex items-center justify-end gap-0.5 px-2 pb-2">
-        {documents.length > 0 && <DocumentListSheet documents={documents} />}
-        {drawings.length > 0 && <DrawingListSheet drawings={drawings} />}
-        <MetadataSheet nodeName={node.name} customItems={node.customItems} />
+      {/* 下部: タスク（左）・帳票・図面・メタデータ（右） */}
+      <div className="flex items-center justify-between px-2 pb-2">
+        {/* 左下: タスクアイコン */}
+        <div className="flex items-center gap-0.5">
+          <TaskSheet nodeId={node.id} nodeName={node.name} nodeType={node.type} />
+        </div>
+        {/* 右下: 帳票・図面・メタデータアイコン */}
+        <div className="flex items-center gap-0.5">
+          {documents.length > 0 && <DocumentListSheet documents={documents} />}
+          {drawings.length > 0 && <DrawingListSheet drawings={drawings} />}
+          <MetadataSheet nodeName={node.name} customItems={node.customItems} />
+        </div>
       </div>
     </div>
   );

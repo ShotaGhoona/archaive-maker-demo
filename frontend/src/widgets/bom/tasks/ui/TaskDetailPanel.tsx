@@ -20,7 +20,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
 import { Separator } from '@/shared/ui/shadcn/ui/separator';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority, TargetNodeType } from '../../../dummy-data/tasks';
+import type { Task, TaskStatus, TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
 
 interface TaskDetailPanelProps {
   task: Task;
@@ -57,13 +57,10 @@ const PRIORITY_CONFIG: Record<
   low: { label: '低', className: 'text-gray-500 bg-gray-100' },
 };
 
-const NODE_TYPE_CONFIG: Record<TargetNodeType, { label: string; className: string }> = {
-  '製品': { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  'Assy': { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  'SubAssy': { label: 'SubAssy', className: 'bg-cyan-100 text-cyan-700' },
-  'SubSubAssy': { label: 'SubSubAssy', className: 'bg-teal-100 text-teal-700' },
-  'Module': { label: 'Module', className: 'bg-green-100 text-green-700' },
-  'Part': { label: 'Part', className: 'bg-gray-100 text-gray-700' },
+const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
+  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
 };
 
 function formatDateTime(dateString: string): string {
@@ -173,21 +170,23 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
             {/* 詳細情報 */}
             <div className='grid gap-4'>
               {/* 対象オブジェクト */}
-              <div className='flex items-center gap-3'>
-                <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
-                  <Box className='size-4' />
-                  対象
+              {task.targetObject && (
+                <div className='flex items-center gap-3'>
+                  <div className='flex w-24 items-center gap-2 text-sm text-muted-foreground'>
+                    <Box className='size-4' />
+                    対象
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <Badge
+                      variant='outline'
+                      className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+                    >
+                      {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+                    </Badge>
+                    <span className='text-sm font-medium'>{task.targetObject.nodeName}</span>
+                  </div>
                 </div>
-                <div className='flex items-center gap-2'>
-                  <Badge
-                    variant='outline'
-                    className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
-                  >
-                    {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
-                  </Badge>
-                  <span className='text-sm font-medium'>{task.targetObject.name}</span>
-                </div>
-              </div>
+              )}
 
               {/* 担当者 */}
               <div className='flex items-center gap-3'>
@@ -205,9 +204,9 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                     </Avatar>
                     <div>
                       <p className='text-sm font-medium'>{task.assignee.name}</p>
-                      {task.assignee.role && (
+                      {task.assignee.department && (
                         <p className='text-xs text-muted-foreground'>
-                          {task.assignee.role}
+                          {task.assignee.department}
                         </p>
                       )}
                     </div>

@@ -140,6 +140,7 @@ function MultipleModals() {
 | `onOpenChange` | `(open: boolean) => void` | - | 開閉時のコールバック |
 | `mode` | `'replace' \| 'stack' \| 'push'` | `'replace'` | 複数モーダル時の表示モード |
 | `width` | `'sm' \| 'md' \| 'lg' \| 'xl' \| number` | `'md'` | モーダルの幅 |
+| `align` | `'start' \| 'center' \| 'end'` | - | 垂直方向の配置（指定時はRootのalignを上書き） |
 | `onBack` | `() => void` | - | 戻るボタンのコールバック（指定時に戻るボタン表示） |
 
 ### Width Presets
@@ -176,6 +177,41 @@ function MultipleModals() {
 ```
 
 ## 複雑なパターン例
+
+### 個別のalign指定
+
+1枚目がfull heightの場合、2枚目以降で個別にalignを指定できる：
+
+```tsx
+<FloatingModalRoot side="right" align="end">
+  {/* 1枚目: ベース（full height） */}
+  <FloatingModal open={listOpen} onOpenChange={setListOpen}>
+    <FloatingModalContent height="full">
+      タスク一覧
+    </FloatingModalContent>
+  </FloatingModal>
+
+  {/* 2枚目: フィルター（上に張り付く） */}
+  <FloatingModal open={filterOpen} onOpenChange={setFilterOpen} mode="stack" align="start">
+    <FloatingModalContent height="auto">
+      フィルター設定
+    </FloatingModalContent>
+  </FloatingModal>
+
+  {/* 3枚目: 詳細（下に張り付く） */}
+  <FloatingModal open={detailOpen} onOpenChange={setDetailOpen} mode="stack" align="end">
+    <FloatingModalContent height="auto">
+      タスク詳細
+    </FloatingModalContent>
+  </FloatingModal>
+</FloatingModalRoot>
+```
+
+**結果:**
+```
+|--- Modal1 (full) ---|--- Modal2 (top) ---|
+                      |--- Modal3 (bottom) ---|
+```
 
 ### Stack → Replace チェーン
 

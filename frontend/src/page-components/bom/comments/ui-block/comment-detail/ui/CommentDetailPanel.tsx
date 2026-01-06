@@ -121,9 +121,9 @@ export function CommentDetailPanel({ thread, onClose }: CommentDetailPanelProps)
                     <div className='flex items-center justify-between'>
                       <div className='flex items-baseline gap-2'>
                         <span className='font-medium'>{comment.author.name}</span>
-                        {comment.author.role && (
+                        {comment.author.department && (
                           <Badge variant='secondary' className='text-xs'>
-                            {comment.author.role}
+                            {comment.author.department}
                           </Badge>
                         )}
                       </div>

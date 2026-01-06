@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CalendarIcon, CheckSquare } from 'lucide-react';
+import { CalendarIcon, Plus } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -32,18 +32,9 @@ import {
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import type { Comment } from '../../../dummy-data/comments';
 import type { TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
 import { dummyTargetObjects } from '@/shared/dummy-data/tasks/tasks';
 
-interface CreateTaskFromCommentModalProps {
-  comment: Comment;
-  threadId: string;
-  /** ボタンのカスタムクラス */
-  buttonClassName?: string;
-}
-
-/** ダミーBOMノード一覧（実際はAPIから取得） */
 const dummyBomNodes = dummyTargetObjects.map((obj) => ({
   id: obj.nodeId,
   name: obj.nodeName,
@@ -62,14 +53,9 @@ const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
   { value: 'low', label: '低' },
 ];
 
-export function CreateTaskFromCommentModal({
-  comment,
-  threadId,
-  buttonClassName,
-}: CreateTaskFromCommentModalProps) {
+export function CreateTaskDialog() {
   const [open, setOpen] = useState(false);
-
-  const [title, setTitle] = useState(comment.content);
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [targetNodeId, setTargetNodeId] = useState<string>('');
   const [priority, setPriority] = useState<TaskPriority>('medium');
@@ -85,12 +71,6 @@ export function CreateTaskFromCommentModal({
       targetObject: selectedNode || undefined,
       priority,
       dueDate: dueDate?.toISOString(),
-      sourceComment: {
-        threadId,
-        commentId: comment.id,
-        content: comment.content,
-        authorName: comment.author.name,
-      },
     };
 
     console.log('Creating task:', taskData);
@@ -101,7 +81,7 @@ export function CreateTaskFromCommentModal({
   const handleOpenChange = (isOpen: boolean) => {
     if (isOpen) {
       // モーダルを開くときにフォームをリセット
-      setTitle(comment.content);
+      setTitle('');
       setDescription('');
       setTargetNodeId('');
       setPriority('medium');
@@ -113,23 +93,19 @@ export function CreateTaskFromCommentModal({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button
-          variant='ghost'
-          size='sm'
-          className={buttonClassName}
-        >
-          <CheckSquare className='mr-1 size-3' />
-          タスクに登録
+        <Button size="xl">
+          <Plus className="mr-1 size-4" />
+          新規タスク
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <div className="flex items-center gap-2">
-            <CheckSquare className="size-5 text-primary" />
-            <DialogTitle>タスクに登録</DialogTitle>
+            <Plus className="size-5 text-primary" />
+            <DialogTitle>新規タスク作成</DialogTitle>
           </div>
           <DialogDescription>
-            コメントからタスクを作成します
+            新しいタスクを作成します
           </DialogDescription>
         </DialogHeader>
 
@@ -248,7 +224,7 @@ export function CreateTaskFromCommentModal({
             キャンセル
           </Button>
           <Button onClick={handleSubmit} disabled={!title.trim()}>
-            <CheckSquare className="mr-2 size-4" />
+            <Plus className="mr-2 size-4" />
             タスクを作成
           </Button>
         </DialogFooter>

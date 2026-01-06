@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { CalendarIcon, CheckSquare } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { CalendarIcon, Plus } from 'lucide-react';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from '@/shared/ui/shadcn/ui/dialog';
+  FloatingModal,
+  FloatingModalTrigger,
+  FloatingModalContent,
+  FloatingModalHeader,
+  FloatingModalBody,
+  FloatingModalTitle,
+  FloatingModalFooter,
+} from '@/shared/ui/shadcn/ui/floating-modal';
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Input } from '@/shared/ui/shadcn/ui/input';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
@@ -32,23 +32,13 @@ import {
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import type { Comment } from '../../../dummy-data/comments';
 import type { TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
-import { dummyTargetObjects } from '@/shared/dummy-data/tasks/tasks';
 
-interface CreateTaskFromCommentModalProps {
-  comment: Comment;
-  threadId: string;
-  /** ボタンのカスタムクラス */
-  buttonClassName?: string;
+interface CreateTaskModalProps {
+  nodeId: string;
+  nodeName: string;
+  nodeType: TaskTargetNodeType;
 }
-
-/** ダミーBOMノード一覧（実際はAPIから取得） */
-const dummyBomNodes = dummyTargetObjects.map((obj) => ({
-  id: obj.nodeId,
-  name: obj.nodeName,
-  nodeType: obj.nodeType,
-}));
 
 const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
   product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
@@ -62,78 +52,89 @@ const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
   { value: 'low', label: '低' },
 ];
 
-export function CreateTaskFromCommentModal({
-  comment,
-  threadId,
-  buttonClassName,
-}: CreateTaskFromCommentModalProps) {
+export function CreateTaskModal({
+  nodeId,
+  nodeName,
+  nodeType,
+}: CreateTaskModalProps) {
   const [open, setOpen] = useState(false);
-
-  const [title, setTitle] = useState(comment.content);
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [targetNodeId, setTargetNodeId] = useState<string>('');
   const [priority, setPriority] = useState<TaskPriority>('medium');
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
 
-  const selectedNode = dummyBomNodes.find((n) => n.id === targetNodeId);
+  const nodeTypeConfig = NODE_TYPE_CONFIG[nodeType];
+
+  const resetForm = useCallback(() => {
+    setTitle('');
+    setDescription('');
+    setPriority('medium');
+    setDueDate(undefined);
+  }, []);
+
+  const handleBack = useCallback(() => {
+    resetForm();
+    setOpen(false);
+  }, [resetForm]);
 
   const handleSubmit = () => {
+    if (!title.trim()) {
+      alert('タスク名を入力してください');
+      return;
+    }
+
     // TODO: API呼び出し - タスクを作成
     const taskData = {
       title,
       description,
-      targetObject: selectedNode || undefined,
+      targetObject: {
+        nodeId,
+        nodeName,
+        nodeType,
+      },
       priority,
       dueDate: dueDate?.toISOString(),
-      sourceComment: {
-        threadId,
-        commentId: comment.id,
-        content: comment.content,
-        authorName: comment.author.name,
-      },
     };
 
     console.log('Creating task:', taskData);
     alert(`タスク「${title}」を作成しました（未実装）`);
-    setOpen(false);
+
+    handleBack();
   };
 
   const handleOpenChange = (isOpen: boolean) => {
-    if (isOpen) {
-      // モーダルを開くときにフォームをリセット
-      setTitle(comment.content);
-      setDescription('');
-      setTargetNodeId('');
-      setPriority('medium');
-      setDueDate(undefined);
+    if (!isOpen) {
+      resetForm();
     }
     setOpen(isOpen);
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button
-          variant='ghost'
-          size='sm'
-          className={buttonClassName}
-        >
-          <CheckSquare className='mr-1 size-3' />
-          タスクに登録
+    <FloatingModal open={open} onOpenChange={handleOpenChange} mode="replace" onBack={handleBack}>
+      <FloatingModalTrigger asChild>
+        <Button variant="outline" size="sm" className="mt-4 w-full">
+          <Plus className="mr-1 size-4" />
+          タスクを追加
         </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl">
-        <DialogHeader>
-          <div className="flex items-center gap-2">
-            <CheckSquare className="size-5 text-primary" />
-            <DialogTitle>タスクに登録</DialogTitle>
+      </FloatingModalTrigger>
+      <FloatingModalContent height="auto" showBackButton>
+        <FloatingModalHeader>
+          <div className="space-y-2">
+            <FloatingModalTitle className="flex items-center gap-2">
+              <Plus className="size-4" />
+              タスクを追加
+            </FloatingModalTitle>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>対象:</span>
+              <Badge variant="outline" className={cn('text-xs', nodeTypeConfig.className)}>
+                {nodeTypeConfig.label}
+              </Badge>
+              <span>{nodeName}</span>
+            </div>
           </div>
-          <DialogDescription>
-            コメントからタスクを作成します
-          </DialogDescription>
-        </DialogHeader>
+        </FloatingModalHeader>
 
-        <div className="space-y-4 py-4">
+        <FloatingModalBody className="space-y-4">
           {/* タスク名 */}
           <div className="space-y-2">
             <Label htmlFor="task-title">タスク名 *</Label>
@@ -157,45 +158,8 @@ export function CreateTaskFromCommentModal({
             />
           </div>
 
-          {/* 対象オブジェクト・優先度・期限 */}
-          <div className="grid grid-cols-3 gap-4">
-            {/* 対象オブジェクト */}
-            <div className="space-y-2">
-              <Label>対象オブジェクト</Label>
-              <Select value={targetNodeId} onValueChange={setTargetNodeId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="BOMノードを選択">
-                    {selectedNode && (
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant="outline"
-                          className={cn('text-xs', NODE_TYPE_CONFIG[selectedNode.nodeType].className)}
-                        >
-                          {NODE_TYPE_CONFIG[selectedNode.nodeType].label}
-                        </Badge>
-                        <span className="truncate">{selectedNode.name}</span>
-                      </div>
-                    )}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent className="w-full">
-                  {dummyBomNodes.map((node) => (
-                    <SelectItem key={node.id} value={node.id}>
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant="outline"
-                          className={cn('text-xs', NODE_TYPE_CONFIG[node.nodeType].className)}
-                        >
-                          {NODE_TYPE_CONFIG[node.nodeType].label}
-                        </Badge>
-                        <span>{node.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
+          {/* 優先度・期限 */}
+          <div className="grid grid-cols-2 gap-4">
             {/* 優先度 */}
             <div className="space-y-2">
               <Label>優先度</Label>
@@ -203,7 +167,7 @@ export function CreateTaskFromCommentModal({
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="w-full">
+                <SelectContent>
                   {PRIORITY_OPTIONS.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
@@ -241,18 +205,18 @@ export function CreateTaskFromCommentModal({
               </Popover>
             </div>
           </div>
-        </div>
+        </FloatingModalBody>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+        <FloatingModalFooter className="flex justify-end gap-2">
+          <Button variant="outline" onClick={handleBack}>
             キャンセル
           </Button>
           <Button onClick={handleSubmit} disabled={!title.trim()}>
-            <CheckSquare className="mr-2 size-4" />
+            <Plus className="mr-1 size-4" />
             タスクを作成
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </FloatingModalFooter>
+      </FloatingModalContent>
+    </FloatingModal>
   );
 }

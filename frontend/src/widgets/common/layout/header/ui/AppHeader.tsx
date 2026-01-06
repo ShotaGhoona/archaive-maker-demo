@@ -10,6 +10,7 @@ import {
   HelpCircle,
   LogOut,
   ChevronDown,
+  CheckSquare,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -122,8 +123,15 @@ export function AppHeader() {
       {/* Spacer */}
       <div className='flex-1' />
 
-      {/* Right: Settings, Help, User */}
+      {/* Right: Tasks, Settings, Help, User */}
       <div className='flex h-full items-center border-l border-primary-foreground/20'>
+        <Link
+          href='/tasks'
+          className='relative flex h-full items-center gap-2 border-r border-primary-foreground/20 px-4 text-base font-medium text-primary-foreground/90 transition-colors hover:text-primary-foreground'
+        >
+          <CheckSquare className='size-5' />
+          タスク管理
+        </Link>
         <button className='relative flex h-full items-center gap-2 border-r border-primary-foreground/20 px-4 text-base font-medium text-primary-foreground/90 transition-colors hover:text-primary-foreground'>
           <Settings className='size-5' />
           設定

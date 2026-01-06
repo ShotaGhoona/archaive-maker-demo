@@ -213,6 +213,7 @@ type FloatingModalContextValue = {
   mode: ModalMode;
   position: ModalPosition;
   width: number;
+  align?: ModalAlign;
   onBack?: () => void;
 };
 
@@ -233,6 +234,7 @@ function useFloatingModal() {
 type FloatingModalProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
   mode?: ModalMode;
   width?: WidthPreset | number;
+  align?: ModalAlign;
   onBack?: () => void;
 };
 
@@ -242,6 +244,7 @@ function FloatingModal({
   onOpenChange,
   mode = 'replace',
   width: widthProp = 'md',
+  align,
   onBack,
   ...props
 }: FloatingModalProps) {
@@ -273,8 +276,8 @@ function FloatingModal({
   const position = provider?.getPosition(id) ?? { offset: EDGE_GAP, translateX: 0, isHidden: false, isPartial: false };
 
   const contextValue = React.useMemo(
-    () => ({ id, mode, position, width, onBack }),
-    [id, mode, position, width, onBack]
+    () => ({ id, mode, position, width, align, onBack }),
+    [id, mode, position, width, align, onBack]
   );
 
   return (
@@ -350,7 +353,7 @@ function FloatingModalOverlay({
     <DialogPrimitive.Overlay
       data-slot="floating-modal-overlay"
       className={cn(
-        'fixed inset-0 z-50 bg-black/40',
+        'fixed inset-0 z-30 bg-black/40',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'duration-200',
@@ -379,18 +382,19 @@ function FloatingModalContent({
   height = 'auto',
   ...props
 }: FloatingModalContentProps) {
-  const { position, width, onBack, mode } = useFloatingModal();
+  const { position, width, onBack, mode, align: modalAlign } = useFloatingModal();
   const provider = useFloatingModalProvider();
   const { id } = useFloatingModal();
 
   const side = provider?.side ?? 'right';
-  const align = provider?.align ?? 'center';
+  // モーダル固有のalignが指定されていればそちらを優先
+  const align = modalAlign ?? provider?.align ?? 'center';
 
   const shouldShowBack = showBackButton ?? onBack !== undefined;
 
   // Calculate z-index based on position in stack
   const index = provider?.modals.findIndex((m) => m.id === id) ?? 0;
-  const zIndex = 50 + index * 2;
+  const zIndex = 30 + index * 2;
 
   // Height styles
   const heightStyles: React.CSSProperties = {};
