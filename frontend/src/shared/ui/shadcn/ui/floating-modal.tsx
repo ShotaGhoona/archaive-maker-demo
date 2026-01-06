@@ -350,7 +350,7 @@ function FloatingModalOverlay({
     <DialogPrimitive.Overlay
       data-slot="floating-modal-overlay"
       className={cn(
-        'fixed inset-0 z-50 bg-black/40',
+        'fixed inset-0 z-30 bg-black/40',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'duration-200',
@@ -390,7 +390,7 @@ function FloatingModalContent({
 
   // Calculate z-index based on position in stack
   const index = provider?.modals.findIndex((m) => m.id === id) ?? 0;
-  const zIndex = 50 + index * 2;
+  const zIndex = 30 + index * 2;
 
   // Height styles
   const heightStyles: React.CSSProperties = {};

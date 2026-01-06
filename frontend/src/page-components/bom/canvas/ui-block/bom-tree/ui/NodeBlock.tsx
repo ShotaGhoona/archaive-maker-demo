@@ -64,7 +64,7 @@ export function NodeBlock({ node }: NodeBlockProps) {
       <div className="flex items-center justify-between px-2 pb-2">
         {/* 左下: タスクアイコン */}
         <div className="flex items-center gap-0.5">
-          <TaskSheet nodeId={node.id} nodeName={node.name} />
+          <TaskSheet nodeId={node.id} nodeName={node.name} nodeType={node.type} />
         </div>
         {/* 右下: 帳票・図面・メタデータアイコン */}
         <div className="flex items-center gap-0.5">

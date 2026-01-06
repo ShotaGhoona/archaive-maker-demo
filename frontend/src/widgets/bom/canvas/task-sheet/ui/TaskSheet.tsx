@@ -16,16 +16,18 @@ import {
   FloatingModalDescription,
 } from '@/shared/ui/shadcn/ui/floating-modal';
 import { getTasksByNodeId } from '@/shared/dummy-data/tasks/tasks';
-import type { Task } from '@/shared/dummy-data/tasks/types';
+import type { Task, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
 import { TaskListItem } from './TaskListItem';
 import { TaskDetailModal } from './TaskDetailModal';
+import { CreateTaskModal } from './CreateTaskModal';
 
 interface TaskSheetProps {
   nodeId: string;
   nodeName: string;
+  nodeType: TaskTargetNodeType;
 }
 
-export function TaskSheet({ nodeId, nodeName }: TaskSheetProps) {
+export function TaskSheet({ nodeId, nodeName, nodeType }: TaskSheetProps) {
   const [open, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -48,11 +50,6 @@ export function TaskSheet({ nodeId, nodeName }: TaskSheetProps) {
     setDetailOpen(false);
     setSelectedTask(null);
   }, []);
-
-  // タスクがない場合はアイコンを表示しない
-  if (tasks.length === 0) {
-    return null;
-  }
 
   return (
     <FloatingModalRoot side="right" align="end">
@@ -95,6 +92,9 @@ export function TaskSheet({ nodeId, nodeName }: TaskSheetProps) {
                 />
               ))}
             </div>
+
+            {/* タスク追加ボタン → モーダル */}
+            <CreateTaskModal nodeId={nodeId} nodeName={nodeName} nodeType={nodeType} />
           </FloatingModalBody>
         </FloatingModalContent>
       </FloatingModal>
