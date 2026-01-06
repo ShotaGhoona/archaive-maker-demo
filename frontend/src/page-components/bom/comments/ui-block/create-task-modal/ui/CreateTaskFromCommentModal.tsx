@@ -33,7 +33,8 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import type { Comment } from '../../../dummy-data/comments';
-import type { TaskPriority, TargetNodeType } from '../../../../tasks/dummy-data/tasks';
+import type { TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import { dummyTargetObjects } from '@/shared/dummy-data/tasks/tasks';
 
 interface CreateTaskFromCommentModalProps {
   comment: Comment;
@@ -43,26 +44,16 @@ interface CreateTaskFromCommentModalProps {
 }
 
 /** ダミーBOMノード一覧（実際はAPIから取得） */
-const dummyBomNodes: { id: string; name: string; nodeType: TargetNodeType }[] = [
-  { id: 'node-1', name: 'ベアリングハウジング', nodeType: 'Part' },
-  { id: 'node-2', name: 'ギアボックスAssy', nodeType: 'Assy' },
-  { id: 'node-3', name: '駆動系サブアセンブリ', nodeType: 'SubAssy' },
-  { id: 'node-4', name: '防振ゴムマウント', nodeType: 'Part' },
-  { id: 'node-5', name: 'フレームAssy', nodeType: 'Assy' },
-  { id: 'node-6', name: 'プーリー', nodeType: 'Part' },
-  { id: 'node-7', name: 'モーターブラケット', nodeType: 'Part' },
-  { id: 'node-8', name: 'メインシャフト', nodeType: 'Part' },
-  { id: 'node-9', name: '焼入れギア', nodeType: 'Part' },
-  { id: 'node-10', name: 'ベースプレート', nodeType: 'Part' },
-];
+const dummyBomNodes = dummyTargetObjects.map((obj) => ({
+  id: obj.nodeId,
+  name: obj.nodeName,
+  nodeType: obj.nodeType,
+}));
 
-const NODE_TYPE_CONFIG: Record<TargetNodeType, { label: string; className: string }> = {
-  '製品': { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  'Assy': { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  'SubAssy': { label: 'SubAssy', className: 'bg-cyan-100 text-cyan-700' },
-  'SubSubAssy': { label: 'SubSubAssy', className: 'bg-teal-100 text-teal-700' },
-  'Module': { label: 'Module', className: 'bg-green-100 text-green-700' },
-  'Part': { label: 'Part', className: 'bg-gray-100 text-gray-700' },
+const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
+  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
 };
 
 const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
