@@ -19,6 +19,9 @@
  * - DocumentType: 帳票種類（ユーザー定義可能）
  * - Drawing: 図面（ItemRevに紐づく）
  * - Document: 帳票（ItemRevに紐づく）
+ *
+ * Task:
+ * - Task: タスク（ItemRevに紐づく）
  */
 
 // ============================================
@@ -125,6 +128,21 @@ export {
   getDocumentsByItemRev,
   getDocumentsByType,
 } from './document/documents';
+
+// ============================================
+// Task: タスク
+// ============================================
+
+export * from './task/types';
+
+export {
+  dummyUsers,
+  dummyDepartments,
+  dummyTasks,
+  getTasksByItemRevId,
+  getIncompleteTaskCountByItemRevId,
+  getAllTasks,
+} from './task/tasks';
 
 // ============================================
 // 追加クエリ関数

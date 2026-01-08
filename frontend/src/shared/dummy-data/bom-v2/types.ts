@@ -267,8 +267,8 @@ export interface Drawing {
   sheetNumber: number;
   /** 総シート数 */
   totalSheets: number;
-  /** ファイルパス（実際のファイル格納場所） */
-  filePath?: string;
+  /** S3パス（ファイル格納場所） */
+  s3Path?: string;
   /** 紐づくFacetInstanceのIDリスト */
   facetInstanceIds: string[];
   /** 作成日時 */
@@ -292,8 +292,8 @@ export interface Document {
   itemRevId: string;
   /** 帳票種類のID（DocumentType参照） */
   documentTypeId: string;
-  /** ファイルパス（実際のファイル格納場所） */
-  filePath?: string;
+  /** S3パス（ファイル格納場所） */
+  s3Path?: string;
   /** 紐づくFacetInstanceのIDリスト */
   facetInstanceIds: string[];
   /** 発行日 */

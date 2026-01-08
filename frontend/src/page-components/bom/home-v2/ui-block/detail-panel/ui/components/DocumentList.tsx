@@ -20,7 +20,7 @@ export function DocumentList({ documents }: DocumentListProps) {
             <div
               key={doc.id}
               className="flex min-w-0 cursor-pointer items-center gap-2 rounded-md bg-muted/50 p-2 text-base hover:bg-muted"
-              onClick={() => alert(`ドキュメントプレビュー（未実装）\n${doc.filePath}`)}
+              onClick={() => alert(`ドキュメントプレビュー（未実装）\n${doc.s3Path}`)}
             >
               <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
               <div className="min-w-0 flex-1">

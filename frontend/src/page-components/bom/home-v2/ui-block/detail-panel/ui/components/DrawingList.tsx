@@ -18,7 +18,7 @@ export function DrawingList({ drawings }: DrawingListProps) {
           <div
             key={drw.id}
             className="flex min-w-0 cursor-pointer items-center gap-2 rounded-md bg-muted/50 p-2 text-base hover:bg-muted"
-            onClick={() => alert(`図面プレビュー（未実装）\n${drw.filePath}`)}
+            onClick={() => alert(`図面プレビュー（未実装）\n${drw.s3Path}`)}
           >
             <Image className="h-5 w-5 shrink-0 text-muted-foreground" />
             <div className="min-w-0 flex-1">

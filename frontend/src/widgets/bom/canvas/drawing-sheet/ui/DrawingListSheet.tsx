@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { PenTool } from 'lucide-react';
 import Image from 'next/image';
+import { PenTool, FileImage } from 'lucide-react';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
@@ -18,10 +18,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/shared/ui/shadcn/ui/tooltip';
+import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { DrawingDetailModal } from './DrawingDetailModal';
-
-import type { Drawing } from '@/shared/dummy-data/bom/types';
+import type { Drawing } from '@/shared/dummy-data/bom-v2';
 
 interface DrawingListSheetProps {
   drawings: Drawing[];
@@ -78,25 +78,39 @@ export function DrawingListSheet({ drawings }: DrawingListSheetProps) {
                 {drawings.map((drawing) => (
                   <button
                     key={drawing.id}
-                    className="w-full rounded-lg border p-3 text-left transition-colors bg-card"
+                    className="w-full rounded-lg border p-3 text-left transition-colors bg-card hover:bg-accent/50"
                     onClick={() => handleDrawingClick(drawing)}
                   >
                     {/* サムネイル */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-muted">
-                      <Image
-                        src={drawing.previewImageUrl}
-                        alt={drawing.name}
-                        fill
-                        className="object-cover"
-                      />
+                      {drawing.s3Path ? (
+                        <Image
+                          src={drawing.s3Path}
+                          alt={drawing.title}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center">
+                          <FileImage className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                      )}
                     </div>
                     {/* 情報 */}
                     <div className="mt-2">
-                      <p className="text-xs text-muted-foreground">
-                        {drawing.fileExtension.toUpperCase()}
-                      </p>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Badge variant="secondary" className="text-xs">
+                          {drawing.drawingType}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {drawing.sheetSize}
+                        </Badge>
+                      </div>
                       <p className="truncate text-sm font-medium">
-                        {drawing.name}
+                        {drawing.title}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {drawing.drawingNumber}
                       </p>
                     </div>
                   </button>

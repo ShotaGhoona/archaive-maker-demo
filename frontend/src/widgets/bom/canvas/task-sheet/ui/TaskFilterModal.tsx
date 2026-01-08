@@ -21,8 +21,7 @@ import {
   FloatingModalTitle,
   FloatingModalFooter,
 } from '@/shared/ui/shadcn/ui/floating-modal';
-import { dummyUsers, dummyDepartments } from '@/shared/dummy-data/tasks/tasks';
-import type { TaskStatus } from '@/shared/dummy-data/tasks/types';
+import { dummyUsers, dummyDepartments, type TaskStatus } from '@/shared/dummy-data/bom-v2';
 
 type DueDateFilter = 'all' | 'overdue' | 'this_week' | 'this_month';
 

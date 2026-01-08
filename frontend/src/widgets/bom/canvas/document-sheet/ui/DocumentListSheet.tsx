@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { FileText } from 'lucide-react';
 import Image from 'next/image';
+import { FileText, File } from 'lucide-react';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
@@ -18,10 +18,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/shared/ui/shadcn/ui/tooltip';
+import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { NoData } from '@/shared/ui/components/empty-design/ui/NoData';
 import { DocumentDetailModal } from './DocumentDetailModal';
-
-import type { Document } from '@/shared/dummy-data/bom/types';
+import { getDocumentTypeById, type Document } from '@/shared/dummy-data/bom-v2';
 
 interface DocumentListSheetProps {
   documents: Document[];
@@ -76,33 +76,42 @@ export function DocumentListSheet({ documents }: DocumentListSheetProps) {
             ) : (
               <div className="space-y-3">
                 {documents.map((doc) => {
-                const latestVersion = doc.versions[doc.versions.length - 1];
-                return (
-                  <button
-                    key={doc.id}
-                    className="w-full rounded-lg border p-3 text-left transition-colors bg-card"
-                    onClick={() => handleDocumentClick(doc)}
-                  >
-                    {/* サムネイル */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-muted">
-                      <Image
-                        src={latestVersion.previewImageUrl}
-                        alt={latestVersion.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    {/* 情報 */}
-                    <div className="mt-2">
-                      <p className="text-xs text-muted-foreground">
-                        {doc.typeName}
-                      </p>
-                      <p className="truncate text-sm font-medium">
-                        {latestVersion.name}
-                      </p>
-                    </div>
-                  </button>
-                );
+                  const docType = getDocumentTypeById(doc.documentTypeId);
+                  return (
+                    <button
+                      key={doc.id}
+                      className="w-full rounded-lg border p-3 text-left transition-colors bg-card hover:bg-accent/50"
+                      onClick={() => handleDocumentClick(doc)}
+                    >
+                      {/* サムネイル */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded bg-muted">
+                        {doc.s3Path ? (
+                          <Image
+                            src={doc.s3Path}
+                            alt={doc.title}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <File className="h-8 w-8 text-muted-foreground" />
+                          </div>
+                        )}
+                      </div>
+                      {/* 情報 */}
+                      <div className="mt-2">
+                        <Badge variant="secondary" className="text-xs mb-1">
+                          {docType?.name ?? '帳票'}
+                        </Badge>
+                        <p className="truncate text-sm font-medium">
+                          {doc.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {doc.documentNumber}
+                        </p>
+                      </div>
+                    </button>
+                  );
                 })}
               </div>
             )}

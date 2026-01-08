@@ -11,10 +11,10 @@ import {
 } from '@/shared/ui/shadcn/ui/tooltip';
 
 interface DetailLinkButtonProps {
-  nodeId: string;
+  itemId: string;
 }
 
-export function DetailLinkButton({ nodeId }: DetailLinkButtonProps) {
+export function DetailLinkButton({ itemId }: DetailLinkButtonProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -25,7 +25,7 @@ export function DetailLinkButton({ nodeId }: DetailLinkButtonProps) {
           asChild
           onClick={(e) => e.stopPropagation()}
         >
-          <Link href={`/bom/${nodeId}/basic-information`}>
+          <Link href={`/bom/${itemId}/basic-information`}>
             <ExternalLink className="h-4 w-4" />
           </Link>
         </Button>

@@ -12,9 +12,12 @@ import { StickyNoteLayer } from '../ui-block/sticky-note/ui/StickyNoteLayer';
 import { useStickyNotes } from '../ui-block/sticky-note/lib/use-sticky-notes';
 import { CommentLayer } from '../ui-block/comment/ui/CommentLayer';
 import { useComments } from '../ui-block/comment/lib/use-comments';
+import { buildCanvasBomTree } from '../lib/build-canvas-bom-tree';
 
-import bomData from '@/shared/dummy-data/bom/mock6LayerRobotArm.json';
-import type { BomData } from '@/shared/dummy-data/bom/types';
+import {
+  getItemsByType,
+  getLatestReleasedRev,
+} from '@/shared/dummy-data/bom-v2';
 
 const TOOL_CURSOR_MAP: Record<Exclude<CanvasToolType, null>, string> = {
   sticky: 'crosshair',
@@ -42,19 +45,31 @@ export function BomCanvasContainer() {
 
   // BOMツリーレイアウト計算
   const bomTreeLayout = useMemo(() => {
-    const data = bomData as BomData;
-    return calculateBomTreeLayout(data.root);
+    // 最初の製品を取得
+    const products = getItemsByType('Product');
+    if (products.length === 0) return null;
+
+    const product = products[0];
+    const productRev = getLatestReleasedRev(product.id);
+    if (!productRev) return null;
+
+    // CanvasBomNode ツリーを構築
+    const bomTree = buildCanvasBomTree(product, productRev);
+    if (!bomTree) return null;
+
+    return calculateBomTreeLayout(bomTree);
   }, []);
 
   // ミニマップ用コネクタ（座標のみ抽出）
   const minimapConnectors = useMemo(() => {
+    if (!bomTreeLayout) return [];
     return bomTreeLayout.connectors.map(({ fromX, fromY, toX, toY }) => ({
       fromX,
       fromY,
       toX,
       toY,
     }));
-  }, [bomTreeLayout.connectors]);
+  }, [bomTreeLayout]);
 
   // キャンバスクリック処理
   const handleCanvasClick = useCallback(
@@ -103,6 +118,15 @@ export function BomCanvasContainer() {
 
   // ツールに応じたカーソル
   const toolCursor = selectedTool ? TOOL_CURSOR_MAP[selectedTool] : undefined;
+
+  // データがない場合
+  if (!bomTreeLayout) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <p className="text-muted-foreground">BOMデータが見つかりません</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-full w-full">

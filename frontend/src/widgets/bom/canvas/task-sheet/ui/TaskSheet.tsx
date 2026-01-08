@@ -13,19 +13,23 @@ import {
   FloatingModalHeader,
   FloatingModalBody,
   FloatingModalTitle,
-  FloatingModalDescription,
 } from '@/shared/ui/shadcn/ui/floating-modal';
-import { getTasksByNodeId } from '@/shared/dummy-data/tasks/tasks';
-import type { Task, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import {
+  getTasksByItemRevId,
+  type Task,
+  type ItemType,
+} from '@/shared/dummy-data/bom-v2';
 import { TaskListItem } from './TaskListItem';
 import { TaskDetailModal } from './TaskDetailModal';
 import { CreateTaskModal } from './CreateTaskModal';
 import { TaskFilterModal, type TaskFilters } from './TaskFilterModal';
 
 interface TaskSheetProps {
-  nodeId: string;
-  nodeName: string;
-  nodeType: TaskTargetNodeType;
+  itemRevId: string;
+  itemId: string;
+  itemName: string;
+  partNumber: string;
+  itemType: ItemType;
 }
 
 function isOverdue(dueDate: string): boolean {
@@ -56,16 +60,21 @@ const DEFAULT_FILTERS: TaskFilters = {
   dueDate: 'all',
 };
 
-export function TaskSheet({ nodeId, nodeName, nodeType }: TaskSheetProps) {
+export function TaskSheet({
+  itemRevId,
+  itemId,
+  itemName,
+  partNumber,
+  itemType,
+}: TaskSheetProps) {
   const [open, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [filters, setFilters] = useState<TaskFilters>(DEFAULT_FILTERS);
 
-  // ノードに紐づくタスクを取得
-  const tasks = useMemo(() => getTasksByNodeId(nodeId), [nodeId]);
+  // ItemRevに紐づくタスクを取得
+  const tasks = useMemo(() => getTasksByItemRevId(itemRevId), [itemRevId]);
 
-  // 今後消す==========================================
   // フィルタリングされたタスク
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -92,7 +101,6 @@ export function TaskSheet({ nodeId, nodeName, nodeType }: TaskSheetProps) {
       return true;
     });
   }, [tasks, filters]);
-  // =================================================
 
   // 未完了タスク数（フィルター前の全タスクから）
   const incompleteCount = useMemo(
@@ -184,7 +192,13 @@ export function TaskSheet({ nodeId, nodeName, nodeType }: TaskSheetProps) {
             )}
 
             {/* タスク追加ボタン → モーダル */}
-            <CreateTaskModal nodeId={nodeId} nodeName={nodeName} nodeType={nodeType} />
+            <CreateTaskModal
+              itemRevId={itemRevId}
+              itemId={itemId}
+              itemName={itemName}
+              partNumber={partNumber}
+              itemType={itemType}
+            />
           </FloatingModalBody>
         </FloatingModalContent>
       </FloatingModal>

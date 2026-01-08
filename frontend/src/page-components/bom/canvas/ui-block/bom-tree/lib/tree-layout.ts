@@ -1,5 +1,4 @@
-import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
-import type { FlattenedNode, Connector, MinimapNode, BomTreeLayout } from '../model/types';
+import type { CanvasBomNode, FlattenedNode, Connector, MinimapNode, BomTreeLayout } from '../model/types';
 import {
   NODE_WIDTH,
   NODE_HEIGHT,
@@ -12,12 +11,7 @@ const INITIAL_X = 100;
 const INITIAL_Y = 100;
 
 // サブツリーの高さを計算（子孫全体を含む高さ）
-function calculateSubtreeHeight(node: BomTreeNode): number {
-  // partsは末端ノード（childrenを持たない）
-  if (node.type === 'parts') {
-    return NODE_HEIGHT;
-  }
-
+function calculateSubtreeHeight(node: CanvasBomNode): number {
   if (!node.children?.length) {
     return NODE_HEIGHT;
   }
@@ -34,10 +28,11 @@ function calculateSubtreeHeight(node: BomTreeNode): number {
 
 // ツリーをレイアウト（親と長男が同じ高さに揃う）
 function layoutTree(
-  node: BomTreeNode,
+  node: CanvasBomNode,
   depth: number,
   startY: number,
-  parentId: string | null
+  parentId: string | null,
+  pathPrefix: string = ''
 ): { nodes: FlattenedNode[]; connectors: Connector[] } {
   const nodes: FlattenedNode[] = [];
   const connectors: Connector[] = [];
@@ -46,20 +41,25 @@ function layoutTree(
   // 親は開始位置に配置（長男と同じ高さ）
   const y = startY;
 
+  // ツリー内で一意のID（パス形式）
+  const nodeId = pathPrefix ? `${pathPrefix}/${node.itemRev.id}` : node.itemRev.id;
+
   nodes.push({
+    id: nodeId,
     node,
     x,
     y,
     parentId,
   });
 
-  // 子要素を処理（product, assyはchildrenを持つ）
-  if (node.type !== 'parts' && node.children && node.children.length > 0) {
+  // 子要素を処理
+  if (node.children && node.children.length > 0) {
     let childStartY = startY;
 
-    for (const child of node.children) {
+    for (let i = 0; i < node.children.length; i++) {
+      const child = node.children[i];
       const childSubtreeHeight = calculateSubtreeHeight(child);
-      const childResult = layoutTree(child, depth + 1, childStartY, node.id);
+      const childResult = layoutTree(child, depth + 1, childStartY, nodeId, `${nodeId}[${i}]`);
 
       nodes.push(...childResult.nodes);
       connectors.push(...childResult.connectors);
@@ -67,8 +67,8 @@ function layoutTree(
       // 親から子へのコネクタを追加
       const childNode = childResult.nodes[0];
       connectors.push({
-        fromId: node.id,
-        toId: child.id,
+        fromId: nodeId,
+        toId: childNode.id,
         fromX: x + NODE_WIDTH,
         fromY: y + NODE_HEIGHT / 2,
         toX: childNode.x,
@@ -83,11 +83,11 @@ function layoutTree(
 }
 
 // BOMツリーのレイアウトを計算
-export function calculateBomTreeLayout(root: BomTreeNode): BomTreeLayout {
+export function calculateBomTreeLayout(root: CanvasBomNode): BomTreeLayout {
   const { nodes, connectors } = layoutTree(root, 0, INITIAL_Y, null);
 
   const minimapNodes: MinimapNode[] = nodes.map((flatNode) => ({
-    id: flatNode.node.id,
+    id: flatNode.id,
     x: flatNode.x,
     y: flatNode.y,
     width: NODE_WIDTH,
