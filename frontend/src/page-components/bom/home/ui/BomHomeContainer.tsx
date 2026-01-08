@@ -1,39 +1,114 @@
 'use client';
 
-/**
- * BOM Home Container
- *
- * TODO: 新しいデータ構造（bom-v2）に基づいてUIを再構築
- *
- * 利用可能なデータ:
- * - items, itemRevs: Core（品番マスタ）
- * - bomHeaders, bomLines: BOM構造（親子関係）
- * - facetTypes, facetInstances: Facet（属性）
- *
- * 利用可能な関数:
- * - getItemById, getItemRevById: ID検索
- * - getBomHeadersByItemRev: ItemRevに紐づくBOMHeader取得
- * - getBomLinesByHeader: BOMHeaderに紐づくBOMLine取得
- * - explodeBom: BOM展開（Multi-Level）
- * - findWhereUsed: 逆展開（Where-Used）
- * - getFacetInstancesByItemRev: ItemRevの属性取得
- */
+import { useState } from 'react';
+import Link from 'next/link';
+import { LayoutGrid } from 'lucide-react';
+
+import { Button } from '@/shared/ui/shadcn/ui/button';
+import { ProductSearchPanel } from '../ui-block/product-search-panel/ui/ProductSearchPanel';
+import { BomTreeBlock } from '../ui-block/bom-tree/ui/BomTreeBlock';
+import { BomDetailPanel } from '../ui-block/detail-panel/ui/BomDetailPanel';
+import { BomTreeSearchBar } from '@/widgets/bom/bom-tree-panel/ui/components/BomTreeSearchBar';
+import { useBomTreeSearch } from '@/widgets/bom/bom-tree-panel/hooks/useBomTreeSearch';
+import {
+  dummyProducts,
+  getBomByProductId,
+  getNodeDetailById,
+  bomNodesToTreeNodes,
+  type TreeNode,
+} from '@/shared/dummy-data/bom/products';
 
 export function BomHomeContainer() {
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null,
+  );
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+
+  const selectedProduct = dummyProducts.find(
+    (p) => p.id === selectedProductId,
+  );
+  const bomTree = selectedProductId
+    ? getBomByProductId(selectedProductId)
+    : [];
+  const treeNodes = bomNodesToTreeNodes(bomTree);
+  const selectedNodeDetail = selectedNodeId
+    ? getNodeDetailById(selectedNodeId)
+    : undefined;
+
+  // BOM検索
+  const bomSearch = useBomTreeSearch(treeNodes, ['directory']);
+
+  const handleSelectProduct = (productId: string) => {
+    setSelectedProductId(productId);
+    setSelectedNodeId(null);
+    bomSearch.handleClear();
+  };
+
+  const handleSelectNode = (node: TreeNode) => {
+    setSelectedNodeId(node.id);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedNodeId(null);
+  };
+
   return (
-    <div className="flex min-h-0 flex-1 items-center justify-center">
-      <div className="rounded-lg bg-white p-8 shadow-lg">
-        <h1 className="mb-4 text-2xl font-bold">BOM Home</h1>
-        <p className="mb-4 text-gray-600">
-          新しいデータ構造（bom-v2）への移行中です。
-        </p>
-        <p className="text-sm text-gray-500">
-          データ確認は{' '}
-          <a href="/test/bom-v2" className="text-blue-600 underline">
-            /test/bom-v2
-          </a>{' '}
-          で行えます。
-        </p>
+    <div className='flex min-h-0 flex-1'>
+      {/* サイドバー: 製品検索 */}
+      <ProductSearchPanel
+        products={dummyProducts}
+        selectedProductId={selectedProductId}
+        onSelectProduct={handleSelectProduct}
+      />
+
+      {/* メインコンテンツ */}
+      <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 py-4'>
+        <div className='mb-4 flex items-center justify-between'>
+          <h2 className='text-lg font-semibold'>
+            {selectedProduct?.productName ?? 'BOM構成'}
+          </h2>
+          <div className='flex items-center gap-4'>
+            {selectedProductId && (
+              <>
+                <BomTreeSearchBar
+                  searchQuery={bomSearch.searchQuery}
+                  onSearchChange={bomSearch.setSearchQuery}
+                  currentMatchIndex={bomSearch.currentMatchIndex}
+                  matchCount={bomSearch.matchCount}
+                  onPrev={bomSearch.handlePrev}
+                  onNext={bomSearch.handleNext}
+                  onClear={bomSearch.handleClear}
+                />
+                <Button size='xl' asChild>
+                  <Link href={`/bom/${selectedProductId}/canvas`}>
+                    <LayoutGrid className='mr-2 h-4 w-4' />
+                    Canvas表示
+                  </Link>
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className='flex min-h-0 flex-1 gap-4'>
+          <BomTreeBlock
+            treeNodes={treeNodes}
+            selectedNodeId={selectedNodeId}
+            onSelectNode={handleSelectNode}
+            searchQuery={bomSearch.searchQuery}
+            highlightedNodeId={bomSearch.currentMatchId}
+            matchedNodeIds={bomSearch.matchedIds}
+            forceExpandIds={bomSearch.expandIds}
+          />
+
+          {/* 詳細パネル */}
+          {selectedNodeDetail && (
+            <BomDetailPanel
+              detail={selectedNodeDetail}
+              onClose={handleCloseDetail}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
