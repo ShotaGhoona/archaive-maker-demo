@@ -1,73 +1,88 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { LayoutGrid } from 'lucide-react';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import { ProductSearchPanel } from '../ui-block/product-search-panel/ui/ProductSearchPanel';
-import { BomTreeBlock } from '../ui-block/bom-tree/ui/BomTreeBlock';
+import { BomTreeBlock, buildBomTree } from '../ui-block/bom-tree/ui/BomTreeBlock';
 import { BomDetailPanel } from '../ui-block/detail-panel/ui/BomDetailPanel';
 import { BomTreeSearchBar } from '@/widgets/bom/bom-tree-panel/ui/components/BomTreeSearchBar';
-import { useBomTreeSearch } from '@/widgets/bom/bom-tree-panel/hooks/useBomTreeSearch';
+import { useBomTreeSearch } from '../ui-block/bom-tree/hooks/useBomTreeSearch';
 import {
-  dummyProducts,
-  getBomByProductId,
-  getNodeDetailById,
-  bomNodesToTreeNodes,
-  type TreeNode,
-} from '@/shared/dummy-data/bom/products';
+  getItemsByType,
+  getLatestReleasedRev,
+  getItemById,
+  type ItemRev,
+} from '@/shared/dummy-data/bom-v2';
 
+/**
+ * BOM Home Container
+ *
+ * BizPM設計に基づくBOM一覧ページ
+ */
 export function BomHomeContainer() {
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(
-    null,
-  );
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  // 選択状態
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [selectedItemRevId, setSelectedItemRevId] = useState<string | null>(null);
 
-  const selectedProduct = dummyProducts.find(
-    (p) => p.id === selectedProductId,
+  // 製品リスト取得
+  const products = useMemo(() => getItemsByType('Product'), []);
+
+  // 選択中の製品
+  const selectedProduct = selectedProductId
+    ? getItemById(selectedProductId)
+    : null;
+
+  // 選択中の製品のLatest ItemRev
+  const selectedProductRev = selectedProductId
+    ? getLatestReleasedRev(selectedProductId) ?? null
+    : null;
+
+  // BOMツリーデータを構築（検索用）
+  const treeData = useMemo(
+    () => buildBomTree(selectedProductRev),
+    [selectedProductRev]
   );
-  const bomTree = selectedProductId
-    ? getBomByProductId(selectedProductId)
-    : [];
-  const treeNodes = bomNodesToTreeNodes(bomTree);
-  const selectedNodeDetail = selectedNodeId
-    ? getNodeDetailById(selectedNodeId)
-    : undefined;
 
   // BOM検索
-  const bomSearch = useBomTreeSearch(treeNodes, ['directory']);
+  const bomSearch = useBomTreeSearch(treeData);
 
+  // Product選択ハンドラ
   const handleSelectProduct = (productId: string) => {
     setSelectedProductId(productId);
-    setSelectedNodeId(null);
+    setSelectedItemRevId(null);
     bomSearch.handleClear();
   };
 
-  const handleSelectNode = (node: TreeNode) => {
-    setSelectedNodeId(node.id);
+  // BOMノード選択ハンドラ
+  const handleSelectNode = (itemRev: ItemRev) => {
+    setSelectedItemRevId(itemRev.id);
   };
 
+  // 詳細パネルを閉じる
   const handleCloseDetail = () => {
-    setSelectedNodeId(null);
+    setSelectedItemRevId(null);
   };
 
   return (
-    <div className='flex min-h-0 flex-1'>
+    <div className="flex min-h-0 flex-1">
       {/* サイドバー: 製品検索 */}
       <ProductSearchPanel
-        products={dummyProducts}
+        products={products}
         selectedProductId={selectedProductId}
         onSelectProduct={handleSelectProduct}
       />
 
       {/* メインコンテンツ */}
-      <div className='flex min-h-0 min-w-0 flex-1 flex-col px-6 py-4'>
-        <div className='mb-4 flex items-center justify-between'>
-          <h2 className='text-lg font-semibold'>
-            {selectedProduct?.productName ?? 'BOM構成'}
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col px-6 py-4">
+        {/* ヘッダー */}
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">
+            {selectedProduct?.name ?? 'BOM構成'}
           </h2>
-          <div className='flex items-center gap-4'>
+          <div className="flex items-center gap-4">
             {selectedProductId && (
               <>
                 <BomTreeSearchBar
@@ -79,9 +94,9 @@ export function BomHomeContainer() {
                   onNext={bomSearch.handleNext}
                   onClear={bomSearch.handleClear}
                 />
-                <Button size='xl' asChild>
+                <Button size="lg" asChild>
                   <Link href={`/bom/${selectedProductId}/canvas`}>
-                    <LayoutGrid className='mr-2 h-4 w-4' />
+                    <LayoutGrid className="mr-2 h-4 w-4" />
                     Canvas表示
                   </Link>
                 </Button>
@@ -90,10 +105,11 @@ export function BomHomeContainer() {
           </div>
         </div>
 
-        <div className='flex min-h-0 flex-1 gap-4'>
+        {/* BOMツリー + 詳細パネル */}
+        <div className="flex min-h-0 flex-1 gap-4">
           <BomTreeBlock
-            treeNodes={treeNodes}
-            selectedNodeId={selectedNodeId}
+            productRev={selectedProductRev}
+            selectedItemRevId={selectedItemRevId}
             onSelectNode={handleSelectNode}
             searchQuery={bomSearch.searchQuery}
             highlightedNodeId={bomSearch.currentMatchId}
@@ -102,9 +118,9 @@ export function BomHomeContainer() {
           />
 
           {/* 詳細パネル */}
-          {selectedNodeDetail && (
+          {selectedItemRevId && (
             <BomDetailPanel
-              detail={selectedNodeDetail}
+              itemRevId={selectedItemRevId}
               onClose={handleCloseDetail}
             />
           )}

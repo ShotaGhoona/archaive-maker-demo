@@ -1,5 +1,5 @@
-import { BomHomeV2Container } from '@/page-components/bom/home-v2/ui/BomHomeV2Container';
+import { BomHomeContainer } from '@/page-components/bom/home/ui/BomHomeContainer';
 
 export default function BomPage() {
-  return <BomHomeV2Container />;
+  return <BomHomeContainer />;
 }
