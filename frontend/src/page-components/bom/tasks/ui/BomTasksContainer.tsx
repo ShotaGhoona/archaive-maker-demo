@@ -12,8 +12,7 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { TaskListPanel } from '@/widgets/bom/tasks/ui/TaskListPanel';
 import { TaskDetailPanel } from '@/widgets/bom/tasks/ui/TaskDetailPanel';
 import { CreateTaskDialog } from '@/widgets/bom/tasks/ui/CreateTaskDialog';
-import { dummyTasks } from '@/shared/dummy-data/tasks/tasks';
-import type { TaskStatus } from '@/shared/dummy-data/tasks/types';
+import { dummyTasks, type TaskStatus } from '@/shared/dummy-data/bom-v2';
 
 type FilterStatus = 'all' | TaskStatus;
 

@@ -20,7 +20,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
 import { Separator } from '@/shared/ui/shadcn/ui/separator';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import type { Task, TaskStatus, TaskPriority, ItemType } from '@/shared/dummy-data/bom-v2';
 
 interface TaskDetailPanelProps {
   task: Task;
@@ -57,10 +57,12 @@ const PRIORITY_CONFIG: Record<
   low: { label: '低', className: 'text-gray-500 bg-gray-100' },
 };
 
-const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
-  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
+const ITEM_TYPE_CONFIG: Record<ItemType, { label: string; className: string }> = {
+  Product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  Assembly: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  Part: { label: 'Part', className: 'bg-green-100 text-green-700' },
+  Purchased: { label: '購入品', className: 'bg-orange-100 text-orange-700' },
+  RawMaterial: { label: '素材', className: 'bg-gray-100 text-gray-700' },
 };
 
 function formatDateTime(dateString: string): string {
@@ -179,11 +181,12 @@ export function TaskDetailPanel({ task, onClose }: TaskDetailPanelProps) {
                   <div className='flex items-center gap-2'>
                     <Badge
                       variant='outline'
-                      className={cn('text-xs', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+                      className={cn('text-xs', ITEM_TYPE_CONFIG[task.targetObject.itemType].className)}
                     >
-                      {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+                      {ITEM_TYPE_CONFIG[task.targetObject.itemType].label}
                     </Badge>
-                    <span className='text-sm font-medium'>{task.targetObject.nodeName}</span>
+                    <span className='text-sm font-medium'>{task.targetObject.itemName}</span>
+                    <span className='text-xs text-muted-foreground'>({task.targetObject.partNumber})</span>
                   </div>
                 </div>
               )}

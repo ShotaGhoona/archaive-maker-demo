@@ -11,7 +11,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import type { Task, TaskStatus, TaskPriority, ItemType } from '@/shared/dummy-data/bom-v2';
 
 interface TaskListPanelProps {
   tasks: Task[];
@@ -49,10 +49,12 @@ const PRIORITY_CONFIG: Record<
   low: { label: '低', className: 'text-gray-400' },
 };
 
-const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
-  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
+const ITEM_TYPE_CONFIG: Record<ItemType, { label: string; className: string }> = {
+  Product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  Assembly: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  Part: { label: 'Part', className: 'bg-green-100 text-green-700' },
+  Purchased: { label: '購入品', className: 'bg-orange-100 text-orange-700' },
+  RawMaterial: { label: '素材', className: 'bg-gray-100 text-gray-700' },
 };
 
 function formatDate(dateString: string): string {
@@ -115,12 +117,12 @@ function TaskCard({
           <Box className='size-3 text-muted-foreground' />
           <Badge
             variant='outline'
-            className={cn('text-[10px] px-1.5 py-0', NODE_TYPE_CONFIG[task.targetObject.nodeType].className)}
+            className={cn('text-[10px] px-1.5 py-0', ITEM_TYPE_CONFIG[task.targetObject.itemType].className)}
           >
-            {NODE_TYPE_CONFIG[task.targetObject.nodeType].label}
+            {ITEM_TYPE_CONFIG[task.targetObject.itemType].label}
           </Badge>
           <span className='text-xs text-muted-foreground truncate'>
-            {task.targetObject.nodeName}
+            {task.targetObject.itemName}
           </span>
         </div>
       )}

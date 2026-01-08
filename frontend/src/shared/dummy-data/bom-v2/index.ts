@@ -145,6 +145,19 @@ export {
 } from './task/tasks';
 
 // ============================================
+// Comment: コメント
+// ============================================
+
+export * from './comment/types';
+
+export {
+  commentThreads,
+  getCommentThreadById,
+  enrichThreadWithAuthors,
+  getCommentThreadsWithAuthors,
+} from './comment/comments';
+
+// ============================================
 // 追加クエリ関数
 // ============================================
 

@@ -12,7 +12,7 @@ import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { CommentListPanel } from '../ui-block/comment-list/ui/CommentListPanel';
 import { CommentDetailPanel } from '../ui-block/comment-detail/ui/CommentDetailPanel';
-import { dummyCommentThreads } from '../dummy-data/comments';
+import { getCommentThreadsWithAuthors } from '@/shared/dummy-data/bom-v2';
 
 type FilterStatus = 'all' | 'open' | 'resolved';
 
@@ -27,7 +27,7 @@ export function BomCommentsContainer() {
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
 
   // TODO: API呼び出し
-  const threads = dummyCommentThreads;
+  const threads = getCommentThreadsWithAuthors();
 
   // 今後消す==========================================
   const filteredThreads = useMemo(() => {

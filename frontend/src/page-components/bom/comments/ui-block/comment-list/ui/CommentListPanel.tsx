@@ -8,10 +8,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { CommentThread } from '../../../dummy-data/comments';
+import type { CommentThreadWithAuthors } from '@/shared/dummy-data/bom-v2';
 
 interface CommentListPanelProps {
-  threads: CommentThread[];
+  threads: CommentThreadWithAuthors[];
   selectedThreadId: string | null;
   onSelectThread: (threadId: string) => void;
 }
@@ -29,7 +29,7 @@ function CommentThreadCard({
   isSelected,
   onSelect,
 }: {
-  thread: CommentThread;
+  thread: CommentThreadWithAuthors;
   isSelected: boolean;
   onSelect: () => void;
 }) {
