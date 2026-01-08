@@ -3,7 +3,7 @@
 import { Circle, Clock, CheckCircle2, AlertTriangle, Calendar } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/ui/avatar';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority } from '@/shared/dummy-data/tasks/types';
+import type { Task, TaskStatus, TaskPriority } from '@/shared/dummy-data/bom-v2';
 
 interface TaskListItemProps {
   task: Task;
@@ -95,7 +95,7 @@ export function TaskListItem({ task, isSelected, onClick }: TaskListItemProps) {
               )}
             >
               <Calendar className="size-3" />
-              <span>{formatDate(task.dueDate)}月</span>
+              <span>{formatDate(task.dueDate)}</span>
               {overdue && <span>期限切れ</span>}
             </div>
           )}

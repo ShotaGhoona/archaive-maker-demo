@@ -32,28 +32,34 @@ import {
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import type { Comment } from '../../../dummy-data/comments';
-import type { TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
-import { dummyTargetObjects } from '@/shared/dummy-data/tasks/tasks';
+import type { CommentWithAuthor, TaskPriority, ItemType } from '@/shared/dummy-data/bom-v2';
+import { items, getLatestReleasedRev } from '@/shared/dummy-data/bom-v2';
 
 interface CreateTaskFromCommentModalProps {
-  comment: Comment;
+  comment: CommentWithAuthor;
   threadId: string;
   /** ボタンのカスタムクラス */
   buttonClassName?: string;
 }
 
 /** ダミーBOMノード一覧（実際はAPIから取得） */
-const dummyBomNodes = dummyTargetObjects.map((obj) => ({
-  id: obj.nodeId,
-  name: obj.nodeName,
-  nodeType: obj.nodeType,
-}));
+const dummyBomNodes = items.slice(0, 10).map((item) => {
+  const rev = getLatestReleasedRev(item.id);
+  return {
+    id: rev?.id ?? item.id,
+    itemId: item.id,
+    name: item.name,
+    partNumber: item.partNumber,
+    itemType: item.itemType,
+  };
+});
 
-const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
-  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
+const ITEM_TYPE_CONFIG: Record<ItemType, { label: string; className: string }> = {
+  Product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
+  Assembly: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
+  Part: { label: 'Part', className: 'bg-green-100 text-green-700' },
+  Purchased: { label: '購入品', className: 'bg-orange-100 text-orange-700' },
+  RawMaterial: { label: '素材', className: 'bg-gray-100 text-gray-700' },
 };
 
 const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
@@ -78,22 +84,7 @@ export function CreateTaskFromCommentModal({
   const selectedNode = dummyBomNodes.find((n) => n.id === targetNodeId);
 
   const handleSubmit = () => {
-    // TODO: API呼び出し - タスクを作成
-    const taskData = {
-      title,
-      description,
-      targetObject: selectedNode || undefined,
-      priority,
-      dueDate: dueDate?.toISOString(),
-      sourceComment: {
-        threadId,
-        commentId: comment.id,
-        content: comment.content,
-        authorName: comment.author.name,
-      },
-    };
-
-    console.log('Creating task:', taskData);
+    // TODO: API呼び出し
     alert(`タスク「${title}」を作成しました（未実装）`);
     setOpen(false);
   };
@@ -169,9 +160,9 @@ export function CreateTaskFromCommentModal({
                       <div className="flex items-center gap-2">
                         <Badge
                           variant="outline"
-                          className={cn('text-xs', NODE_TYPE_CONFIG[selectedNode.nodeType].className)}
+                          className={cn('text-xs', ITEM_TYPE_CONFIG[selectedNode.itemType].className)}
                         >
-                          {NODE_TYPE_CONFIG[selectedNode.nodeType].label}
+                          {ITEM_TYPE_CONFIG[selectedNode.itemType].label}
                         </Badge>
                         <span className="truncate">{selectedNode.name}</span>
                       </div>
@@ -184,9 +175,9 @@ export function CreateTaskFromCommentModal({
                       <div className="flex items-center gap-2">
                         <Badge
                           variant="outline"
-                          className={cn('text-xs', NODE_TYPE_CONFIG[node.nodeType].className)}
+                          className={cn('text-xs', ITEM_TYPE_CONFIG[node.itemType].className)}
                         >
-                          {NODE_TYPE_CONFIG[node.nodeType].label}
+                          {ITEM_TYPE_CONFIG[node.itemType].label}
                         </Badge>
                         <span>{node.name}</span>
                       </div>

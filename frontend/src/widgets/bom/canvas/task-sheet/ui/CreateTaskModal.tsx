@@ -32,18 +32,23 @@ import {
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import type { TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import { getItemTypeLabel } from '@/shared/lib/bom-v2/item-type';
+import type { TaskPriority, ItemType } from '@/shared/dummy-data/bom-v2';
 
 interface CreateTaskModalProps {
-  nodeId: string;
-  nodeName: string;
-  nodeType: TaskTargetNodeType;
+  itemRevId: string;
+  itemId: string;
+  itemName: string;
+  partNumber: string;
+  itemType: ItemType;
 }
 
-const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
-  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
+const ITEM_TYPE_STYLE: Record<ItemType, string> = {
+  Product: 'bg-purple-100 text-purple-700',
+  Assembly: 'bg-blue-100 text-blue-700',
+  Part: 'bg-green-100 text-green-700',
+  Purchased: 'bg-orange-100 text-orange-700',
+  RawMaterial: 'bg-gray-100 text-gray-700',
 };
 
 const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
@@ -53,9 +58,11 @@ const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
 ];
 
 export function CreateTaskModal({
-  nodeId,
-  nodeName,
-  nodeType,
+  itemRevId,
+  itemId,
+  itemName,
+  partNumber,
+  itemType,
 }: CreateTaskModalProps) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -63,7 +70,8 @@ export function CreateTaskModal({
   const [priority, setPriority] = useState<TaskPriority>('medium');
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
 
-  const nodeTypeConfig = NODE_TYPE_CONFIG[nodeType];
+  const itemTypeStyle = ITEM_TYPE_STYLE[itemType];
+  const itemTypeLabel = getItemTypeLabel(itemType);
 
   const resetForm = useCallback(() => {
     setTitle('');
@@ -83,22 +91,8 @@ export function CreateTaskModal({
       return;
     }
 
-    // TODO: API呼び出し - タスクを作成
-    const taskData = {
-      title,
-      description,
-      targetObject: {
-        nodeId,
-        nodeName,
-        nodeType,
-      },
-      priority,
-      dueDate: dueDate?.toISOString(),
-    };
-
-    console.log('Creating task:', taskData);
+    // TODO: API呼び出し
     alert(`タスク「${title}」を作成しました（未実装）`);
-
     handleBack();
   };
 
@@ -126,10 +120,11 @@ export function CreateTaskModal({
             </FloatingModalTitle>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>対象:</span>
-              <Badge variant="outline" className={cn('text-xs', nodeTypeConfig.className)}>
-                {nodeTypeConfig.label}
+              <Badge variant="outline" className={cn('text-xs', itemTypeStyle)}>
+                {itemTypeLabel}
               </Badge>
-              <span>{nodeName}</span>
+              <span>{itemName}</span>
+              <span className="text-xs">({partNumber})</span>
             </div>
           </div>
         </FloatingModalHeader>

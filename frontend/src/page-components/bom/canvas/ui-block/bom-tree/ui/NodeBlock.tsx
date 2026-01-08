@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { MetadataSheet } from '@/widgets/bom/canvas/metadata-sheet/ui/MetadataSheet';
 import { DocumentListSheet } from '@/widgets/bom/canvas/document-sheet/ui/DocumentListSheet';
@@ -7,31 +8,33 @@ import { DrawingListSheet } from '@/widgets/bom/canvas/drawing-sheet/ui/DrawingL
 import { TaskSheet } from '@/widgets/bom/canvas/task-sheet/ui/TaskSheet';
 import { NODE_WIDTH, NODE_HEIGHT } from '@/shared/canvas/constant/size';
 import { DetailLinkButton } from './components/DetailLinkButton';
+import { getItemTypeLabel } from '@/shared/lib/bom-v2/item-type';
+import {
+  getDrawingsByItemRev,
+  getDocumentsByItemRev,
+} from '@/shared/dummy-data/bom-v2';
 
-import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
+import type { CanvasBomNode } from '../model/types';
 
 interface NodeBlockProps {
-  node: BomTreeNode;
+  node: CanvasBomNode;
 }
 
-const TYPE_LABELS: Record<BomTreeNode['type'], string> = {
-  product: 'Product',
-  assy: 'Assy',
-  parts: 'Parts',
-};
-
 export function NodeBlock({ node }: NodeBlockProps) {
-  // 名前から品番を抽出（最後のスペース区切りの文字列）
-  const nameParts = node.name.split(' ');
-  const partNumber = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-  const displayName = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : node.name;
+  const { item, itemRev } = node;
 
   // タイプラベル
-  const typeLabel = TYPE_LABELS[node.type];
+  const typeLabel = getItemTypeLabel(item.itemType);
 
   // ドキュメントと図面を取得
-  const documents = node.type === 'parts' ? [] : node.documents;
-  const drawings = node.type === 'parts' ? node.drawings : [];
+  const documents = useMemo(
+    () => getDocumentsByItemRev(itemRev.id),
+    [itemRev.id]
+  );
+  const drawings = useMemo(
+    () => getDrawingsByItemRev(itemRev.id),
+    [itemRev.id]
+  );
 
   return (
     <div
@@ -47,16 +50,14 @@ export function NodeBlock({ node }: NodeBlockProps) {
 
       {/* 右上: 詳細ページへのリンク */}
       <div className="absolute right-2 top-2">
-        <DetailLinkButton nodeId={node.id} />
+        <DetailLinkButton itemId={item.id} />
       </div>
 
       {/* 中央: 名前と品番 */}
       <div className="flex flex-1 flex-col items-center justify-center px-3 pt-6">
-        {partNumber && (
-          <p className="mt-1 text-xs text-muted-foreground">{partNumber}</p>
-        )}
+        <p className="mt-1 text-xs text-muted-foreground">{item.partNumber}</p>
         <p className="line-clamp-2 text-center text-sm font-medium leading-tight">
-          {displayName}
+          {item.name}
         </p>
       </div>
 
@@ -64,13 +65,22 @@ export function NodeBlock({ node }: NodeBlockProps) {
       <div className="flex items-center justify-between px-2 pb-2">
         {/* 左下: タスクアイコン */}
         <div className="flex items-center gap-0.5">
-          <TaskSheet nodeId={node.id} nodeName={node.name} nodeType={node.type} />
+          <TaskSheet
+            itemRevId={itemRev.id}
+            itemId={item.id}
+            itemName={item.name}
+            partNumber={item.partNumber}
+            itemType={item.itemType}
+          />
         </div>
         {/* 右下: 帳票・図面・メタデータアイコン */}
         <div className="flex items-center gap-0.5">
           {documents.length > 0 && <DocumentListSheet documents={documents} />}
           {drawings.length > 0 && <DrawingListSheet drawings={drawings} />}
-          <MetadataSheet nodeName={node.name} customItems={node.customItems} />
+          <MetadataSheet
+            item={item}
+            itemRev={itemRev}
+          />
         </div>
       </div>
     </div>

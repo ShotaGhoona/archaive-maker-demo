@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useMemo } from 'react';
 import Image from 'next/image';
+import { File } from 'lucide-react';
 
 import { Button } from '@/shared/ui/shadcn/ui/button';
 import {
@@ -15,9 +16,15 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from '@/shared/ui/shadcn/ui/resizable';
-import { renderDynamicFields } from '@/shared/ui/form-fields/lib/render-dynamic-field';
-
-import type { Document } from '@/shared/dummy-data/bom/types';
+import { Badge } from '@/shared/ui/shadcn/ui/badge';
+import { TextField } from '@/shared/ui/form-fields/ui/TextField';
+import { renderFacetFields } from '@/shared/ui/form-fields/lib/render-dynamic-field';
+import {
+  getDocumentTypeById,
+  getFacetInstanceById,
+  getFacetTypeById,
+  type Document,
+} from '@/shared/dummy-data/bom-v2';
 
 interface DocumentDetailModalProps {
   document: Document;
@@ -30,54 +37,94 @@ export function DocumentDetailModal({
   open,
   onOpenChange,
 }: DocumentDetailModalProps) {
-  const latestVersion = document.versions[document.versions.length - 1];
+  const docType = getDocumentTypeById(document.documentTypeId);
 
-  // 基本情報とカスタム項目を統合
-  const [metadata, setMetadata] = useState<Record<string, unknown>>({
-    ファイル名: latestVersion.name,
-    バージョン: latestVersion.version,
-    パスワード保護: latestVersion.isPasswordProtected,
-    ...latestVersion.customItems,
-  });
+  // FacetInstancesからフィールドを生成
+  const facetFields = useMemo(() => {
+    return document.facetInstanceIds.flatMap((id) => {
+      const instance = getFacetInstanceById(id);
+      if (!instance) return [];
+      const type = getFacetTypeById(instance.facetTypeId);
+      if (!type) return [];
 
-  const updateItem = useCallback((key: string, value: unknown) => {
-    setMetadata((prev) => ({ ...prev, [key]: value }));
-  }, []);
+      return renderFacetFields({
+        schema: type.schema.properties,
+        values: instance.values,
+        onChange: () => {},
+        idPrefix: instance.id,
+      });
+    });
+  }, [document.facetInstanceIds]);
 
-  const handleSave = useCallback(() => {
+  const handleSave = () => {
     // TODO: API呼び出し
-    alert(`メタデータを保存しました（未実装）\n${JSON.stringify(metadata, null, 2)}`);
-  }, [metadata]);
+    alert('帳票を保存しました（未実装）');
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-7xl">
+      <DialogContent className="sm:max-w-5xl">
         <DialogHeader>
-          <DialogTitle>{document.typeName}</DialogTitle>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary" className="text-xs">
+              {docType?.name ?? '帳票'}
+            </Badge>
+            <DialogTitle>{document.title}</DialogTitle>
+          </div>
         </DialogHeader>
         <ResizablePanelGroup direction="horizontal" className="min-h-[400px]">
           {/* 左側: プレビュー */}
           <ResizablePanel defaultSize={60} minSize={30}>
             <div className="relative h-full w-full overflow-hidden rounded-lg bg-muted">
-              <Image
-                src={latestVersion.previewImageUrl}
-                alt={latestVersion.name}
-                fill
-                className="object-contain"
-              />
+              {document.s3Path ? (
+                <Image
+                  src={document.s3Path}
+                  alt={document.title}
+                  fill
+                  className="object-contain"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center">
+                  <div className="text-center text-muted-foreground">
+                    <File className="mx-auto mb-2 h-12 w-12 opacity-50" />
+                    <p className="text-sm">{document.documentNumber}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </ResizablePanel>
 
           <ResizableHandle withHandle />
 
-          {/* 右側: メタデータ */}
+          {/* 右側: 属性 */}
           <ResizablePanel defaultSize={40} minSize={20}>
             <div className="flex h-full flex-col pl-4">
               <div className="flex-1 space-y-3 overflow-auto">
-                {renderDynamicFields(metadata, updateItem)}
+                <TextField
+                  id="documentNumber"
+                  label="帳票番号"
+                  value={document.documentNumber}
+                  onChange={() => {}}
+                />
+                {document.issueDate && (
+                  <TextField
+                    id="issueDate"
+                    label="発行日"
+                    value={document.issueDate}
+                    onChange={() => {}}
+                  />
+                )}
+                {document.recipient && (
+                  <TextField
+                    id="recipient"
+                    label="宛先"
+                    value={document.recipient}
+                    onChange={() => {}}
+                  />
+                )}
+                {facetFields}
               </div>
 
-              {/* 保存ボタン */}
               <div className="border-t pt-4">
                 <Button onClick={handleSave} className="w-full">
                   保存

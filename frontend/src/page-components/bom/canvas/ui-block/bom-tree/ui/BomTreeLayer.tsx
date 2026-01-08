@@ -31,7 +31,7 @@ export function BomTreeLayer({ nodes, connectors }: BomTreeLayerProps) {
       {/* ノード */}
       {nodes.map((flatNode) => (
         <div
-          key={flatNode.node.id}
+          key={flatNode.id}
           data-node
           style={{
             position: 'absolute',

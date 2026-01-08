@@ -1,8 +1,20 @@
-import type { BomTreeNode } from '@/shared/dummy-data/bom/types';
+import type { Item, ItemRev } from '@/shared/dummy-data/bom-v2';
+
+/**
+ * Canvas用BOMツリーノード
+ * Item + ItemRev + 員数を持つ
+ */
+export interface CanvasBomNode {
+  item: Item;
+  itemRev: ItemRev;
+  quantity: number;
+  children: CanvasBomNode[];
+}
 
 // フラット化されたノード（座標付き）
 export interface FlattenedNode {
-  node: BomTreeNode;
+  id: string; // ツリー内で一意のID（同じItemRevが複数箇所で使われる場合があるため）
+  node: CanvasBomNode;
   x: number;
   y: number;
   parentId: string | null;

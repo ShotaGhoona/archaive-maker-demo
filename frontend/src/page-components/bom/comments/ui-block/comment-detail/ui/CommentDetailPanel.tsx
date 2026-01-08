@@ -13,11 +13,11 @@ import { Button } from '@/shared/ui/shadcn/ui/button';
 import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { Textarea } from '@/shared/ui/shadcn/ui/textarea';
 import { Card, CardContent, CardHeader } from '@/shared/ui/shadcn/ui/card';
-import type { CommentThread } from '../../../dummy-data/comments';
+import type { CommentThreadWithAuthors } from '@/shared/dummy-data/bom-v2';
 import { CreateTaskFromCommentModal } from '../../create-task-modal/ui/CreateTaskFromCommentModal';
 
 interface CommentDetailPanelProps {
-  thread: CommentThread;
+  thread: CommentThreadWithAuthors;
   onClose: () => void;
 }
 

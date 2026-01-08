@@ -1,33 +1,26 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { MessageSquare, CheckCircle2, Circle, Filter } from 'lucide-react';
+import { MessageSquare, CheckCircle2, Circle } from 'lucide-react';
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
 } from '@/shared/ui/shadcn/ui/resizable';
 import { Button } from '@/shared/ui/shadcn/ui/button';
-import { Badge } from '@/shared/ui/shadcn/ui/badge';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
 import { CommentListPanel } from '../ui-block/comment-list/ui/CommentListPanel';
 import { CommentDetailPanel } from '../ui-block/comment-detail/ui/CommentDetailPanel';
-import { dummyCommentThreads } from '../dummy-data/comments';
+import { getCommentThreadsWithAuthors } from '@/shared/dummy-data/bom-v2';
 
 type FilterStatus = 'all' | 'open' | 'resolved';
-
-const filterOptions: { value: FilterStatus; label: string; icon: React.ReactNode }[] = [
-  { value: 'all', label: 'すべて', icon: <Filter className='size-3' /> },
-  { value: 'open', label: '未解決', icon: <Circle className='size-3' /> },
-  { value: 'resolved', label: '解決済み', icon: <CheckCircle2 className='size-3' /> },
-];
 
 export function BomCommentsContainer() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
 
   // TODO: API呼び出し
-  const threads = dummyCommentThreads;
+  const threads = getCommentThreadsWithAuthors();
 
   // 今後消す==========================================
   const filteredThreads = useMemo(() => {
@@ -44,8 +37,17 @@ export function BomCommentsContainer() {
     return threads.find((t) => t.id === selectedThreadId) || null;
   }, [threads, selectedThreadId]);
 
-  const openCount = threads.filter((t) => !t.resolved).length;
-  const resolvedCount = threads.filter((t) => t.resolved).length;
+  const counts = useMemo(() => ({
+    all: threads.length,
+    open: threads.filter((t) => !t.resolved).length,
+    resolved: threads.filter((t) => t.resolved).length,
+  }), [threads]);
+
+  const filterOptions: { value: FilterStatus; label: string; icon: React.ReactNode }[] = [
+    { value: 'all', label: 'すべて', icon: <MessageSquare className='size-3' /> },
+    { value: 'open', label: '未解決', icon: <Circle className='size-3' /> },
+    { value: 'resolved', label: '解決済み', icon: <CheckCircle2 className='size-3' /> },
+  ];
 
   const handleSelectThread = (threadId: string) => {
     setSelectedThreadId(threadId);
@@ -58,20 +60,7 @@ export function BomCommentsContainer() {
   return (
     <div className='flex h-full flex-col'>
       {/* Header */}
-      <div className='flex shrink-0 items-center justify-between border-b px-6 py-3'>
-        <div className='flex items-center gap-3'>
-          <div className='flex items-center gap-2'>
-            <Badge variant='secondary' className='gap-1'>
-              <Circle className='size-3 text-orange-500' />
-              未解決 {openCount}
-            </Badge>
-            <Badge variant='outline' className='gap-1'>
-              <CheckCircle2 className='size-3 text-green-500' />
-              解決済み {resolvedCount}
-            </Badge>
-          </div>
-        </div>
-
+      <div className='flex shrink-0 items-center justify-end border-b px-6 py-3'>
         {/* Filter Tabs */}
         <div className='flex items-center gap-1 rounded-lg bg-muted p-1'>
           {filterOptions.map((option) => (
@@ -87,6 +76,9 @@ export function BomCommentsContainer() {
             >
               {option.icon}
               {option.label}
+              <span className='text-muted-foreground'>
+                {counts[option.value]}
+              </span>
             </Button>
           ))}
         </div>

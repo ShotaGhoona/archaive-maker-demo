@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   Calendar,
-  User,
   Play,
   MessageSquare,
 } from 'lucide-react';
@@ -22,7 +21,8 @@ import {
   FloatingModalTitle,
 } from '@/shared/ui/shadcn/ui/floating-modal';
 import { cn } from '@/shared/ui/shadcn/lib/utils';
-import type { Task, TaskStatus, TaskPriority, TaskTargetNodeType } from '@/shared/dummy-data/tasks/types';
+import { getItemTypeLabel } from '@/shared/lib/bom-v2/item-type';
+import type { Task, TaskStatus, TaskPriority, ItemType } from '@/shared/dummy-data/bom-v2';
 
 interface TaskDetailModalProps {
   task: Task | null;
@@ -58,10 +58,12 @@ const PRIORITY_CONFIG: Record<TaskPriority, { label: string; className: string }
   low: { label: '低', className: 'text-gray-500 bg-gray-100' },
 };
 
-const NODE_TYPE_CONFIG: Record<TaskTargetNodeType, { label: string; className: string }> = {
-  product: { label: '製品', className: 'bg-purple-100 text-purple-700' },
-  assy: { label: 'Assy', className: 'bg-blue-100 text-blue-700' },
-  parts: { label: 'Parts', className: 'bg-gray-100 text-gray-700' },
+const ITEM_TYPE_STYLE: Record<ItemType, string> = {
+  Product: 'bg-purple-100 text-purple-700',
+  Assembly: 'bg-blue-100 text-blue-700',
+  Part: 'bg-green-100 text-green-700',
+  Purchased: 'bg-orange-100 text-orange-700',
+  RawMaterial: 'bg-gray-100 text-gray-700',
 };
 
 function formatDateTime(dateString: string): string {
@@ -94,14 +96,17 @@ export function TaskDetailModal({ task, open, onOpenChange, onBack }: TaskDetail
 
   const statusConfig = STATUS_CONFIG[task.status];
   const priorityConfig = PRIORITY_CONFIG[task.priority];
-  const nodeTypeConfig = task.targetObject ? NODE_TYPE_CONFIG[task.targetObject.nodeType] : null;
+  const itemTypeStyle = task.targetObject ? ITEM_TYPE_STYLE[task.targetObject.itemType] : null;
+  const itemTypeLabel = task.targetObject ? getItemTypeLabel(task.targetObject.itemType) : null;
   const overdue = task.dueDate && isOverdue(task.dueDate, task.status);
 
   const handleStartTask = () => {
+    // TODO: API呼び出し
     alert(`タスク「${task.title}」を開始（未実装）`);
   };
 
   const handleCompleteTask = () => {
+    // TODO: API呼び出し
     alert(`タスク「${task.title}」を完了（未実装）`);
   };
 
@@ -135,14 +140,17 @@ export function TaskDetailModal({ task, open, onOpenChange, onBack }: TaskDetail
           {/* 詳細情報 */}
           <div className="space-y-3">
             {/* 対象オブジェクト */}
-            {task.targetObject && nodeTypeConfig && (
+            {task.targetObject && itemTypeStyle && itemTypeLabel && (
               <div className="flex items-center gap-3">
                 <span className="w-16 text-xs text-muted-foreground">対象</span>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline" className={cn('text-xs', nodeTypeConfig.className)}>
-                    {nodeTypeConfig.label}
+                  <Badge variant="outline" className={cn('text-xs', itemTypeStyle)}>
+                    {itemTypeLabel}
                   </Badge>
-                  <span className="text-sm">{task.targetObject.nodeName}</span>
+                  <span className="text-sm">{task.targetObject.itemName}</span>
+                  <span className="text-xs text-muted-foreground">
+                    ({task.targetObject.partNumber})
+                  </span>
                 </div>
               </div>
             )}
