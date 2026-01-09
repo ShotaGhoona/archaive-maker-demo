@@ -166,6 +166,8 @@ import { getBomHeaderById, getBomHeadersByItemRev } from './bom/bom-headers';
 import { getBomLinesByChildRev } from './bom/bom-lines';
 import { getFacetInstanceById } from './facet/facet-instances';
 import { getItemById } from './item/items';
+import { getDrawingById } from './drawing/drawings';
+import { getDocumentById } from './document/documents';
 import type { Item, ItemRev, BOMLine, FacetInstance } from './types';
 
 /**
@@ -176,6 +178,30 @@ export function getFacetInstancesByItemRev(itemRevId: string): FacetInstance[] {
   if (!itemRev) return [];
 
   return itemRev.facetInstanceIds
+    .map((id) => getFacetInstanceById(id))
+    .filter((fi): fi is FacetInstance => fi !== undefined);
+}
+
+/**
+ * Drawingに紐付くFacetInstanceを取得
+ */
+export function getFacetInstancesByDrawing(drawingId: string): FacetInstance[] {
+  const drawing = getDrawingById(drawingId);
+  if (!drawing) return [];
+
+  return drawing.facetInstanceIds
+    .map((id) => getFacetInstanceById(id))
+    .filter((fi): fi is FacetInstance => fi !== undefined);
+}
+
+/**
+ * Documentに紐付くFacetInstanceを取得
+ */
+export function getFacetInstancesByDocument(documentId: string): FacetInstance[] {
+  const document = getDocumentById(documentId);
+  if (!document) return [];
+
+  return document.facetInstanceIds
     .map((id) => getFacetInstanceById(id))
     .filter((fi): fi is FacetInstance => fi !== undefined);
 }

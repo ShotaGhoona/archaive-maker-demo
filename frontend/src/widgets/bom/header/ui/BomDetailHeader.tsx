@@ -12,6 +12,8 @@ import {
   MessageSquare,
   CheckSquare,
   GitBranch,
+  PenTool,
+  FileText,
   type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -26,6 +28,8 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 const tabs: { label: string; path: string; icon: LucideIcon }[] = [
   { label: '基本情報', path: 'basic-information', icon: Info },
+  { label: '図面', path: 'drawings', icon: PenTool },
+  { label: '帳票', path: 'documents', icon: FileText },
   { label: 'コメント', path: 'comments', icon: MessageSquare },
   { label: 'タスク', path: 'tasks', icon: CheckSquare },
   { label: 'リビジョン', path: 'revisions', icon: GitBranch },
@@ -37,7 +41,8 @@ export function BomDetailHeader() {
   const router = useRouter();
   const bomId = params.id as string;
 
-  const currentPath = pathname.split('/').pop();
+  // タブのアクティブ判定用（/drawings/DWG-001 のような場合も対応）
+  const isTabActive = (tabPath: string) => pathname.includes(`/${tabPath}`);
 
   const handleBack = () => {
     router.push('/bom');
@@ -61,14 +66,14 @@ export function BomDetailHeader() {
                 'relative flex h-full items-center gap-2 px-4 text-sm font-medium transition-colors',
                 'hover:text-foreground',
                 index !== 0 && 'border-l border-border/50',
-                currentPath === tab.path
+                isTabActive(tab.path)
                   ? 'text-foreground'
                   : 'text-muted-foreground'
               )}
             >
               <Icon className='size-4' />
               {tab.label}
-              {currentPath === tab.path && (
+              {isTabActive(tab.path) && (
                 <span className='absolute bottom-0 left-0 right-0 h-0.5 bg-primary' />
               )}
             </Link>
