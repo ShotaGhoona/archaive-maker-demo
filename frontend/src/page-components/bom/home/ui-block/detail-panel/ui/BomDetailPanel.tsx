@@ -53,19 +53,30 @@ export function BomDetailPanel({ itemRevId, onClose }: BomDetailPanelProps) {
 
   // itemRevIdが変わったらformDataをリセット
   useEffect(() => {
-    if (facetInstances.length > 0) {
-      // 全FacetInstanceの値をマージ
-      const merged: Record<string, unknown> = {};
-      facetInstances.forEach((fi) => {
-        Object.entries(fi.values).forEach(([key, value]) => {
-          merged[key] = value;
-        });
-      });
-      setFormData(merged);
-    } else {
-      setFormData({});
+    // 基本情報 + Facet属性をマージ
+    const merged: Record<string, unknown> = {};
+
+    // 基本情報
+    if (item) {
+      merged.partNumber = item.partNumber;
+      merged.name = item.name;
+      merged.itemType = item.itemType;
+      merged.lifecycleState = item.lifecycleState;
     }
-  }, [facetInstances]);
+    if (itemRev) {
+      merged.revision = itemRev.revision;
+      merged.status = itemRev.status;
+    }
+
+    // Facet属性
+    facetInstances.forEach((fi) => {
+      Object.entries(fi.values).forEach(([key, value]) => {
+        merged[key] = value;
+      });
+    });
+
+    setFormData(merged);
+  }, [item, itemRev, facetInstances]);
 
   const updateField = (key: string, value: unknown) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -87,7 +98,7 @@ export function BomDetailPanel({ itemRevId, onClose }: BomDetailPanelProps) {
   }
 
   return (
-    <Card className="flex min-h-0 w-[600px] shrink-0 flex-col gap-0 border-l py-0">
+    <Card className="flex min-h-0 flex-1 flex-col gap-0 border-l py-0">
       {/* ヘッダー */}
       <div className="flex items-center justify-between border-b p-4">
         <div className="min-w-0 flex-1">

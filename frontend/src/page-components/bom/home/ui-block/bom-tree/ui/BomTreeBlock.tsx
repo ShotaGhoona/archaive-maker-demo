@@ -91,7 +91,8 @@ export function BomTreeBlock({
     return (
       <div className="flex min-h-0 flex-1 items-center justify-center">
         <NoData
-          title="左サイドバーから製品を選択してください"
+          title="製品を選択してください"
+          description="上部のパンくずリストから製品を選択すると、BOM構成が表示されます"
           size="default"
         />
       </div>

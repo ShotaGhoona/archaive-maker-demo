@@ -31,48 +31,42 @@ export function MetadataFields({
       {/* 基本情報 */}
       <div>
         <h4 className="mb-3 text-base font-medium text-primary">基本情報</h4>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <TextField
             id="partNumber"
             label="品番"
-            value={item.partNumber}
-            onChange={() => {}}
-            disabled
+            value={String(formData.partNumber ?? '')}
+            onChange={(v) => onFieldChange('partNumber', v)}
           />
           <TextField
             id="name"
             label="品名"
-            value={item.name}
-            onChange={() => {}}
-            disabled
+            value={String(formData.name ?? '')}
+            onChange={(v) => onFieldChange('name', v)}
           />
           <TextField
             id="itemType"
             label="アイテムタイプ"
-            value={item.itemType}
-            onChange={() => {}}
-            disabled
+            value={String(formData.itemType ?? '')}
+            onChange={(v) => onFieldChange('itemType', v)}
           />
           <TextField
             id="revision"
             label="リビジョン"
-            value={itemRev.revision}
-            onChange={() => {}}
-            disabled
+            value={String(formData.revision ?? '')}
+            onChange={(v) => onFieldChange('revision', v)}
           />
           <TextField
             id="status"
             label="ステータス"
-            value={itemRev.status}
-            onChange={() => {}}
-            disabled
+            value={String(formData.status ?? '')}
+            onChange={(v) => onFieldChange('status', v)}
           />
           <TextField
             id="lifecycleState"
             label="ライフサイクル"
-            value={item.lifecycleState}
-            onChange={() => {}}
-            disabled
+            value={String(formData.lifecycleState ?? '')}
+            onChange={(v) => onFieldChange('lifecycleState', v)}
           />
         </div>
       </div>
@@ -87,7 +81,7 @@ export function MetadataFields({
             <h4 className="mb-3 text-base font-medium text-primary">
               {facetType.name}
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {Object.entries(facetType.schema.properties).map(
                 ([key, prop]) => (
                   <FacetPropertyField
