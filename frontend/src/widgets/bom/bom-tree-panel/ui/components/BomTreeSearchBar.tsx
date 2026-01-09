@@ -25,7 +25,7 @@ export function BomTreeSearchBar({
   return (
     <div
       className={cn(
-        'flex h-12 items-center gap-1 rounded-md border bg-card px-3',
+        'flex h-10 items-center gap-1 rounded-md border bg-card px-3',
         'focus-within:ring-1 focus-within:ring-ring',
       )}
     >
