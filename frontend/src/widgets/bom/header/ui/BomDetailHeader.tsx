@@ -9,11 +9,9 @@ import {
   Copy,
   Download,
   Info,
-  GitBranch,
-  FileText,
-  Image,
   MessageSquare,
   CheckSquare,
+  GitBranch,
   type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/shadcn/ui/button';
@@ -28,11 +26,9 @@ import { cn } from '@/shared/ui/shadcn/lib/utils';
 
 const tabs: { label: string; path: string; icon: LucideIcon }[] = [
   { label: '基本情報', path: 'basic-information', icon: Info },
-  { label: 'BOM構成', path: 'structure', icon: GitBranch },
-  { label: 'ドキュメント', path: 'documents', icon: FileText },
-  { label: '図面', path: 'drawings', icon: Image },
   { label: 'コメント', path: 'comments', icon: MessageSquare },
   { label: 'タスク', path: 'tasks', icon: CheckSquare },
+  { label: 'リビジョン', path: 'revisions', icon: GitBranch },
 ];
 
 export function BomDetailHeader() {
@@ -45,14 +41,6 @@ export function BomDetailHeader() {
 
   const handleBack = () => {
     router.push('/bom');
-  };
-
-  const handleDuplicate = () => {
-    alert('BOMを複製（未実装）');
-  };
-
-  const handleDownload = () => {
-    alert('BOMをダウンロード（未実装）');
   };
 
   const handleDelete = () => {
@@ -103,14 +91,6 @@ export function BomDetailHeader() {
             <DropdownMenuItem onClick={handleBack}>
               <ArrowLeft />
               一覧に戻る
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDuplicate}>
-              <Copy />
-              複製
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDownload}>
-              <Download />
-              ダウンロード
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant='destructive' onClick={handleDelete}>
