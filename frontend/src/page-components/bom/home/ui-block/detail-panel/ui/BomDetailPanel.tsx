@@ -98,7 +98,7 @@ export function BomDetailPanel({ itemRevId, onClose }: BomDetailPanelProps) {
   }
 
   return (
-    <Card className="flex min-h-0 w-[600px] shrink-0 flex-col gap-0 border-l py-0">
+    <Card className="flex min-h-0 flex-1 flex-col gap-0 border-l py-0">
       {/* ヘッダー */}
       <div className="flex items-center justify-between border-b p-4">
         <div className="min-w-0 flex-1">

@@ -31,7 +31,7 @@ export function MetadataFields({
       {/* 基本情報 */}
       <div>
         <h4 className="mb-3 text-base font-medium text-primary">基本情報</h4>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <TextField
             id="partNumber"
             label="品番"
@@ -81,7 +81,7 @@ export function MetadataFields({
             <h4 className="mb-3 text-base font-medium text-primary">
               {facetType.name}
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {Object.entries(facetType.schema.properties).map(
                 ([key, prop]) => (
                   <FacetPropertyField
