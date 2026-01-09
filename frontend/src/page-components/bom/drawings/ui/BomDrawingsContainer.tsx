@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { DrawingListPanel } from '../ui-block/drawing-list-panel/ui/DrawingListPanel';
 import { DrawingPreviewPanel } from '../ui-block/preview-panel/ui/DrawingPreviewPanel';
@@ -26,11 +26,15 @@ type RightPanelType = 'none' | 'info' | 'similar';
  */
 export function BomDrawingsContainer() {
   const params = useParams();
+  const router = useRouter();
   const itemId = params.id as string;
+  // URLからdrawingIdを取得（オプショナルキャッチオール: string[] | undefined）
+  const drawingIdFromUrl = params.drawingId
+    ? (params.drawingId as string[])[0]
+    : null;
 
   // 状態管理
-  const [selectedDrawingId, setSelectedDrawingId] = useState<string | null>(null);
-  const [rightPanel, setRightPanel] = useState<RightPanelType>('none');
+  const [rightPanel, setRightPanel] = useState<RightPanelType>('info');
   const [zoom, setZoom] = useState(100);
   const [formData, setFormData] = useState<Record<string, unknown>>({});
 
@@ -53,17 +57,17 @@ export function BomDrawingsContainer() {
     };
   }, [itemId]);
 
-  // 選択中の図面
+  // 選択中の図面（URLから取得）
   const selectedDrawing = useMemo(() => {
-    if (!selectedDrawingId) return null;
-    return drawings.find((d) => d.id === selectedDrawingId) ?? null;
-  }, [drawings, selectedDrawingId]);
+    if (!drawingIdFromUrl) return null;
+    return drawings.find((d) => d.id === drawingIdFromUrl) ?? null;
+  }, [drawings, drawingIdFromUrl]);
 
   // 選択中の図面のFacetInstance
   const selectedDrawingFacets = useMemo(() => {
-    if (!selectedDrawingId) return [];
-    return getFacetInstancesByDrawing(selectedDrawingId);
-  }, [selectedDrawingId]);
+    if (!drawingIdFromUrl) return [];
+    return getFacetInstancesByDrawing(drawingIdFromUrl);
+  }, [drawingIdFromUrl]);
 
   // 選択した図面が変わったらformDataをリセット
   useEffect(() => {
@@ -92,7 +96,7 @@ export function BomDrawingsContainer() {
 
   // ハンドラー
   const handleSelectDrawing = (drawingId: string) => {
-    setSelectedDrawingId(drawingId);
+    router.replace(`/bom/${itemId}/drawings/${drawingId}`);
   };
 
   const handleAddDrawing = () => {
@@ -152,7 +156,7 @@ export function BomDrawingsContainer() {
       {/* 左: 図面リスト */}
       <DrawingListPanel
         drawings={drawings}
-        selectedDrawingId={selectedDrawingId}
+        selectedDrawingId={drawingIdFromUrl}
         onSelectDrawing={handleSelectDrawing}
         onAddDrawing={handleAddDrawing}
       />

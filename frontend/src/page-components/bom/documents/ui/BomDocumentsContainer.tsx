@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { DocumentListPanel } from '../ui-block/document-list-panel/ui/DocumentListPanel';
 import { DocumentPreviewPanel } from '../ui-block/preview-panel/ui/DocumentPreviewPanel';
@@ -23,11 +23,15 @@ import {
  */
 export function BomDocumentsContainer() {
   const params = useParams();
+  const router = useRouter();
   const itemId = params.id as string;
+  // URLからdocumentIdを取得（オプショナルキャッチオール: string[] | undefined）
+  const documentIdFromUrl = params.documentId
+    ? (params.documentId as string[])[0]
+    : null;
 
   // 状態管理
-  const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(null);
-  const [showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
   const [zoom, setZoom] = useState(100);
   const [formData, setFormData] = useState<Record<string, unknown>>({});
 
@@ -50,17 +54,17 @@ export function BomDocumentsContainer() {
     };
   }, [itemId]);
 
-  // 選択中の帳票
+  // 選択中の帳票（URLから取得）
   const selectedDocument = useMemo(() => {
-    if (!selectedDocumentId) return null;
-    return documents.find((d) => d.id === selectedDocumentId) ?? null;
-  }, [documents, selectedDocumentId]);
+    if (!documentIdFromUrl) return null;
+    return documents.find((d) => d.id === documentIdFromUrl) ?? null;
+  }, [documents, documentIdFromUrl]);
 
   // 選択中の帳票のFacetInstance
   const selectedDocumentFacets = useMemo(() => {
-    if (!selectedDocumentId) return [];
-    return getFacetInstancesByDocument(selectedDocumentId);
-  }, [selectedDocumentId]);
+    if (!documentIdFromUrl) return [];
+    return getFacetInstancesByDocument(documentIdFromUrl);
+  }, [documentIdFromUrl]);
 
   // 選択した帳票が変わったらformDataをリセット
   useEffect(() => {
@@ -87,7 +91,7 @@ export function BomDocumentsContainer() {
 
   // ハンドラー
   const handleSelectDocument = (documentId: string) => {
-    setSelectedDocumentId(documentId);
+    router.replace(`/bom/${itemId}/documents/${documentId}`);
   };
 
   const handleAddDocument = () => {
@@ -138,7 +142,7 @@ export function BomDocumentsContainer() {
       {/* 左: 帳票リスト */}
       <DocumentListPanel
         documents={documents}
-        selectedDocumentId={selectedDocumentId}
+        selectedDocumentId={documentIdFromUrl}
         onSelectDocument={handleSelectDocument}
         onAddDocument={handleAddDocument}
       />
