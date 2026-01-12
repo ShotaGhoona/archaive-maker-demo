@@ -102,14 +102,14 @@ const filteredData = data.filter(item => item.name.includes(searchQuery));
 ## 3. ダミーデータ
 
 ### 配置
-`slice/dummy-data/`内に作成（`ui/`と同じ階層）
+`shared/dummy-data/`内に作成
 
 ### ルール
 - **型定義も同じファイルに書く**（後でentityの型と混乱を避けるため）
 - APIレスポンス仕様がある場合は、その形に寄せる
 
 ```typescript
-// slice/dummy-data/samples.ts
+// shared/dummy-data/samples.ts
 
 export interface SampleItem {
   id: number;
@@ -130,7 +130,7 @@ export const dummySamples: SampleItem[] = [
 
 | 状況 | 配置場所 |
 |------|----------|
-| ダミーデータ用（後で消える） | `slice/dummy-data/xxx.ts`内 |
+| ダミーデータ用（後で消える） | `shared/dummy-data/xxx.ts`内 |
 | ui-block専用の型（バックエンド接続後も残る） | `ui-block/[block]/model/types.ts` |
 | ページ全体で共有する型 | `slice/model/types.ts` |
 
