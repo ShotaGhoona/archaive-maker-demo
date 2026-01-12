@@ -132,10 +132,13 @@ export function AppHeader() {
           <CheckSquare className='size-5' />
           タスク管理
         </Link>
-        <button className='relative flex h-full items-center gap-2 border-r border-primary-foreground/20 px-4 text-base font-medium text-primary-foreground/90 transition-colors hover:text-primary-foreground'>
-          <Settings className='size-5' />
+        <Link
+          href='/settings'
+          className='relative flex h-full items-center gap-2 border-r border-primary-foreground/20 px-4 text-base font-medium text-primary-foreground/90 transition-colors hover:text-primary-foreground'
+        >
+          <CheckSquare className='size-5' />
           設定
-        </button>
+        </Link>
         <button className='relative flex h-full items-center gap-2 border-r border-primary-foreground/20 px-4 text-base font-medium text-primary-foreground/90 transition-colors hover:text-primary-foreground'>
           <HelpCircle className='size-5' />
           ヘルプ
